@@ -1,15 +1,30 @@
+const playIcon = document.getElementById("play-icon");
+let statePlay = "play";
 
-const playIconContainer = document.getElementById("play-icon");
-let state = "play";
+const favoriteIcon = document.getElementById("favorite-icon");
+let stateFavorite = "favorite";
 
 // Play and Pause
-playIconContainer.addEventListener("click", () => {
-    if (state === "play") {
-        playIconContainer.classList.remove("fa-play");
-        playIconContainer.innerHTML = '<i class="fas fa-pause"></i>';
-        state = "pause";
+playIcon.addEventListener("click", () => {
+	if (statePlay === "play") {
+		playIcon.classList.remove("fa-play");
+		playIcon.innerHTML = '<i class="fas fa-pause"></i>';
+		statePlay = "pause";
+	} else {
+		playIcon.innerHTML = '<i class="fas fa-play"></i>';
+		statePlay = "play";
+	}
+});
+
+// Favorite
+favoriteIcon.addEventListener("click", () => {
+	if (stateFavorite === "favorite") {
+        favoriteIcon.classList.remove("fa-heart");
+        favoriteIcon.innerHTML =
+					'<i class="far fa-heart" style="color: #fff;"></i>';
+        stateFavorite = "unfavorite";
     } else {
-        playIconContainer.innerHTML = '<i class="fas fa-play"></i>';
-        state = "play";
+        favoriteIcon.innerHTML = '<i class="fas fa-heart"></i>';
+        stateFavorite = "favorite";
     }
-    });
+});
