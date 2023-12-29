@@ -115,11 +115,23 @@ Author:Webstrot
                                         <li class="song_title_width"><a href="#">Kabir Singh — Arijit Singh 2019</a>
                                         </li>
                                         <li class="text-center"><a href="#">3:26</a></li>
-                                        <li class="text-center"><a href="#">$100</a></li>
+                                        <li class="text-center favorite-text-center">
+                                            <?php 
+                                            // initiate variable $favorite
+                                            $favorite = false;
+                                            $id_music = 1;
+                                            if ($favorite) {
+                                                echo '<i class="fas fa-heart" id="favorite-icon" style="color: #1fd660;"></i>';
+                                            } else {
+                                                echo '<i class="far fa-heart" id="favorite-icon" style="color: #fff;"></i>';
+                                            }
+                                            ?>
 
+
+                                        </li>
                                         <li class="text-center top_song_artist_playlist">
                                             <div class="ms_tranding_more_icon">
-                                                <i class="flaticon-menu"></i>
+                                                <i class="flaticon-menu" style="color: white;"></i>
                                             </div>
                                             <ul class="tranding_more_option">
                                                 <li><a href="#"><span class="opt_icon"><i
@@ -155,26 +167,29 @@ Author:Webstrot
                                         <li class="song_title_width"><a href="#">Kabir Singh — Arijit Singh 2019</a>
                                         </li>
                                         <li class="text-center"><a href="#">3:26</a></li>
-                                        <li class="text-center"><a href="#">$100</a></li>
-                                        <li class="text-center top_song_artist_playlist">
-                                            <div class="ms_tranding_more_icon">
-                                                <i class="flaticon-menu"></i>
-                                            </div>
-                                            <ul class="tranding_more_option">
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-playlist"></i></span>Add To playlist</a>
-                                                </li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-star"></i></span>favourite</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-share"></i></span>share</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-files-and-folders"></i></span>view
-                                                        lyrics</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-trash"></i></span>delete</a></li>
-                                            </ul>
-                                        </li>
+                                        <<li class="text-center favorite-text-center">
+                                            <i class="fa fa-heart" id="favorite-icon" style="color: #1fd660;"></i>
+                                            </li>
+                                            <li class="text-center top_song_artist_playlist">
+                                                <div class="ms_tranding_more_icon">
+                                                    <i class="flaticon-menu"></i>
+                                                </div>
+                                                <ul class="tranding_more_option">
+                                                    <li><a href="#"><span class="opt_icon"><i
+                                                                    class="flaticon-playlist"></i></span>Add To
+                                                            playlist</a>
+                                                    </li>
+                                                    <li><a href="#"><span class="opt_icon"><i
+                                                                    class="flaticon-star"></i></span>favourite</a></li>
+                                                    <li><a href="#"><span class="opt_icon"><i
+                                                                    class="flaticon-share"></i></span>share</a></li>
+                                                    <li><a href="#"><span class="opt_icon"><i
+                                                                    class="flaticon-files-and-folders"></i></span>view
+                                                            lyrics</a></li>
+                                                    <li><a href="#"><span class="opt_icon"><i
+                                                                    class="flaticon-trash"></i></span>delete</a></li>
+                                                </ul>
+                                            </li>
                                     </ul>
                                     <ul class="album_inner_list_padding">
                                         <li><a href="#"><span class="play_no">03</span><span class="play_hover"><i
@@ -194,8 +209,9 @@ Author:Webstrot
                                         <li class="song_title_width"><a href="#">Kabir Singh — Arijit Singh 2019</a>
                                         </li>
                                         <li class="text-center"><a href="#">3:26</a></li>
-                                        <li class="text-center"><a href="#">$100</a></li>
-
+                                        <li class="text-center favorite-text-center">
+                                            <i class="far fa-heart" id="favorite-icon" style="color: #fff;"></i>
+                                        </li>
                                         <li class="text-center top_song_artist_playlist">
                                             <div class="ms_tranding_more_icon">
                                                 <i class="flaticon-menu"></i>
