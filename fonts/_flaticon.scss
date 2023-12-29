@@ -1,0 +1,136 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 22/08/2019 12:40
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff2") format("woff2"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-menu-1:before { content: "\f100"; }
+.flaticon-down-arrow:before { content: "\f101"; }
+.flaticon-magnifying-glass:before { content: "\f102"; }
+.flaticon-internet:before { content: "\f103"; }
+.flaticon-bell:before { content: "\f104"; }
+.flaticon-play-button:before { content: "\f105"; }
+.flaticon-play-button-1:before { content: "\f106"; }
+.flaticon-menu:before { content: "\f107"; }
+.flaticon-left-arrow:before { content: "\f108"; }
+.flaticon-right-arrow:before { content: "\f109"; }
+.flaticon-pause:before { content: "\f10a"; }
+.flaticon-speaker:before { content: "\f10b"; }
+.flaticon-music:before { content: "\f10c"; }
+.flaticon-up-arrow:before { content: "\f10d"; }
+.flaticon-previous-track:before { content: "\f10e"; }
+.flaticon-skip-track:before { content: "\f10f"; }
+.flaticon-reload:before { content: "\f110"; }
+.flaticon-exchange:before { content: "\f111"; }
+.flaticon-left-arrow-1:before { content: "\f112"; }
+.flaticon-right-arrow-1:before { content: "\f113"; }
+.flaticon-apple:before { content: "\f114"; }
+.flaticon-android-logo:before { content: "\f115"; }
+.flaticon-windows:before { content: "\f116"; }
+.flaticon-calendar:before { content: "\f117"; }
+.flaticon-triangle-inside-circle:before { content: "\f118"; }
+.flaticon-playlist:before { content: "\f119"; }
+.flaticon-star:before { content: "\f11a"; }
+.flaticon-share:before { content: "\f11b"; }
+.flaticon-files-and-folders:before { content: "\f11c"; }
+.flaticon-trash:before { content: "\f11d"; }
+.flaticon-radio:before { content: "\f11e"; }
+.flaticon-info:before { content: "\f11f"; }
+.flaticon-smartphone:before { content: "\f120"; }
+.flaticon-close-envelope:before { content: "\f121"; }
+.flaticon-globe:before { content: "\f122"; }
+.flaticon-home:before { content: "\f123"; }
+.flaticon-playlist-1:before { content: "\f124"; }
+.flaticon-mike:before { content: "\f125"; }
+.flaticon-album:before { content: "\f126"; }
+.flaticon-vinyl:before { content: "\f127"; }
+.flaticon-headphones:before { content: "\f128"; }
+.flaticon-download:before { content: "\f129"; }
+.flaticon-shopping-bag:before { content: "\f12a"; }
+.flaticon-heart:before { content: "\f12b"; }
+.flaticon-clock:before { content: "\f12c"; }
+.flaticon-playlist-2:before { content: "\f12d"; }
+.flaticon-playlist-3:before { content: "\f12e"; }
+.flaticon-music-1:before { content: "\f12f"; }
+    
+    $font-Flaticon-menu-1: "\f100";
+    $font-Flaticon-down-arrow: "\f101";
+    $font-Flaticon-magnifying-glass: "\f102";
+    $font-Flaticon-internet: "\f103";
+    $font-Flaticon-bell: "\f104";
+    $font-Flaticon-play-button: "\f105";
+    $font-Flaticon-play-button-1: "\f106";
+    $font-Flaticon-menu: "\f107";
+    $font-Flaticon-left-arrow: "\f108";
+    $font-Flaticon-right-arrow: "\f109";
+    $font-Flaticon-pause: "\f10a";
+    $font-Flaticon-speaker: "\f10b";
+    $font-Flaticon-music: "\f10c";
+    $font-Flaticon-up-arrow: "\f10d";
+    $font-Flaticon-previous-track: "\f10e";
+    $font-Flaticon-skip-track: "\f10f";
+    $font-Flaticon-reload: "\f110";
+    $font-Flaticon-exchange: "\f111";
+    $font-Flaticon-left-arrow-1: "\f112";
+    $font-Flaticon-right-arrow-1: "\f113";
+    $font-Flaticon-apple: "\f114";
+    $font-Flaticon-android-logo: "\f115";
+    $font-Flaticon-windows: "\f116";
+    $font-Flaticon-calendar: "\f117";
+    $font-Flaticon-triangle-inside-circle: "\f118";
+    $font-Flaticon-playlist: "\f119";
+    $font-Flaticon-star: "\f11a";
+    $font-Flaticon-share: "\f11b";
+    $font-Flaticon-files-and-folders: "\f11c";
+    $font-Flaticon-trash: "\f11d";
+    $font-Flaticon-radio: "\f11e";
+    $font-Flaticon-info: "\f11f";
+    $font-Flaticon-smartphone: "\f120";
+    $font-Flaticon-close-envelope: "\f121";
+    $font-Flaticon-globe: "\f122";
+    $font-Flaticon-home: "\f123";
+    $font-Flaticon-playlist-1: "\f124";
+    $font-Flaticon-mike: "\f125";
+    $font-Flaticon-album: "\f126";
+    $font-Flaticon-vinyl: "\f127";
+    $font-Flaticon-headphones: "\f128";
+    $font-Flaticon-download: "\f129";
+    $font-Flaticon-shopping-bag: "\f12a";
+    $font-Flaticon-heart: "\f12b";
+    $font-Flaticon-clock: "\f12c";
+    $font-Flaticon-playlist-2: "\f12d";
+    $font-Flaticon-playlist-3: "\f12e";
+    $font-Flaticon-music-1: "\f12f";
