@@ -8621,7 +8621,6 @@ i:hover{
 }
 .play-pause{
     display: inline-block;
-    padding: 1em;
     background-color: var(--primary-color);
     color: #111;
     border-radius: 50%;
@@ -8723,4 +8722,7 @@ i:hover{
 }
 .control-buttons i{
 	color: #fff;
+}
+#favorite-icon:hover{
+	cursor: pointer;
 }
