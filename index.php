@@ -1,3 +1,17 @@
+<?php
+define('HOST', 'localhost');
+define('SIBEUX', 'sibk1922');
+define('pass', '1NvgEHFnwvDN96');
+define('DB', 'sibk1922_cloud_music');
+$db = new mysqli(HOST, SIBEUX, pass, DB);
+
+if ($db->connect_errno) {
+    die('Tidak dapat terhubung ke database');
+} else {
+    echo "Connected successfully";
+}
+?>
+
 <!DOCTYPE html>
 <!-- 
 Template Name: Tunein
@@ -116,17 +130,19 @@ Author:Webstrot
                                         </li>
                                         <li class="text-center"><a href="#">3:26</a></li>
                                         <li class="text-center favorite-text-center">
-                                            <?php 
+                                            <?php
                                             // initiate variable $favorite
                                             $favorite = false;
-                                            $id_music = 1;
-                                            if ($favorite) {
-                                                echo '<i class="fas fa-heart" id="favorite-icon" style="color: #1fd660;"></i>';
-                                            } else {
-                                                echo '<i class="far fa-heart" id="favorite-icon" style="color: #fff;"></i>';
-                                            }
-                                            ?>
-
+                                            $id_music = 0;
+                                            if ($favorite) { ?>
+                                            <i class="fas fa-heart"
+                                                onclick="changeFavoriteButton(<?php echo $id_music ?>)"
+                                                style="color: #1fd660;"></i>
+                                            <?php } else { ?>
+                                            <i class="far fa-heart"
+                                                onclick="changeFavoriteButton(<?php echo $id_music ?>)"
+                                                style="color: #fff;"></i>
+                                            <?php } ?>
 
                                         </li>
                                         <li class="text-center top_song_artist_playlist">
