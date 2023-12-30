@@ -1,13 +1,22 @@
 <?php
 define('HOST', 'localhost');
-define('SIBEUX', 'sibk1922');
-define('pass', '1NvgEHFnwvDN96');
+define('SIBEUX', 'root');
+define('pass', '');
 define('DB', 'sibk1922_cloud_music');
 $db = new mysqli(HOST, SIBEUX, pass, DB);
 
 if ($db->connect_errno) {
     die('Tidak dapat terhubung ke database');
 }
+
+// initiate variable 
+$id_music = 0;
+$title = "";
+$artist = "";
+$album = "";
+$cover = "";
+$favorite = 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -109,39 +118,59 @@ Author:Webstrot
 
                                         <li class="text-center">More</li>
                                     </ul>
+                                    <?php
+                                    $sql_music = "SELECT * FROM music ORDER BY id_music ASC";
+                                    $result_music = $db->query($sql_music);
+                                    $number_music = 1;
+
+                                    while ($array_data_music = mysqli_fetch_array($result_music)) {
+
+                                        $current_number_music = $number_music;
+                                        
+                                        if ($array_data_music['link_spotify'] == null) {
+                                            $id_music = $array_data_music['id_music'];
+                                            $title = $array_data_music['title'];
+                                            $artist = $array_data_music['artist'];
+                                            $album = $array_data_music['album'];
+                                            $cover = $array_data_music['cover'];
+                                            $favorite = $array_data_music['favorite'];
+                                        }
+                                    ?>
                                     <ul class="album_inner_list_padding">
-                                        <li><a href="#"><span class="play_no">01</span><span class="play_hover"><i
+                                        <li><a href="#"><span class="play_no">
+                                                    <?php echo $number_music;
+                                                        $number_music++; ?>
+                                                </span><span class="play_hover"><i
                                                         class="flaticon-play-button"></i></span></a></li>
                                         <li class="song_title_width">
                                             <div class="top_song_artist_wrapper">
 
-                                                <img src="images/tp1.png" alt="img">
+                                                <img src="<?php echo $cover ?>" alt="img">
 
                                                 <div class="top_song_artist_contnt">
-                                                    <h1><a href="#">Let me Love You</a></h1>
-                                                    <p class="various_artist_text"><a href="#">Chrissy Costanza</a></p>
+                                                    <h1><a style="cursor: pointer;"><?php echo $title ?></a></h1>
+                                                    <p class="various_artist_text"><a href="#"><?php echo $artist ?></a>
+                                                    </p>
                                                 </div>
 
                                             </div>
                                         </li>
-                                        <li class="song_title_width"><a href="#">Kabir Singh — Arijit Singh 2019</a>
+                                        <li class="song_title_width"><a href="#"><?php echo $album ?></a>
                                         </li>
                                         <li class="text-center"><a href="#">3:26</a></li>
                                         <li class="text-center favorite-text-center">
                                             <?php
-                                            // initiate variable $favorite
-                                            $favorite = false;
-                                            $id_music = 0;
-                                            if ($favorite) { ?>
+                                                // initiate variable $favorite
+                                                $is_favorite = $favorite;
+                                                if ($is_favorite == 1) { ?>
                                             <i class="fas fa-heart"
-                                                onclick="changeFavoriteButton(<?php echo $id_music ?>)"
+                                                onclick="changeFavoriteButton(<?php echo $current_number_music-1 ?>)"
                                                 style="color: #1fd660;"></i>
                                             <?php } else { ?>
                                             <i class="far fa-heart"
-                                                onclick="changeFavoriteButton(<?php echo $id_music ?>)"
+                                                onclick="changeFavoriteButton(<?php echo $current_number_music-1 ?>)"
                                                 style="color: #fff;"></i>
                                             <?php } ?>
-
                                         </li>
                                         <li class="text-center top_song_artist_playlist">
                                             <div class="ms_tranding_more_icon">
@@ -163,89 +192,9 @@ Author:Webstrot
                                             </ul>
                                         </li>
                                     </ul>
-                                    <ul class="album_inner_list_padding">
-                                        <li><a href="#"><span class="play_no">02</span><span class="play_hover"><i
-                                                        class="flaticon-play-button"></i></span></a></li>
-                                        <li class="song_title_width">
-                                            <div class="top_song_artist_wrapper">
+                                    <?php } ?>
 
-                                                <img src="images/tp2.png" alt="img">
 
-                                                <div class="top_song_artist_contnt">
-                                                    <h1><a href="#">l wanna you</a></h1>
-                                                    <p class="various_artist_text"><a href="#">Chrissy artist</a></p>
-                                                </div>
-
-                                            </div>
-                                        </li>
-                                        <li class="song_title_width"><a href="#">Kabir Singh — Arijit Singh 2019</a>
-                                        </li>
-                                        <li class="text-center"><a href="#">3:26</a></li>
-                                        <<li class="text-center favorite-text-center">
-                                            <i class="fa fa-heart" id="favorite-icon" style="color: #1fd660;"></i>
-                                            </li>
-                                            <li class="text-center top_song_artist_playlist">
-                                                <div class="ms_tranding_more_icon">
-                                                    <i class="flaticon-menu"></i>
-                                                </div>
-                                                <ul class="tranding_more_option">
-                                                    <li><a href="#"><span class="opt_icon"><i
-                                                                    class="flaticon-playlist"></i></span>Add To
-                                                            playlist</a>
-                                                    </li>
-                                                    <li><a href="#"><span class="opt_icon"><i
-                                                                    class="flaticon-star"></i></span>favourite</a></li>
-                                                    <li><a href="#"><span class="opt_icon"><i
-                                                                    class="flaticon-share"></i></span>share</a></li>
-                                                    <li><a href="#"><span class="opt_icon"><i
-                                                                    class="flaticon-files-and-folders"></i></span>view
-                                                            lyrics</a></li>
-                                                    <li><a href="#"><span class="opt_icon"><i
-                                                                    class="flaticon-trash"></i></span>delete</a></li>
-                                                </ul>
-                                            </li>
-                                    </ul>
-                                    <ul class="album_inner_list_padding">
-                                        <li><a href="#"><span class="play_no">03</span><span class="play_hover"><i
-                                                        class="flaticon-play-button"></i></span></a></li>
-                                        <li class="song_title_width">
-                                            <div class="top_song_artist_wrapper">
-
-                                                <img src="images/tp3.png" alt="img">
-
-                                                <div class="top_song_artist_contnt">
-                                                    <h1><a href="#">Let me Love You</a></h1>
-                                                    <p class="various_artist_text"><a href="#">Chrissy Costanza</a></p>
-                                                </div>
-
-                                            </div>
-                                        </li>
-                                        <li class="song_title_width"><a href="#">Kabir Singh — Arijit Singh 2019</a>
-                                        </li>
-                                        <li class="text-center"><a href="#">3:26</a></li>
-                                        <li class="text-center favorite-text-center">
-                                            <i class="far fa-heart" id="favorite-icon" style="color: #fff;"></i>
-                                        </li>
-                                        <li class="text-center top_song_artist_playlist">
-                                            <div class="ms_tranding_more_icon">
-                                                <i class="flaticon-menu"></i>
-                                            </div>
-                                            <ul class="tranding_more_option">
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-playlist"></i></span>Add To playlist</a>
-                                                </li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-star"></i></span>favourite</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-share"></i></span>share</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-files-and-folders"></i></span>view
-                                                        lyrics</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-trash"></i></span>delete</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
