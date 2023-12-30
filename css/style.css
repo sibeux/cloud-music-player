@@ -8756,6 +8756,6 @@ i:hover {
 	color: #fff;
 }
 
-#favorite-icon:hover {
+.fa-heart:hover {
 	cursor: pointer;
 }
