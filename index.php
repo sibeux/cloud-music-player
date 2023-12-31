@@ -16,6 +16,7 @@ $artist = "";
 $album = "";
 $cover = "";
 $favorite = 0;
+$link_drive = "";
 
 ?>
 
@@ -93,14 +94,21 @@ Author:Webstrot
                                             while ($array_data_music = mysqli_fetch_array($result_music)) {
 
                                                 $current_number_music = $number_music;
+                                                $id_music = $array_data_music['id_music'];
+                                                $favorite = $array_data_music['favorite'];
+                                                $link_drive = $array_data_music['link_gdrive'];
 
                                                 if ($array_data_music['link_spotify'] == null) {
-                                                    $id_music = $array_data_music['id_music'];
                                                     $title = $array_data_music['title'];
                                                     $artist = $array_data_music['artist'];
                                                     $album = $array_data_music['album'];
                                                     $cover = $array_data_music['cover'];
-                                                    $favorite = $array_data_music['favorite'];
+                                                } else {
+                                                    // get data song from spotify with API
+                                                    echo "<script type='module'>
+                                                        import { getDataFromAPISpotify } from './js/api.spotify.js';
+                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}');
+                                                    </script>";
                                                 }
                                             ?>
                                             <ul class="album_inner_list_padding">
@@ -108,19 +116,19 @@ Author:Webstrot
                                                             <?php echo $number_music; ?>
                                                         </span>
                                                         <span class="play_hover"
-                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>)"><i
+                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>')"><i
                                                                 class="flaticon-play-button"></i></span></a>
                                                 </li>
                                                 <li class="song_title_width">
                                                     <div class="top_song_artist_wrapper">
 
-                                                        <img src="<?php echo $cover ?>" alt="img">
+                                                        <img src="<?php echo $cover ?>" alt="img" class="cover_music">
 
                                                         <div class="top_song_artist_contnt">
-                                                            <h1><a style="cursor: pointer;">
+                                                            <h1><a style="cursor: pointer;" class="title_music">
                                                                     <?php echo $title ?>
                                                                 </a></h1>
-                                                            <p class="various_artist_text"><a>
+                                                            <p class="various_artist_text"><a class="artist_music">
                                                                     <?php echo $artist ?>
                                                                 </a>
                                                             </p>
@@ -128,11 +136,11 @@ Author:Webstrot
 
                                                     </div>
                                                 </li>
-                                                <li class="song_title_width"><a>
+                                                <li class="song_title_width"><a class="album_music">
                                                         <?php echo $album ?>
                                                     </a>
                                                 </li>
-                                                <li class="text-center"><a>3:26</a></li>
+                                                <li class="text-center"><a class="time_music">3:26</a></li>
                                                 <li class="text-center favorite-text-center">
                                                     <?php
                                                         // initiate variable $favorite
@@ -236,15 +244,15 @@ Author:Webstrot
                                         <div class="song-infos">
                                             <div class="image-container">
                                                 <img src="https://d2y6mqrpjbqoe6.cloudfront.net/image/upload/f_auto,q_auto/media/library-400/216_636967437355378335Your_Lie_Small_hq.jpg"
-                                                    alt="" />
+                                                    alt="" id="cover_now_play" />
                                             </div>
                                             <div class="song-description">
-                                                <p class="title">
+                                                <p class="title" id="title">
                                                     Watashitachi wa Sou Yatte Ikite Iku Jinshu na no
                                                 </p>
-                                                <p class="artist">Masaru Yokoyama</p>
+                                                <p class="artist" id="artist">Masaru Yokoyama</p>
                                             </div>
-                                            <i class="fa fa-heart" id="favorite-icon" style="color: #1fd660;"></i>
+                                            <i class="fa fa-heart" id="favorite-music-bar" style="color: #1fd660;"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -262,11 +270,15 @@ Author:Webstrot
                                     </div>
 
                                     <div class="progress-container">
-                                        <span>0:49</span>
+                                        <!-- <span>0:49</span>
                                         <div class="progress-bar">
                                             <div class="progress"></div>
                                         </div>
-                                        <span>3:15</span>
+                                        <span>3:15</span> -->
+
+                                        <audio id="player_music" autoplay controls>
+                                            <source src="" type="audio/mp3">
+                                        </audio>
                                     </div>
                                 </div>
                             </div>

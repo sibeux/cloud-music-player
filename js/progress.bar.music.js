@@ -37,12 +37,11 @@ function changeFavoriteButton(id) {
 	}
 }
 
-let nowPlayingIndex = 1; //3
-function animatedPlayMusic(id) { //3
+let nowPlayingIndex = 1;
+function animatedPlayMusic(id, linkGDrive) {
 
 	// initiate variable
 	const playingMusic = document.getElementsByClassName("play_no");
-	console.log(playingMusic)
 	const buttonPlay = document.getElementsByClassName("flaticon-play-button");
 	const currentPlayMusic = document.getElementsByClassName("playing");
 
@@ -54,19 +53,30 @@ function animatedPlayMusic(id) { //3
 	const hiddenButtonPlay = buttonPlay[id];
 	const visibleButtonPlay = buttonPlay[nowPlayingIndex - 1];
 
-	const buttonPlayingMusic = playingMusic[id];
+	// check index of button play
+	const buttonPlayingMusic =
+		id + 1 <= nowPlayingIndex ? playingMusic[id] : playingMusic[id - 1];
 
+	// Check if there is currently playing music
 	if (currentPlayMusic.length > 0) {
+		// Get the first element of currentPlayMusic
 		const buttonCurrentPlayingMusic = currentPlayMusic[0];
+		// Remove the "playing" class from the element
 		buttonCurrentPlayingMusic.classList.remove("playing");
+		// Update the HTML content of the element with the nowPlayingIndex
 		buttonCurrentPlayingMusic.innerHTML =
 			'<span class="play_no">' + nowPlayingIndex + "</span>";
+		// Make the visibleButtonPlay element visible
 		visibleButtonPlay.setAttribute("style", "visibility: visible;");
 
+		pauseMusic();
+
+		// If the next music to play is not the one currently playing, call letsGOParty
 		if (id + 1 !== nowPlayingIndex) {
 			letsGOParty();
 		}
 	} else {
+		// If there is no currently playing music, call letsGOParty
 		letsGOParty();
 	}
 
@@ -78,5 +88,33 @@ function animatedPlayMusic(id) { //3
 		buttonPlayingMusic.innerHTML =
 			'<div class="playing"> <span class="playing__bar playing__bar1"> </span> <span class="playing__bar playing__bar2"> </span> <span class="playing__bar playing__bar3"></span> </div>';
 		nowPlayingIndex = id + 1;
-		}
+		nowPlayingMusicProgressBar(id);
+
+		const link = linkGDrive.match(/[-\w]{25,}/);
+		playMusic(link);
+	}
+}
+
+function nowPlayingMusicProgressBar(id) {
+	const titleArray = document.getElementsByClassName("title_music");
+	const artistArray = document.getElementsByClassName("artist_music");
+	const coverArray = document.getElementsByClassName("cover_music");
+
+	document.getElementById("title").innerHTML = titleArray[id].innerHTML;
+	document.getElementById("artist").innerHTML = artistArray[id].innerHTML;
+	document.getElementById("cover_now_play").src =
+		coverArray[id].getAttribute("src");
+}
+
+function playMusic(linkGDrive) {
+	var audio = document.getElementById("player_music");
+	audio.src = "http://docs.google.com/uc?export=open&id="	+ linkGDrive;
+
+	audio.load();
+	audio.play();
+}
+
+function pauseMusic() {
+	var audio = document.getElementById("player_music");
+	audio.pause();
 }
