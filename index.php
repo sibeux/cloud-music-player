@@ -58,143 +58,123 @@ Author:Webstrot
 <body class="index4_body_wrapper">
     <!-- top navi wrapper Start -->
     <div class="m24_main_wrapper">
-        <div id="sidebar" class="index4_sidebar index3_sidebar">
-            <div class="l-sidebar l2_sidebar">
-                <div
-                    class="c-header-icon js-hamburger crm_responsive_toggle d-block d-sm-block d-md-block d-lg-block d-xl-none">
-                    <div class="hamburger-toggle">
-                        <div class="toogle_clse">×</div>
-                    </div>
-                </div>
-                <div id='cssmenu'>
-                    <a href="index.html"><img src="images/logo3.png" alt="logo"></a>
-                    <ul class="sidebb">
-                        <li class='has-sub'><a href='#'><i class="flaticon-home"></i>index</a>
-                            <ul>
-                                <li>
-                                    <a href="index.html"> <i class="flaticon-home"></i>index I</a>
-                                </li>
-                                <li><a href="index2.html"><i class="flaticon-home"></i>index II</a></li>
-                                <li><a href="index3.html"><i class="flaticon-home"></i>index III</a></li>
-                                <li><a href="index4.html"><i class="flaticon-home"></i>index IV</a></li>
 
-                            </ul>
-                        </li>
-                        <li class='has-sub'><a href='#'><i class="flaticon-album"></i>albums</a>
-                            <ul>
-                                <li>
-                                    <a href="album.html"> <i class="flaticon-vinyl"></i>album</a>
-                                </li>
-                                <li><a href="album_list.html"><i class="flaticon-playlist-1"></i>album list</a></li>
-                                <li><a href="artist.html"><i class="flaticon-headphones"></i>artist</a></li>
-                                <li><a href="artist_single.html"><i class="flaticon-speaker"></i>artist single</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+        <div class="row">
+            <div class="col-2" style="background-color: #1fd660;">
+
             </div>
-        </div>
-        <!-- top navi wrapper end -->
+            <div class="col-10">
+                <!-- Main section Start -->
+                <div class="body_main_header">
+                    <!-- top songs wrapper start -->
+                    <div class="top_songs_wrapper">
+                        <div class="row">
+                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 fixed_top_songs">
+                                <div class="song_heading_wrapper ms_cover">
+                                    <div class="ms_heading_wrapper white_heading_wrapper">
+                                        <h1>top songs</h1>
+                                    </div>
+                                    <div>
+                                        <div class="album_list_wrapper album_list_wrapper_shop">
+                                            <ul class="album_list_name ms_cover">
+                                                <li>#</li>
+                                                <li class="song_title_width">Judul</li>
+                                                <li class="song_title_width">Album</li>
+                                                <li class="text-center">time</li>
+                                                <li class="text-center">Favorite</li>
 
-        <!-- Main section Start -->
-        <div class="body_main_header">
-
-            <!-- top songs wrapper start -->
-            <div class="top_songs_wrapper index3_top_songs_wrapper  index4_top_songs_wrapper ms_cover">
-                <div class="row">
-                    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 fixed_top_songs">
-                        <div class="song_heading_wrapper ms_cover">
-                            <div class="ms_heading_wrapper white_heading_wrapper">
-                                <h1>top songs</h1>
-                            </div>
-                            <div>
-                                <div class="album_list_wrapper album_list_wrapper_shop">
-                                    <ul class="album_list_name ms_cover">
-                                        <li>#</li>
-                                        <li class="song_title_width">Judul</li>
-                                        <li class="song_title_width">Album</li>
-                                        <li class="text-center">time</li>
-                                        <li class="text-center">Favorite</li>
-
-                                        <li class="text-center">More</li>
-                                    </ul>
-                                    <?php
-                                    $sql_music = "SELECT * FROM music ORDER BY id_music ASC";
-                                    $result_music = $db->query($sql_music);
-                                    $number_music = 1;
-
-                                    while ($array_data_music = mysqli_fetch_array($result_music)) {
-
-                                        $current_number_music = $number_music;
-                                        
-                                        if ($array_data_music['link_spotify'] == null) {
-                                            $id_music = $array_data_music['id_music'];
-                                            $title = $array_data_music['title'];
-                                            $artist = $array_data_music['artist'];
-                                            $album = $array_data_music['album'];
-                                            $cover = $array_data_music['cover'];
-                                            $favorite = $array_data_music['favorite'];
-                                        }
-                                    ?>
-                                    <ul class="album_inner_list_padding">
-                                        <li><a href="#"><span class="play_no">
-                                                    <?php echo $number_music;
-                                                        $number_music++; ?>
-                                                </span><span class="play_hover"><i
-                                                        class="flaticon-play-button"></i></span></a></li>
-                                        <li class="song_title_width">
-                                            <div class="top_song_artist_wrapper">
-
-                                                <img src="<?php echo $cover ?>" alt="img">
-
-                                                <div class="top_song_artist_contnt">
-                                                    <h1><a style="cursor: pointer;"><?php echo $title ?></a></h1>
-                                                    <p class="various_artist_text"><a href="#"><?php echo $artist ?></a>
-                                                    </p>
-                                                </div>
-
-                                            </div>
-                                        </li>
-                                        <li class="song_title_width"><a href="#"><?php echo $album ?></a>
-                                        </li>
-                                        <li class="text-center"><a href="#">3:26</a></li>
-                                        <li class="text-center favorite-text-center">
-                                            <?php
-                                                // initiate variable $favorite
-                                                $is_favorite = $favorite;
-                                                if ($is_favorite == 1) { ?>
-                                            <i class="fas fa-heart"
-                                                onclick="changeFavoriteButton(<?php echo $current_number_music-1 ?>)"
-                                                style="color: #1fd660;"></i>
-                                            <?php } else { ?>
-                                            <i class="far fa-heart"
-                                                onclick="changeFavoriteButton(<?php echo $current_number_music-1 ?>)"
-                                                style="color: #fff;"></i>
-                                            <?php } ?>
-                                        </li>
-                                        <li class="text-center top_song_artist_playlist">
-                                            <div class="ms_tranding_more_icon">
-                                                <i class="flaticon-menu" style="color: white;"></i>
-                                            </div>
-                                            <ul class="tranding_more_option">
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-playlist"></i></span>Add To playlist</a>
-                                                </li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-star"></i></span>favourite</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-share"></i></span>share</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-files-and-folders"></i></span>view
-                                                        lyrics</a></li>
-                                                <li><a href="#"><span class="opt_icon"><i
-                                                                class="flaticon-trash"></i></span>delete</a></li>
+                                                <li class="text-center">More</li>
                                             </ul>
-                                        </li>
-                                    </ul>
-                                    <?php } ?>
+                                            <?php
+                                            $sql_music = "SELECT * FROM music ORDER BY id_music ASC";
+                                            $result_music = $db->query($sql_music);
+                                            $number_music = 1; //2
 
+                                            while ($array_data_music = mysqli_fetch_array($result_music)) {
 
+                                                $current_number_music = $number_music;
+
+                                                if ($array_data_music['link_spotify'] == null) {
+                                                    $id_music = $array_data_music['id_music'];
+                                                    $title = $array_data_music['title'];
+                                                    $artist = $array_data_music['artist'];
+                                                    $album = $array_data_music['album'];
+                                                    $cover = $array_data_music['cover'];
+                                                    $favorite = $array_data_music['favorite'];
+                                                }
+                                            ?>
+                                            <ul class="album_inner_list_padding">
+                                                <li style="cursor: pointer;"><a><span class="play_no">
+                                                            <?php echo $number_music; ?>
+                                                        </span>
+                                                        <span class="play_hover"
+                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>)"><i
+                                                                class="flaticon-play-button"></i></span></a>
+                                                </li>
+                                                <li class="song_title_width">
+                                                    <div class="top_song_artist_wrapper">
+
+                                                        <img src="<?php echo $cover ?>" alt="img">
+
+                                                        <div class="top_song_artist_contnt">
+                                                            <h1><a style="cursor: pointer;">
+                                                                    <?php echo $title ?>
+                                                                </a></h1>
+                                                            <p class="various_artist_text"><a>
+                                                                    <?php echo $artist ?>
+                                                                </a>
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li class="song_title_width"><a>
+                                                        <?php echo $album ?>
+                                                    </a>
+                                                </li>
+                                                <li class="text-center"><a>3:26</a></li>
+                                                <li class="text-center favorite-text-center">
+                                                    <?php
+                                                        // initiate variable $favorite
+                                                        $is_favorite = $favorite;
+                                                        if ($is_favorite == 1) { ?>
+                                                    <i class="fas fa-heart"
+                                                        onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
+                                                        style="color: #1fd660;"></i>
+                                                    <?php } else { ?>
+                                                    <i class="far fa-heart"
+                                                        onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
+                                                        style="color: #fff;"></i>
+                                                    <?php } ?>
+                                                </li>
+                                                <li class="text-center top_song_artist_playlist">
+                                                    <div class="ms_tranding_more_icon">
+                                                        <i class="flaticon-menu" style="color: white;"></i>
+                                                    </div>
+                                                    <ul class="tranding_more_option">
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-playlist"></i></span>Add To
+                                                                playlist</a>
+                                                        </li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-star"></i></span>favourite</a>
+                                                        </li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-share"></i></span>share</a></li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-files-and-folders"></i></span>view
+                                                                lyrics</a></li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-trash"></i></span>delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <?php
+                                                $number_music++;
+                                            } ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -202,6 +182,7 @@ Author:Webstrot
                 </div>
             </div>
         </div>
+        <!-- top navi wrapper end -->
     </div>
     <!-- top songs wrapper end -->
 
@@ -227,23 +208,16 @@ Author:Webstrot
             <li> <a href="#"><i class="fab fa-whatsapp"></i></a> </li>
         </ul>
     </div>
-
     <div class="section2_bottom_wrapper index4_bottom_wrapper ms_cover">
-
         <div class="row">
-
             <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                 <div class="btm_foter_box">
-
                     <p>Copyright © 2024 <a href="index.html" style="text-decoration: underline;"> SIBEUX </a>
                         Template downloaded from <a href="#">
                             Envato.</a></p>
-
                 </div>
             </div>
         </div>
-    </div>
-
     </div>
 
     <!--footer wrapper end-->
@@ -276,6 +250,7 @@ Author:Webstrot
                                 </div>
                             </div>
 
+                            <!-- progress bar -->
                             <div class="col-sm" style="text-align: center;">
                                 <div class="progress-controller">
                                     <div class="control-buttons">
@@ -295,18 +270,12 @@ Author:Webstrot
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-sm" style="text-align: right;">
                                 One of three columns
                             </div>
                         </div>
-
-
                     </div>
-
                 </div>
-
-
             </div>
         </div>
     </div>
