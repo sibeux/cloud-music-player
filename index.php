@@ -107,7 +107,7 @@ Author:Webstrot
                                                     // get data song from spotify with API
                                                     echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
-                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}');
+                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1);
                                                     </script>";
                                                 }
                                             ?>
