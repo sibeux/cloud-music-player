@@ -15,7 +15,6 @@ playIcon.addEventListener("click", () => {
 
 function changeFavoriteButton(id) {
 	const favoriteIcon = document.getElementsByClassName("fa-heart");
-
 	const button = favoriteIcon[id];
 
 	// get style color of favorite icon
@@ -36,4 +35,48 @@ function changeFavoriteButton(id) {
 		button.innerHTML = '<i class="fas fa-heart" style="color: #1fd660"></i>';
 		stateFavorite = "favorite";
 	}
+}
+
+let nowPlayingIndex = 1; //3
+function animatedPlayMusic(id) { //3
+
+	// initiate variable
+	const playingMusic = document.getElementsByClassName("play_no");
+	console.log(playingMusic)
+	const buttonPlay = document.getElementsByClassName("flaticon-play-button");
+	const currentPlayMusic = document.getElementsByClassName("playing");
+
+	if (currentPlayMusic.length === 0) {
+		nowPlayingIndex = id + 1;
+	}
+
+	// button play visible and hidden
+	const hiddenButtonPlay = buttonPlay[id];
+	const visibleButtonPlay = buttonPlay[nowPlayingIndex - 1];
+
+	const buttonPlayingMusic = playingMusic[id];
+
+	if (currentPlayMusic.length > 0) {
+		const buttonCurrentPlayingMusic = currentPlayMusic[0];
+		buttonCurrentPlayingMusic.classList.remove("playing");
+		buttonCurrentPlayingMusic.innerHTML =
+			'<span class="play_no">' + nowPlayingIndex + "</span>";
+		visibleButtonPlay.setAttribute("style", "visibility: visible;");
+
+		if (id + 1 !== nowPlayingIndex) {
+			letsGOParty();
+		}
+	} else {
+		letsGOParty();
+	}
+
+	function letsGOParty() {
+		// change visibility of play button
+		hiddenButtonPlay.setAttribute("style", "visibility: hidden;");
+
+		buttonPlayingMusic.classList.remove("play_no");
+		buttonPlayingMusic.innerHTML =
+			'<div class="playing"> <span class="playing__bar playing__bar1"> </span> <span class="playing__bar playing__bar2"> </span> <span class="playing__bar playing__bar3"></span> </div>';
+		nowPlayingIndex = id + 1;
+		}
 }
