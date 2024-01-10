@@ -1,5 +1,6 @@
 const playIcon = document.getElementById("play-icon");
 let statePlay = "play";
+let isPlay = false;
 
 // Play and Pause
 playIcon.addEventListener("click", () => {
@@ -70,14 +71,17 @@ function animatedPlayMusic(id, linkGDrive) {
 		visibleButtonPlay.setAttribute("style", "visibility: visible;");
 
 		pauseMusic();
+		isPlay = false;
 
 		// If the next music to play is not the one currently playing, call letsGOParty
 		if (id + 1 !== nowPlayingIndex) {
 			letsGOParty();
+			isPlay = true;
 		}
 	} else {
 		// If there is no currently playing music, call letsGOParty
 		letsGOParty();
+		isPlay = true;
 	}
 
 	function letsGOParty() {
