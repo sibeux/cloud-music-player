@@ -40,7 +40,6 @@ function changeFavoriteButton(id) {
 
 let nowPlayingIndex = 1;
 function animatedPlayMusic(id, linkGDrive) {
-
 	// initiate variable
 	const playingMusic = document.getElementsByClassName("play_no");
 	const buttonPlay = document.getElementsByClassName("flaticon-play-button");
@@ -108,12 +107,13 @@ function nowPlayingMusicProgressBar(id) {
 	document.getElementById("artist").innerHTML = artistArray[id].innerHTML;
 	document.getElementById("cover_now_play").src =
 		coverArray[id].getAttribute("src");
-	document.getElementById("title_doc").innerHTML = titleArray[id].innerHTML + " ● " + artistArray[id].innerHTML;
+	document.getElementById("title_doc").innerHTML =
+		titleArray[id].innerHTML + " ● " + artistArray[id].innerHTML;
 }
 
 function playMusic(linkGDrive) {
 	var audio = document.getElementById("player_music");
-	audio.src = "http://docs.google.com/uc?export=open&id="	+ linkGDrive;
+	audio.src = "http://docs.google.com/uc?export=open&id=" + linkGDrive;
 
 	audio.load();
 	audio.play();
