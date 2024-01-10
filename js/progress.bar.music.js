@@ -108,6 +108,7 @@ function nowPlayingMusicProgressBar(id) {
 	document.getElementById("artist").innerHTML = artistArray[id].innerHTML;
 	document.getElementById("cover_now_play").src =
 		coverArray[id].getAttribute("src");
+	document.getElementById("title_doc").innerHTML = titleArray[id].innerHTML + " ● " + artistArray[id].innerHTML;
 }
 
 function playMusic(linkGDrive) {
