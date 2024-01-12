@@ -1,7 +1,7 @@
 <?php
 require("db.php");
 
-// initiate variable 
+// initiate variable
 $id_music = 0;
 $title = "";
 $artist = "";
