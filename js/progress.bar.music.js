@@ -93,7 +93,7 @@ function animatedPlayMusic(id, linkGDrive) {
 		nowPlayingIndex = id + 1;
 		nowPlayingMusicProgressBar(id);
 
-		const link = linkGDrive.match(/[-\w]{25,}/);
+		const link = linkGDrive;
 		playMusic(link);
 	}
 }
@@ -113,7 +113,7 @@ function nowPlayingMusicProgressBar(id) {
 
 function playMusic(linkGDrive) {
 	var audio = document.getElementById("player_music");
-	audio.src = "http://docs.google.com/uc?export=open&id=" + linkGDrive[0];
+	audio.src = linkGDrive;
 
 	audio.load();
 	audio.play();
