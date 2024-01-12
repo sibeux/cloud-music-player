@@ -113,7 +113,7 @@ function nowPlayingMusicProgressBar(id) {
 
 function playMusic(linkGDrive) {
 	var audio = document.getElementById("player_music");
-	console.log(linkGDrive);
+	console.log(linkGDrive[0]);
 	audio.src = "http://docs.google.com/uc?export=open&id=" + linkGDrive;
 
 	audio.load();
