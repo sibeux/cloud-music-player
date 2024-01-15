@@ -4,7 +4,7 @@ export function getDataTimeFileMusic(link, id) {
 	audio.src = link;
 
 	const timeArray = document.getElementsByClassName("time_music");
-	var x = document.getElementById("player_music").duration;
+	var x = document.getElementById("player_music");
 	console.log(x);
 	timeArray[id].innerHTML = x;
 }

@@ -90,7 +90,7 @@ Author:Webstrot
                                             <?php
                                             $sql_music = "SELECT * FROM music ORDER BY id_music ASC";
                                             $result_music = $db->query($sql_music);
-                                            $number_music = 1; //2
+                                            $number_music = 1;
 
                                             while ($array_data_music = mysqli_fetch_array($result_music)) {
 
