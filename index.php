@@ -108,7 +108,7 @@ Author:Webstrot
 
                                                     // get data time from file music
                                                     echo "<script type='module'>
-                                                        import { getDataTimeFileMusic } from './js/api.spotify.js';
+                                                        import { getDataTimeFileMusic } from './js/getDataTime.js';
                                                         getDataTimeFileMusic('{$array_data_music['link_spotify']}', {$number_music}-1);
                                                     </script>";
                                                 } else {
