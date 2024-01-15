@@ -2,9 +2,7 @@
 export function getDataTimeFileMusic(link, id) {
 	const timeArray = document.getElementsByClassName("time_music");
 	// Create an audio element
-	var audio = new Audio(
-		link
-	);
+	var audio = new Audio(link);
 
 	// When the metadata has loaded, the duration should be available
 	audio.onloadedmetadata = function () {
