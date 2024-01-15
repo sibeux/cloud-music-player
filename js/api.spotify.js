@@ -83,3 +83,11 @@ export function getDataFromAPISpotify(link, id) {
 			console.error("Error refreshing access token:", error);
 		});
 }
+
+// get data time from music file
+export function getDataTimeFileMusic(link, id) {
+	const timeArray = document.getElementsByClassName("time_music");
+	var x = link.duration;
+
+	timeArray[id].innerHTML = x;
+}
