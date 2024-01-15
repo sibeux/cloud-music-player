@@ -14,7 +14,6 @@ $id_music = 0;
 $title = "";
 $artist = "";
 $album = "";
-$time = "";
 $cover = "";
 $favorite = 0;
 $link_drive = "";
@@ -103,7 +102,6 @@ Author:Webstrot
                                                     $title = $array_data_music['title'];
                                                     $artist = $array_data_music['artist'];
                                                     $album = $array_data_music['album'];
-                                                    $time = $array_data_music['time'];
                                                     $cover = $array_data_music['cover'];
 
                                                     // get data time from file music
