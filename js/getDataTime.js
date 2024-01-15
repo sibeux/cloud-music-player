@@ -5,6 +5,6 @@ export function getDataTimeFileMusic(link, id) {
 
 	const timeArray = document.getElementsByClassName("time_music");
 	var x = document.getElementById("player_music");
-	console.log(x);
-	timeArray[id].innerHTML = x;
+	// console.log(x);
+	// timeArray[id].innerHTML = x;
 }
