@@ -105,6 +105,12 @@ Author:Webstrot
                                                     $album = $array_data_music['album'];
                                                     $time = $array_data_music['time'];
                                                     $cover = $array_data_music['cover'];
+
+                                                    // get data time from file music
+                                                    echo "<script type='module'>
+                                                        import { getDataTimeFileMusic } from './js/api.spotify.js';
+                                                        getDataTimeFileMusic('{$array_data_music['link_spotify']}', {$number_music}-1);
+                                                    </script>";
                                                 } else {
                                                     // get data song from spotify with API
                                                     echo "<script type='module'>
