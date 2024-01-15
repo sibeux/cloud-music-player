@@ -1,5 +1,6 @@
 // get data time from music file
 export function getDataTimeFileMusic(link, id) {
+	const timeArray = document.getElementsByClassName("time_music");
 	// Create an audio element
 	var audio = new Audio(
 		link
@@ -18,6 +19,7 @@ export function getDataTimeFileMusic(link, id) {
 			":" +
 			seconds.toString().padStart(2, "0");
 
-		console.log("Duration:", formattedDuration);
+		// Display the duration
+		timeArray[id].innerHTML = formattedDuration;
 	};
 }
