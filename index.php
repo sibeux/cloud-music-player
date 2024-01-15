@@ -14,6 +14,7 @@ $id_music = 0;
 $title = "";
 $artist = "";
 $album = "";
+$time = "";
 $cover = "";
 $favorite = 0;
 $link_drive = "";
@@ -102,6 +103,7 @@ Author:Webstrot
                                                     $title = $array_data_music['title'];
                                                     $artist = $array_data_music['artist'];
                                                     $album = $array_data_music['album'];
+                                                    $time = $array_data_music['time'];
                                                     $cover = $array_data_music['cover'];
                                                 } else {
                                                     // get data song from spotify with API
@@ -140,7 +142,8 @@ Author:Webstrot
                                                         <?php echo $album ?>
                                                     </a>
                                                 </li>
-                                                <li class="text-center"><a class="time_music">3:26</a></li>
+                                                <li class="text-center"><a class="time_music"><?php echo $time ?></a>
+                                                </li>
                                                 <li class="text-center favorite-text-center">
                                                     <?php
                                                         // initiate variable $favorite
