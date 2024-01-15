@@ -1,10 +1,14 @@
 // get data time from music file
 export function getDataTimeFileMusic(link, id) {
-	var audio = document.getElementById("player_music");
-	audio.src = link;
+	// Create an audio element
+	var audio = new Audio(
+		link
+	);
 
-	const timeArray = document.getElementsByClassName("time_music");
-	var x = document.getElementById("player_music");
-	// console.log(x);
-	// timeArray[id].innerHTML = x;
+	// When the metadata has loaded, the duration should be available
+	audio.onloadedmetadata = function () {
+		// Get the duration in seconds
+		var duration = audio.duration;
+		console.log("Duration:", duration);
+	};
 }
