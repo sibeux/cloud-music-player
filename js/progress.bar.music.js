@@ -111,6 +111,10 @@ function nowPlayingMusicProgressBar(id) {
 		coverArray[id].getAttribute("src");
 	document.getElementById("title_doc").innerHTML =
 		titleArray[id].innerHTML + " ● " + artistArray[id].innerHTML;
+	document.getElementById("title_icon").innerHTML =
+		"<link id='title_icon' rel='shortcut icon' type='image/png' href='" +
+		coverArray[id].getAttribute("src") +
+		"' />";
 }
 
 function playMusic(linkGDrive, countMusic) {
@@ -121,8 +125,7 @@ function playMusic(linkGDrive, countMusic) {
 	audio.play();
 
 	$("#player_music").bind("ended", function () {
-
-		let randomNumber = Math.floor(Math.random() * countMusic+1);
+		let randomNumber = Math.floor(Math.random() * countMusic + 1);
 
 		// Fetch JSON data from a file
 		fetch(

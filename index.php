@@ -74,7 +74,7 @@ Author:Webstrot
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <!--favicon-->
-    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link id="title_icon" rel="shortcut icon" type="image/png" href="images/favicon.png" />
 </head>
 
 <body class="index4_body_wrapper">

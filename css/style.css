@@ -8783,3 +8783,8 @@ i:hover {
 .title_doc{
 	text-transform: capitalize;
 }
+
+.title_icon{
+	height: 108px;
+	width: 108px;
+}
