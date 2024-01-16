@@ -1,6 +1,54 @@
 <?php
 include "./database/db.php";
-include "./json/delete.php";
+
+function deleteJSON()
+{
+    // include "./json/delete.php";
+
+    // delete all data in json file
+    // Path to the JSON file
+    $jsonFilePath = './json/music.json';
+
+    // Open the JSON file for writing
+    $file = fopen($jsonFilePath, 'w');
+
+    // Truncate the file (erase its contents)
+    ftruncate($file, 0);
+
+    // Close the file
+    fclose($file);
+};
+
+deleteJSON();
+
+$sql_music_insert = "SELECT * FROM music ORDER BY id_music ASC";
+$result_music_insert = $db->query($sql_music_insert);
+$number_music_insert = 1;
+
+// File json yang akan dibaca
+$file = "./json/music.json";
+
+// Mendapatkan file json
+$anggota = file_get_contents($file);
+
+// Mendecode anggota.json
+$data = json_decode($anggota, true);
+
+while ($array_data_music = mysqli_fetch_array($result_music_insert)) {
+
+    // Data array baru
+    $data[] = array(
+        'id_music'     => $number_music_insert,
+        'link' => $array_data_music['link_gdrive']
+    );
+
+    // Mengencode data menjadi json
+    $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
+
+    // Menyimpan data ke dalam anggota.json
+    $anggota = file_put_contents($file, $jsonfile);
+    $number_music_insert++;
+}
 
 // initiate variable
 $id_music = 0;
@@ -90,7 +138,7 @@ Author:Webstrot
                                                 $id_music = $array_data_music['id_music'];
                                                 $favorite = $array_data_music['favorite'];
                                                 $link_drive = $array_data_music['link_gdrive'];
-                                                
+
                                                 if ($array_data_music['link_spotify'] == null) {
                                                     $title = $array_data_music['title'];
                                                     $artist = $array_data_music['artist'];

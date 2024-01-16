@@ -1,27 +1,20 @@
 <?php
-// File json yang akan dibaca
-$file = "./music.json";
+// generate function
+function deleteJSON(){
+    // include "./json/delete.php";
 
-// Mendapatkan file json
-$anggota = file_get_contents($file);
+    // delete all data in json file
+    // Path to the JSON file
+    $jsonFilePath = './music.json';
 
-// Mendecode anggota.json
-$data = json_decode($anggota, true);
+    // Open the JSON file for writing
+    $file = fopen($jsonFilePath, 'w');
 
-// Membaca data array menggunakan foreach
-$index = 1;
-foreach ($data as $key => $d) {
-    // Hapus data kedua
-    if ($d['id_music'] === $index) {
-        // Menghapus data array sesuai dengan index
-        // Menggantinya dengan elemen baru
-        array_splice($data, $key, $index);
-    }
-    $index++;
-}
+    // Truncate the file (erase its contents)
+    ftruncate($file, 0);
 
-// Mengencode data menjadi json
-$jsonfile = json_encode($data, JSON_PRETTY_PRINT);
+    // Close the file
+    fclose($file);
+};
 
-// Menyimpan data ke dalam anggota.json
-$anggota = file_put_contents($file, $jsonfile);
+// echo 'All data deleted from the JSON file.';

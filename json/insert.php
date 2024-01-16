@@ -1,5 +1,4 @@
 <?php
-include "../database/db.php";
 
 // File json yang akan dibaca
 $file = "music.json";
