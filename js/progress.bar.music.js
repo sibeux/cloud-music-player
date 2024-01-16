@@ -123,12 +123,11 @@ function playMusic(linkGDrive, countMusic) {
 	$("#player_music").bind("ended", function () {
 
 		let randomNumber = Math.floor(Math.random() * countMusic+1);
-		console.log(randomNumber);
 
 		// Fetch JSON data from a file
 		fetch(
-			// "https://sibeux.my.id/cloud-music-player/json/music.json"
-			"http://localhost:3000/Main_Program/Web%20Programming/cloud-music-player/json/music.json"
+			"https://sibeux.my.id/cloud-music-player/json/music.json"
+			// "http://localhost:3000/Main_Program/Web%20Programming/cloud-music-player/json/music.json"
 		)
 			.then((response) => response.json())
 			.then((json) =>
