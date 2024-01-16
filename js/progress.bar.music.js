@@ -41,8 +41,7 @@ function changeFavoriteButton(id) {
 }
 
 let nowPlayingIndex = 1;
-function animatedPlayMusic(id, linkGDrive) {
-	
+function animatedPlayMusic(id, linkGDrive, countMusic) {
 	// initiate variable
 	const playingMusic = document.getElementsByClassName("play_no");
 	const buttonPlay = document.getElementsByClassName("flaticon-play-button");
@@ -77,16 +76,16 @@ function animatedPlayMusic(id, linkGDrive) {
 
 		// If the next music to play is not the one currently playing, call letsGOParty
 		if (id + 1 !== nowPlayingIndex) {
-			letsGOParty();
+			letsGOParty(countMusic);
 			isPlay = true;
 		}
 	} else {
 		// If there is no currently playing music, call letsGOParty
-		letsGOParty();
+		letsGOParty(countMusic);
 		isPlay = true;
 	}
 
-	function letsGOParty() {
+	function letsGOParty(countMusic) {
 		// change visibility of play button
 		hiddenButtonPlay.setAttribute("style", "visibility: hidden;");
 
@@ -97,7 +96,7 @@ function animatedPlayMusic(id, linkGDrive) {
 		nowPlayingMusicProgressBar(id);
 
 		const link = linkGDrive;
-		playMusic(link);
+		playMusic(link, countMusic);
 	}
 }
 
@@ -114,12 +113,28 @@ function nowPlayingMusicProgressBar(id) {
 		titleArray[id].innerHTML + " ● " + artistArray[id].innerHTML;
 }
 
-function playMusic(linkGDrive) {
+function playMusic(linkGDrive, countMusic) {
 	var audio = document.getElementById("player_music");
 	audio.src = linkGDrive;
 
 	audio.load();
 	audio.play();
+
+	$("#player_music").bind("ended", function () {
+
+		let randomNumber = Math.floor(Math.random() * countMusic+1);
+		console.log(randomNumber);
+
+		// Fetch JSON data from a file
+		fetch(
+			// "https://sibeux.my.id/cloud-music-player/json/music.json"
+			"http://localhost:3000/Main_Program/Web%20Programming/cloud-music-player/json/music.json"
+		)
+			.then((response) => response.json())
+			.then((json) =>
+				animatedPlayMusic(json[randomNumber-1]["id_music"], json[randomNumber]["link"])
+			);
+	});
 }
 
 function pauseMusic() {

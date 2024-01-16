@@ -21,10 +21,6 @@ function deleteJSON()
 
 deleteJSON();
 
-$sql_music_insert = "SELECT * FROM music ORDER BY id_music ASC";
-$result_music_insert = $db->query($sql_music_insert);
-$number_music_insert = 1;
-
 // File json yang akan dibaca
 $file = "./json/music.json";
 
@@ -33,22 +29,6 @@ $anggota = file_get_contents($file);
 
 // Mendecode anggota.json
 $data = json_decode($anggota, true);
-
-while ($array_data_music = mysqli_fetch_array($result_music_insert)) {
-
-    // Data array baru
-    $data[] = array(
-        'id_music'     => $number_music_insert,
-        'link' => $array_data_music['link_gdrive']
-    );
-
-    // Mengencode data menjadi json
-    $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
-
-    // Menyimpan data ke dalam anggota.json
-    $anggota = file_put_contents($file, $jsonfile);
-    $number_music_insert++;
-}
 
 // initiate variable
 $id_music = 0;
@@ -130,9 +110,24 @@ Author:Webstrot
                                             <?php
                                             $sql_music = "SELECT * FROM music ORDER BY id_music ASC";
                                             $result_music = $db->query($sql_music);
+
+                                            $count_music = mysqli_num_rows($result_music);
+
                                             $number_music = 1;
 
                                             while ($array_data_music = mysqli_fetch_array($result_music)) {
+
+                                                // Data array baru
+                                                $data[] = array(
+                                                    'id_music'  => $number_music,
+                                                    'link'      => $array_data_music['link_gdrive']
+                                                );
+
+                                                // Mengencode data menjadi json
+                                                $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
+
+                                                // Menyimpan data ke dalam anggota.json
+                                                $anggota = file_put_contents($file, $jsonfile);
 
                                                 $current_number_music = $number_music;
                                                 $id_music = $array_data_music['id_music'];
@@ -163,7 +158,7 @@ Author:Webstrot
                                                             <?php echo $number_music; ?>
                                                         </span>
                                                         <span class="play_hover"
-                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>')"><i
+                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>','<?php echo $count_music ?>')"><i
                                                                 class="flaticon-play-button"></i></span></a>
                                                 </li>
                                                 <li class="song_title_width">
