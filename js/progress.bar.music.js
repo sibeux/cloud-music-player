@@ -96,7 +96,6 @@ function animatedPlayMusic(id, linkGDrive, countMusic) {
 		nowPlayingMusicProgressBar(id);
 
 		const link = linkGDrive;
-		console.log(countMusic);
 		playMusic(link, countMusic);
 	}
 }
