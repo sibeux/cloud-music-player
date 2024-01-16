@@ -120,6 +120,7 @@ Author:Webstrot
                                                 // Data array baru
                                                 $data[] = array(
                                                     'id_music'  => $number_music,
+                                                    'title'=> $array_data_music['title'], 
                                                     'link'      => $array_data_music['link_gdrive']
                                                 );
 
