@@ -136,8 +136,8 @@ Author:Webstrot
 
                                                 if ($array_data_music['link_spotify'] == null) {
                                                     // cut string title if too long
-                                                    if (strlen($array_data_music['title']) > 30) {
-                                                        $title = substr($array_data_music['title'], 0, 30) . "...";
+                                                    if (strlen($array_data_music['title']) > 25) {
+                                                        $title = substr($array_data_music['title'], 0, 25) . "...";
                                                     } else {
                                                         $title = $array_data_music['title'];
                                                     }
