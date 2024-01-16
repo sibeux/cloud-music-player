@@ -26,7 +26,7 @@ async function refreshAccessToken(refreshToken) {
 	return responseData.access_token;
 }
 
-export function getDataFromAPISpotify(link, id) {
+export function getDataFromAPISpotify(link, id, title) {
 	// Example usage:
 	const refreshToken =
 		"AQBI38smNBN4Xka0G9wn0LnUq6QqASg_rS3_ZufpWe7i0MJrqrPknQre21m22sUMLMDktkLrKOJQZYF3gMzWpBxqsIUd7MS5fGuKJ4cYP9qcVvJnxvx31RcRB4mXYzSoz9Y";
@@ -65,7 +65,10 @@ export function getDataFromAPISpotify(link, id) {
 							: dataAlbum;
 
 					// cut the title name if it is too long
-					let dataTitle = data.name;
+					let dataTitle = title;
+					if (dataTitle === 'null') {
+						dataTitle = data.name;
+					}
 					dataTitle =
 						dataTitle.length > 25
 							? dataTitle.substring(0, 25) + "..."

@@ -152,11 +152,18 @@ Author:Webstrot
                                                         getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
                                                     </script>";
                                                 } else {
-                                                    // get data song from spotify with API
-                                                    echo "<script type='module'>
+                                                    if ($array_data_music['title'] === null){
+                                                        echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
-                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1);
+                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, 'null');
                                                     </script>";
+                                                    } else{
+                                                        // get data song from spotify with API
+                                                        echo "<script type='module'>
+                                                        import { getDataFromAPISpotify } from './js/api.spotify.js';
+                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, {$array_data_music['title']});
+                                                    </script>";
+                                                    }
                                                 }
                                             ?>
                                             <ul class="album_inner_list_padding">
