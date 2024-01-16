@@ -135,7 +135,12 @@ Author:Webstrot
                                                 $link_drive = $array_data_music['link_gdrive'];
 
                                                 if ($array_data_music['link_spotify'] == null) {
-                                                    $title = $array_data_music['title'];
+                                                    // cut string title if too long
+                                                    if (strlen($array_data_music['title']) > 30) {
+                                                        $title = substr($array_data_music['title'], 0, 30) . "...";
+                                                    } else {
+                                                        $title = $array_data_music['title'];
+                                                    }
                                                     $artist = $array_data_music['artist'];
                                                     $album = $array_data_music['album'];
                                                     $cover = $array_data_music['cover'];
