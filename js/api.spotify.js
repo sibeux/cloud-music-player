@@ -68,7 +68,7 @@ export function getDataFromAPISpotify(link, id, title) {
 					let dataTitle = title;
 					if (dataTitle === 'null') {
 						dataTitle = data.name;
-					}
+					};
 					dataTitle =
 						dataTitle.length > 25
 							? dataTitle.substring(0, 25) + "..."
