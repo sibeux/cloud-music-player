@@ -1,13 +1,6 @@
 <?php
-define('HOST', 'localhost');
-define('SIBEUX', 'sibk1922');
-define('pass', '1NvgEHFnwvDN96');
-define('DB', 'sibk1922_cloud_music');
-$db = new mysqli(HOST, SIBEUX, pass, DB);
-
-if ($db->connect_errno) {
-    die('Tidak dapat terhubung ke database');
-}
+include "./database/db.php";
+include "./json/delete.php";
 
 // initiate variable
 $id_music = 0;
@@ -90,7 +83,6 @@ Author:Webstrot
                                             $sql_music = "SELECT * FROM music ORDER BY id_music ASC";
                                             $result_music = $db->query($sql_music);
                                             $number_music = 1;
-                                            $array_link_music = array();
 
                                             while ($array_data_music = mysqli_fetch_array($result_music)) {
 
@@ -98,8 +90,7 @@ Author:Webstrot
                                                 $id_music = $array_data_music['id_music'];
                                                 $favorite = $array_data_music['favorite'];
                                                 $link_drive = $array_data_music['link_gdrive'];
-                                                $array_link_music[$number_music - 1] = $link_drive;
-
+                                                
                                                 if ($array_data_music['link_spotify'] == null) {
                                                     $title = $array_data_music['title'];
                                                     $artist = $array_data_music['artist'];
@@ -124,7 +115,7 @@ Author:Webstrot
                                                             <?php echo $number_music; ?>
                                                         </span>
                                                         <span class="play_hover"
-                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>','<?php echo $array_link_music ?>')"><i
+                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>')"><i
                                                                 class="flaticon-play-button"></i></span></a>
                                                 </li>
                                                 <li class="song_title_width">
