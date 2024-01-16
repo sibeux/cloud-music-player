@@ -159,9 +159,10 @@ Author:Webstrot
                                                     </script>";
                                                     } else{
                                                         // get data song from spotify with API
+                                                        $title = $array_data_music['title'];
                                                         echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
-                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, {$array_data_music['title']});
+                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, '{$title}');
                                                     </script>";
                                                     }
                                                 }
