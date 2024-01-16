@@ -152,7 +152,7 @@ Author:Webstrot
                                                         getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
                                                     </script>";
                                                 } else {
-                                                    if ($array_data_music['title'] === null){
+                                                    if ($array_data_music['title'] == null){
                                                         echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
                                                         getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, 'null');
@@ -161,7 +161,7 @@ Author:Webstrot
                                                         // get data song from spotify with API
                                                         echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
-                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, '{$array_data_music['title']}');
+                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, {$array_data_music['title']});
                                                     </script>";
                                                     }
                                                 }
