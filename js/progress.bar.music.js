@@ -123,6 +123,7 @@ function playMusic(linkGDrive, countMusic) {
 	$("#player_music").bind("ended", function () {
 
 		let randomNumber = Math.floor(Math.random() * countMusic+1);
+		console.log(randomNumber);
 
 		// Fetch JSON data from a file
 		fetch(
@@ -131,7 +132,10 @@ function playMusic(linkGDrive, countMusic) {
 		)
 			.then((response) => response.json())
 			.then((json) =>
-				animatedPlayMusic(json[randomNumber-1]["id_music"], json[randomNumber]["link"])
+				animatedPlayMusic(
+					json[randomNumber - 1]["id_music"],
+					json[randomNumber]["link"]
+				)
 			);
 	});
 }
