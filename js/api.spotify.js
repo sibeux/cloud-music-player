@@ -67,11 +67,11 @@ export function getDataFromAPISpotify(link, id) {
 					// cut the title name if it is too long
 					let dataTitle = data.name;
 					dataTitle =
-						dataTitle.length > 30
-							? dataTitle.substring(0, 30) + "..."
+						dataTitle.length > 25
+							? dataTitle.substring(0, 25) + "..."
 							: dataTitle;
 
-					titleArray[id].innerHTML = dataArtists;
+					titleArray[id].innerHTML = dataTitle;
 					artistArray[id].innerHTML = dataArtists;
 					coverArray[id].src = data.album.images[0].url;
 					albumArray[id].innerHTML = dataAlbum;
