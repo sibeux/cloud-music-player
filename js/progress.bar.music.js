@@ -116,6 +116,8 @@ function nowPlayingMusicProgressBar(id) {
 function playMusic(linkGDrive, countMusic) {
 	var audio = document.getElementById("player_music");
 	audio.src = linkGDrive;
+	
+		console.log(countMusic);
 
 	audio.load();
 	audio.play();
@@ -123,7 +125,6 @@ function playMusic(linkGDrive, countMusic) {
 	$("#player_music").bind("ended", function () {
 
 		let randomNumber = Math.floor(Math.random() * countMusic+1);
-		console.log(randomNumber);
 
 		// Fetch JSON data from a file
 		fetch(
