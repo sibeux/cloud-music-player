@@ -71,7 +71,7 @@ export function getDataFromAPISpotify(link, id) {
 							? dataTitle.substring(0, 30) + "..."
 							: dataTitle;
 
-					titleArray[id].innerHTML = dataTitle;
+					titleArray[id].innerHTML = dataArtists;
 					artistArray[id].innerHTML = dataArtists;
 					coverArray[id].src = data.album.images[0].url;
 					albumArray[id].innerHTML = dataAlbum;
