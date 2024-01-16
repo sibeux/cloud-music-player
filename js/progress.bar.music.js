@@ -139,6 +139,11 @@ function playMusic(linkGDrive, countMusic) {
 	});
 }
 
+function repeatMusic() {
+	var audio = document.getElementById("player_music");
+	audio.loop = true;
+}
+
 function pauseMusic() {
 	var audio = document.getElementById("player_music");
 	audio.pause();
