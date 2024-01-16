@@ -66,8 +66,8 @@ export function getDataFromAPISpotify(link, id) {
 
 					let dataTitle = data.name;
 					dataTitle =
-						dataTitle.length > 30
-							? dataTitle.substring(0, 30) + "..."
+						dataTitle.length > 25
+							? dataTitle.substring(0, 25) + "..."
 							: dataTitle;
 
 					titleArray[id].innerHTML = dataTitle;
