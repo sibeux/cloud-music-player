@@ -8576,6 +8576,7 @@ span.ovrly_text2 {
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 1;
 	overflow: hidden;
+	text-transform: capitalize;
 }
 
 .title:hover,
