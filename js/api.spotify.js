@@ -26,6 +26,13 @@ async function refreshAccessToken(refreshToken) {
 	return responseData.access_token;
 }
 
+function capitalizeWords(str) {
+	return str
+		.split(" ")
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(" ");
+}
+
 export function getDataFromAPISpotify(link, id, title) {
 	// Example usage:
 	const refreshToken =
@@ -69,6 +76,9 @@ export function getDataFromAPISpotify(link, id, title) {
 					if (dataTitle === 'null') {
 						dataTitle = data.name;
 					};
+
+					dataTitle = capitalizeWords(dataTitle);
+
 					dataTitle =
 						dataTitle.length > 23
 							? dataTitle.substring(0, 23) + "..."
