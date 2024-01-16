@@ -8779,3 +8779,7 @@ i:hover {
 		height: 60%;
 	}
 }
+
+.title_doc{
+	text-transform: capitalize;
+}
