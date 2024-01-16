@@ -1,6 +1,7 @@
 const playIcon = document.getElementById("play-icon");
 let statePlay = "play";
 let isPlay = false;
+let arrayLinkGDrive = [];
 
 // Play and Pause
 playIcon.addEventListener("click", () => {
@@ -39,7 +40,9 @@ function changeFavoriteButton(id) {
 }
 
 let nowPlayingIndex = 1;
-function animatedPlayMusic(id, linkGDrive) {
+function animatedPlayMusic(id, linkGDrive, arrayLinkGDrive) {
+	arrayLinkGDrive.push(arrayLinkGDrive);
+	console.log(arrayLinkGDrive);
 	// initiate variable
 	const playingMusic = document.getElementsByClassName("play_no");
 	const buttonPlay = document.getElementsByClassName("flaticon-play-button");
