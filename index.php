@@ -135,12 +135,6 @@ Author:Webstrot
                                                 $favorite = $array_data_music['favorite'];
                                                 $link_drive = $array_data_music['link_gdrive'];
 
-                                                // get data time from file music
-                                                echo "<script type='module'>
-                                                        import { getDataTimeFileMusic } from './js/getDataTime.js';
-                                                        getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
-                                                    </script>";
-
                                                 if ($array_data_music['link_spotify'] == null) {
                                                     // cut string title if too long
                                                     if (strlen($array_data_music['title']) > 25) {
@@ -151,7 +145,13 @@ Author:Webstrot
                                                     $artist = $array_data_music['artist'];
                                                     $album = $array_data_music['album'];
                                                     $cover = $array_data_music['cover'];
-                                                    
+
+                                                    // get data time from file music
+                                                    echo "<script type='module'>
+                                                        import { getDataTimeFileMusic } from './js/getDataTime.js';
+                                                        getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
+                                                    </script>";
+                                        
                                                 } else {
                                                     if ($array_data_music['title'] == null){
                                                         echo "<script type='module'>
