@@ -124,7 +124,7 @@ function playMusic(linkGDrive, countMusic) {
 	audio.load();
 	audio.play();
 
-	$("#player_music").bind("ended", function () {
+	audio.addEventListener("ended", () => {
 		let randomNumber = Math.floor(Math.random() * countMusic + 1);
 
 		// Fetch JSON data from a file
@@ -136,7 +136,8 @@ function playMusic(linkGDrive, countMusic) {
 			.then((json) =>
 				animatedPlayMusic(
 					json[randomNumber - 1]["id_music"],
-					json[randomNumber]["link"]
+					json[randomNumber]["link"],
+					countMusic
 				)
 			);
 	});
