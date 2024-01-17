@@ -53,7 +53,7 @@ export function getDataFromAPISpotify(link, id, title) {
 					const artistArray = document.getElementsByClassName("artist_music");
 					const coverArray = document.getElementsByClassName("cover_music");
 					const albumArray = document.getElementsByClassName("album_music");
-					const timeArray = document.getElementsByClassName("time_music");
+					// const timeArray = document.getElementsByClassName("time_music");
 
 					// cut the artist name if it is too long
 					let dataArtists = data.artists
@@ -89,11 +89,11 @@ export function getDataFromAPISpotify(link, id, title) {
 					coverArray[id].src = data.album.images[0].url;
 					albumArray[id].innerHTML = dataAlbum;
 
-					timeArray[id].innerHTML = `${String(
-						Math.floor(data.duration_ms / 60000)
-					).padStart(2, "0")}:${String(
-						Math.floor((data.duration_ms / 1000) % 60)
-					).padStart(2, "0")}`;
+					// timeArray[id].innerHTML = `${String(
+					// 	Math.floor(data.duration_ms / 60000)
+					// ).padStart(2, "0")}:${String(
+					// 	Math.floor((data.duration_ms / 1000) % 60)
+					// ).padStart(2, "0")}`;
 				})
 				.catch((error) => {
 					console.error("Error:", error);
