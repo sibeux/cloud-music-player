@@ -145,12 +145,13 @@ Author:Webstrot
                                                     $artist = $array_data_music['artist'];
                                                     $album = $array_data_music['album'];
                                                     $cover = $array_data_music['cover'];
+                                                    $time = $array_data_music['time'];
 
                                                     // get data time from file music
-                                                    echo "<script type='module'>
-                                                        import { getDataTimeFileMusic } from './js/getDataTime.js';
-                                                        getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
-                                                    </script>";
+                                                    // echo "<script type='module'>
+                                                    //     import { getDataTimeFileMusic } from './js/getDataTime.js';
+                                                    //     getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
+                                                    // </script>";
                                         
                                                 } else {
                                                     if ($array_data_music['title'] == null){
