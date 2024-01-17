@@ -128,7 +128,7 @@ document.getElementById("player_music").addEventListener("ended", () => {
 });
 
 function nextMusic(countMusic) {
-	let randomNumber = Math.floor(Math.random() * countMusic + 1);
+	let randomNumber = Math.floor(Math.random() * countMusic)+1;
 
 	// Fetch JSON data from a file
 	fetch(
