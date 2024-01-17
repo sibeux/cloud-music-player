@@ -123,9 +123,9 @@ function playMusic(linkGDrive, countMusic) {
 
 	audio.load();
 	audio.play();
+	let randomNumber = Math.floor(Math.random() * countMusic + 1);
 
 	audio.addEventListener("ended", () => {
-		let randomNumber = Math.floor(Math.random() * countMusic + 1);
 		console.log(randomNumber);
 
 		// Fetch JSON data from a file
