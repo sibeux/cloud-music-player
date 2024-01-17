@@ -1,4 +1,4 @@
-// import { getArrayLinkMusic } from "./array.link.music";
+let countMusicNumber = 0;
 
 const playIcon = document.getElementById("play-icon");
 let statePlay = "play";
@@ -42,6 +42,8 @@ function changeFavoriteButton(id) {
 
 let nowPlayingIndex = 1;
 function animatedPlayMusic(id, linkGDrive, countMusic) {
+	countMusicNumber = countMusic;
+	console.log("id: " + id);
 	// initiate variable
 	const playingMusic = document.getElementsByClassName("play_no");
 	const buttonPlay = document.getElementsByClassName("flaticon-play-button");
@@ -61,14 +63,10 @@ function animatedPlayMusic(id, linkGDrive, countMusic) {
 
 	// Check if there is currently playing music
 	if (currentPlayMusic.length > 0) {
-		// Get the first element of currentPlayMusic
 		const buttonCurrentPlayingMusic = currentPlayMusic[0];
-		// Remove the "playing" class from the element
 		buttonCurrentPlayingMusic.classList.remove("playing");
-		// Update the HTML content of the element with the nowPlayingIndex
 		buttonCurrentPlayingMusic.innerHTML =
 			'<span class="play_no">' + nowPlayingIndex + "</span>";
-		// Make the visibleButtonPlay element visible
 		visibleButtonPlay.setAttribute("style", "visibility: visible;");
 
 		pauseMusic();
@@ -76,16 +74,16 @@ function animatedPlayMusic(id, linkGDrive, countMusic) {
 
 		// If the next music to play is not the one currently playing, call letsGOParty
 		if (id + 1 !== nowPlayingIndex) {
-			letsGOParty(countMusic);
+			letsGOParty();
 			isPlay = true;
 		}
 	} else {
 		// If there is no currently playing music, call letsGOParty
-		letsGOParty(countMusic);
+		letsGOParty();
 		isPlay = true;
 	}
 
-	function letsGOParty(countMusic) {
+	function letsGOParty() {
 		// change visibility of play button
 		hiddenButtonPlay.setAttribute("style", "visibility: hidden;");
 
@@ -96,7 +94,7 @@ function animatedPlayMusic(id, linkGDrive, countMusic) {
 		nowPlayingMusicProgressBar(id);
 
 		const link = linkGDrive;
-		playMusic(link, countMusic);
+		playMusic(link);
 	}
 }
 
@@ -117,31 +115,34 @@ function nowPlayingMusicProgressBar(id) {
 		"' />";
 }
 
-function playMusic(linkGDrive, countMusic) {
+function playMusic(linkGDrive) {
 	var audio = document.getElementById("player_music");
 	audio.src = linkGDrive;
 
 	audio.load();
 	audio.play();
+}
+
+document.getElementById("player_music").addEventListener("ended", () => {
+	nextMusic(countMusicNumber);
+});
+
+function nextMusic(countMusic) {
 	let randomNumber = Math.floor(Math.random() * countMusic + 1);
 
-	audio.addEventListener("ended", () => {
-		console.log(randomNumber);
-
-		// Fetch JSON data from a file
-		fetch(
-			"https://sibeux.my.id/cloud-music-player/json/music.json"
-			// "http://localhost:3000/Main_Program/Web%20Programming/cloud-music-player/json/music.json"
-		)
-			.then((response) => response.json())
-			.then((json) =>
-				animatedPlayMusic(
-					json[randomNumber - 1]["id_music"],
-					json[randomNumber]["link"],
-					countMusic
-				)
-			);
-	});
+	// Fetch JSON data from a file
+	fetch(
+		"https://sibeux.my.id/cloud-music-player/json/music.json"
+		// "http://localhost:3000/Main_Program/Web%20Programming/cloud-music-player/json/music.json"
+	)
+		.then((response) => response.json())
+		.then((json) =>
+			animatedPlayMusic(
+				json[randomNumber - 1]["id_music"],
+				json[randomNumber]["link"],
+				countMusic
+			)
+		);
 }
 
 function repeatMusic() {
