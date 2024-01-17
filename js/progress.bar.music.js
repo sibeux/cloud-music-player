@@ -43,7 +43,6 @@ function changeFavoriteButton(id) {
 let nowPlayingIndex = 1;
 function animatedPlayMusic(id, linkGDrive, countMusic) {
 	countMusicNumber = countMusic;
-	console.log("id: " + id);
 	// initiate variable
 	const playingMusic = document.getElementsByClassName("play_no");
 	const buttonPlay = document.getElementsByClassName("flaticon-play-button");
@@ -138,7 +137,7 @@ function nextMusic(countMusic) {
 		.then((response) => response.json())
 		.then((json) =>
 			animatedPlayMusic(
-				json[randomNumber - 1]["id_music"],
+				(json[randomNumber]["id_music"])-1,
 				json[randomNumber]["link"],
 				countMusic
 			)
