@@ -136,13 +136,19 @@ Author:Webstrot
                                                 $link_drive = $array_data_music['link_gdrive'];
 
                                                 if ($array_data_music['link_spotify'] == null) {
-                                                    // cut string title if too long
-                                                    if (strlen($array_data_music['title']) > 25) {
-                                                        $title = substr($array_data_music['title'], 0, 25) . "...";
-                                                    } else {
-                                                        $title = $array_data_music['title'];
+
+                                                    // Function to cut a string if it's too long
+                                                    function truncateString($string, $maxLength)
+                                                    {
+                                                        return (strlen($string) > $maxLength) ? substr($string, 0, $maxLength) . "..." : $string;
                                                     }
-                                                    $artist = $array_data_music['artist'];
+
+                                                    // Cut string title if too long
+                                                    $title = truncateString($array_data_music['title'], 25);
+
+                                                    // Cut string artist if too long
+                                                    $artist = truncateString($array_data_music['artist'], 35);
+                                                    
                                                     $album = $array_data_music['album'];
                                                     $cover = $array_data_music['cover'];
                                                     $time = $array_data_music['time'];
