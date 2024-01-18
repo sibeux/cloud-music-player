@@ -1,3 +1,5 @@
+var token = "";
+
 async function refreshAccessToken(refreshToken) {
 	const clientId = "a13366c52a89450f938ad5964e4976fc";
 	const clientSecret = "5259fd47c2a64c6ab2c16138fbcaa8d8";
