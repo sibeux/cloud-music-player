@@ -140,12 +140,15 @@ Author:Webstrot
                                                     // Function to cut a string if it's too long
                                                     function truncateString($string, $maxLength)
                                                     {
-                                                        return (strlen($string) > $maxLength) ? substr($string, 0, $maxLength) . "..." : $string;
+                                                        if ($string > $maxLength) {
+                                                            return substr($string, 0, $maxLength) . '...';
+                                                        } else {
+                                                            return $string;
+                                                        }
                                                     }
 
                                                     // Cut string title if too long
                                                     $title = truncateString($array_data_music['title'], 25);
-                                                    echo $title;
 
                                                     // Cut string artist if too long
                                                     $artist = truncateString($array_data_music['artist'], 35);
