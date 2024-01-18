@@ -136,18 +136,20 @@ Author:Webstrot
                                                 $link_drive = $array_data_music['link_gdrive'];
 
                                                 if ($array_data_music['link_spotify'] == null) {
-
-                                                    // Function to cut a string if it's too long
-                                                    function truncateString($string, $maxLength)
-                                                    {
-                                                        return (strlen($string) > $maxLength) ? substr($string, 0, $maxLength) . "..." : $string;
+                                                    
+                                                    // cut string title if too long
+                                                    if (strlen($array_data_music['title']) > 25) {
+                                                        $title = substr($array_data_music['title'], 0, 25) . "...";
+                                                    } else {
+                                                        $title = $array_data_music['title'];
                                                     }
 
-                                                    // Cut string title if too long
-                                                    $title = truncateString($array_data_music['title'], 25);
-
-                                                    // Cut string artist if too long
-                                                    $artist = truncateString($array_data_music['artist'], 35);
+                                                    // cut string artist if too long
+                                                    if (strlen($array_data_music['artist']) > 35) {
+                                                        $artist = substr($array_data_music['artist'], 0, 35) . "...";
+                                                    } else {
+                                                        $artist = $array_data_music['artist'];
+                                                    }
                                                     
                                                     $album = $array_data_music['album'];
                                                     $cover = $array_data_music['cover'];
