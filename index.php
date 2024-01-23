@@ -108,7 +108,7 @@ Author:Webstrot
                                                 <li class="text-center">More</li>
                                             </ul>
                                             <?php
-                                            $sql_music = "SELECT * FROM music ORDER BY id_music ASC";
+                                            $sql_music = "SELECT * FROM music ORDER BY title ASC";
                                             $result_music = $db->query($sql_music);
 
                                             $count_music = mysqli_num_rows($result_music);
@@ -167,14 +167,14 @@ Author:Webstrot
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
                                                         getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, 'null');
                                                     </script>";
-                                                    } else{
-                                                        // get data song from spotify with API
-                                                        $title = $array_data_music['title'];
-                                                        echo "<script type='module'>
-                                                        import { getDataFromAPISpotify } from './js/api.spotify.js';
-                                                        getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, '{$title}');
-                                                    </script>";
-                                                    }
+                                                    // } else{
+                                                    //     // get data song from spotify with API
+                                                    //     $title = $array_data_music['title'];
+                                                    //     echo "<script type='module'>
+                                                    //     import { getDataFromAPISpotify } from './js/api.spotify.js';
+                                                    //     getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, '{$title}');
+                                                    // </script>";
+                                                    // }
                                                 }
                                             ?>
                                             <ul class="album_inner_list_padding">
