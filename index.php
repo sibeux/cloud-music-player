@@ -120,7 +120,7 @@ Author:Webstrot
                                                 // Data array baru
                                                 $data[] = array(
                                                     'id_music'  => $number_music,
-                                                    'title'=> $array_data_music['title'], 
+                                                    'title' => $array_data_music['title'],
                                                     'link'      => $array_data_music['link_gdrive']
                                                 );
 
@@ -136,7 +136,7 @@ Author:Webstrot
                                                 $link_drive = $array_data_music['link_gdrive'];
 
                                                 if ($array_data_music['link_spotify'] == null) {
-                                                    
+
                                                     // cut string title if too long
                                                     if (strlen($array_data_music['title']) > 25) {
                                                         $title = substr($array_data_music['title'], 0, 25) . "...";
@@ -150,7 +150,7 @@ Author:Webstrot
                                                     } else {
                                                         $artist = $array_data_music['artist'];
                                                     }
-                                                    
+
                                                     $album = $array_data_music['album'];
                                                     $cover = $array_data_music['cover'];
                                                     $time = $array_data_music['time'];
@@ -160,21 +160,12 @@ Author:Webstrot
                                                     //     import { getDataTimeFileMusic } from './js/getDataTime.js';
                                                     //     getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
                                                     // </script>";
-                                        
+
                                                 } else {
-                                                    if ($array_data_music['title'] == null){
-                                                        echo "<script type='module'>
+                                                    echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
                                                         getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, 'null');
                                                     </script>";
-                                                    // } else{
-                                                    //     // get data song from spotify with API
-                                                    //     $title = $array_data_music['title'];
-                                                    //     echo "<script type='module'>
-                                                    //     import { getDataFromAPISpotify } from './js/api.spotify.js';
-                                                    //     getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, '{$title}');
-                                                    // </script>";
-                                                    // }
                                                 }
                                             ?>
                                             <ul class="album_inner_list_padding">
