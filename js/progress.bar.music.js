@@ -122,12 +122,14 @@ function playMusic(linkGDrive) {
 	audio.play();
 }
 
-document.getElementById("player_music").addEventListener("ended", () => {
-	nextMusic(countMusicNumber);
+document.addEventListener("DOMContentLoaded", () => {
+	document.getElementById("player_music").addEventListener("ended", () => {
+		nextMusic(countMusicNumber);
+	});
 });
 
 function nextMusic(countMusic) {
-	let randomNumber = Math.floor(Math.random() * countMusic)+1;
+	let randomNumber = Math.floor(Math.random() * countMusic) + 1;
 
 	// Fetch JSON data from a file
 	fetch(
@@ -137,7 +139,7 @@ function nextMusic(countMusic) {
 		.then((response) => response.json())
 		.then((json) =>
 			animatedPlayMusic(
-				(json[randomNumber]["id_music"])-1,
+				json[randomNumber]["id_music"] - 1,
 				json[randomNumber]["link"],
 				countMusic
 			)
