@@ -102,12 +102,14 @@ function nowPlayingMusicProgressBar(id) {
 	const artistArray = document.getElementsByClassName("artist_music");
 	const coverArray = document.getElementsByClassName("cover_music");
 
+	const title = titleArray[id].innerHTML.toUpperCase();
+
 	document.getElementById("title").innerHTML = titleArray[id].innerHTML;
 	document.getElementById("artist").innerHTML = artistArray[id].innerHTML;
 	document.getElementById("cover_now_play").src =
 		coverArray[id].getAttribute("src");
 	document.getElementById("title_doc").innerHTML =
-		titleArray[id].innerHTML.toUpperCase +
+		title +
 		" ● " +
 		artistArray[id].innerHTML.toUpperCase;
 	document.getElementById("title_icon").innerHTML =
