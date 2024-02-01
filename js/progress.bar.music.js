@@ -102,16 +102,21 @@ function nowPlayingMusicProgressBar(id) {
 	const artistArray = document.getElementsByClassName("artist_music");
 	const coverArray = document.getElementsByClassName("cover_music");
 
-	const title = titleArray[id].innerHTML.toUpperCase();
+	const toCapitalize = (str) =>
+		str.replace(
+			/(^\w|\s\w)(\S*)/g,
+			(_, m1, m2) => m1.toUpperCase() + m2.toLowerCase()
+		);
+
+	const title = titleArray[id].innerHTML;
+	const artist = artistArray[id].innerHTML;
 
 	document.getElementById("title").innerHTML = titleArray[id].innerHTML;
 	document.getElementById("artist").innerHTML = artistArray[id].innerHTML;
 	document.getElementById("cover_now_play").src =
 		coverArray[id].getAttribute("src");
 	document.getElementById("title_doc").innerHTML =
-		title +
-		" ● " +
-		artistArray[id].innerHTML.toUpperCase;
+		toCapitalize(title) + " ● " + toCapitalize(artist);
 	document.getElementById("title_icon").innerHTML =
 		"<link id='title_icon' rel='shortcut icon' type='image/png' href='" +
 		coverArray[id].getAttribute("src") +
