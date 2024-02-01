@@ -151,7 +151,13 @@ Author:Webstrot
                                                         $artist = $array_data_music['artist'];
                                                     }
 
-                                                    $album = $array_data_music['album'];
+                                                    // cut string album if too long
+                                                    if (strlen($array_data_music['album']) > 80) {
+                                                        $album = substr($array_data_music['album'], 0, 80) . "...";
+                                                    } else {
+                                                        $album = $array_data_music['album'];
+                                                    }
+                                                    
                                                     $cover = $array_data_music['cover'];
                                                     $time = $array_data_music['time'];
 
