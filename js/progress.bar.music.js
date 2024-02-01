@@ -107,7 +107,9 @@ function nowPlayingMusicProgressBar(id) {
 	document.getElementById("cover_now_play").src =
 		coverArray[id].getAttribute("src");
 	document.getElementById("title_doc").innerHTML =
-		titleArray[id].innerHTML + " ● " + artistArray[id].innerHTML;
+		titleArray[id].innerHTML.toUpperCase +
+		" ● " +
+		artistArray[id].innerHTML.toUpperCase;
 	document.getElementById("title_icon").innerHTML =
 		"<link id='title_icon' rel='shortcut icon' type='image/png' href='" +
 		coverArray[id].getAttribute("src") +
