@@ -5418,6 +5418,8 @@ body.off-canvas-overlay-on {
 .top_song_artist_wrapper img {
 	float: left;
 	width: 60px;
+	height: 60px;
+	object-fit: cover;
 }
 
 .album_list_wrapper {
