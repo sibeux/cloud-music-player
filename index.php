@@ -334,13 +334,13 @@ Author:Webstrot
                                     </div>
 
                                     <div class="progress-container">
-                                        <!-- <span>0:49</span>
+                                        <span>0:49</span>
                                         <div class="progress-bar">
-                                            <div class="progress"></div>
+                                            <input type="range" id="progress" value="0">
                                         </div>
-                                        <span>3:15</span> -->
+                                        <span>3:15</span>
 
-                                        <audio id="player_music" autoplay controls>
+                                        <audio id="player_music">
                                             <source src="" type="audio/mp3">
                                         </audio>
                                     </div>
