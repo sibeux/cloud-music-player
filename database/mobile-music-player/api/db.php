@@ -15,7 +15,7 @@ $query = $db->query("SELECT * FROM music ORDER BY title ASC");
 $result = array();
 
 while ($row = mysqli_fetch_assoc($query)) {
-    // add each row returned into an array
+    // add each row returned into an arrays
     $result[] = json_encode($row);
 }
 
