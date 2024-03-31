@@ -11,12 +11,11 @@ if ($db->connect_errno) {
     die('Tidak dapat terhubung ke database');
 }
 
-$query = $db->query("SELECT * FROM music");
+$query = $db->query("SELECT * FROM music ORDER BY title ASC");
 $result = array();
 
-while ($row = $query->fetch_assoc()) {
+while ($row = mysqli_fetch_array($query)) {
     $result[] = $row;
 }
 
-echo $result;
 echo json_encode($result);
