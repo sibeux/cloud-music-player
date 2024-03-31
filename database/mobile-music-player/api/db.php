@@ -14,9 +14,6 @@ if ($db->connect_errno) {
 $query = $db->query("SELECT * FROM music ORDER BY title ASC");
 $result = array();
 
-while ($row = mysqli_fetch_assoc($query)) {
-    // add each row returned into an arrays
-    $result[] = json_encode($row);
-}
+$rows = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-echo ($result);
+echo json_encode($rows);
