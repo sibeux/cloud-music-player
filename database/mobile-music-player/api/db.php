@@ -18,4 +18,5 @@ while ($row = $query->fetch_assoc()) {
     $result[] = $row;
 }
 
+echo $result;
 echo json_encode($result);
