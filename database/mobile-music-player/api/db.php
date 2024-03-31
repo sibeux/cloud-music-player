@@ -16,7 +16,7 @@ $result = array();
 
 while ($row = mysqli_fetch_assoc($query)) {
     // add each row returned into an array
-    $result[] = json_encode($row);
+    $result[1] = ($row);
 }
 
 echo json_encode($result);
