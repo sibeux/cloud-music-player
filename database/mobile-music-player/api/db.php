@@ -16,6 +16,7 @@ $result = array();
 
 while ($row = mysqli_fetch_assoc($query)) {
     // add each row returned into an array
+    echo $row;
     $result[] = $row;
 }
 
