@@ -19,4 +19,4 @@ while ($row = mysqli_fetch_assoc($query)) {
     $result[] = json_encode($row);
 }
 
-echo json_encode($result);
+print_r ($result);
