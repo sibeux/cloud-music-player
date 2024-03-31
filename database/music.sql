@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 18 Mar 2024 pada 02.51
+-- Waktu pembuatan: 31 Mar 2024 pada 18.35
 -- Versi server: 10.3.39-MariaDB-cll-lve
 -- Versi PHP: 8.1.27
 
@@ -799,7 +799,7 @@ INSERT INTO `music` (`id_music`, `link_gdrive`, `title`, `artist`, `album`, `tim
 (773, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/SunSet%20Swish/spotifydown.com%20-%20%E5%81%89%E5%A4%A7%E3%81%AA%E3%83%9C%E3%83%83%E3%82%B9%E7%8E%8B/spotifydown.com%20-%20%E5%B7%A8%E4%BA%BA%E6%97%8F.mp3', 'Giants', 'MAYUKO', 'Ranking of Kings Original Soundtrack', '02:30', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
 (774, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/SunSet%20Swish/spotifydown.com%20-%20%E5%81%89%E5%A4%A7%E3%81%AA%E3%83%9C%E3%83%83%E3%82%B9%E7%8E%8B/spotifydown.com%20-%20%E7%8E%8B%E6%A7%98%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0%20-%E5%8B%87%E6%B0%97!-.mp3', 'Ousama Ranking -Courage!-', 'MAYUKO', 'Ranking of Kings Original Soundtrack', '02:30', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
 (775, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/SunSet%20Swish/spotifydown.com%20-%20%E5%81%89%E5%A4%A7%E3%81%AA%E3%83%9C%E3%83%83%E3%82%B9%E7%8E%8B/spotifydown.com%20-%20%E7%AA%AE%E5%9C%B0%E3%81%AB%E7%AB%8B%E3%81%9F%E3%81%95%E3%82%8C%E3%82%8B.mp3', 'Getting in Trouble', 'MAYUKO', 'Ranking of Kings Original Soundtrack', '02:30', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
-(776, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/SunSet%20Swish/spotifydown.com%20-%20%E5%81%89%E5%A4%A7%E3%81%AA%E3%83%9C%E3%83%83%E3%82%B9%E7%8E%8B/spotifydown.com%20-%20%E9%80%86%E8%BB%A2.mp3', 'Keisei Gyakuten (Reverse Situation)', 'MUSASHI PROJECT', 'NARUTO original soundtrack', '01:47', 'https://i.scdn.co/image/ab67616d0000b2736d1c1a631e1b46ccc32eaee2', 0, NULL),
+(776, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/SunSet%20Swish/spotifydown.com%20-%20%E5%81%89%E5%A4%A7%E3%81%AA%E3%83%9C%E3%83%83%E3%82%B9%E7%8E%8B/spotifydown.com%20-%20%E9%80%86%E8%BB%A2.mp3', 'turn over', 'MUSASHI PROJECT', 'NARUTO original soundtrack', '01:47', 'https://i.scdn.co/image/ab67616d0000b2736d1c1a631e1b46ccc32eaee2', 0, NULL),
 (777, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/omaga/aware/spotifydown.com%20-%20%E3%82%AB%E3%82%B2%E3%81%AE%E6%82%B2%E3%81%97%E3%81%84%E9%81%8E%E5%8E%BB.mp3', 'Kage\'s Sad Past', 'MAYUKO', 'Ranking of Kings Original Soundtrack', '01:30', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
 (778, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/omaga/aware/spotifydown.com%20-%20%E3%83%9C%E3%83%83%E3%82%B8%E3%81%A8%E3%82%AB%E3%82%B2%E3%81%AE%E5%8F%8B%E6%83%85.mp3', 'Friendship between Bojji and Kage', 'MAYUKO', 'Ranking of Kings Original Soundtrack', '01:30', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
 (779, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/omaga/aware/spotifydown.com%20-%20%E3%83%BB%E3%83%BB%E3%83%BB%E3%82%84%E3%81%B0%E3%81%84!.mp3', '...No way!', 'MAYUKO', 'Ranking of Kings Original Soundtrack', '01:30', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
@@ -878,7 +878,8 @@ INSERT INTO `music` (`id_music`, `link_gdrive`, `title`, `artist`, `album`, `tim
 (852, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/omaga/%E5%88%86%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E3%83%A4%E3%83%84/spotifydown.com%20-%20%E5%AD%A3%E7%AF%80%E3%81%8C%E5%A4%89%E3%82%8F%E3%82%8B.mp3', 'Kisetsu ga Kawaru', 'Masaru Yokoyama', 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', '01:47', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 1, NULL),
 (853, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/omaga/%E5%88%86%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E3%83%A4%E3%83%84/spotifydown.com%20-%20%E6%80%9D%E3%81%A3%E3%81%9F%E3%82%88%E3%82%8A%E5%A4%A7%E3%81%8D%E3%81%84%E3%81%AA.mp3', 'Omotta Yori Ookii na', 'Masaru Yokoyama', 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', '01:47', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 1, NULL),
 (854, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/omaga/%E5%88%86%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E3%83%A4%E3%83%84/spotifydown.com%20-%20%E6%B0%B4%E9%9D%A2.mp3', 'Suimen', 'Masaru Yokoyama', 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', '01:47', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 1, NULL),
-(855, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/omaga/%E5%88%86%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E3%83%A4%E3%83%84/spotifydown.com%20-%20%E7%89%B9%E7%AD%89%E5%B8%AD.mp3', 'Tokutouseki', 'Masaru Yokoyama', 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', '01:47', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 1, NULL);
+(855, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/omaga/%E5%88%86%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E3%83%A4%E3%83%84/spotifydown.com%20-%20%E7%89%B9%E7%AD%89%E5%B8%AD.mp3', 'Tokutouseki', 'Masaru Yokoyama', 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', '01:47', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 1, NULL),
+(856, 'https://github.com/sibeux/sibeux-contrarians-syntaxianz/raw/main/spotifydown.com%20-%20innocent%20arrogance.mp3', 'innocent arrogance', 'BiSH', 'Tengoku Daimakyou Season 1 Opening', '03:32', 'https://i.scdn.co/image/ab67616d0000b2734e98d18364fcb98e849e34f4', 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -898,7 +899,7 @@ ALTER TABLE `music`
 -- AUTO_INCREMENT untuk tabel `music`
 --
 ALTER TABLE `music`
-  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=856;
+  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=857;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
