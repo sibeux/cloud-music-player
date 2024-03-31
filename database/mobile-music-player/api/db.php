@@ -12,7 +12,7 @@ if ($db->connect_errno) {
 }
 
 $query = $db->query("SELECT * FROM music ORDER BY title ASC");
-$result = [];
+$result = array();
 
 while ($row = mysqli_fetch_assoc($query)) {
     // add each row returned into an array
