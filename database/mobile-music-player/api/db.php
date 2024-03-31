@@ -5,18 +5,52 @@ define('SIBEUX', 'sibk1922');
 define('pass', '1NvgEHFnwvDN96');
 define('DB', 'sibk1922_cloud_music');
 
-$db = new mysqli(HOST, SIBEUX, pass, DB);
+$conn = new mysqli(HOST, SIBEUX, pass, DB);
 
-if ($db->connect_errno) {
-    die('Tidak dapat terhubung ke database');
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-$query = $db->query("SELECT * FROM music ORDER BY title ASC");
-$result = array();
+// Query to retrieve data from MySQL
+$sql = "SELECT * FROM music ORDER BY title ASC";
+$result = $conn->query($sql);
 
-while ($row = mysqli_fetch_assoc($query)) {
-    // add each row returned into an array
-    $result[] = json_encode($row);
+// Check if the query was successful
+if (!$result) {
+    die("Query failed: " . $conn->error);
 }
 
-print_r ($result);
+// Create an array to store the data
+$data = array();
+
+// Check if there is any data
+if ($result->num_rows > 0) {
+    // Loop through each row of data
+    while ($row = $result->fetch_assoc()) {
+        // Clean up the data to handle special characters
+        array_walk_recursive($row, function (&$item, $key) {
+            if (is_string($item)) {
+                $item = htmlentities($item);
+            }
+        });
+
+        // Add each row to the data array
+        $data[] = $row;
+    }
+}
+
+// Convert the data array to JSON format
+$json_data = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+// Check if JSON conversion was successful
+if ($json_data === false) {
+    die("JSON encoding failed");
+}
+
+// Output the JSON data
+echo $json_data;
+
+// Close the connection
+$conn->close();
+?>
