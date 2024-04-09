@@ -8657,7 +8657,7 @@ span.ovrly_text2 {
 		background: #3c3a3a;
 }
 
-#progress::-webkit-progress-bar {
+#progress::-webkit-slider-thumb {
 	-webkit-appearance: none;
 		appearance: none;
 		height: 15px;
