@@ -328,18 +328,18 @@ Author:Webstrot
                                     <div class="control-buttons">
                                         <i class="fas fa-random"></i>
                                         <i class="fas fa-step-backward"></i>
-                                        <i class="play-pause fas fa-play" id="play-icon"></i>
+                                        <i class="play-pause fas fa-play" id="play-icon" onclick="playPause()"></i>
                                         <i class="fas fa-step-forward"></i>
                                         <i class="fas fa-undo-alt"></i>
                                     </div>
 
                                     <div class="progress-container">
-                                        <span>0:00</span>
-                                        <div class="progress-bar">
+                                        <span id="first-minute">0:00</span>
+                                        <div class=" progress-bar">
                                             <input onmouseenter="green(this)" onmouseleave="white(this)" type="range"
-                                                min="0" max="100" value="0" id="range" />
+                                                value="0" id="range" />
                                         </div>
-                                        <span>0:00</span>
+                                        <span id="last-minute">0:00</span>
 
                                         <audio id="player_music">
                                             <source src="" type="audio/mp3">
@@ -357,52 +357,6 @@ Author:Webstrot
         </div>
     </div>
     <!-- playlist wrapper end -->
-
-    <script>
-    const sliderEl = document.querySelector("#range");
-    const sliderValue = document.querySelector(".value");
-
-    var progressTrack = 0;
-    var onMouse = true;
-
-    sliderEl.addEventListener("input", (event) => {
-        const tempSliderValue = event.target.value;
-
-        sliderValue.textContent = tempSliderValue;
-
-        const progress = (tempSliderValue / sliderEl.max) * 100;
-        progressTrack = progress;
-
-        if (onMouse) {
-            sliderEl.style.background = `linear-gradient(to right, #f50 ${progress}%, #3c3a3a ${progress}%)`;
-        } else {
-            sliderEl.style.background = `linear-gradient(to right, #fff ${progress}%, #3c3a3a ${progress}%)`;
-        }
-
-        // border radius for sliderEl
-    });
-
-    function green(el) {
-        el.style.background =
-            "linear-gradient(to right, #f50 " +
-            progressTrack +
-            "%, #3c3a3a " +
-            progressTrack +
-            "%)";
-        onMouse = true;
-    }
-
-    function white(el) {
-        el.style.background =
-            "linear-gradient(to right, #fff " +
-            progressTrack +
-            "%, #3c3a3a " +
-            progressTrack +
-            "%)";
-        onMouse = false;
-    }
-    </script>
-
     <!--custom js files-->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

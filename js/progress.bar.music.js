@@ -1,20 +1,7 @@
 let countMusicNumber = 0;
 
-const playIcon = document.getElementById("play-icon");
-let statePlay = "play";
 let isPlay = false;
-
-// Play and Pause
-playIcon.addEventListener("click", () => {
-	playIcon.classList.remove("fa-play");
-	if (statePlay === "play") {
-		playIcon.innerHTML = '<i class="fas fa-pause"></i>';
-		statePlay = "pause";
-	} else {
-		playIcon.innerHTML = '<i class="fas fa-play"></i>';
-		statePlay = "play";
-	}
-});
+let statePlay = "play";
 
 function changeFavoriteButton(id) {
 	const favoriteIcon = document.getElementsByClassName("fa-heart");
@@ -125,6 +112,11 @@ function nowPlayingMusicProgressBar(id) {
 
 function playMusic(linkGDrive) {
 	var audio = document.getElementById("player_music");
+	var playIcon = document.getElementById("play-icon");
+
+	statePlay = "pause";
+	playIcon.classList.remove("fa-play");
+	playIcon.innerHTML = '<i class="fas fa-pause"></i>';
 	audio.src = linkGDrive;
 
 	audio.load();
@@ -164,3 +156,102 @@ function pauseMusic() {
 	var audio = document.getElementById("player_music");
 	audio.pause();
 }
+
+let song = document.getElementById("player_music");
+var progressBar = document.querySelector("#range");
+
+// if song play, update progress bar
+if (song.play) {
+	let progressTrack = 0;
+
+	// set interval of range
+	onMouse = false;
+	setInterval(() => {
+		progressBar.value = song.currentTime;
+
+		const progress = (song.currentTime / song.duration) * 100;
+		progressTrack = progress;
+
+		if (onMouse) {
+			progressBar.style.background = `linear-gradient(to right, #1fd660 ${progress}%, #3c3a3a ${progress}%)`;
+		} else {
+			progressBar.style.background = `linear-gradient(to right, #fff ${progress}%, #3c3a3a ${progress}%)`;
+		}
+	}, 500);
+
+	function green(el) {
+		el.style.background =
+			"linear-gradient(to right, #1fd660 " +
+			progressTrack +
+			"%, #3c3a3a " +
+			progressTrack +
+			"%)";
+		onMouse = true;
+	}
+
+	function white(el) {
+		el.style.background =
+			"linear-gradient(to right, #fff " +
+			progressTrack +
+			"%, #3c3a3a " +
+			progressTrack +
+			"%)";
+		onMouse = false;
+	}
+
+	song.onloadedmetadata = function () {
+		duration = song.duration;
+
+		progressBar.max = song.duration;
+
+		// Convert seconds to mm:ss format
+		var minutes = Math.floor(duration / 60);
+		var seconds = Math.floor(duration % 60);
+
+		var formattedDuration =
+			minutes.toString().padStart(1, "0") +
+			":" +
+			seconds.toString().padStart(2, "0");
+
+		document.getElementById("last-minute").innerText = formattedDuration;
+	};
+}
+
+progressBar.onchange = function () {
+	// song.play();
+	song.currentTime = progressBar.value;
+	// ctrlIcon.classList.add("fa-pause");
+	// ctrlIcon.classList.remove("fa-play");
+};
+
+// update progress span when song is playing
+song.addEventListener("timeupdate", () => {
+	const minutes = Math.floor(song.currentTime / 60);
+	const seconds = Math.floor(song.currentTime % 60);
+
+	var formattedDuration =
+		minutes.toString().padStart(1, "0") +
+		":" +
+		seconds.toString().padStart(2, "0");
+
+	document.getElementById("first-minute").innerText = formattedDuration;
+});
+
+const playIcon = document.getElementById("play-icon");
+
+
+// Play and Pause
+playIcon.addEventListener("click", () => {
+	playIcon.classList.remove("fa-play");
+	if (statePlay === "play") {
+		playIcon.innerHTML = '<i class="fas fa-pause"></i>';
+		statePlay = "pause";
+		song.play();
+	} else {
+		playIcon.innerHTML = '<i class="fas fa-play"></i>';
+		statePlay = "play";
+		song.pause();
+	}
+});
+
+
