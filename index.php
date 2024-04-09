@@ -174,74 +174,63 @@ Author:Webstrot
                                                     </script>";
                                                 }
                                             ?>
-                                            <ul class="album_inner_list_padding">
-                                                <li style="cursor: pointer;"><a><span class="play_no">
-                                                            <?php echo $number_music; ?>
-                                                        </span>
-                                                        <span class="play_hover"
-                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>','<?php echo $count_music ?>')"><i
-                                                                class="flaticon-play-button"></i></span></a>
-                                                </li>
-                                                <li class="song_title_width">
-                                                    <div class="top_song_artist_wrapper">
+                                                <ul class="album_inner_list_padding">
+                                                    <li style="cursor: pointer;"><a><span class="play_no">
+                                                                <?php echo $number_music; ?>
+                                                            </span>
+                                                            <span class="play_hover" onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>','<?php echo $count_music ?>')"><i class="flaticon-play-button"></i></span></a>
+                                                    </li>
+                                                    <li class="song_title_width">
+                                                        <div class="top_song_artist_wrapper">
 
-                                                        <img src="<?php echo $cover ?>" alt="img" class="cover_music">
+                                                            <img src="<?php echo $cover ?>" alt="img" class="cover_music">
 
-                                                        <div class="top_song_artist_contnt">
-                                                            <h1><a style="cursor: pointer;" class="title_music">
-                                                                    <?php echo $title ?>
-                                                                </a></h1>
-                                                            <p class="various_artist_text"><a class="artist_music">
-                                                                    <?php echo $artist ?>
-                                                                </a>
-                                                            </p>
+                                                            <div class="top_song_artist_contnt">
+                                                                <h1><a style="cursor: pointer;" class="title_music">
+                                                                        <?php echo $title ?>
+                                                                    </a></h1>
+                                                                <p class="various_artist_text"><a class="artist_music">
+                                                                        <?php echo $artist ?>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+
                                                         </div>
-
-                                                    </div>
-                                                </li>
-                                                <li class="song_title_width"><a class="album_music">
-                                                        <?php echo $album ?>
-                                                    </a>
-                                                </li>
-                                                <li class="text-center"><a class="time_music"><?php echo $time ?></a>
-                                                </li>
-                                                <li class="text-center favorite-text-center">
-                                                    <?php
+                                                    </li>
+                                                    <li class="song_title_width"><a class="album_music">
+                                                            <?php echo $album ?>
+                                                        </a>
+                                                    </li>
+                                                    <li class="text-center"><a class="time_music"><?php echo $time ?></a>
+                                                    </li>
+                                                    <li class="text-center favorite-text-center">
+                                                        <?php
                                                         // initiate variable $favorite
                                                         $is_favorite = $favorite;
                                                         if ($is_favorite == 1) { ?>
-                                                    <i class="fas fa-heart"
-                                                        onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
-                                                        style="color: #1fd660;"></i>
-                                                    <?php } else { ?>
-                                                    <i class="far fa-heart"
-                                                        onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
-                                                        style="color: #fff;"></i>
-                                                    <?php } ?>
-                                                </li>
-                                                <li class="text-center top_song_artist_playlist">
-                                                    <div class="ms_tranding_more_icon">
-                                                        <i class="flaticon-menu" style="color: white;"></i>
-                                                    </div>
-                                                    <ul class="tranding_more_option">
-                                                        <li><a href="#"><span class="opt_icon"><i
-                                                                        class="flaticon-playlist"></i></span>Add To
-                                                                playlist</a>
-                                                        </li>
-                                                        <li><a href="#"><span class="opt_icon"><i
-                                                                        class="flaticon-star"></i></span>favourite</a>
-                                                        </li>
-                                                        <li><a href="#"><span class="opt_icon"><i
-                                                                        class="flaticon-share"></i></span>share</a></li>
-                                                        <li><a href="#"><span class="opt_icon"><i
-                                                                        class="flaticon-files-and-folders"></i></span>view
-                                                                lyrics</a></li>
-                                                        <li><a href="#"><span class="opt_icon"><i
-                                                                        class="flaticon-trash"></i></span>delete</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
+                                                            <i class="fas fa-heart" onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)" style="color: #1fd660;"></i>
+                                                        <?php } else { ?>
+                                                            <i class="far fa-heart" onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)" style="color: #fff;"></i>
+                                                        <?php } ?>
+                                                    </li>
+                                                    <li class="text-center top_song_artist_playlist">
+                                                        <div class="ms_tranding_more_icon">
+                                                            <i class="flaticon-menu" style="color: white;"></i>
+                                                        </div>
+                                                        <ul class="tranding_more_option">
+                                                            <li><a href="#"><span class="opt_icon"><i class="flaticon-playlist"></i></span>Add To
+                                                                    playlist</a>
+                                                            </li>
+                                                            <li><a href="#"><span class="opt_icon"><i class="flaticon-star"></i></span>favourite</a>
+                                                            </li>
+                                                            <li><a href="#"><span class="opt_icon"><i class="flaticon-share"></i></span>share</a></li>
+                                                            <li><a href="#"><span class="opt_icon"><i class="flaticon-files-and-folders"></i></span>view
+                                                                    lyrics</a></li>
+                                                            <li><a href="#"><span class="opt_icon"><i class="flaticon-trash"></i></span>delete</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
                                             <?php
                                                 $number_music++;
                                             } ?>
@@ -307,8 +296,7 @@ Author:Webstrot
                                     <div class="col-10">
                                         <div class="song-infos">
                                             <div class="image-container">
-                                                <img src="https://d2y6mqrpjbqoe6.cloudfront.net/image/upload/f_auto,q_auto/media/library-400/216_636967437355378335Your_Lie_Small_hq.jpg"
-                                                    alt="" id="cover_now_play" />
+                                                <img src="https://d2y6mqrpjbqoe6.cloudfront.net/image/upload/f_auto,q_auto/media/library-400/216_636967437355378335Your_Lie_Small_hq.jpg" alt="" id="cover_now_play" />
                                             </div>
                                             <div class="song-description">
                                                 <p class="title" id="title">
@@ -336,8 +324,7 @@ Author:Webstrot
                                     <div class="progress-container">
                                         <span>0:00</span>
                                         <div class="progress-bar">
-                                            <input onmouseenter="green(this)" onmouseleave="white(this)" type="range"
-                                                min="0" max="100" value="0" id="range" />
+                                            <input onmouseenter="green(this)" onmouseleave="white(this)" type="range" min="0" max="100" value="0" id="range" />
                                         </div>
                                         <span>0:00</span>
 
