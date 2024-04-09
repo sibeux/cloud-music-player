@@ -157,7 +157,7 @@ Author:Webstrot
                                                     } else {
                                                         $album = $array_data_music['album'];
                                                     }
-                                                    
+
                                                     $cover = $array_data_music['cover'];
                                                     $time = $array_data_music['time'];
 
@@ -335,8 +335,10 @@ Author:Webstrot
 
                                     <div class="progress-container">
                                         <span>0:49</span>
-                                        <div class="progress-bar">
-                                            <input type="range" id="progress" value="0">
+                                        <div class="range">
+                                            <input onmouseenter="green(this)" onmouseleave="white(this)" type="progress"
+                                                min="0" max="50" value="0" id="range" />
+                                            <div class="value">0</div>
                                         </div>
                                         <span>3:15</span>
 
