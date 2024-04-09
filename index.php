@@ -338,7 +338,6 @@ Author:Webstrot
                                         <div class="range">
                                             <input onmouseenter="green(this)" onmouseleave="white(this)" type="range"
                                                 min="0" max="50" value="0" id="range" />
-                                            <div class="value">0</div>
                                         </div>
                                         <span>3:15</span>
 
