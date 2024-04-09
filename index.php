@@ -335,7 +335,7 @@ Author:Webstrot
 
                                     <div class="progress-container">
                                         <span>0:49</span>
-                                        <div class="range">
+                                        <div class="progress-bar">
                                             <input onmouseenter="green(this)" onmouseleave="white(this)" type="range"
                                                 min="0" max="50" value="0" id="range" />
                                         </div>
