@@ -164,3 +164,47 @@ function pauseMusic() {
 	var audio = document.getElementById("player_music");
 	audio.pause();
 }
+
+
+const sliderEl = document.querySelector("#range");
+const sliderValue = document.querySelector(".value");
+
+var progressTrack = 0;
+var onMouse = true;
+
+sliderEl.addEventListener("input", (event) => {
+	const tempSliderValue = event.target.value;
+
+	sliderValue.textContent = tempSliderValue;
+
+	const progress = (tempSliderValue / sliderEl.max) * 100;
+	progressTrack = progress;
+
+	if (onMouse) {
+		sliderEl.style.background = `linear-gradient(to right, #f50 ${progress}%, #3c3a3a ${progress}%)`;
+	} else {
+		sliderEl.style.background = `linear-gradient(to right, #fff ${progress}%, #3c3a3a ${progress}%)`;
+	}
+
+	// border radius for sliderEl
+});
+
+function green(el) {
+	el.style.background =
+		"linear-gradient(to right, #f50 " +
+		progressTrack +
+		"%, #3c3a3a " +
+		progressTrack +
+		"%)";
+	onMouse = true;
+}
+
+function white(el) {
+	el.style.background =
+		"linear-gradient(to right, #fff " +
+		progressTrack +
+		"%, #3c3a3a " +
+		progressTrack +
+		"%)";
+	onMouse = false;
+}

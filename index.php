@@ -334,12 +334,12 @@ Author:Webstrot
                                     </div>
 
                                     <div class="progress-container">
-                                        <span>0:49</span>
+                                        <span>-:--</span>
                                         <div class="progress-bar">
                                             <input onmouseenter="green(this)" onmouseleave="white(this)" type="range"
-                                                min="0" max="50" value="0" id="range" />
+                                                min="0" max="100" value="0" id="range" />
                                         </div>
-                                        <span>3:15</span>
+                                        <span>-:--</span>
 
                                         <audio id="player_music">
                                             <source src="" type="audio/mp3">
