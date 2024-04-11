@@ -129,6 +129,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 });
 
+document.getElementById("next-music").addEventListener("click", () => {
+	nextMusic(countMusicNumber);
+});
+
 function nextMusic(countMusic) {
 	let randomNumber = Math.floor(Math.random() * countMusic) + 1;
 
@@ -218,10 +222,7 @@ if (song.play) {
 }
 
 progressBar.onchange = function () {
-	// song.play();
 	song.currentTime = progressBar.value;
-	// ctrlIcon.classList.add("fa-pause");
-	// ctrlIcon.classList.remove("fa-play");
 };
 
 // update progress span when song is playing
