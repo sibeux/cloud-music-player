@@ -329,7 +329,7 @@ Author:Webstrot
                                         <i class="fas fa-random"></i>
                                         <i class="fas fa-step-backward"></i>
                                         <i class="play-pause fas fa-play" id="play-icon" onclick="playPause()"></i>
-                                        <i class="fas fa-step-forward"></i>
+                                        <i class="fas fa-step-forward" id="next-music"></i>
                                         <i class="fas fa-undo-alt"></i>
                                     </div>
 
