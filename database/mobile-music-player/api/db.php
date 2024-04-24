@@ -12,8 +12,25 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$sql = "SELECT * FROM music ORDER BY title ASC";;
+
+if (isset($_GET['_page']) && isset($_GET['_limit'])) {
+
+    $_limit = $_GET['_limit'];
+    $_page = $_GET['_page'];
+
+    if ($page == 0 || $page == 1){
+        $_page = 0;
+    } else {
+        $_page = ($_page - 1) * $_limit;
+    }
+
+    $sql = "SELECT * FROM music ORDER BY title ASC LIMIT $_limit OFFSET $_page";
+
+}
+
 // Query to retrieve data from MySQL
-$sql = "SELECT * FROM music ORDER BY title ASC";
+// $sql = "SELECT * FROM music ORDER BY title ASC";
 $result = $conn->query($sql);
 
 // Check if the query was successful
