@@ -25,7 +25,7 @@ if (isset($_GET['_page']) && isset($_GET['_limit'])) {
         $_page = ($_page - 1) * $_limit;
     }
 
-    $sql = "SELECT * FROM music ORDER BY title ASC LIMIT $_limit OFFSET $_page";
+    $sql = "SELECT * FROM music ORDER BY title ASC LIMIT $_limit OFFSET 20";
 
 }
 
