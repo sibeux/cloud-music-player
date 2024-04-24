@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM music ORDER BY title ASC";;
+$sql = "SELECT * FROM music ORDER BY title ASC";
 
 if (isset($_GET['_page']) && isset($_GET['_limit'])) {
 
