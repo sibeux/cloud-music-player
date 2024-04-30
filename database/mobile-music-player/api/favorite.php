@@ -28,4 +28,6 @@ $result = $conn->query($sql);
 // Check if the query was successful
 if (!$result) {
     die("Query failed: " . $conn->error);
+} else {
+    echo "Success";
 }
