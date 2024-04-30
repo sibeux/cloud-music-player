@@ -19,7 +19,7 @@ if (isset($_GET['_favorite']) && isset($_GET['_id'])) {
     $_favorite = $_GET['_favorite'];
     $_id = $_GET['_id'];
 
-    $sql = "UPDATE music SET favorite = '$_favorite' WHERE id = '$_id'";
+    $sql = "UPDATE music SET favorite = '$_favorite' WHERE id_music = '$_id'";
 }
 
 // Query to retrieve data from MySQL
