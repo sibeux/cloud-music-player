@@ -15,3 +15,5 @@ $db = new mysqli(HOST, SIBEUX, pass, DB);
 if ($db->connect_errno) {
     die('Tidak dapat terhubung ke database');
 }
+
+$db->set_charset('utf8mb4');
