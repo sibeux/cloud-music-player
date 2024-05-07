@@ -12,6 +12,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$conn->set_charset('utf8mb4');
+
 $sql = "SELECT * FROM music ORDER BY title ASC";
 
 if (isset($_GET['_page']) && isset($_GET['_limit'])) {
@@ -46,9 +48,9 @@ if ($result->num_rows > 0) {
     // Loop through each row of data
     while ($row = $result->fetch_assoc()) {
         // Clean up the data to handle special characters
-        array_walk_recursive($row, function (&$item, $key) {
+        array_walk_recursive($row, function (&$item) {
             if (is_string($item)) {
-                $item = htmlentities($item);
+                $item = htmlentities($item, ENT_QUOTES, 'UTF-8');
             }
         });
 
