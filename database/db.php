@@ -1,8 +1,8 @@
 <?php
 
 define('HOST', 'localhost');
-define('SIBEUX', 'sibk1922');
-define('pass', '{"$!b3"}=[#h@B1q!#]~342169');
+define('SIBEUX', 'sibk1922_cbux	');
+define('pass', '1NvgEHFnwvDN96');
 define('DB', 'sibk1922_cloud_music');
 
 // define('HOST', 'localhost');
