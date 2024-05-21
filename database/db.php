@@ -2,7 +2,7 @@
 
 define('HOST', 'localhost');
 define('SIBEUX', 'sibk1922');
-define('pass', '1NvgEHFnwvDN96');
+define('pass', '{"$!b3"}=[#h@B1q!#]~342169');
 define('DB', 'sibk1922_cloud_music');
 
 // define('HOST', 'localhost');
