@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 03 Jun 2024 pada 03.29
+-- Waktu pembuatan: 03 Jun 2024 pada 17.27
 -- Versi server: 10.3.39-MariaDB-cll-lve
 -- Versi PHP: 8.1.28
 
@@ -1625,7 +1625,7 @@ INSERT INTO `music` (`id_music`, `link_gdrive`, `title`, `artist`, `album`, `tim
 (1599, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Senritsu/Uragiri%20to%20Fushin%20no%20Kuni.mp3', 'Uragiri to Fushin no Kuni', 'MAYUKO', 'Ranking Of Kings Original Soundtrack Disc 3', '01:13', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
 (1600, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Senritsu/Zange.mp3', 'Zange', 'MAYUKO', 'Ranking Of Kings Original Soundtrack Disc 3', '01:13', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
 (1601, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Senritsu/Zutto%20Soba%20ni%20Iru%20yo.mp3', 'Zutto Soba ni Iru yo', 'MAYUKO', 'Ranking Of Kings Original Soundtrack Disc 3', '01:13', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 0, NULL),
-(1602, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Hotarubi/01%20-%20Natsu%20wo%20Miteita.mp3', 'Natsu wo Miteita', 'Makoto Yoshimori, Shizuru Outaka', 'Hotarubi no Mori e Original Soundtrack：Kisetsu no Matataki', '02:30', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 0, NULL),
+(1602, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Hotarubi/01%20-%20Natsu%20wo%20Miteita.mp3', 'Natsu wo Miteita', 'Makoto Yoshimori, Shizuru Outaka', 'Hotarubi no Mori e Original Soundtrack：Kisetsu no Matataki', '02:30', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 1, NULL),
 (1603, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Hotarubi/02%20-%20Komorebi%20No%20Komichi.mp3', 'Komorebi No Komichi', 'Makoto Yoshimori', 'Hotarubi no Mori e Original Soundtrack：Kisetsu no Matataki', '02:30', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 0, NULL),
 (1604, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Hotarubi/03%20-%20Ojichan%20no%20Tenohira.mp3', 'Ojichan no Tenohira', 'Makoto Yoshimori', 'Hotarubi no Mori e Original Soundtrack：Kisetsu no Matataki', '02:30', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 0, NULL),
 (1605, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Hotarubi/04%20-%20Aru%20hi,%20Mori%20no%20Naka.mp3', 'Aru hi, Mori no Naka', 'Makoto Yoshimori', 'Hotarubi no Mori e Original Soundtrack：Kisetsu no Matataki', '02:30', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 0, NULL),
@@ -1697,7 +1697,25 @@ INSERT INTO `music` (`id_music`, `link_gdrive`, `title`, `artist`, `album`, `tim
 (1670, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/08.M7.mp3', 'M7', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, NULL),
 (1671, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/09.M7.mp3', 'M8', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, NULL),
 (1672, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/10.M9.mp3', 'M9', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, NULL),
-(1673, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/11.Yokoku.mp3', 'Yokoku', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, NULL);
+(1673, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/11.Yokoku.mp3', 'Yokoku', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, NULL),
+(1674, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Ichiban/01%20-%20Ichiban%20no%20Takaramono%20~Yui%20final%20ver.~.mp3', 'Ichiban no Takaramono ~Yui final ver.~', 'Jun Maeda, Tomohiro Takeshita, LiSA', 'Angel Beats! Insert Song Single - Yui final ver. - Girls Dead Monster', '06:00', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Ikanaide-album-ver/Ichiban/Angel%20Beats%20OST/-%20Yui%20final%20ver.%20.jpg', 0, NULL),
+(1675, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Ichiban/04.%2023%2050.mp3', '23:50', 'Jun Maeda, Tomohiro Takeshita, LiSA', 'Angel Beats! Insert Song Single - Keep The Beats! - Girls Dead Monster', '06:00', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Ikanaide-album-ver/Ichiban/Angel%20Beats%20OST/Keep%20The%20Beats!%20%20(2).jpg', 0, NULL),
+(1676, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Ichiban/09.%20Ichiban%20no%20Takaramono%20%20(Yui%20ver.).mp3', 'Ichiban no Takaramono (Yui ver.)', 'Jun Maeda, Tomohiro Takeshita, LiSA', 'Angel Beats! Insert Song Single - Keep The Beats! - Girls Dead Monster', '06:00', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Ikanaide-album-ver/Ichiban/Angel%20Beats%20OST/Keep%20The%20Beats!%20%20(2).jpg', 0, NULL),
+(1677, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Ichiban/2-19.%20%E4%B8%80%E7%95%AA%E3%81%AE%E5%AE%9D%E7%89%A9%20(Original%20Version).mp3', 'Ichiban no Takaramono (Original Version)	', 'Jun Maeda, ANANT-GARDE EYES, Karuta', 'Angel Beats! Original Soundtrack Disc 2', '06:00', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/Angel_Beats%2521_Original_Soundtrack_cover.webp', 0, NULL),
+(1678, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Ichiban/2-20.%20Brave%20Song.mp3', 'Ichiban no Takaramono (Original Version)	', 'Jun Maeda, ANANT-GARDE EYES, Aoi Tada', 'Angel Beats! Original Soundtrack Disc 2', '06:00', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/Angel_Beats%2521_Original_Soundtrack_cover.webp', 0, NULL),
+(1679, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/ver-sou-(mp3convert.org).mp3', 'Chopin To Koori No Hakken (Youtube Ver.)', 'Sou', 'Chopin To Koori No Hakken (Youtube Ver.)', '03:50', 'https://i.scdn.co/image/ab67616d0000b27344d10b329176466505e370b5', 0, NULL),
+(1680, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Green-a-live.mp3', 'Green a.live', 'YUI', 'HOW CRAZY YOUR LOVE', '04:41', 'https://i.scdn.co/image/ab67616d0000b273de2d94405ab339c5dcdf4810', 0, NULL),
+(1681, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/HELLO-YUI-Acoustic-Version.mp3', 'HELLO 〜YUI Acoustic Version〜', 'YUI', 'Green a.live', '03:40', 'https://i.scdn.co/image/ab67616d0000b273f7d1aaa39171e08a5526d5ed', 0, NULL),
+(1682, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Ikanaide-album-ver.mp3', 'Ikanaide - album ver', 'Eve', 'Round Robin', '03:15', 'https://i.scdn.co/image/ab67616d0000b273aaada7035017d10478c8bcb0', 0, NULL),
+(1683, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Kibou%20No%20Uta%20(osanime.com).mp3', 'Kibou No Uta', 'ULTRATOWER', 'Kibou No Uta', '04:08', 'https://i.scdn.co/image/ab67616d0000b273052c96e23a46c871786e1995', 0, NULL),
+(1684, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Kokoronashi%20%20By%20Hikaru%20Station%20%20Lyrics.mp3', 'Kokoronashi', 'Hikaru Station', 'Kokoronashi', '04:32', 'https://i.scdn.co/image/ab67616d0000b27320e20b22a1bc40212b808a8f', 0, NULL),
+(1685, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Kokoronashi.mp3', 'Kokoronashi', 'majiko', 'Contrast', '04:34', 'https://i.scdn.co/image/ab67616d0000b273f672cfe50a513713ea7cdc85', 0, NULL),
+(1686, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/LIFE-YUI-Acoustic-Version.mp3', 'LIFE 〜YUI Acoustic Version〜', 'YUI', 'TOKYO', '04:03', 'https://i.scdn.co/image/ab67616d0000b273e0d5b9056304cb60491801f6', 0, NULL),
+(1687, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Laugh-away.mp3', 'Laugh away', 'YUI', 'GREEN GARDEN POP', '04:22', 'https://i.scdn.co/image/ab67616d0000b2733bd8b41137b4389dd00751c3', 0, NULL),
+(1688, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Your-Heaven.mp3', 'Your Heaven', 'YUI', 'GREEN GARDEN POP', '04:22', 'https://i.scdn.co/image/ab67616d0000b2733bd8b41137b4389dd00751c3', 0, NULL),
+(1689, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/fight.mp3', 'fight', 'YUI', 'GREEN GARDEN POP', '04:22', 'https://i.scdn.co/image/ab67616d0000b2733bd8b41137b4389dd00751c3', 0, NULL),
+(1690, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/ikanaide-Acoustic-Cover.mp3', 'ikanaide - Acoustic Cover', 'MikaMagica', 'ikanaide (Acoustic Cover)', '04:16', 'https://i.scdn.co/image/ab67616d0000b273cd31feddcc5eca408fb9781c', 0, NULL),
+(1691, 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Chopin-To-Koori-No-Hakken.mp3', 'Chopin To Koori No Hakken', 'Sou', 'Suisou Regulus', '03:50', 'https://i.scdn.co/image/ab67616d0000b27344d10b329176466505e370b5', 0, NULL);
 
 --
 -- Indexes for dumped tables
@@ -1717,7 +1735,7 @@ ALTER TABLE `music`
 -- AUTO_INCREMENT untuk tabel `music`
 --
 ALTER TABLE `music`
-  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1674;
+  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1692;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
