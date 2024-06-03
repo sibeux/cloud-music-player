@@ -340,15 +340,13 @@ Author:Webstrot
                                                 value="0" id="range" />
                                         </div>
                                         <span id="last-minute">0:00</span>
-
-                                        <audio id="player_music">
-                                            <source src="" type="audio/mp3">
-                                        </audio>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm" style="text-align: right;">
-                                One of three columns
+                                <audio controls id="player_music">
+                                    <source src="" type="audio/mp3">
+                                </audio>
                             </div>
                         </div>
                     </div>
