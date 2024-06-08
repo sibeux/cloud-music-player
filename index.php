@@ -121,11 +121,21 @@ Author:Webstrot
 
                                             while ($array_data_music = mysqli_fetch_array($result_music)) {
 
+                                                $link_drive = '';
+                                                $url_db = $array_data_music['link_gdrive'];
+
+                                                if (str_contains($url_db, "drive.google.com")) {
+                                                    preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
+                                                    $link_drive = "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key['gdrive_api']}";
+                                                } else {
+                                                    $link_drive = $url_db;
+                                                }
+
                                                 // Data array baru
                                                 $data[] = array(
                                                     'id_music' => $number_music,
                                                     'title' => $array_data_music['title'],
-                                                    'link' => $array_data_music['link_gdrive']
+                                                    'link' => $link_drive,
                                                 );
 
                                                 // Mengencode data menjadi json
@@ -137,15 +147,6 @@ Author:Webstrot
                                                 $current_number_music = $number_music;
                                                 $id_music = $array_data_music['id_music'];
                                                 $favorite = $array_data_music['favorite'];
-                                                $url_db = $array_data_music['link_gdrive'];
-                                                $link_drive = '';
-
-                                                if (str_contains($url_db, "drive.google.com")) {
-                                                    preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
-                                                    $link_drive = "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key['gdrive_api']}";
-                                                } else {
-                                                    $link_drive = $url_db;
-                                                }
 
                                                 if ($array_data_music['link_spotify'] == null) {
 
