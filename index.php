@@ -41,7 +41,7 @@ $favorite = 0;
 $link_drive = "";
 
 $gdrive_api_query = $db->query("SELECT gdrive_api FROM API");
-$gdrive_api_key = mysqli_fetch_assoc($gdrive_api_query);
+// $gdrive_api_key = mysqli_fetch_assoc($gdrive_api_query);
 
 ?>
 
