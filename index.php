@@ -124,12 +124,12 @@ Author:Webstrot
                                                 $link_drive = '';
                                                 $url_db = $array_data_music['link_gdrive'];
 
-                                                // if (str_contains($url_db, "drive.google.com")) {
-                                                //     preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
-                                                //     $link_drive = "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key['gdrive_api']}";
-                                                // } else {
-                                                //     $link_drive = $url_db;
-                                                // }
+                                                if (strpos($url_db, "drive.google.com") !== false) {
+                                                    preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
+                                                    $link_drive = "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key['gdrive_api']}";
+                                                } else {
+                                                    $link_drive = $url_db;
+                                                }
 
                                                 // Data array baru
                                                 $data[] = array(
