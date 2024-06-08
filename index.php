@@ -43,11 +43,11 @@ $link_drive = "";
 $gdrive_api_query = $db->query("SELECT gdrive_api FROM API");
 $gdrive_api_key = mysqli_fetch_assoc($gdrive_api_query);
 
-function checkUrlFromDrive(string $url_db, array $gdrive_api_key)
+function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 {
     if (strpos($url_db, "drive.google.com") !== false) {
         preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
-        return "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key['gdrive_api']}";
+        return "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key}";
     } else {
         return $url_db;
     }
