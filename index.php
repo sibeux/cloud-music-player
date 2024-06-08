@@ -43,6 +43,16 @@ $link_drive = "";
 $gdrive_api_query = $db->query("SELECT gdrive_api FROM API");
 $gdrive_api_key = mysqli_fetch_assoc($gdrive_api_query);
 
+function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
+{
+    if (strpos($url_db, "drive.google.com") !== false) {
+        preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
+        return "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key['gdrive_api']}";
+    } else {
+        return $url_db;
+    }
+    
+}
 ?>
 
 <!DOCTYPE html>
@@ -121,16 +131,8 @@ Author:Webstrot
 
                                             while ($array_data_music = mysqli_fetch_array($result_music)) {
 
-                                                $link_drive = '';
-                                                $url_db = $array_data_music['link_gdrive'];
-
-                                                if (strpos($url_db, "drive.google.com") !== false) {
-                                                    preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
-                                                    $link_drive = "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key['gdrive_api']}";
-                                                } else {
-                                                    $link_drive = $url_db;
-                                                }
-
+                                                $link_drive = checkUrlFromDrive($array_data_music['link_gdrive'], $gdrive_api_key['gdrive_api']);
+                                                
                                                 // Data array baru
                                                 $data[] = array(
                                                     'id_music' => $number_music,
@@ -171,7 +173,7 @@ Author:Webstrot
                                                         $album = $array_data_music['album'];
                                                     }
 
-                                                    $cover = $array_data_music['cover'];
+                                                    $cover = checkUrlFromDrive($array_data_music['cover'], $gdrive_api_key['gdrive_api']);
                                                     $time = $array_data_music['time'];
 
                                                     // get data time from file music
