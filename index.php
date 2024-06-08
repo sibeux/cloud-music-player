@@ -17,7 +17,8 @@ function deleteJSON()
 
     // Close the file
     fclose($file);
-};
+}
+;
 
 deleteJSON();
 
@@ -38,6 +39,9 @@ $album = "";
 $cover = "";
 $favorite = 0;
 $link_drive = "";
+
+$gdrive_api_query = $db->query("SELECT gdrive_api FROM API");
+$gdrive_api_key = mysqli_fetch_assoc($gdrive_api_query);
 
 ?>
 
@@ -119,9 +123,9 @@ Author:Webstrot
 
                                                 // Data array baru
                                                 $data[] = array(
-                                                    'id_music'  => $number_music,
+                                                    'id_music' => $number_music,
                                                     'title' => $array_data_music['title'],
-                                                    'link'      => $array_data_music['link_gdrive']
+                                                    'link' => $array_data_music['link_gdrive']
                                                 );
 
                                                 // Mengencode data menjadi json
@@ -133,7 +137,15 @@ Author:Webstrot
                                                 $current_number_music = $number_music;
                                                 $id_music = $array_data_music['id_music'];
                                                 $favorite = $array_data_music['favorite'];
-                                                $link_drive = $array_data_music['link_gdrive'];
+                                                $url_db = $array_data_music['link_gdrive'];
+                                                $link_drive = '';
+
+                                                if (str_contains($url_db, "drive.google.com")) {
+                                                    preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
+                                                    $link_drive = "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key['gdrive_api']}";
+                                                } else {
+                                                    $link_drive = $url_db;
+                                                }
 
                                                 if ($array_data_music['link_spotify'] == null) {
 
@@ -166,14 +178,14 @@ Author:Webstrot
                                                     //     import { getDataTimeFileMusic } from './js/getDataTime.js';
                                                     //     getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
                                                     // </script>";
-
+                                            
                                                 } else {
                                                     echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
                                                         getDataFromAPISpotify('{$array_data_music['link_spotify']}', {$number_music}-1, 'null');
                                                     </script>";
                                                 }
-                                            ?>
+                                                ?>
                                             <ul class="album_inner_list_padding">
                                                 <li style="cursor: pointer;"><a><span class="play_no">
                                                             <?php echo $number_music; ?>
