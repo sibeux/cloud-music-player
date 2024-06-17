@@ -90,8 +90,7 @@ Author:Webstrot
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <!--favicon-->
     <!-- <link id="title_icon" rel="shortcut icon" type="image/png" href="images/favicon.png" /> -->
-    <link id="title_icon" rel="shortcut icon" type="image/png"
-        href="https://raw.githubusercontent.com/sibeux/cybeat_music_player/master/android/app/src/main/res/mipmap-mdpi/cybeat_launcher.png" />
+    <link id="title_icon" rel="shortcut icon" type="image/png" href="images/cybeat.png" />
 </head>
 
 <body class="index4_body_wrapper">
