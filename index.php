@@ -68,7 +68,8 @@ Author:Webstrot
 
 <head>
     <meta charset="utf-8" />
-    <title id="title_doc">iTunein Responsive HTML Template</title>
+    <!-- <title id="title_doc">iTunein Responsive HTML Template</title> -->
+    <title id="title_doc">Cybeat - Music Player </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="Tunein,music,song" />
     <meta name="keywords" content="Tunein,music,song" />
@@ -88,7 +89,9 @@ Author:Webstrot
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <!--favicon-->
-    <link id="title_icon" rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <!-- <link id="title_icon" rel="shortcut icon" type="image/png" href="images/favicon.png" /> -->
+    <link id="title_icon" rel="shortcut icon" type="image/png"
+        href="https://raw.githubusercontent.com/sibeux/cybeat_music_player/master/android/app/src/main/res/mipmap-mdpi/cybeat_launcher.png" />
 </head>
 
 <body class="index4_body_wrapper">
@@ -108,7 +111,7 @@ Author:Webstrot
                             <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 fixed_top_songs">
                                 <div class="song_heading_wrapper ms_cover">
                                     <div class="ms_heading_wrapper white_heading_wrapper">
-                                        <h1>top songs</h1>
+                                        <h1>日本の歌</h1>
                                     </div>
                                     <div>
                                         <div class="album_list_wrapper album_list_wrapper_shop">
