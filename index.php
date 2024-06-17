@@ -90,7 +90,7 @@ Author:Webstrot
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <!--favicon-->
     <!-- <link id="title_icon" rel="shortcut icon" type="image/png" href="images/favicon.png" /> -->
-    <link id="title_icon" rel="shortcut icon" type="image/png" href="images/cybeat.png" />
+    <link id="title_icon" rel="shortcut icon" type="image/x-icon" href="images/cybeat.png" />
 </head>
 
 <body class="index4_body_wrapper">
