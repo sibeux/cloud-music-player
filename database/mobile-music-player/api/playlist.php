@@ -2,25 +2,20 @@
 
 include './connection.php';
 
-$sql = "SELECT * FROM music ORDER BY title ASC";
+$sql = "SELECT * FROM playlist";
 
-if (isset($_GET['_page']) && isset($_GET['_limit'])) {
+if (isset($_GET['type']) && isset($_GET['uid'])) {
 
-    $_limit = $_GET['_limit'];
-    $_page = $_GET['_page'];
+    $type = $_GET['type'];
+    $uid = $_GET['uid'];
 
-    if ($_page <= 1) {
-        $_page = 0;
-    } else {
-        $_page = ($_page - 1) * $_limit;
+    if ($type == 'category') {
+        $sql = "SELECT * FROM music WHERE category = $uid ORDER BY title ASC";
     }
-
-    $sql = "SELECT * FROM music ORDER BY title ASC LIMIT $_limit OFFSET $_page";
 
 }
 
 // Query to retrieve data from MySQL
-// $sql = "SELECT * FROM music ORDER BY title ASC";
 $result = $conn->query($sql);
 
 // Check if the query was successful
