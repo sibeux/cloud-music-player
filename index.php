@@ -147,10 +147,10 @@ Author:Webstrot
 
                                                 // Data array baru
                                                 $data[] = array(
-                                                    'id_music' => $number_music,
-                                                    'uid' => $id_music,
+                                                    'index' => $number_music,
+                                                    'id_music' => $id_music,
                                                     'category' => $category,
-                                                    'link' => $link_drive,
+                                                    'link_gdrive' => $link_drive,
                                                     'title' => $title,
                                                     'artist' => $artist,
                                                     'album' => $album,
