@@ -14,7 +14,10 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
     }
 
     if ($type == 'album') {
-        $sql = "SELECT * FROM music WHERE album like '%kokoro ga%' ORDER BY title ASC";
+        $sql = "SELECT * FROM music 
+        join playlist on music.album like CONCAT('%', playlist.name, '%') 
+        where playlist.uid = '$uid'
+        ORDER BY title ASC";
     }
 
 }
