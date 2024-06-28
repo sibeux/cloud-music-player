@@ -150,7 +150,7 @@ Author:Webstrot
                                                     'index' => $number_music,
                                                     'uid' => $id_music,
                                                     // 'category' => $category,
-                                                    // 'link' => $link_drive,
+                                                    'link' => $link_drive,
                                                     // 'title' => $title,
                                                     // 'artist' => $artist,
                                                     // 'album' => $album,
