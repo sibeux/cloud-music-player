@@ -144,7 +144,7 @@ function nextMusic(countMusic) {
 		.then((response) => response.json())
 		.then((json) =>
 			animatedPlayMusic(
-				json[randomNumber]["id_music"] - 1,
+				json[randomNumber]["index"] - 1,
 				json[randomNumber]["link"],
 				countMusic
 			)
