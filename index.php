@@ -134,12 +134,30 @@ Author:Webstrot
                                             while ($array_data_music = mysqli_fetch_array($result_music)) {
 
                                                 $link_drive = checkUrlFromDrive($array_data_music['link_gdrive'], $gdrive_api_key['gdrive_api']);
-                                                
+                                                $current_number_music = $number_music;
+                                                $id_music = $array_data_music['id_music'];
+                                                $category = $array_data_music['category'];
+                                                $title = $array_data_music['title'];
+                                                $artist = $array_data_music['artist'];
+                                                $favorite = $array_data_music['favorite'];
+                                                $album = $array_data_music['favorite'];
+                                                $time = $array_data_music['time'];
+                                                $cover = $array_data_music['cover'];
+                                                $date_added = $array_data_music['date_added'];
+
                                                 // Data array baru
                                                 $data[] = array(
-                                                    'id_music' => $number_music,
-                                                    'title' => $array_data_music['title'],
+                                                    'index' => $number_music,
+                                                    'uid' => $id_music,
+                                                    'category' => $category,
                                                     'link' => $link_drive,
+                                                    'title' => $title,
+                                                    'artist' => $artist,
+                                                    'album' => $album,
+                                                    'time' => $time,
+                                                    'cover' => $cover,
+                                                    'favorite' => $favorite,
+                                                    'date_added' => $date_added,
                                                 );
 
                                                 // Mengencode data menjadi json
@@ -147,11 +165,7 @@ Author:Webstrot
 
                                                 // Menyimpan data ke dalam anggota.json
                                                 $anggota = file_put_contents($file, $jsonfile);
-
-                                                $current_number_music = $number_music;
-                                                $id_music = $array_data_music['id_music'];
-                                                $favorite = $array_data_music['favorite'];
-
+                                                
                                                 if ($array_data_music['link_spotify'] == null) {
 
                                                     // cut string title if too long
