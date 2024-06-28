@@ -149,15 +149,15 @@ Author:Webstrot
                                                 $data[] = array(
                                                     'id_music' => $number_music,
                                                     'uid' => $id_music,
-                                                    // 'category' => $category,
+                                                    'category' => $category,
                                                     'link' => $link_drive,
-                                                    // 'title' => $title,
-                                                    // 'artist' => $artist,
-                                                    // 'album' => $album,
-                                                    // 'time' => $time,
-                                                    // 'cover' => $cover,
-                                                    // 'favorite' => $favorite,
-                                                    // 'date_added' => $date_added,
+                                                    'title' => $title,
+                                                    'artist' => $artist,
+                                                    'album' => $album,
+                                                    'time' => $time,
+                                                    'cover' => $cover,
+                                                    'favorite' => $favorite,
+                                                    'date_added' => $date_added,
                                                 );
 
                                                 // Mengencode data menjadi json
