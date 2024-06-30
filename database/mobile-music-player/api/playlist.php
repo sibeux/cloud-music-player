@@ -10,7 +10,10 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
     $uid = $_GET['uid'];
 
     if ($type == 'category') {
-        $sql = "SELECT * FROM music WHERE category = '$uid' ORDER BY title ASC";
+        $sql = "SELECT * FROM music
+join playlist on music.category like playlist.uid
+WHERE music.category = '$uid'
+ORDER BY music.title ASC";
     }
 
     if ($type == 'album') {
