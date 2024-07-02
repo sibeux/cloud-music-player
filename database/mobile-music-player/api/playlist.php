@@ -8,7 +8,7 @@ $sql = "SELECT * FROM playlist ORDER BY pin";
 if ($sort == 'uid') {
     $sql = "SELECT * FROM playlist ORDER BY pin asc, uid desc";
 } else if ($sort == 'title'){
-    $sql = "SELECT * FROM playlist ORDER BY pin asc, title asc";
+    $sql = "SELECT * FROM playlist ORDER BY pin asc, name asc";
 }
 
 if (isset($_GET['type']) && isset($_GET['uid'])) {
