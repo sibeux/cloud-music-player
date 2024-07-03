@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 30 Jun 2024 pada 03.34
+-- Waktu pembuatan: 03 Jul 2024 pada 03.33
 -- Versi server: 10.3.39-MariaDB-cll-lve
 -- Versi PHP: 8.1.28
 
@@ -559,7 +559,7 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (439, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/BLUE_ENCOUNT-_.mp3', 'Polaris', 'BLUE ENCOUNT', 'Q.E.D', '03:44', 'https://i.scdn.co/image/ab67616d0000b273926909699c1214051c7a9937', 0, '2024-06-19 00:00:00'),
 (440, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/the_peggies-_.mp3', 'Ashiato -Footprints-', 'the peggies', 'Ashiato -Footprints-', '03:48', 'https://i.scdn.co/image/ab67616d0000b273a3c46d98c96e50ef24ef32ef', 0, '2024-06-19 00:00:00'),
 (441, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_Zenzenzense_-_movie_ver..mp3', 'Zenzenzense - movie ver.', 'RADWIMPS', 'Your Name.', '04:46', 'https://i.scdn.co/image/ab67616d0000b273cbbbea7d8fcf057f65071a85', 0, '2024-06-19 00:00:00'),
-(442, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_Akuma_no_Ko.mp3', 'Akuma no Ko', 'Higuchi Ai', 'Saiaku Saiai', '03:50', 'https://i.scdn.co/image/ab67616d0000b2738fcd1d374b2a800ae288a487', 0, '2024-06-19 00:00:00'),
+(442, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_Akuma_no_Ko.mp3', 'Akuma no Ko', 'Higuchi Ai', 'Saiaku Saiai', '03:50', 'https://i.scdn.co/image/ab67616d0000b2738fcd1d374b2a800ae288a487', 1, '2024-06-19 00:00:00'),
 (443, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/SIX_LOUNGE.mp3', 'kitakaze', 'SIX LOUNGE', 'kitakaze', '03:31', 'https://i.scdn.co/image/ab67616d0000b2731bd64ddb11820e1f8f53b7cf', 0, '2024-06-19 00:00:00'),
 (444, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/SUPER_BEAVER.mp3', 'Toppako', 'SUPER BEAVER', 'Toppako / Jiman ni Naritai', '04:15', 'https://i.scdn.co/image/ab67616d0000b2738fa2140238ef5c825381e4db', 0, '2024-06-19 00:00:00'),
 (445, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_SHOCK.mp3', 'SHOCK!', 'Ayase', 'SHOCK!', '03:00', 'https://i.scdn.co/image/ab67616d0000b2730de04fba1e9bf2cf809811c5', 0, '2024-06-19 00:00:00'),
@@ -1786,7 +1786,7 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (1668, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/06.M6-1.mp3', 'M6-1', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, '2024-06-19 00:00:00'),
 (1669, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/07.M6-2.mp3', 'M6-2', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, '2024-06-19 00:00:00'),
 (1670, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/08.M7.mp3', 'M7', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, '2024-06-19 00:00:00'),
-(1671, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/09.M7.mp3', 'M8', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, '2024-06-19 00:00:00'),
+(1671, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/09.M7.mp3', 'M8', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 1, '2024-06-19 00:00:00'),
 (1672, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/10.M9.mp3', 'M9', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, '2024-06-19 00:00:00'),
 (1673, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Resshahen/Resshahen/11.Yokoku.mp3', 'Yokoku', 'Go Shiina', 'Kimetsu no Yaiba: Mugen Ressha-hen Vol.1 Bonus Disc', '02:04', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/Resshahen/cover.jpg', 0, '2024-06-19 00:00:00'),
 (1674, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/Ikanaide-album-ver/Ichiban/01%20-%20Ichiban%20no%20Takaramono%20~Yui%20final%20ver.~.mp3', 'Ichiban no Takaramono ~Yui final ver.~', 'Jun Maeda, Tomohiro Takeshita, LiSA', 'Angel Beats! Insert Song Single - Yui final ver. - Girls Dead Monster', '06:00', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Ikanaide-album-ver/Ichiban/Angel%20Beats%20OST/-%20Yui%20final%20ver.%20.jpg', 0, '2024-06-19 00:00:00'),
@@ -1917,7 +1917,7 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (1798, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/3-fuwa/2007%20-%20Clannad%20OP%20ED%20Single%20-%20Megumeru/Megumeru%20-cuckool%20mix%202007-%20-TV%20animation%20Ver.-.mp3', 'Megumeru -cuckool mix 2007- -TV animation Ver.-', 'Eufonius', '2007 - Clannad OP ED Single - Megumeru', '04:03', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/2007%20-%20Clannad%20OP%20ED%20Single%20-%20Megumeru/Scans/01%20(2).jpg', 0, '2024-06-19 00:00:00'),
 (1799, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/3-fuwa/2007%20-%20Clannad%20OP%20ED%20Single%20-%20Megumeru/Megumeru%20-cuckool%20mix%202007-.mp3', 'Megumeru -cuckool mix 2007-', 'Eufonius', '2007 - Clannad OP ED Single - Megumeru', '04:03', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/2007%20-%20Clannad%20OP%20ED%20Single%20-%20Megumeru/Scans/01%20(2).jpg', 0, '2024-06-19 00:00:00'),
 (1800, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/CD1/01.%20Watashi%20no%20Koi%20wa%20Hotch%20Kiss.mp3', 'Watashi no Koi wa Hotch Kiss', 'Yui Hirasawa (CV: Toyosaki Aki)', 'K-ON! Gekichuka Mini Album Houkago Tea Time Disc 1', '03:58', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/Scans/cover.jpg', 0, '2024-06-19 00:00:00'),
-(1801, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/CD1/02.%20Fude%20Pen%20~Ballpoint%20Pen~.mp3', 'Fude Pen ~Ballpoint Pen~', 'Yui Hirasawa (CV: Toyosaki Aki), Mio Akiyama (CV: Hikasa Youko)', 'K-ON! Gekichuka Mini Album Houkago Tea Time Disc 1', '03:58', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/Scans/cover.jpg', 0, '2024-06-19 00:00:00'),
+(1801, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/CD1/02.%20Fude%20Pen%20~Ballpoint%20Pen~.mp3', 'Fude Pen ~Ballpoint Pen~', 'Yui Hirasawa (CV: Toyosaki Aki), Mio Akiyama (CV: Hikasa Youko)', 'K-ON! Gekichuka Mini Album Houkago Tea Time Disc 1', '03:58', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/Scans/cover.jpg', 1, '2024-06-19 00:00:00'),
 (1802, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/CD1/03.%20Curry%20Nochi%20Rice.mp3', 'Curry Nochi Rice', 'Yui Hirasawa (CV: Toyosaki Aki)', 'K-ON! Gekichuka Mini Album Houkago Tea Time Disc 1', '03:58', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/Scans/cover.jpg', 0, '2024-06-19 00:00:00'),
 (1803, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/CD1/04%20-%20Fuwa%20Fuwa%20Time%20(5nin%20Version).mp3', 'Fuwa Fuwa Time (5nin Version)', 'Yui Hirasawa (CV: Toyosaki Aki)', 'K-ON! Gekichuka Mini Album Houkago Tea Time Disc 1', '03:58', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/Scans/cover.jpg', 0, '2024-06-19 00:00:00'),
 (1804, '2', 'https://github.com/sibeux/redesigned-broccoli/raw/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/CD2/01.%20Watashi%20no%20Koi%20wa%20Hotch%20Kiss%20(%238%20Shinkan!%20Mix).mp3', 'Watashi no Koi wa Hotch Kiss (#8 Shinkan! Mix)', 'Yui Hirasawa (CV: Toyosaki Aki)', 'K-ON! Gekichuka Mini Album Houkago Tea Time Disc 2', '03:58', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/Scans/cover.jpg', 0, '2024-06-19 00:00:00'),
@@ -2387,7 +2387,8 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (2265, '2', 'https://drive.google.com/file/d/1v7JiQHncKM7dVH9dx62qOfmiXLjVACkP/view?usp=drive_link', 'shouchi no tsuke', 'Kohei Tanaka, MORI JUNTA, Masahiro Takami, Hajime Hyakkoku, Hiroshi Kitadani, Eri Takeda, Matto Yamamoto', 'One Piece Best Song Collection Disc 2', '01:34', 'https://drive.google.com/file/d/1uHdBew4owwbRKfXa6-nI4NZsdhuAKYOv/view?usp=drive_link', 0, '2024-06-21 00:54:49'),
 (2266, '2', 'https://drive.google.com/file/d/1vFuqgfS0jAHKci_TqmL8qYhVmNHclZ8I/view?usp=drive_link', 'Talking Blues', 'Kohei Tanaka, MORI JUNTA, Masahiro Takami, Hajime Hyakkoku, Hiroshi Kitadani, Eri Takeda, Matto Yamamoto', 'One Piece Best Song Collection Disc 2', '01:34', 'https://drive.google.com/file/d/1uHdBew4owwbRKfXa6-nI4NZsdhuAKYOv/view?usp=drive_link', 0, '2024-06-21 00:54:49'),
 (2267, '2', 'https://drive.google.com/file/d/1vDrkGQ_lWBTmJXNt7ytoRXay_zxtXmNo/view?usp=drive_link', 'watashi no iruyo', 'Kohei Tanaka, MORI JUNTA, Masahiro Takami, Hajime Hyakkoku, Hiroshi Kitadani, Eri Takeda, Matto Yamamoto', 'One Piece Best Song Collection Disc 2', '01:34', 'https://drive.google.com/file/d/1uHdBew4owwbRKfXa6-nI4NZsdhuAKYOv/view?usp=drive_link', 0, '2024-06-21 00:54:49'),
-(2268, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/muteki.mp3', 'Muteki', 'Young Kee', 'Wind Breaker Season 1 Opening Theme', '03:23', 'https://i.scdn.co/image/ab67616d0000b273f54594ea99375fa76ee7c883', 1, '2024-06-29 20:59:59');
+(2268, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/muteki.mp3', 'Muteki', 'Young Kee', 'Wind Breaker Season 1 Opening Theme', '03:23', 'https://i.scdn.co/image/ab67616d0000b273f54594ea99375fa76ee7c883', 1, '2024-06-29 20:59:59'),
+(2269, '2', 'https://sibeux.my.id/data/remote.php/webdav/Documents/Naruto%20Shippuden%20Unreleased%20Soundtrack%20-%20Minato%20Saves%20Kushina%20by%20Naruto-%20Listen%20on%20Audiomack.mp3', 'Minato Saves Kushina', 'Takanashi Yasuharu', 'Naruto Shippuden Unreleased Soundtrack', '03:58', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/6ecea995279a47afc7e120624f53aa05af18f0ae1d91da11df637ebf66144cec.jpg', 0, '2024-07-03 03:30:01');
 
 -- --------------------------------------------------------
 
@@ -2400,6 +2401,7 @@ CREATE TABLE `playlist` (
   `name` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `image` mediumtext NOT NULL,
   `type` enum('playlist','album','category') NOT NULL DEFAULT 'playlist',
+  `pin` enum('true','false') NOT NULL DEFAULT 'false',
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -2407,36 +2409,34 @@ CREATE TABLE `playlist` (
 -- Dumping data untuk tabel `playlist`
 --
 
-INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `date`) VALUES
-(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', '2024-06-27 18:34:17'),
-(3, 'Kokoro Ga Sakebitagatterunda. Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1MRns0V5JSTqzZV1TrmtiM6-MnUm_nv7c?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', '2024-06-27 20:15:04'),
-(4, 'Danshi Koukousei No Nichijou Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Danshi/cover.jpg', 'album', '2024-06-28 08:10:44'),
-(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', '2024-06-28 08:11:46'),
-(6, 'Your Name.', 'https://i.scdn.co/image/ab67616d0000b2733d1869d8c477d291a205a2d6', 'album', '2024-06-28 08:14:27'),
-(7, 'Hoshi Wo Ou Kodomo Original SoundTrack', 'https://www.googleapis.com/drive/v3/files/1E236L4hH631G7bRVz-8lza2_lPvaC0W2?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', '2024-06-28 09:01:00'),
-(8, 'Kimetsu No Yaiba: Mugen Ressha-Hen Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/COVER.jpg', 'album', '2024-06-28 09:01:53'),
-(9, 'Hotarubi No Mori E Original Soundtrack：Kisetsu No Matataki', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 'album', '2024-06-28 09:03:09'),
-(10, 'TV Anime \"Bucchigiri?!\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2733d5680712aac4c5770102c89', 'album', '2024-06-28 09:04:04'),
-(11, 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 'album', '2024-06-28 09:06:30'),
-(12, 'TV Anime \"Tokyo Ghoul\" ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2730809f5b6616747f5abbe8824', 'album', '2024-06-28 09:06:50'),
-(13, 'Ranking Of Kings Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 'album', '2024-06-28 09:07:18'),
-(14, 'Shadow Warrior 2 (Deluxe) Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1V3VSQOVAy82fCrNohchYzeFx8VkiH-WT?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', '2024-06-28 09:08:27'),
-(15, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK II', 'https://i.scdn.co/image/ab67616d0000b273f9f0edfe58bbb6e3c44e574f', 'album', '2024-06-29 20:20:33'),
-(16, 'My Hero Academia 2nd Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1EtiJDEJ6OBARG7dqG0JI-jR_3E2Xo4O5?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', '2024-06-29 20:22:33'),
-(17, 'TV Anime \"Run With The Wind\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273c6f1af3e00d600747a3cdffa', 'album', '2024-06-29 20:23:23'),
-(18, 'ERASED OST', 'https://raw.githubusercontent.com/sibeux/license-sibeux/6490a201304882286d3b3c9610a9cbc7ad619740/artworks-000170281236-tu74m6-original.jpg', 'album', '2024-06-29 20:23:39'),
-(19, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273e7b3df567bd509d3ada547a4', 'album', '2024-06-29 20:24:52'),
-(20, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.2', 'https://i.scdn.co/image/ab67616d0000b27329a68e040ae9c8711718f7e3', 'album', '2024-06-29 20:25:08'),
-(21, 'CLANNAD Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/images/119525.png', 'album', '2024-06-29 20:25:31'),
-(22, 'MASHLE Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273ae5832066b25ee5b41d701a1', 'album', '2024-06-29 20:25:57'),
-(23, 'TV Anime \"Jujutsu Kaisen\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2739230f7c8dfff664d6ac2ad0b', 'album', '2024-06-29 20:27:51'),
-(24, 'DEATH NOTE Original Soundtrack Ⅱ', 'https://i.scdn.co/image/ab67616d0000b2733b451fd2667d142be5063b4a', 'album', '2024-06-29 20:28:12'),
-(25, 'Mushishi Soundtrack \"Mushinone Zoku\"', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Mushinone%20Zoku/cover.jpg', 'album', '2024-06-29 20:28:32'),
-(26, 'TV Anime \"Attack On Titan Season 2\" (Original Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b2739c44e39f1b6aafe87a6db356', 'album', '2024-06-29 20:29:01'),
-(27, 'TV Anime “SPY×FAMILY” Original Soundtrack (Vol.1)', 'https://raw.githubusercontent.com/sibeux/sibeux-contrarians-syntaxianz/main/mewing/STRIX/Berlint%20%E2%80%94%20SPY%20x%20FAMILY%20%5BOST%5D.png', 'album', '2024-06-29 20:29:43'),
-(28, 'Sword Art Online Music Collection', 'https://i.scdn.co/image/ab67616d0000b273136a8ed571891d091ed4715b', 'album', '2024-06-29 20:30:23'),
-(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', '2024-06-29 20:30:36'),
-(30, 'DEATH NOTE Original Soundtrack Ⅲ', 'https://i.scdn.co/image/ab67616d0000b2739dd71a92c70af0dc020f7197', 'album', '2024-06-29 20:30:51');
+INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `pin`, `date`) VALUES
+(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', 'true', '2024-06-27 18:34:17'),
+(4, 'Danshi Koukousei No Nichijou Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Danshi/cover.jpg', 'album', 'false', '2024-06-28 08:10:44'),
+(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'false', '2024-06-28 08:11:46'),
+(6, 'Your Name.', 'https://i.scdn.co/image/ab67616d0000b2733d1869d8c477d291a205a2d6', 'album', 'false', '2024-06-28 08:14:27'),
+(8, 'Kimetsu No Yaiba: Mugen Ressha-Hen Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/COVER.jpg', 'album', 'false', '2024-06-28 09:01:53'),
+(9, 'Hotarubi No Mori E Original Soundtrack：Kisetsu No Matataki', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 'album', 'true', '2024-06-28 09:03:09'),
+(10, 'TV Anime \"Bucchigiri?!\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2733d5680712aac4c5770102c89', 'album', 'false', '2024-06-28 09:04:04'),
+(11, 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 'album', 'false', '2024-06-28 09:06:30'),
+(12, 'TV Anime \"Tokyo Ghoul\" ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2730809f5b6616747f5abbe8824', 'album', 'false', '2024-06-28 09:06:50'),
+(13, 'Ranking Of Kings Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 'album', 'false', '2024-06-28 09:07:18'),
+(14, 'Shadow Warrior 2 (Deluxe) Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1V3VSQOVAy82fCrNohchYzeFx8VkiH-WT?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'false', '2024-06-28 09:08:27'),
+(15, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK II', 'https://i.scdn.co/image/ab67616d0000b273f9f0edfe58bbb6e3c44e574f', 'album', 'false', '2024-06-29 20:20:33'),
+(16, 'My Hero Academia 2nd Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1EtiJDEJ6OBARG7dqG0JI-jR_3E2Xo4O5?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'false', '2024-06-29 20:22:33'),
+(17, 'TV Anime \"Run With The Wind\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273c6f1af3e00d600747a3cdffa', 'album', 'false', '2024-06-29 20:23:23'),
+(18, 'ERASED OST', 'https://raw.githubusercontent.com/sibeux/license-sibeux/6490a201304882286d3b3c9610a9cbc7ad619740/artworks-000170281236-tu74m6-original.jpg', 'album', 'false', '2024-06-29 20:23:39'),
+(19, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273e7b3df567bd509d3ada547a4', 'album', 'false', '2024-06-29 20:24:52'),
+(20, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.2', 'https://i.scdn.co/image/ab67616d0000b27329a68e040ae9c8711718f7e3', 'album', 'false', '2024-06-29 20:25:08'),
+(21, 'CLANNAD Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/images/119525.png', 'album', 'false', '2024-06-29 20:25:31'),
+(22, 'MASHLE Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273ae5832066b25ee5b41d701a1', 'album', 'false', '2024-06-29 20:25:57'),
+(23, 'TV Anime \"Jujutsu Kaisen\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2739230f7c8dfff664d6ac2ad0b', 'album', 'false', '2024-06-29 20:27:51'),
+(24, 'DEATH NOTE Original Soundtrack Ⅱ', 'https://i.scdn.co/image/ab67616d0000b2733b451fd2667d142be5063b4a', 'album', 'false', '2024-06-29 20:28:12'),
+(25, 'Mushishi Soundtrack \"Mushinone Zoku\"', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Mushinone%20Zoku/cover.jpg', 'album', 'false', '2024-06-29 20:28:32'),
+(26, 'TV Anime \"Attack On Titan Season 2\" (Original Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b2739c44e39f1b6aafe87a6db356', 'album', 'false', '2024-06-29 20:29:01'),
+(27, 'TV Anime “SPY×FAMILY” Original Soundtrack (Vol.1)', 'https://raw.githubusercontent.com/sibeux/sibeux-contrarians-syntaxianz/main/mewing/STRIX/Berlint%20%E2%80%94%20SPY%20x%20FAMILY%20%5BOST%5D.png', 'album', 'false', '2024-06-29 20:29:43'),
+(28, 'Sword Art Online Music Collection', 'https://i.scdn.co/image/ab67616d0000b273136a8ed571891d091ed4715b', 'album', 'false', '2024-06-29 20:30:23'),
+(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', 'false', '2024-06-29 20:30:36'),
+(30, 'DEATH NOTE Original Soundtrack Ⅲ', 'https://i.scdn.co/image/ab67616d0000b2739dd71a92c70af0dc020f7197', 'album', 'false', '2024-06-29 20:30:51');
 
 --
 -- Indexes for dumped tables
@@ -2474,7 +2474,7 @@ ALTER TABLE `designs`
 -- AUTO_INCREMENT untuk tabel `music`
 --
 ALTER TABLE `music`
-  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2269;
+  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2270;
 
 --
 -- AUTO_INCREMENT untuk tabel `playlist`
