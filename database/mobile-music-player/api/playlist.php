@@ -2,13 +2,28 @@
 
 include './connection.php';
 
-$sort = $_GET['sort'];
 $sql = "SELECT * FROM playlist ORDER BY pin";
 
-if ($sort == 'uid') {
-    $sql = "SELECT * FROM playlist ORDER BY pin, date_pin asc, uid desc";
-} else if ($sort == 'title'){
-    $sql = "SELECT * FROM playlist ORDER BY pin, date_pin asc, name asc";
+if (isset($_GET['sort'])) {
+    $sort = $_GET['sort'];
+
+    if ($sort == 'uid') {
+        $sql = "SELECT * FROM playlist ORDER BY pin, date_pin asc, uid desc";
+    } else if ($sort == 'title') {
+        $sql = "SELECT * FROM playlist ORDER BY pin, date_pin asc, name asc";
+    }
+}
+
+if (isset($_GET['action']) && isset($_GET['uid'])) {
+    $uid = $_GET['uid'];
+
+    if ($_GET['action'] == 'pin') {
+        setPin($conn, $uid);
+    } else if ($_GET['action'] == 'unpin') {
+        unPin($conn, $uid);
+    }
+    
+    
 }
 
 if (isset($_GET['type']) && isset($_GET['uid'])) {
@@ -30,6 +45,27 @@ ORDER BY music.title ASC";
         ORDER BY title ASC";
     }
 
+}
+
+function setPin($db, $uid){
+    if ($stmt = $db->prepare('UPDATE playlist SET pin = true, date_pin = ? WHERE uid = ?')) {
+        $stmt->bind_param('is', $uid, date('Y-m-d H:i:s'));
+        $stmt->execute();
+        $stmt->close();
+        
+    } else {
+        echo 'Could not prepare statement!';
+    }
+}
+
+function unPin($db, $uid){
+    if ($stmt = $db->prepare('UPDATE playlist SET pin = false, date_pin = NULL WHERE uid = ?')) {
+        $stmt->bind_param('i', $uid);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        echo 'Could not prepare statement!';
+    }
 }
 
 // Query to retrieve data from MySQL
