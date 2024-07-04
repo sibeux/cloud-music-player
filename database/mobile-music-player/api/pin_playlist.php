@@ -19,7 +19,7 @@ function setPin($db, $uid)
 
 function unPin($db, $uid)
 {
-    $sql = "UPDATE playlist SET pin = false, date_pin = NULL WHERE uid = '$uid'";
+    $sql = "UPDATE playlist SET pin = 'false', date_pin = NULL WHERE uid = '$uid'";
 
     // Query to retrieve data from MySQL
     $result = $db->query($sql);
