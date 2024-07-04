@@ -4,24 +4,31 @@ include './connection.php';
 
 function setPin($db, $uid)
 {
-    if ($stmt = $db->prepare('UPDATE playlist SET pin = true, date_pin = ? WHERE uid = ?')) {
-        $stmt->bind_param('is', $uid, date('Y-m-d H:i:s'));
-        $stmt->execute();
-        $stmt->close();
+    $sql = "UPDATE playlist SET pin = true, date_pin = date('Y-m-d H:i:s') WHERE uid = $uid";
 
+    // Query to retrieve data from MySQL
+    $result = $db->query($sql);
+
+    // Check if the query was successful
+    if (!$result) {
+        die("Query failed: " . $db->error);
     } else {
-        echo 'Could not prepare statement!';
+        echo "Success";
     }
 }
 
 function unPin($db, $uid)
 {
-    if ($stmt = $db->prepare('UPDATE playlist SET pin = false, date_pin = NULL WHERE uid = ?')) {
-        $stmt->bind_param('i', $uid);
-        $stmt->execute();
-        $stmt->close();
+    $sql = "UPDATE playlist SET pin = false, date_pin = NULL WHERE uid = $uid";
+
+    // Query to retrieve data from MySQL
+    $result = $db->query($sql);
+
+    // Check if the query was successful
+    if (!$result) {
+        die("Query failed: " . $db->error);
     } else {
-        echo 'Could not prepare statement!';
+        echo "Success";
     }
 }
 
@@ -36,4 +43,5 @@ switch ($_GET['action']) {
         break;
 }
 
-$db->close();
+// Close the connection
+$conn->close();
