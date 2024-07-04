@@ -14,18 +14,6 @@ if (isset($_GET['sort'])) {
     }
 }
 
-if (isset($_GET['action']) && isset($_GET['uid'])) {
-    $uid = $_GET['uid'];
-
-    if ($_GET['action'] == 'pin') {
-        setPin($conn, $uid);
-    } else if ($_GET['action'] == 'unpin') {
-        unPin($conn, $uid);
-    }
-    
-    
-}
-
 if (isset($_GET['type']) && isset($_GET['uid'])) {
 
     $type = $_GET['type'];
@@ -47,26 +35,6 @@ ORDER BY music.title ASC";
 
 }
 
-function setPin($db, $uid){
-    if ($stmt = $db->prepare('UPDATE playlist SET pin = true, date_pin = ? WHERE uid = ?')) {
-        $stmt->bind_param('is', $uid, date('Y-m-d H:i:s'));
-        $stmt->execute();
-        $stmt->close();
-        
-    } else {
-        echo 'Could not prepare statement!';
-    }
-}
-
-function unPin($db, $uid){
-    if ($stmt = $db->prepare('UPDATE playlist SET pin = false, date_pin = NULL WHERE uid = ?')) {
-        $stmt->bind_param('i', $uid);
-        $stmt->execute();
-        $stmt->close();
-    } else {
-        echo 'Could not prepare statement!';
-    }
-}
 
 // Query to retrieve data from MySQL
 $result = $conn->query($sql);
