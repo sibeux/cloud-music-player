@@ -2,7 +2,7 @@
 
 include './connection.php';
 
-$sql = "SELECT * FROM playlist";
+$sql = "SELECT * FROM playlist ORDER BY pin";
 
 if (isset($_GET['sort'])) {
     $sort = $_GET['sort'];
