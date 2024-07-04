@@ -34,10 +34,10 @@ function unPin($db, $uid)
 
 switch ($_GET['action']) {
     case 'pin':
-        setPin($conn, $uid);
+        setPin($conn, $_GET['uid']);
         break;
     case 'unpin':
-        unPin($conn, $uid);
+        unPin($conn, $_GET['uid']);
         break;
     default:
         break;
