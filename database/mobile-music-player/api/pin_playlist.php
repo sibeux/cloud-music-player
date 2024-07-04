@@ -4,7 +4,7 @@ include './connection.php';
 
 function setPin($db, $uid)
 {
-    $sql = "UPDATE playlist SET pin = true, date_pin = date('Y-m-d H:i:s') WHERE uid = $uid";
+    $sql = "UPDATE playlist SET pin = true, date_pin = date('Y-m-d H:i:s') WHERE uid = '$uid'";
 
     // Query to retrieve data from MySQL
     $result = $db->query($sql);
@@ -19,7 +19,7 @@ function setPin($db, $uid)
 
 function unPin($db, $uid)
 {
-    $sql = "UPDATE playlist SET pin = false, date_pin = NULL WHERE uid = $uid";
+    $sql = "UPDATE playlist SET pin = false, date_pin = NULL WHERE uid = '$uid'";
 
     // Query to retrieve data from MySQL
     $result = $db->query($sql);
