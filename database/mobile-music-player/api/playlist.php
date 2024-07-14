@@ -6,12 +6,12 @@ $sql = "SELECT * FROM playlist ORDER BY pin";
 
 if (isset($_GET['sort']) && isset($_GET['filter'])) {
     $sort = $_GET['sort'];
-    $filter = $_GET['filter'];
+    $filter = $_GET['filter'] == '' ? '1=1' : $_GET['filter'];
 
     if ($sort == 'uid') {
-        $sql = "SELECT * FROM playlist WHERE type = '$filter' ORDER BY pin, date_pin asc, uid desc";
+        $sql = "SELECT * FROM playlist WHERE ('$filter' IS NULL OR type = '$filter') ORDER BY pin, date_pin asc, uid desc";
     } else if ($sort == 'title') {
-        $sql = "SELECT * FROM playlist WHERE type = '$filter' ORDER BY pin, date_pin asc, name asc";
+        $sql = "SELECT * FROM playlist WHERE ('$filter' IS NULL OR type = '$filter') ORDER BY pin, date_pin asc, name asc";
     }
 }
 
