@@ -9,9 +9,9 @@ if (isset($_GET['sort']) && isset($_GET['filter'])) {
     $filter = $_GET['filter'] == '' ? null : $_GET['filter'];
 
     if ($sort == 'uid') {
-        $sql = "SELECT * FROM playlist WHERE ('$filter' IS NULL OR type = '$filter') ORDER BY pin, date_pin asc, uid desc";
+        $sql = "SELECT * FROM playlist WHERE LENGTH('$filter') = 0 OR type = '$filter' ORDER BY pin, date_pin asc, uid desc";
     } else if ($sort == 'title') {
-        $sql = "SELECT * FROM playlist WHERE ('$filter' IS NULL OR type = '$filter') ORDER BY pin, date_pin asc, name asc";
+        $sql = "SELECT * FROM playlist WHERE LENGTH('$filter') = 0 OR type = '$filter' ORDER BY pin, date_pin asc, name asc";
     }
 }
 
