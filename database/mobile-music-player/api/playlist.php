@@ -34,10 +34,10 @@ ORDER BY music.title ASC";
         ORDER BY title ASC";
     }
 
-}
+    if ($type == 'favorite') {
+        $sql = "SELECT * FROM music WHERE favorite = '1' ORDER BY title ASC";
+    }
 
-if (isset($_GET['favorite'])){
-    $sql = "SELECT * FROM music WHERE favorite = '1' ORDER BY title ASC";
 }
 
 if (isset($_GET['count_favorite'])) {
