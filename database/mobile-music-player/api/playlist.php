@@ -41,7 +41,7 @@ ORDER BY music.title ASC";
 }
 
 if (isset($_GET['count_favorite'])) {
-    $sql = "SELECT COUNT(*) FROM music where favorite = '1'";
+    $sql = "SELECT COUNT(*) as count_favorite FROM music where favorite = '1'";
 }
 
 // Query to retrieve data from MySQL
