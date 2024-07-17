@@ -44,6 +44,12 @@ if (isset($_GET['count_favorite'])) {
     $sql = "SELECT COUNT(*) as count_favorite FROM music where favorite = '1'";
 }
 
+if (isset($_GET['play_playlist'])) {
+    $uid = $_GET['play_playlist'];
+    
+    $sql = "UPDATE playlist SET date = NOW() WHERE uid = '$uid'";
+}
+
 // Query to retrieve data from MySQL
 $result = $conn->query($sql);
 
