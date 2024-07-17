@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 15 Jul 2024 pada 02.56
+-- Waktu pembuatan: 17 Jul 2024 pada 22.17
 -- Versi server: 10.3.39-MariaDB-cll-lve
 -- Versi PHP: 8.1.28
 
@@ -567,7 +567,7 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (447, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/Aimer-_.mp3', 'Asa ga kuru', 'Aimer', 'Asa ga kuru', '04:55', 'https://i.scdn.co/image/ab67616d0000b273f37d146c0abd3464940eb21e', 0, '2024-06-19 00:00:00'),
 (448, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_from_the_edge.mp3', 'from the edge', 'FictionJunction, LiSA', 'PARADE', '04:41', 'https://i.scdn.co/image/ab67616d0000b2734b00f1a052b068a64a3175e8', 0, '2024-06-19 00:00:00'),
 (449, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/KANA-BOON-_Album_Mix.mp3', 'Starmarker (Album Mix)', 'KANA-BOON', 'Honey & Darling', '03:34', 'https://i.scdn.co/image/ab67616d0000b27343c6017d66f1e58e53f66424', 0, '2024-06-19 00:00:00'),
-(450, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_Shout_Baby.mp3', 'Shout Baby', 'Ryokuoushoku Shakai', 'Shout Baby', '04:26', 'https://i.scdn.co/image/ab67616d0000b273323b6ecc2a6e0f2410a1956a', 0, '2024-06-19 00:00:00'),
+(450, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_Shout_Baby.mp3', 'Shout Baby', 'Ryokuoushoku Shakai', 'Shout Baby', '04:26', 'https://i.scdn.co/image/ab67616d0000b273323b6ecc2a6e0f2410a1956a', 1, '2024-06-19 00:00:00'),
 (451, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_give_it_back.mp3', 'give it back', 'Cou shu Nie', 'give it back', '03:32', 'https://i.scdn.co/image/ab67616d0000b27351ef8791795ca1800119086a', 0, '2024-06-19 00:00:00'),
 (452, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/KANA-BOON-_Album_Mix/spotifydown.com_-_RESISTER.mp3', 'RESISTER', 'ASCA', 'Hyakka Ryoran', '03:47', 'https://i.scdn.co/image/ab67616d0000b273ffae792c628ae7b7ee281121', 0, '2024-06-19 00:00:00'),
 (453, '2', 'https://github.com/sibeux/license-sibeux/raw/MyProgram/Anime_OST/yama/spotifydown.com_-_feel_my_soul.mp3', 'feel my soul', 'YUI', 'FROM ME TO YOU', '03:49', 'https://i.scdn.co/image/ab67616d0000b273c8be540885e2abcce2e56822', 0, '2024-06-19 00:00:00'),
@@ -2442,7 +2442,7 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (2319, '2', 'https://drive.google.com/file/d/1qtK7t4ePTxfmyK1fovD99ga1DEYTWjM7/view?usp=drive_link', 'Fire', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
 (2320, '2', 'https://drive.google.com/file/d/1qryn5TFtkq0ExGKk2M56KDH1EKYHjo2J/view?usp=drive_link', 'Good Boy', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
 (2321, '2', 'https://drive.google.com/file/d/1qr2mB2mNyFLo8hSCOGwsa6Mk-Y-Nn8uT/view?usp=drive_link', 'Good Condition', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
-(2322, '2', 'https://drive.google.com/file/d/1qx7seE_22Z4HCV74fmkfDmF6IhivPeux/view?usp=drive_link', 'Hard Battle', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
+(2322, '2', 'https://drive.google.com/file/d/1qx7seE_22Z4HCV74fmkfDmF6IhivPeux/view?usp=drive_link', 'Hard Battle', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 1, '2024-07-15 02:49:04'),
 (2323, '2', 'https://drive.google.com/file/d/1qut9aWns2-pMtf-cKrpG6HSUxjM_nTCo/view?usp=drive_link', 'Headwind', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
 (2324, '2', 'https://drive.google.com/file/d/1r4ZI4J_caiNvpFf0qwZdvHTVerlXTt-k/view?usp=drive_link', 'Heaven and Hell', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
 (2325, '2', 'https://drive.google.com/file/d/1r1TqcmIYnf84e9bzEMAcaWTuIcvFUTbb/view?usp=drive_link', 'Jump', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
@@ -2463,7 +2463,13 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (2340, '2', 'https://drive.google.com/file/d/1rUzNnWKcSm5m1cyiWvLAWM_8MUfQryUf/view?usp=drive_link', 'The End', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
 (2341, '2', 'https://drive.google.com/file/d/1rsKZbiBL_IMQpR97SYDFdWY5wPmpKDLS/view?usp=drive_link', 'Trust Me', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
 (2342, '2', 'https://drive.google.com/file/d/1rfl1mkwNag44ltbU-lWShZqOAlhpMGYk/view?usp=drive_link', 'Victory', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
-(2343, '2', 'https://drive.google.com/file/d/1rfjJ6rBmWCU0eDxKd2NlYqnpos5Suhtq/view?usp=drive_link', 'Youth', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04');
+(2343, '2', 'https://drive.google.com/file/d/1rfjJ6rBmWCU0eDxKd2NlYqnpos5Suhtq/view?usp=drive_link', 'Youth', 'Yasuharu Takanashi, YAIBA', 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', '02:18', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 0, '2024-07-15 02:49:04'),
+(2344, '2', 'https://drive.google.com/file/d/1sERZ3BQVc7jbmGv91Ur1zNfXEJ8S1vAU/view?usp=drive_link', 'Boys Fort', 'Martin Stig Andersen', 'Limbo (Original Videogame Soundtrack)', '04:12', 'https://i.scdn.co/image/ab67616d0000b273337247f66404f4962a0ed4cc', 0, '2024-07-15 22:47:11'),
+(2345, '2', 'https://drive.google.com/file/d/1sDkQt1DIopuTUJSd3_Ff0LmCHdPs7Hgr/view?usp=drive_link', 'City', 'Martin Stig Andersen', 'Limbo (Original Videogame Soundtrack)', '04:12', 'https://i.scdn.co/image/ab67616d0000b273337247f66404f4962a0ed4cc', 0, '2024-07-15 22:47:11'),
+(2346, '2', 'https://drive.google.com/file/d/1sJaZHEMN-AHyH7zD6BhHuKQrLa3pf0eV/view?usp=drive_link', 'Gravity Jump', 'Martin Stig Andersen', 'Limbo (Original Videogame Soundtrack)', '04:12', 'https://i.scdn.co/image/ab67616d0000b273337247f66404f4962a0ed4cc', 0, '2024-07-15 22:47:11'),
+(2347, '2', 'https://drive.google.com/file/d/1sFJAQ9LKl_ODFnGTM3uNf_ksvj_vaLHJ/view?usp=drive_link', 'Menu', 'Martin Stig Andersen', 'Limbo (Original Videogame Soundtrack)', '04:12', 'https://i.scdn.co/image/ab67616d0000b273337247f66404f4962a0ed4cc', 0, '2024-07-15 22:47:11'),
+(2348, '2', 'https://drive.google.com/file/d/1sObowdiAm4pMlMKbOy0hPupeRvv5AZRV/view?usp=drive_link', 'Rotating Room', 'Martin Stig Andersen', 'Limbo (Original Videogame Soundtrack)', '04:12', 'https://i.scdn.co/image/ab67616d0000b273337247f66404f4962a0ed4cc', 0, '2024-07-15 22:47:11'),
+(2349, '2', 'https://drive.google.com/file/d/1sL7K7mHxhYqEkd9vlCLh-5Y4kzz_Fd5T/view?usp=drive_link', 'Sister', 'Martin Stig Andersen', 'Limbo (Original Videogame Soundtrack)', '04:12', 'https://i.scdn.co/image/ab67616d0000b273337247f66404f4962a0ed4cc', 0, '2024-07-15 22:47:11');
 
 -- --------------------------------------------------------
 
@@ -2475,46 +2481,49 @@ CREATE TABLE `playlist` (
   `uid` smallint(5) NOT NULL,
   `name` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `image` mediumtext NOT NULL,
-  `type` enum('playlist','album','category') NOT NULL DEFAULT 'playlist',
+  `type` enum('playlist','album','category','favorite') NOT NULL DEFAULT 'playlist',
   `author` text NOT NULL,
   `pin` enum('true','false') NOT NULL DEFAULT 'false',
   `date_pin` timestamp NULL DEFAULT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp()
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `editable` enum('true','false') NOT NULL DEFAULT 'true'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `playlist`
 --
 
-INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_pin`, `date`) VALUES
-(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', 'Nasrul Wahabi', 'true', '2024-07-11 21:04:44', '2024-06-27 18:34:17'),
-(4, 'Danshi Koukousei No Nichijou Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Danshi/cover.jpg', 'album', 'Audio Highs', 'false', NULL, '2024-06-28 08:10:44'),
-(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama', 'false', NULL, '2024-06-28 08:11:46'),
-(6, 'Your Name.', 'https://i.scdn.co/image/ab67616d0000b2733d1869d8c477d291a205a2d6', 'album', 'RADWIMPS', 'false', NULL, '2024-06-28 08:14:27'),
-(8, 'Kimetsu No Yaiba: Mugen Ressha-Hen Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/COVER.jpg', 'album', 'Go Shiina, Yuki Kajiura', 'false', NULL, '2024-06-28 09:01:53'),
-(9, 'Hotarubi No Mori E Original Soundtrack：Kisetsu No Matataki', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 'album', 'Makoto Yoshimori', 'false', NULL, '2024-06-28 09:03:09'),
-(10, 'TV Anime \"Bucchigiri?!\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2733d5680712aac4c5770102c89', 'album', 'Michiru Oshima', 'false', NULL, '2024-06-28 09:04:04'),
-(11, 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-06-28 09:06:30'),
-(12, 'TV Anime \"Tokyo Ghoul\" ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2730809f5b6616747f5abbe8824', 'album', 'Yutaka Yamada', 'false', NULL, '2024-06-28 09:06:50'),
-(13, 'Ranking Of Kings Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 'album', 'MAYUKO', 'false', NULL, '2024-06-28 09:07:18'),
-(14, 'Shadow Warrior 2 (Deluxe) Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1V3VSQOVAy82fCrNohchYzeFx8VkiH-WT?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Michal Cielecki, Krzysztof Wierzynkiewicz, Adam Skorupa', 'false', NULL, '2024-06-28 09:08:27'),
-(15, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK II', 'https://i.scdn.co/image/ab67616d0000b273f9f0edfe58bbb6e3c44e574f', 'album', 'Yasuharu Takanashi, YAIBA', 'false', NULL, '2024-06-29 20:20:33'),
-(16, 'My Hero Academia 2nd Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1EtiJDEJ6OBARG7dqG0JI-jR_3E2Xo4O5?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:22:33'),
-(17, 'TV Anime \"Run With The Wind\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273c6f1af3e00d600747a3cdffa', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:23:23'),
-(18, 'ERASED OST', 'https://raw.githubusercontent.com/sibeux/license-sibeux/6490a201304882286d3b3c9610a9cbc7ad619740/artworks-000170281236-tu74m6-original.jpg', 'album', 'Yuki Kajiura', 'false', NULL, '2024-06-29 20:23:39'),
-(19, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273e7b3df567bd509d3ada547a4', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:24:52'),
-(20, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.2', 'https://i.scdn.co/image/ab67616d0000b27329a68e040ae9c8711718f7e3', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:25:08'),
-(21, 'CLANNAD Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/images/119525.png', 'album', 'Shinji Orito, Riya, Eufonius, Magome Togoshi, Jun Maeda', 'false', NULL, '2024-06-29 20:25:31'),
-(22, 'MASHLE Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273ae5832066b25ee5b41d701a1', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-06-29 20:25:57'),
-(23, 'TV Anime \"Jujutsu Kaisen\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2739230f7c8dfff664d6ac2ad0b', 'album', 'Hiroaki Tsutsumi, Yoshimasa Terui, Alisa Okehazama', 'false', NULL, '2024-06-29 20:27:51'),
-(24, 'DEATH NOTE Original Soundtrack Ⅱ', 'https://i.scdn.co/image/ab67616d0000b2733b451fd2667d142be5063b4a', 'album', 'Yoshihisa Hirano, Hideki Taniuchi\r\n\r\n', 'false', NULL, '2024-06-29 20:28:12'),
-(25, 'Mushishi Soundtrack \"Mushinone Zoku\"', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Mushinone%20Zoku/cover.jpg', 'album', 'Toshio Masuda', 'false', NULL, '2024-06-29 20:28:32'),
-(26, 'TV Anime \"Attack On Titan Season 2\" (Original Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b2739c44e39f1b6aafe87a6db356', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-06-29 20:29:01'),
-(27, 'TV Anime “SPY×FAMILY” Original Soundtrack (Vol.1)', 'https://raw.githubusercontent.com/sibeux/sibeux-contrarians-syntaxianz/main/mewing/STRIX/Berlint%20%E2%80%94%20SPY%20x%20FAMILY%20%5BOST%5D.png', 'album', '(K)NoW_NAME', 'false', NULL, '2024-06-29 20:29:43'),
-(28, 'Sword Art Online Music Collection', 'https://i.scdn.co/image/ab67616d0000b273136a8ed571891d091ed4715b', 'album', 'Yuki Kajiura', 'false', NULL, '2024-06-29 20:30:23'),
-(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-06-29 20:30:36'),
-(30, 'DEATH NOTE Original Soundtrack Ⅲ', 'https://i.scdn.co/image/ab67616d0000b2739dd71a92c70af0dc020f7197', 'album', 'Yoshihisa Hirano, Hideki Taniuchi', 'false', NULL, '2024-06-29 20:30:51'),
-(31, 'Shigatsu Wa Kimi No Uso BONUS DISC 4', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%204/Cover.jpg', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-07-04 09:43:02');
+INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_pin`, `date`, `editable`) VALUES
+(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', 'Nasrul Wahabi', 'true', '2024-07-11 21:04:44', '2024-06-27 18:34:17', 'false'),
+(4, 'Danshi Koukousei No Nichijou Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Danshi/cover.jpg', 'album', 'Audio Highs', 'false', NULL, '2024-06-28 08:10:44', 'true'),
+(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama', 'false', NULL, '2024-06-28 08:11:46', 'true'),
+(6, 'Your Name.', 'https://i.scdn.co/image/ab67616d0000b2733d1869d8c477d291a205a2d6', 'album', 'RADWIMPS', 'false', NULL, '2024-06-28 08:14:27', 'true'),
+(8, 'Kimetsu No Yaiba: Mugen Ressha-Hen Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/COVER.jpg', 'album', 'Go Shiina, Yuki Kajiura', 'false', NULL, '2024-06-28 09:01:53', 'true'),
+(9, 'Hotarubi No Mori E Original Soundtrack：Kisetsu No Matataki', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 'album', 'Makoto Yoshimori', 'false', NULL, '2024-06-28 09:03:09', 'true'),
+(10, 'TV Anime \"Bucchigiri?!\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2733d5680712aac4c5770102c89', 'album', 'Michiru Oshima', 'false', NULL, '2024-06-28 09:04:04', 'true'),
+(11, 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-06-28 09:06:30', 'true'),
+(12, 'TV Anime \"Tokyo Ghoul\" ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2730809f5b6616747f5abbe8824', 'album', 'Yutaka Yamada', 'false', NULL, '2024-06-28 09:06:50', 'true'),
+(13, 'Ranking Of Kings Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 'album', 'MAYUKO', 'false', NULL, '2024-06-28 09:07:18', 'true'),
+(14, 'Shadow Warrior 2 (Deluxe) Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1V3VSQOVAy82fCrNohchYzeFx8VkiH-WT?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Michal Cielecki, Krzysztof Wierzynkiewicz, Adam Skorupa', 'false', NULL, '2024-06-28 09:08:27', 'true'),
+(15, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK II', 'https://i.scdn.co/image/ab67616d0000b273f9f0edfe58bbb6e3c44e574f', 'album', 'Yasuharu Takanashi, YAIBA', 'false', NULL, '2024-06-29 20:20:33', 'true'),
+(16, 'My Hero Academia 2nd Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1EtiJDEJ6OBARG7dqG0JI-jR_3E2Xo4O5?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:22:33', 'true'),
+(17, 'TV Anime \"Run With The Wind\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273c6f1af3e00d600747a3cdffa', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:23:23', 'true'),
+(18, 'ERASED OST', 'https://raw.githubusercontent.com/sibeux/license-sibeux/6490a201304882286d3b3c9610a9cbc7ad619740/artworks-000170281236-tu74m6-original.jpg', 'album', 'Yuki Kajiura', 'false', NULL, '2024-06-29 20:23:39', 'true'),
+(19, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273e7b3df567bd509d3ada547a4', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:24:52', 'true'),
+(20, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.2', 'https://i.scdn.co/image/ab67616d0000b27329a68e040ae9c8711718f7e3', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:25:08', 'true'),
+(21, 'CLANNAD Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/images/119525.png', 'album', 'Shinji Orito, Riya, Eufonius, Magome Togoshi, Jun Maeda', 'false', NULL, '2024-06-29 20:25:31', 'true'),
+(22, 'MASHLE Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273ae5832066b25ee5b41d701a1', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-06-29 20:25:57', 'true'),
+(23, 'TV Anime \"Jujutsu Kaisen\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2739230f7c8dfff664d6ac2ad0b', 'album', 'Hiroaki Tsutsumi, Yoshimasa Terui, Alisa Okehazama', 'false', NULL, '2024-06-29 20:27:51', 'true'),
+(24, 'DEATH NOTE Original Soundtrack Ⅱ', 'https://i.scdn.co/image/ab67616d0000b2733b451fd2667d142be5063b4a', 'album', 'Yoshihisa Hirano, Hideki Taniuchi\r\n\r\n', 'false', NULL, '2024-06-29 20:28:12', 'true'),
+(25, 'Mushishi Soundtrack \"Mushinone Zoku\"', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Mushinone%20Zoku/cover.jpg', 'album', 'Toshio Masuda', 'false', NULL, '2024-06-29 20:28:32', 'true'),
+(26, 'TV Anime \"Attack On Titan Season 2\" (Original Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b2739c44e39f1b6aafe87a6db356', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-06-29 20:29:01', 'true'),
+(27, 'TV Anime “SPY×FAMILY” Original Soundtrack (Vol.1)', 'https://raw.githubusercontent.com/sibeux/sibeux-contrarians-syntaxianz/main/mewing/STRIX/Berlint%20%E2%80%94%20SPY%20x%20FAMILY%20%5BOST%5D.png', 'album', '(K)NoW_NAME', 'false', NULL, '2024-06-29 20:29:43', 'true'),
+(28, 'Sword Art Online Music Collection', 'https://i.scdn.co/image/ab67616d0000b273136a8ed571891d091ed4715b', 'album', 'Yuki Kajiura', 'false', NULL, '2024-06-29 20:30:23', 'true'),
+(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-06-29 20:30:36', 'true'),
+(30, 'DEATH NOTE Original Soundtrack Ⅲ', 'https://i.scdn.co/image/ab67616d0000b2739dd71a92c70af0dc020f7197', 'album', 'Yoshihisa Hirano, Hideki Taniuchi', 'false', NULL, '2024-06-29 20:30:51', 'true'),
+(31, 'Shigatsu Wa Kimi No Uso BONUS DISC 4', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%204/Cover.jpg', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-07-04 09:43:02', 'true'),
+(32, 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 'album', 'Yasuharu Takanashi, YAIBA\r\n\r\n', 'false', NULL, '2024-07-14 20:27:54', 'true'),
+(33, 'Liked Songs', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Screenshot%202024-07-16%20145516.png', 'favorite', 'favorite', 'false', NULL, '2024-07-16 07:58:40', 'false');
 
 --
 -- Indexes for dumped tables
@@ -2552,13 +2561,13 @@ ALTER TABLE `designs`
 -- AUTO_INCREMENT untuk tabel `music`
 --
 ALTER TABLE `music`
-  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2344;
+  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2350;
 
 --
 -- AUTO_INCREMENT untuk tabel `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
