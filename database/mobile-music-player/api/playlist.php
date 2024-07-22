@@ -44,6 +44,11 @@ if (isset($_GET['count_favorite'])) {
     $sql = "SELECT COUNT(*) as count_favorite FROM music where favorite = '1'";
 }
 
+if (isset($_GET['count_category'])) {
+    $uid = $_GET['count_category'];
+    $sql = "SELECT COUNT(*) as count_category FROM music where category = '$uid'";
+}
+
 if (isset($_GET['play_playlist'])) {
     $uid = $_GET['play_playlist'];
     
