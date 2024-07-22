@@ -46,12 +46,12 @@ if (isset($_GET['count_favorite'])) {
 
 if (isset($_GET['count_category'])) {
     $uid = $_GET['count_category'];
-    $sql = "SELECT COUNT(*) as count_category FROM music where category = '$uid'";
+    $sql = "SELECT music.category, COUNT(*) AS type_count FROM music GROUP BY music.category ORDER BY type_count DESC";
 }
 
 if (isset($_GET['play_playlist'])) {
     $uid = $_GET['play_playlist'];
-    
+
     $sql = "UPDATE playlist SET date = NOW() WHERE uid = '$uid'";
 }
 
