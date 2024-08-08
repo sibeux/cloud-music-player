@@ -45,7 +45,6 @@ if (isset($_GET['count_favorite'])) {
 }
 
 if (isset($_GET['count_category'])) {
-    $uid = $_GET['count_category'];
     $sql = "SELECT music.category, COUNT(*) AS type_count FROM music GROUP BY music.category ORDER BY type_count DESC";
 }
 
