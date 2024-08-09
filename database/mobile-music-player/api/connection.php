@@ -1,11 +1,8 @@
 <?php
 
-define('HOST', 'localhost');
-define('SIBEUX', 'sibk1922_cbux');
-define('pass', '1NvgEHFnwvDN96');
-define('DB', 'sibk1922_cloud_music');
+include '.././../db.php';
 
-$conn = new mysqli(HOST, SIBEUX, pass, DB);
+$conn = $db;
 
 // Check connection
 if ($conn->connect_error) {
