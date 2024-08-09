@@ -24,6 +24,126 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `API`
+--
+
+CREATE TABLE `API` (
+  `gdrive_api` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data untuk tabel `API`
+--
+
+INSERT INTO `API` (`gdrive_api`) VALUES
+('AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `designs`
+--
+
+CREATE TABLE `designs` (
+  `UID` int(5) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `filter` enum('Poster','Video','Logo','Art') NOT NULL DEFAULT 'Poster',
+  `type` enum('work-image','gallery-link','work-content','work-video') NOT NULL DEFAULT 'work-image',
+  `asset_link` varchar(255) DEFAULT NULL,
+  `thumb_link` varchar(255) NOT NULL,
+  `extra_link` longtext DEFAULT NULL,
+  `p1_content` tinytext DEFAULT NULL,
+  `p2_content` tinytext DEFAULT NULL,
+  `caption_content` tinytext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `designs`
+--
+
+INSERT INTO `designs` (`UID`, `title`, `filter`, `type`, `asset_link`, `thumb_link`, `extra_link`, `p1_content`, `p2_content`, `caption_content`) VALUES
+(1, 'Registration IWDM 2022', 'Poster', 'work-image', 'https://sibeux.my.id/images/works/iwdm-full.png', 'https://sibeux.my.id/images/works/iwdm.png', NULL, NULL, NULL, NULL),
+(2, 'ID CARD Member BEM 2021/2022', 'Art', 'gallery-link', NULL, 'https://sibeux.my.id/images/works/id%20(1).png', '\"https://sibeux.my.id/images/works/id%20(2).png\"-\"https://sibeux.my.id/images/works/id%20(3).png\"-\"https://sibeux.my.id/images/works/id%20(4).png\"', NULL, NULL, NULL),
+(3, 'Teaser Study Excursie 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=ZgBDq6sc_ec', 'images/works/teaser-se.png', NULL, NULL, NULL, NULL),
+(4, 'Backdrop Study Excursie 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=fXktpTsh9hM', 'https://sibeux.my.id/images/works/back-se.png', NULL, NULL, NULL, NULL),
+(5, 'The impression message of FORTRAN HIMASIF 2020', 'Video', 'work-content', 'https://sibeux.my.id/images/works/kesan.png', 'https://sibeux.my.id/images/works/pesan.png', 'https://www.youtube.com/watch?v=-lyoDSUDAA8', 'video impressions & messages during the implementation of FORTRAN HIMASIF 2022.', 'This video was made using the Kinemaster Android application.', 'View on Youtube'),
+(6, 'Logo Catra Sahitya 2021/2022', 'Logo', 'work-content', 'https://raw.githubusercontent.com/bemilkomunej/bem-website/master/public/landing2/assets/img/cover%20kabinet.png', 'images/works/logos.png', 'https://www.instagram.com/p/Cc_40h-JXLF/', 'Logo of Catra Sahitya cabinet of BEM FASILKOM UNEJ period 2021/2022', NULL, 'View on Instagram'),
+(7, 'Open Recruitmen BEM 2021/2022', 'Poster', 'gallery-link', NULL, 'images/works/oprec.png', '\"images/works/wawancara bem_2 1.png\"-\"images/works/wawancara bem 1.png\"', NULL, NULL, NULL),
+(8, 'Coming Soon IDLE Fasilkom 2022', 'Poster', 'gallery-link', NULL, 'images/works/cs-idle.png', '\"images/works/cs-idle1.png\"-\"images/works/lr-idle.png\"', NULL, NULL, NULL),
+(9, 'Teaser IWDM 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=HicxTDHWWyc', 'images/works/iwdm (2).png', NULL, NULL, NULL, NULL),
+(10, 'Ied Mubarak 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=kkXMmEcAKfQ', 'images/works/ied.png', NULL, NULL, NULL, NULL),
+(11, 'Ceremony Potong Pita IDLE 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=oSiAZ8nZAXc', 'images/works/op-idle.png', NULL, NULL, NULL, NULL),
+(12, 'Live Report Study Excursie 2022', 'Video', 'work-video', 'https://www.youtube.com/shorts/PHA2ACkaGaA', 'images/works/lr-se.png', NULL, NULL, NULL, NULL),
+(13, 'Coming Soon OPREC BEM 2022', 'Poster', 'work-image', 'images-works/oprec-cs (2).png', 'images-works/oprec-cs (1).png', NULL, NULL, NULL, NULL),
+(14, 'Header Gform OPREC BEM 2022', 'Art', 'work-image', 'images-works/header-oprec (1).png', 'images-works/header-oprec (2).png', NULL, NULL, NULL, NULL),
+(15, 'Poster OPREC BEM 2022', 'Poster', 'work-image', 'images-works/poster-oprec (1).png', 'images-works/poster-oprec (2).png', NULL, NULL, NULL, NULL),
+(16, 'Cover Reels SKPI', 'Art', 'work-image', 'images-works/cover skpi (1).png', 'images-works/cover skpi (2).png', NULL, NULL, NULL, NULL),
+(17, 'Cover Reels Profile BEM', 'Art', 'work-image', 'images-works/cover-bem-profil (1).png', 'images-works/cover-bem-profil (2).png', NULL, NULL, NULL, NULL),
+(18, 'Poster Birthday November', 'Poster', 'work-image', 'images-works/nov hbd (1).png', 'images-works/nov hbd (2).png', NULL, NULL, NULL, NULL),
+(19, 'Cover After Movie MAKRAB 2023', 'Poster', 'work-image', 'images-works/Cover After Movie Makrab 2023 1.png', 'images-works/Cover After Movie Makrab 2023 2.png', NULL, NULL, NULL, NULL),
+(20, 'Poster Birthday April 2023', 'Poster', 'work-image', 'images-works/Poster Birthday April 2023 1.png', 'images-works/Poster Birthday April 2023 2.png', NULL, NULL, NULL, NULL),
+(21, 'Video Ucapan Lebaran 2023', 'Video', 'work-video', 'https://www.youtube.com/watch?v=u6HLW44ug0c', 'images-works/Video Ucapan Lebaran 2023 1.png', NULL, NULL, NULL, NULL),
+(22, 'Avatar Silent Day BEM 2022', 'Art', 'work-image', 'images/works/nyepi (2).png', 'images/works/nyepi (1).png', NULL, NULL, NULL, NULL),
+(23, 'Final Tournament Free Fire', 'Poster', 'work-image', 'images/works/final-ff1.png', 'images/works/final-ff.png', NULL, NULL, NULL, NULL),
+(24, 'Filter Instagram Diesnatalis BEM 2022', 'Video', 'work-video', 'https://drive.google.com/file/d/1AOmxh09RD1TpvKNUlfdGRDHTLe63jsxm/view?usp=drive_link', 'images/works/filter.png', NULL, NULL, NULL, NULL),
+(25, 'Presentation MKWU Semester 2', 'Video', 'work-content', 'images/works/wolly.png', 'images/works/mkwu.png', 'https://www.youtube.com/watch?v=ESP1oFWU-68', 'Management and entrepreneurship course presentation video in semester 4 with product is WhollyBox.', 'This video was made using the Kinemaster Android application.', 'View on Youtube'),
+(26, 'The history behind the Penataran Temple, Blitar Regency, East Java Province', 'Video', 'work-content', 'images/works/rifki (2).png', 'images/works/rifki (1).png', 'https://www.youtube.com/watch?v=4wssf4qXXg0', 'Visit the Penataran Temple in Blitar to explore the cultural values ​​in it.', 'This video was made using the Kinemaster Android application.', 'View on Youtube'),
+(27, 'Certificate Tournament Free Fire', 'Art', 'gallery-link', NULL, 'images/works/sertif-ff.png', '\"images/works/serfiff (1).png\"-\"images/works/serfiff (2).png\"', NULL, NULL, NULL),
+(28, 'Poster Rapat Kerja BEM 2023', 'Poster', 'work-image', 'images-works/poster (2) 2.png', 'images-works/poster (2) 1.png', NULL, NULL, NULL, NULL),
+(29, 'Backdrop Zoom Rapat Kerja BEM 2023', 'Art', 'work-image', 'images-works/backdrop 2.png', 'images-works/backdrop 1.png', NULL, NULL, NULL, NULL),
+(30, 'Header Form Presensi Rapat Kerja BEM 2023', 'Art', 'work-image', 'images-works/Asset 3 2.png', 'images-works/Asset 3 1.png', NULL, NULL, NULL, NULL),
+(31, 'Video Prestasi FASILKOM', 'Video', 'work-video', 'https://www.youtube.com/watch?v=T8SUP2j-K6M', 'images-works/part_2/prestasi-wisuda.png', NULL, NULL, NULL, NULL),
+(32, 'Teaser Supporter Grey Mamba', 'Video', 'work-video', 'https://www.youtube.com/watch?v=GCG2rboF6PU', 'images-works/part_2/teaser-supporter.png', NULL, NULL, NULL, NULL),
+(33, 'Poster Sosialisasi Prestasi', 'Poster', 'work-image', 'images-works/part_2/full-poster-prestasi.png', 'images-works/part_2/cover-poster-prestasi.png', NULL, NULL, NULL, NULL),
+(34, 'Feed Instagram BEM Fasilkom', 'Art', 'gallery-link', NULL, 'images/works/feed.png', '\"images/works/ig (2).png\"-\"images/works/ig (1).png\"', NULL, NULL, NULL),
+(35, 'Vandel Comparative Study on February 2022', 'Art', 'work-image', 'images/works/vandel (2).png', 'images/works/vandel (1).png', NULL, NULL, NULL, NULL),
+(36, 'Thumbnail FAQ Fasilkom UNEJ', 'Art', 'work-image', 'images/works/faq (2).png', 'images/works/faq (1).png', NULL, NULL, NULL, NULL),
+(37, 'Art Design With Pixellab Android', 'Art', 'gallery-link', NULL, 'images/works/art (1).png', '\"images/works/art (2).png\"-\"images/works/art (3).png\"-\"images/works/art (4).png\"', NULL, NULL, NULL),
+(38, 'Tatakan MC IWDM 2022', 'Art', 'work-image', 'images/works/tatak (2).png', 'images/works/tatak (1).png', NULL, NULL, NULL, NULL),
+(39, 'Poster Igs BEM Fasilkom', 'Poster', 'gallery-link', NULL, 'images/works/art-1 (1).png', '\"images/works/art-1 (2).png\"-\"images/works/art-1 (3).png\"-\"images/works/art-1 (4).png\"', NULL, NULL, NULL),
+(40, 'Poster Register Workshop Digistar', 'Poster', 'work-image', 'images/works/workshop-proposal 1.png', 'images/works/poster-digistar.png', NULL, NULL, NULL, NULL),
+(41, 'Template PowerPoint Muslub BEM', 'Art', 'work-image', 'images/works/ppt-muslub 21 (1).png', 'images/works/ppt-muslub 21 (2).png', NULL, NULL, NULL, NULL),
+(42, 'Welcome April Feed Instagram', 'Art', 'work-image', 'images/works/april (2).png', 'images/works/april (1).png', NULL, NULL, NULL, NULL),
+(43, 'Header Presensi Welcoming 2022/2023', 'Art', 'work-image', 'images-works/headerwelcomfull.png', 'images-works/headerwelcom.png', NULL, NULL, NULL, NULL),
+(44, 'Poster Welcoming BEM FASILKOM 2022/2023', 'Poster', 'work-image', 'images-works/poster-welcoming-full.png', 'images-works/poster-welcoming.png', NULL, NULL, NULL, NULL),
+(45, 'Live Report Welcoming BEM FASILKOM 2022/2023', 'Poster', 'work-image', 'images-works/lr-welcom-full.png', 'images-works/lr-welcom.png', NULL, NULL, NULL, NULL),
+(46, 'Poster Calon Ketua HIMASIF No 1', 'Poster', 'work-image', 'images-works/akbar 1.png', 'images-works/akbartum.png', NULL, NULL, NULL, NULL),
+(47, 'Poster Birthday December 2022', 'Poster', 'work-image', 'images-works/fir 1.png', 'images-works/firtum.png', NULL, NULL, NULL, NULL),
+(48, 'Feed Welcoming January 2023', 'Art', 'work-image', 'images-works/Januari 1.png', 'images-works/jantum.png', NULL, NULL, NULL, NULL),
+(49, 'Banner Study Excursie 2022', 'Art', 'gallery-link', NULL, 'images/works/banner se (3).png', '\"images/works/banner se (2).png\"-\"images/works/banner se (1).png\"', NULL, NULL, NULL),
+(50, 'Certificate Committee IWDM 2022', 'Art', 'gallery-link', NULL, 'images/works/sertif-iwdm (1).png', '\"images/works/sertif-iwdm (2).png\"-\"images/works/36.png\"', NULL, NULL, NULL),
+(51, 'Live Report Sosialisasi BEM', 'Video', 'work-video', 'https://youtube.com/shorts/Qxech1soZ8U', 'images/works/lr-musluv.png', NULL, NULL, NULL, NULL),
+(52, 'Poster Ulang Tahun Januari 2023', 'Poster', 'work-image', 'images-works/al 1 (1).png', 'images-works/al 1.png', NULL, NULL, NULL, NULL),
+(53, 'Poster Ulang Tahun Februari 2023', 'Poster', 'work-image', 'images-works/rio 1 (1).png', 'images-works/rio 1.png', NULL, NULL, NULL, NULL),
+(54, 'Poster Sosialisasi Magang Mandiri', 'Poster', 'work-image', 'images-works/Asset 4 2.png', 'images-works/Asset 4 1.png', NULL, NULL, NULL, NULL),
+(55, 'Video Iklan Meubel UD. Meubel Lumintu', 'Video', 'work-video', 'https://www.youtube.com/watch?v=AU4_FXjsL1s', 'https://raw.githubusercontent.com/sibeux/license-sibeux/7d7cd419f405d2cb937d1ea511fcd819ad2424a1/Thumbnail.png', NULL, NULL, NULL, NULL),
+(56, 'Video Intro Kajian Jumat Grand Corp', 'Video', 'work-video', 'https://www.youtube.com/watch?v=VjklcZJva8E', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/3242r2.png', NULL, NULL, NULL, NULL),
+(57, 'The funny cow character is angry', 'Art', 'work-image', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Asset%205%40300x%201.png', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Thumbnail.png', NULL, NULL, NULL, NULL),
+(58, 'Teaser PKKMB UNEJ 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=FmghMyJLrxU', 'images-works/pkkmb.png', NULL, NULL, NULL, NULL),
+(59, 'Pengenalan Dosen & Staff FASILKOM UNEJ', 'Video', 'work-video', 'https://www.youtube.com/watch?v=7UeO9tfKtas', 'images-works/pengenalan-dosen.png', NULL, NULL, NULL, NULL),
+(60, 'Teaser PORMABA UNEJ 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=API7KOslmlc', 'images-works/pormaba.png', NULL, NULL, NULL, NULL),
+(61, 'Certificate IDLE 2022', 'Art', 'work-image', 'images-works/sertif-idlee.png', 'images-works/sertif-idle.png', NULL, NULL, NULL, NULL),
+(62, 'Instagram Story Feed BEM September 2022', 'Art', 'work-image', 'images-works/sep-bd-full.png', 'images-works/sep-bd.png', NULL, NULL, NULL, NULL),
+(63, 'Welcoming Feed Instagram BEM September 2022', 'Art', 'work-image', 'images-works/sep-well-full.png', 'images-works/sep-well.png', NULL, NULL, NULL, NULL),
+(64, 'Panitia PPMB Cover 2022', 'Video', 'work-video', 'https://www.youtube.com/shorts/hvgjBkxzh74', 'images-works/panit-ppmb.png', NULL, NULL, NULL, NULL),
+(65, 'After Movie PORMABA 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=Xs9NHcVGdkQ', 'images-works/aftermpor.png', NULL, NULL, NULL, NULL),
+(66, 'Video Profile BEM FASILKOM UNEJ 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=WD3EN3okT1A', 'images-works/probem.png', NULL, NULL, NULL, NULL),
+(67, 'Vandel Comparative Study on October 2022', 'Art', 'work-image', 'images-works/vandel-oct-full.png', 'images-works/vandel-oct.png', NULL, NULL, NULL, NULL),
+(68, 'Coming Soon Digital Creative & Innovative Day 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=mF7-WTHiwg0', 'images-works/bayu.png', NULL, NULL, NULL, NULL),
+(69, 'Video Publikasi Digital Creative & Innovative Day 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=yS5bdAF-aHY', 'images-works/pub dc.png', NULL, NULL, NULL, NULL),
+(70, 'Video Peresmian Digital Creative & Innovative Day 2022', 'Video', 'work-video', 'https://www.youtube.com/watch?v=izPVH_piAzE', 'images-works/tapdn.png', NULL, NULL, NULL, NULL),
+(71, 'News Paslon 1 Ketua & Wakil Ketua BEM FASILKOM UNEJ', 'Video', 'work-video', 'https://www.youtube.com/watch?v=fPdWH9O6Va0', 'images-works/news-01.png', NULL, NULL, NULL, NULL),
+(72, 'Live Report MUBES BEM FASILKOM UNEJ', 'Video', 'work-video', 'https://www.youtube.com/shorts/-yvqs5PZz0Q', 'images-works/lr-mubes.png', NULL, NULL, NULL, NULL),
+(73, 'Portfolio Magang Lhealthycream', 'Poster', 'gallery-link', NULL, 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/429827394_701706412035993_711569566531437460_n.png', '\"https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/429089399_1483410095575611_4763368054491850160_n.png\"-\"https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/429131156_662798212554032_1089773062764292862_n.png\"-\"https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/429641617_711583221060178_2011896704296033323_n.png\"', NULL, NULL, NULL),
+(74, 'Portfolio Magang Lhealthycream', 'Poster', 'work-image', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/420535117_924323189357477_2876133791850380287_n.png', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/423600026_7200486126687164_5395084020001219322_n.png', NULL, NULL, NULL, NULL),
+(75, 'Portfolio Magang Lhealthycream', 'Poster', 'work-image', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/423455168_933250411324179_7552237085909218696_n.png', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/423454418_25098781303102120_531835036720154477_n.png', NULL, NULL, NULL, NULL),
+(76, 'Certificate BEM FASILKOM Sandyakala 2022/2022', 'Art', 'work-image', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/test/M.%20Nasrul%20Wahabi_14x%201%20(2).png', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/test/M.%20Nasrul%20Wahabi_14x%201%20(1).png', NULL, NULL, NULL, NULL),
+(77, 'Banner Bengkel Las & Alumunium RRN JAYA', 'Art', 'work-image', 'https://drive.google.com/file/d/10g0_n6YOTQhwkebcMelEIGgt5SAzq1uD/view?usp=drive_link', 'https://drive.google.com/file/d/10gY96Y2C_4nby8TwkP8zNGcomy0sBpho/view?usp=drive_link', NULL, NULL, NULL, NULL),
+(78, 'Halalbihalal dan milad halaqoh ahad 2024', 'Poster', 'work-image', 'https://drive.google.com/file/d/110rBQwZ259PYYdNjakXxz5jUCJDtCVzG/view?usp=drive_link', 'https://drive.google.com/file/d/111XS-9K776eMgndv3eqex3QmPPlFXWsM/view?usp=drive_link', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `music`
 --
 
@@ -3226,9 +3346,136 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (3223, '2', 'https://drive.google.com/file/d/1MOykis09tIPXpfVJCqnAhR2F_iyLHr0n/view?usp=drive_link', 'Eyecatch ~New World Version~ (TM-99)', 'Keiji Inai, Kohei Tanaka, Masami Kishimura, Shiro Hamaguchi, Yasuhisa Murase', 'One Piece Original Soundtrack - New World Dics 2', '04:54', 'https://drive.google.com/file/d/1Ix9L1RqlpRww6_lFPLlasy5HZsz1vfsp/view?usp=drive_link', 0, '2024-08-10 00:33:01'),
 (3224, '2', 'https://drive.google.com/file/d/1NabTCU4ArkMi-sljD7GD1Y2p41NDYQej/view?usp=drive_link', 'Preview ~We Go! Version~ (TM-98)', 'Keiji Inai, Kohei Tanaka, Masami Kishimura, Shiro Hamaguchi, Yasuhisa Murase', 'One Piece Original Soundtrack - New World Dics 2', '03:04', 'https://drive.google.com/file/d/1Ix9L1RqlpRww6_lFPLlasy5HZsz1vfsp/view?usp=drive_link', 0, '2024-08-10 00:33:02');
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `playlist`
+--
+
+CREATE TABLE `playlist` (
+  `uid` smallint(5) NOT NULL,
+  `name` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `image` mediumtext NOT NULL,
+  `type` enum('playlist','album','category','favorite') NOT NULL DEFAULT 'playlist',
+  `author` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pin` enum('true','false') NOT NULL DEFAULT 'false',
+  `date_pin` timestamp NULL DEFAULT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `editable` enum('true','false') NOT NULL DEFAULT 'false'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data untuk tabel `playlist`
+--
+
+INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_pin`, `date`, `editable`) VALUES
+(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', 'Nasrul Wahabi', 'true', '2024-07-27 22:10:08', '2024-08-09 15:41:26', 'false'),
+(4, 'Danshi Koukousei No Nichijou Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Danshi/cover.jpg', 'album', 'Audio Highs', 'false', NULL, '2024-07-18 19:04:28', 'true'),
+(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama', 'false', NULL, '2024-07-26 13:54:40', 'true'),
+(6, 'Your Name.', 'https://i.scdn.co/image/ab67616d0000b2733d1869d8c477d291a205a2d6', 'album', 'RADWIMPS', 'false', NULL, '2024-06-28 08:14:27', 'true'),
+(8, 'Kimetsu No Yaiba: Mugen Ressha-Hen Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/COVER.jpg', 'album', 'Go Shiina, Yuki Kajiura', 'false', NULL, '2024-07-30 13:55:28', 'true'),
+(9, 'Hotarubi No Mori E Original Soundtrack：Kisetsu No Matataki', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 'album', 'Makoto Yoshimori', 'false', NULL, '2024-06-28 09:03:09', 'true'),
+(10, 'TV Anime \"Bucchigiri?!\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2733d5680712aac4c5770102c89', 'album', 'Michiru Oshima', 'false', NULL, '2024-06-28 09:04:04', 'true'),
+(11, 'Your Lie In April ORIGINAL SONG & SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2738a76d26762faf3834de9674c', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-06-28 09:06:30', 'true'),
+(12, 'TV Anime \"Tokyo Ghoul\" ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2730809f5b6616747f5abbe8824', 'album', 'Yutaka Yamada', 'false', NULL, '2024-07-26 14:00:13', 'true'),
+(13, 'Ranking Of Kings Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 'album', 'MAYUKO', 'false', NULL, '2024-06-28 09:07:18', 'true'),
+(14, 'Shadow Warrior 2 (Deluxe) Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1V3VSQOVAy82fCrNohchYzeFx8VkiH-WT?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Michal Cielecki, Krzysztof Wierzynkiewicz, Adam Skorupa', 'false', NULL, '2024-06-28 09:08:27', 'true'),
+(15, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK II', 'https://i.scdn.co/image/ab67616d0000b273f9f0edfe58bbb6e3c44e574f', 'album', 'Yasuharu Takanashi, YAIBA', 'false', NULL, '2024-06-29 20:20:33', 'true'),
+(16, 'My Hero Academia 2nd Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1EtiJDEJ6OBARG7dqG0JI-jR_3E2Xo4O5?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:22:33', 'true'),
+(17, 'TV Anime \"Run With The Wind\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273c6f1af3e00d600747a3cdffa', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:23:23', 'true'),
+(18, 'ERASED OST', 'https://raw.githubusercontent.com/sibeux/license-sibeux/6490a201304882286d3b3c9610a9cbc7ad619740/artworks-000170281236-tu74m6-original.jpg', 'album', 'Yuki Kajiura', 'false', NULL, '2024-06-29 20:23:39', 'true'),
+(19, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273e7b3df567bd509d3ada547a4', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:24:52', 'true'),
+(20, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.2', 'https://i.scdn.co/image/ab67616d0000b27329a68e040ae9c8711718f7e3', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:25:08', 'true'),
+(21, 'CLANNAD Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/images/119525.png', 'album', 'Shinji Orito, Riya, Eufonius, Magome Togoshi, Jun Maeda', 'false', NULL, '2024-07-18 18:50:58', 'true'),
+(22, 'MASHLE Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273ae5832066b25ee5b41d701a1', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-06-29 20:25:57', 'true'),
+(23, 'TV Anime \"Jujutsu Kaisen\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2739230f7c8dfff664d6ac2ad0b', 'album', 'Hiroaki Tsutsumi, Yoshimasa Terui, Alisa Okehazama', 'false', NULL, '2024-06-29 20:27:51', 'true'),
+(24, 'DEATH NOTE Original Soundtrack Ⅱ', 'https://i.scdn.co/image/ab67616d0000b2733b451fd2667d142be5063b4a', 'album', 'Yoshihisa Hirano, Hideki Taniuchi\r\n\r\n', 'false', NULL, '2024-07-18 17:16:33', 'true'),
+(25, 'Mushishi Soundtrack \"Mushinone Zoku\"', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Mushinone%20Zoku/cover.jpg', 'album', 'Toshio Masuda', 'false', NULL, '2024-06-29 20:28:32', 'true'),
+(26, 'TV Anime \"Attack On Titan Season 2\" (Original Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b2739c44e39f1b6aafe87a6db356', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-07-18 05:59:58', 'true'),
+(27, 'TV Anime “SPY×FAMILY” Original Soundtrack (Vol.1)', 'https://raw.githubusercontent.com/sibeux/sibeux-contrarians-syntaxianz/main/mewing/STRIX/Berlint%20%E2%80%94%20SPY%20x%20FAMILY%20%5BOST%5D.png', 'album', '(K)NoW_NAME', 'false', NULL, '2024-07-17 17:49:52', 'true'),
+(28, 'Sword Art Online Music Collection', 'https://i.scdn.co/image/ab67616d0000b273136a8ed571891d091ed4715b', 'album', 'Yuki Kajiura', 'false', NULL, '2024-07-17 18:07:56', 'true'),
+(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-07-18 05:53:43', 'true'),
+(30, 'DEATH NOTE Original Soundtrack Ⅲ', 'https://i.scdn.co/image/ab67616d0000b2739dd71a92c70af0dc020f7197', 'album', 'Yoshihisa Hirano, Hideki Taniuchi', 'false', NULL, '2024-07-18 15:39:49', 'true'),
+(31, 'Shigatsu Wa Kimi No Uso BONUS DISC 4', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%204/Cover.jpg', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-07-18 06:04:16', 'true'),
+(32, 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 'album', 'Yasuharu Takanashi, YAIBA\r\n\r\n', 'false', NULL, '2024-07-18 19:03:38', 'true'),
+(33, 'Liked Songs', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Screenshot%202024-07-16%20145516.png', 'favorite', 'favorite', 'false', NULL, '2024-08-09 15:41:35', 'false'),
+(34, 'Kimetsu no Yaiba Entertainment District Arc Vol.1 Bonus Disc', 'https://drive.google.com/file/d/14x0bshuwI3DfZ2X-CngWgWOt7USEwmrm/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-21 09:10:05', 'false'),
+(35, 'Kimetsu no Yaiba Entertainment District Arc Vol.3 Bonus Disc', 'https://drive.google.com/file/d/15yML8Yp9cvdl8-vIiGVYcjcnbs6_S_8c/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-21 15:57:24', 'false'),
+(36, 'Kimetsu no Yaiba TV Animation Series Volume 2 Special CD', 'https://drive.google.com/file/d/16c3ugur1vCO17_X_figfo2xU21Wd21ZF/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-26 13:55:10', 'false'),
+(37, 'Jigokuraku Original Soundtrack', 'https://drive.google.com/file/d/18Rlj6c9cZX8gkbfxhzRrCRbErfC0rdTN/view?usp=drive_link', 'album', 'Yoshiaki Dewa', 'false', NULL, '2024-07-22 17:18:09', 'false'),
+(38, 'Kimetsu no Yaiba Entertainment District Arc Vol.2 Bonus Disc', 'https://drive.google.com/file/d/1Df8_VklGMwcrKOfCeCec2XgydwX9Q3sp/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-25 07:54:21', 'false'),
+(39, 'One Piece Best Song Collection', 'https://drive.google.com/file/d/1uHdBew4owwbRKfXa6-nI4NZsdhuAKYOv/view?usp=drive_link', 'album', 'Kohei Tanaka, MORI JUNTA, Masahiro Takami, Hajime Hyakkoku, Hiroshi Kitadani, Eri Takeda, Matto Yamamoto', 'false', NULL, '2024-07-26 13:54:47', 'false'),
+(40, 'ONE PIECE MUSIC & BEST SONG Collection', 'https://drive.google.com/file/d/1W6Inh_sslvp7OEVOajIiwnD7HHnenNns/view?usp=drive_link', 'album', 'Kohei Tanaka, Shiro Hamaguchi, Masahiro Takami, Eri Takeda', 'false', NULL, '2024-07-26 13:56:34', 'false'),
+(41, 'ONE PIECE MUSIC & SONG Collection 3', 'https://drive.google.com/file/d/1VcG-1Mk5F-q2MDt6h_-Ltk7jR_RUkrIS/view?usp=drive_link', 'album', 'Kohei Tanaka, Shiro Hamaguchi, Masahiro Takami, Eri Takeda', 'false', NULL, '2024-07-24 17:36:13', 'false'),
+(42, 'One Piece Music & Song Collection 1', 'https://drive.google.com/file/d/1-H2HH6wdvxSEjt1B1ajYfOYbHDDddkc2/view?usp=drive_link', 'album', 'Junta Mori, Kohei Tanaka, Masahiro Takami, Shiro Hamaguchi', 'false', NULL, '2024-07-28 19:44:52', 'false'),
+(43, 'One Piece Music & Song Collection 2', 'https://drive.google.com/file/d/1KbvABPhT3Eg_niVltKmAczSA64h4TpHN/view?usp=drive_link', 'album', 'Hiroshi Kitadani, Kohei Tanaka, Masahiro Takami, Shiro Hamaguchi\r\n', 'false', NULL, '2024-07-27 22:09:01', 'false'),
+(44, 'Kimetsu no Yaiba Entertainment District Arc Vol.4 Bonus Disc', 'https://drive.google.com/file/d/1N4B1MNyyMq4Tlg2cx-7TPJ2rh7D09SP_/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-28 19:36:09', 'false'),
+(45, 'Kimetsu No Yaiba Entertainment District Arc Vol.5 Bonus Disc', 'https://drive.google.com/file/d/1O_V41Eu93cLU4GxhEPhmp2KGX_qxSZVi/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-29 15:59:57', 'false'),
+(46, 'Kimetsu no Yaiba Entertainment District Arc Vol.6 Bonus Disc', 'https://drive.google.com/file/d/1QJPoNrnn0ufAt7e0A9rEf-KjJTXJNphJ/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-30 11:27:38', 'false'),
+(47, 'One Piece 10th Anniversary ~ Super Best', 'https://drive.google.com/file/d/1Rx4Y68552kFi8EMLrFCJQ8QEs37dRlm1/view?usp=drive_link', 'album', 'Hiroshi Kitadani, Folder5, The babystars, BON-BON BLANCO, BOYSTYLE, D-51, Mayumi Tanaka, Kazuya Nakai, Akemi Okamura, Kappei Yamaguchi, Hiroaki Hirata, Ikue Ohtani, Yuriko Yamaguchi, Maki Otsuki, TOMATO CUBE, Suitei Shojo, AI-SACHI, The Kaleidoscope, Takako Uehara, Janne Da Arc, Ruppina, ZZ, shela, Aiko?Ikuta, Tackey & Tsubasa, ASIA ENGINEER, TRIPLANE, Tohoshinki, Delicatessen', 'false', NULL, '2024-07-29 21:35:14', 'false'),
+(48, 'TV Anime \"Haikyu!! Second Season\" Original Soundtrack (Vol.1)', 'https://i.scdn.co/image/ab67616d0000b27384b14489a08fac0de79912f6', 'album', 'Yuki Hayashi', 'false', NULL, '2024-07-30 15:08:57', 'false'),
+(50, 'TV anime \"Haikyu!!\" Original Soundtrack 2', 'https://i.scdn.co/image/ab67616d0000b273ad4258993022ee1cf4bcdfc2', 'album', 'Yuki Hayashi, Asami Tachibana', 'false', NULL, '2024-07-30 15:18:16', 'false'),
+(51, 'Zankyou no Terror Original Soundtrack 2', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/kvak/alois.png', 'album', 'Yoko Kanno', 'false', NULL, '2024-07-30 15:13:14', 'false'),
+(52, 'Mushishi Original Soundtrack Mushinone Zen', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/a07.jpg', 'album', 'Toshio Masuda', 'false', NULL, '2024-07-30 15:14:02', 'false'),
+(53, 'TV Anime \"Haikyuu!! Karasuno High School VS Shiratorizawa Academy\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273122cfdb07236e2518a35d406', 'album', 'Yuki Hayashi, Asami Tachibana', 'false', NULL, '2024-07-30 15:15:22', 'false'),
+(54, 'TV Anime \"Haikyuu!!\" Original Soundtrack Vol. 1', 'https://www.googleapis.com/drive/v3/files/1E8uAUaYUq7ttblD9SmSpSS_wERvx0BkB?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Yuki Hayashi, Asami Tachibana\r\n\r\n', 'false', NULL, '2024-07-30 15:16:31', 'false'),
+(55, 'My Hero Academia Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273b8bf049db6f5b729d68e979c', 'album', 'Yuki Hayashi', 'false', NULL, '2024-07-30 15:17:32', 'false'),
+(56, 'TV anime \"Haikyu!! TO THE TOP\" original soundtrack', 'https://i.scdn.co/image/ab67616d0000b273a889097049db449872cba12a', 'album', 'Yuki hayashi, asami tachibana', 'false', NULL, '2024-07-30 15:22:26', 'false'),
+(57, 'TV Anime \"Attack on Titan\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2732e09d63a7ba7fa7071e26524', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-07-30 15:24:29', 'false'),
+(58, 'CODE GEASS Lelouch of the Rebellion R2 Original Motion Picture Soundtrack 2', 'https://i.scdn.co/image/ab67616d0000b2732e6c382652cd32186fe62e18', 'album', 'Kotaro Nakagawa\r\n\r\n', 'false', NULL, '2024-07-30 15:27:11', 'false'),
+(59, 'Jujutsu Kaisen Hidden Inventory/Premature Death & Shibuya Incident Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273c9a81fd67e569655c7193a38', 'album', 'Yoshimasa Terui\r\n\r\n', 'false', NULL, '2024-07-30 15:27:58', 'false'),
+(61, 'Avatar: The Way of Water (Original Score)', 'https://i.scdn.co/image/ab67616d0000b273d7e72752b579c6771230beb2', 'album', 'Simon Franglen', 'false', NULL, '2024-07-30 15:29:01', 'false'),
+(62, 'TV anime \'Haikyu!! Second Season\' Original Soundtrack (Vol.2)', 'https://i.scdn.co/image/ab67616d0000b273ab635c3e8034df6f34996b41', 'album', 'yuki hayashi, asami tachibana', 'false', NULL, '2024-07-30 15:31:28', 'false'),
+(63, 'NARUTO Shippuden Original Soundtrack III', 'https://i.scdn.co/image/ab67616d0000b2735b26033d465f5cbd3ca87a5e', 'album', 'Yasuharu Takanashi, YAIBA\r\n\r\n', 'false', NULL, '2024-07-30 15:33:00', 'false'),
+(64, 'Jujutsu Kaisen Kaidama/Tamaori Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273be21efb34b1b948b0e239b56', 'album', 'Yoshimasa Terui\r\n\r\n', 'false', NULL, '2024-07-30 15:33:48', 'false'),
+(65, 'TV Anime \"Dr.STONE\" Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Anime_OST/A%20Battle%20Of%20The%20Mind.png', 'album', 'Hiroaki Tsutsumi\r\n\r\n', 'false', NULL, '2024-07-30 15:34:07', 'false'),
+(66, 'GUILTY CROWN COMPLETE SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b27323be43908481990dce74b994', 'album', 'Hiroyuki Sawano, Mika Kobayashi\r\n\r\n', 'false', NULL, '2024-07-30 15:35:50', 'false'),
+(67, 'Zankyou no Terror Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2737b5246905b01860da76f2cb5', 'album', 'Yoko Kanno, Arn?r Dan\r\n\r\n', 'false', NULL, '2024-07-30 15:36:13', 'false'),
+(68, 'Shigatsu wa Kimi no Uso BONUS DISC 3', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%203/Cover.jpg', 'album', 'Masaru Yokoyama\r\n\r\n', 'false', NULL, '2024-07-30 15:37:16', 'false'),
+(69, 'Limbo (Original Videogame Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b273337247f66404f4962a0ed4cc', 'album', 'Martin Stig Andersen\r\n\r\n', 'false', NULL, '2024-07-30 15:37:53', 'false'),
+(70, 'Angel Beats! Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/Angel_Beats%2521_Original_Soundtrack_cover.webp', 'album', 'Jun Maeda, ANANT-GARDE EYES, Karuta', 'false', NULL, '2024-07-30 15:39:24', 'false'),
+(71, 'Mushishi Soundtrack \"Mushinone Ketsu\"', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Mushinone%20Ketsu/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 15:40:00', 'false'),
+(72, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b273d911e43123678e12f4eb2823', 'album', 'Yasuharu Takanashi', 'false', NULL, '2024-07-30 15:40:22', 'false'),
+(73, 'Mushishi Zokushou Vol.5 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/vol5/cover.jpg', 'album', 'Toshio Masuda', 'false', NULL, '2024-07-30 15:40:43', 'false'),
+(74, 'DEATH NOTE Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273d4cafdffd73a6d7bdb4a1439', 'album', 'Yoshihisa Hirano, Hideki Taniuchi', 'false', NULL, '2024-07-30 15:41:23', 'false'),
+(75, 'Vinland Saga (Original Soundtracks)', 'https://i.scdn.co/image/ab67616d0000b27337011eccc47bfe57a5f4f494', 'album', 'Yutaka Yamada', 'false', NULL, '2024-07-30 15:50:03', 'false'),
+(76, 'Tv anime \"Vinland Saga\" SEASON 2 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2739a3796ce5fcbd9cf2eeddd95', 'album', 'Yutaka Yamada', 'false', NULL, '2024-07-30 15:51:54', 'false'),
+(77, 'NARUTO original soundtrack', 'https://i.scdn.co/image/ab67616d0000b2736d1c1a631e1b46ccc32eaee2', 'album', 'MUSASHI PROJECT\r\n\r\n', 'false', NULL, '2024-07-30 15:55:41', 'false'),
+(78, 'Mushishi Original Soundtrack Mushinone Go', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Mushishi%20Original%20Soundtrack%20Mushinone%20Go/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 16:49:41', 'false'),
+(79, 'Interstellar (Original Motion Picture Soundtrack) [Expanded Edition]', 'https://i.scdn.co/image/ab67616d0000b273ac29a65e7ffcfa6f9cb0d342', 'album', 'Hans Zimmer\r\n\r\n', 'false', NULL, '2024-07-30 16:50:56', 'false'),
+(80, 'TV Animation \"Wistoria: Wand and Sword\" Music Abstract Part 1', 'https://i.scdn.co/image/ab67616d0000b27399a23b1be309adad31a20953', 'album', 'Yuki Hayashi\r\n\r\n', 'false', NULL, '2024-07-30 16:51:26', 'false'),
+(81, 'TV anime “Isshuukan Friends” Ending theme “Kanade”', 'https://i.scdn.co/image/ab67616d0000b27352797e95b346e63bc029dd9c', 'album', 'Irone Toda, Hase Yuuki (CV: Yamaya Yoshitaka), Fujimiya Kaori (CV: Amamiya Sora)', 'false', NULL, '2024-07-30 16:53:21', 'false'),
+(82, 'Tokyo Ghoul (Jack) [Original Soundtrack]', 'https://i.scdn.co/image/ab67616d0000b273183fde168e33daa03c7996eb', 'album', 'Yutaka Yamada\r\n\r\n', 'false', NULL, '2024-07-30 16:55:22', 'false'),
+(83, 'Blue Exorcist Plugless', 'https://i.scdn.co/image/ab67616d0000b2731431028337304eb42c84d367', 'album', 'Hiroyuki Sawano\r\n\r\n', 'false', NULL, '2024-07-30 16:56:32', 'false'),
+(84, 'CODE GEASS Lelouch of the Rebellion R2 Original Motion Picture Soundtrack 1', 'https://i.scdn.co/image/ab67616d0000b27331943fc9cd23e1b95b40e4d8', 'album', 'Kotaro Nakagawa\r\n\r\n', 'false', NULL, '2024-07-30 16:57:29', 'false'),
+(85, 'Kung Fu Panda 2 (Music From The Motion Picture)', 'https://i.scdn.co/image/ab67616d0000b273fd794819d94c36879e934b03', 'album', 'John Powell, Hans Zimmer\r\n\r\n', 'false', NULL, '2024-07-30 16:58:07', 'false'),
+(86, 'The Seven Deadly Sins Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273141f3f80e8ad1721000083a9', 'album', 'Hiroyuki Sawano\r\n\r\n', 'false', NULL, '2024-07-30 16:59:15', 'false'),
+(87, 'The Seven Deadly Sins Original Soundtrack 2', 'https://i.scdn.co/image/ab67616d0000b2738a8e5ddb90a233e8088a043f', 'album', 'Hiroyuki Sawano, Takafumi Wada\r\n\r\n', 'false', NULL, '2024-07-30 16:59:38', 'false'),
+(88, 'Mushishi Zokushou Vol.1 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Yukinoshita/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 17:01:30', 'false'),
+(89, 'Assassination Classroom Time of 365 days Special CD', 'https://www.googleapis.com/drive/v3/files/1tLGqIJTYbIBzvHS1U5Zkpi0RBIce8W1J?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Shion Miyawaki, Akimitsu Homma, Jun Fukuyama', 'false', NULL, '2024-07-30 17:02:51', 'false'),
+(90, 'Shigatsu wa Kimi no Uso BONUS DISC 2', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/1-krone/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%202/Cover.jpg', 'album', 'masaru yokoyama', 'false', NULL, '2024-07-30 17:03:32', 'false'),
+(91, 'Shigatsu wa Kimi no Uso BONUS DISC 1', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/1-krone/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%201/Cover.jpg', 'album', 'masaru yokoyama', 'false', NULL, '2024-07-31 15:48:46', 'false'),
+(92, 'Mushishi Zokushou Vol.2 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Hideru%20Ame/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 17:05:06', 'false'),
+(93, 'Mushishi Zokushou Vol.6 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Vol.6/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 17:09:19', 'false'),
+(94, 'Mushishi Zokushou Vol.3 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Odoro%20no%20Michi/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 17:12:26', 'false'),
+(95, 'K-ON! Gekichuka Mini Album Houkago Tea Time', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/3-fuwa/K-ON!%20Gekichuka%20Mini%20Album%20Houkago%20Tea%20Time/Scans/cover.jpg', 'album', 'Yui Hirasawa (CV: Toyosaki Aki), Mio Akiyama (CV: Hikasa Youko)', 'false', NULL, '2024-07-30 17:13:50', 'false'),
+(96, 'Cyberpunk 2077: Radio, Vol. 2 (Original Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b273a91a5b301baac1f46e6f30eb', 'album', 'RAT BOY, IBDY\r\n\r\n', 'false', NULL, '2024-07-30 17:15:06', 'false'),
+(98, 'Kimetsu no Yaiba Original Soundtrack Vol. 1', 'https://drive.google.com/file/d/1U6kwbnK0ZUAlF-Rcn6NWLZOzHjcXfB69/view?usp=drive_link', 'album', 'Yuki Kajiura and Go Shiina', 'false', NULL, '2024-07-30 22:41:05', 'false'),
+(99, 'One Piece Film: Strong World Original Soundtrack', 'https://drive.google.com/file/d/1qtWdtAvNDy07Ytz2TumQpR0H-nGjkEsl/view?usp=drive_link', 'album', 'Kohei Tanaka, Shiro Hamaguchi, Yasuharu Konishi', 'false', NULL, '2024-07-31 15:02:40', 'false'),
+(100, 'Kimetsu no Yaiba the Movie Mugen Train Music Collection -Film Scoring Edition STEREO MIX-', 'https://drive.google.com/file/d/1wPUbZg_tj3dXl8o0URzQgcjsc14rkYFn/view?usp=drive_link', 'album', 'Yuki Kajiura & Go Shiina', 'false', NULL, '2024-07-31 15:22:26', 'false'),
+(101, 'One Piece 20th Anniversary Best Album', 'https://drive.google.com/file/d/106cq5wXUNpAsmQbZh7CmPx6vn4OB20S-/view?usp=drive_link', 'album', '5050, AAA, AI-SACHI, Akemi Okamura, Asia Engineer, BON-BON BLANCO, BOYSTYLE, D-51, Folder5, GENERATIONS, Hiroaki Hirata, Hiroshi Kitadani, Ikue Ohtani, Janne da Arc, Kappei Yamaguchi, Kazuki Yao, Kazuya Nakai, Kishidan, Kota Shinzato, Maki Otsuki, Mari Yaguchi, Mayumi Tanaka, Namie Amuro, Ruppina, shela, Suitei Shoujo, Takako Uehara, The Babystars, The Kaleidoscope, The ROOTLESS, Tohoshinki, TOMATO CUBE, TRIPLANE, ZZ', 'false', NULL, '2024-07-31 15:37:44', 'false'),
+(102, 'One Piece Music Material', 'https://drive.google.com/file/d/1QC4jUFavRuzR49GOIBi0tGqHEs8x5-6S/view?usp=drive_link', 'album', 'Keiji Inai, Kohei Tanaka, Shiro Hamaguchi, Yasuhisa Murase', 'false', NULL, '2024-08-02 21:52:35', 'false'),
+(103, 'One Piece Original Soundtrack - New World', 'https://drive.google.com/file/d/1Ix9L1RqlpRww6_lFPLlasy5HZsz1vfsp/view?usp=drive_link', 'album', 'Keiji Inai, Kohei Tanaka, Masami Kishimura, Shiro Hamaguchi, Yasuhisa Murase', 'false', NULL, '2024-08-09 17:24:00', 'false');
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `designs`
+--
+ALTER TABLE `designs`
+  ADD PRIMARY KEY (`UID`);
 
 --
 -- Indeks untuk tabel `music`
@@ -3237,14 +3484,32 @@ ALTER TABLE `music`
   ADD PRIMARY KEY (`id_music`);
 
 --
+-- Indeks untuk tabel `playlist`
+--
+ALTER TABLE `playlist`
+  ADD PRIMARY KEY (`uid`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `designs`
+--
+ALTER TABLE `designs`
+  MODIFY `UID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT untuk tabel `music`
 --
 ALTER TABLE `music`
   MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3225;
+
+--
+-- AUTO_INCREMENT untuk tabel `playlist`
+--
+ALTER TABLE `playlist`
+  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
