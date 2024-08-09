@@ -1,6 +1,6 @@
 <?php
 
-include './connection.php';
+include '.././../db.php';
 
 $sql = "SELECT * FROM music ORDER BY title ASC";
 
@@ -21,11 +21,11 @@ if (isset($_GET['_page']) && isset($_GET['_limit'])) {
 
 // Query to retrieve data from MySQL
 // $sql = "SELECT * FROM music ORDER BY title ASC";
-$result = $conn->query($sql);
+$result = $db->query($sql);
 
 // Check if the query was successful
 if (!$result) {
-    die("Query failed: " . $conn->error);
+    die("Query failed: " . $db->error);
 }
 
 // Create an array to store the data
@@ -58,5 +58,5 @@ if ($json_data === false) {
 // Output the JSON data
 echo $json_data;
 
-// Close the connection
-$conn->close();
+// Close the dbection
+$db->close();
