@@ -9,7 +9,7 @@ if (isset($_GET['_id'])) {
 
     $_id = $_GET['_id'];
 
-    $sql = "INSERT INTO recents_music (uid_recents, uid_music, plated_at) values (NULL, '$_id', NOW())";
+    $sql = "INSERT INTO recents_music (uid_recents, uid_music, played_at) values (NULL, '$_id', NOW())";
     $delete = "DELETE FROM recents_music
 WHERE uid_recents NOT IN (
     SELECT uid_recents
