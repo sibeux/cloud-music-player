@@ -140,7 +140,7 @@ Author:Webstrot
                                                 $title = $array_data_music['title'];
                                                 $artist = $array_data_music['artist'];
                                                 $favorite = $array_data_music['favorite'];
-                                                $album = $array_data_music['favorite'];
+                                                $album = $array_data_music['album'];
                                                 $time = $array_data_music['time'];
                                                 $cover = $array_data_music['cover'];
                                                 $date_added = $array_data_music['date_added'];
