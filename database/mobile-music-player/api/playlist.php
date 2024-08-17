@@ -54,6 +54,10 @@ if (isset($_GET['play_playlist'])) {
     $sql = "UPDATE playlist SET date = NOW() WHERE uid = '$uid'";
 }
 
+if (isset($_GET['recents_playlist'])) {
+    $sql = "SELECT * FROM 'recents_music' join music on music.id_music = recents_music.uid_music ORDER BY played_at DESC";
+}
+
 // Query to retrieve data from MySQL
 $result = $conn->query($sql);
 
