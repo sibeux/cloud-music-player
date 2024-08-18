@@ -22,9 +22,9 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
 
     if ($type == 'category') {
         $sql = "SELECT * FROM music
-join playlist on music.category like playlist.uid
-WHERE music.category = '$uid'
-ORDER BY music.title ASC";
+        join playlist on music.category like playlist.uid
+        WHERE music.category = '$uid'
+        ORDER BY music.title ASC";
     }
 
     if ($type == 'album') {
@@ -32,6 +32,14 @@ ORDER BY music.title ASC";
         join playlist on music.album like CONCAT('%', playlist.name, '%') 
         where playlist.uid = '$uid'
         ORDER BY title ASC";
+    }
+
+    if ($type == 'playlist') {
+        $sql = "SELECT * FROM playlist_music 
+        JOIN music on playlist_music.id_music = music.id_music 
+        join playlist on playlist_music.id_playlist = playlist.uid 
+        WHERE playlist.uid = '$uid' 
+        ORDER BY date_add_music_playlist DESC";
     }
 
     if ($type == 'favorite') {
