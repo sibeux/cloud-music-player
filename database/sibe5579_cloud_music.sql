@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 18 Agu 2024 pada 00.53
+-- Waktu pembuatan: 19 Agu 2024 pada 01.06
 -- Versi server: 10.6.18-MariaDB-cll-lve
 -- Versi PHP: 8.3.8
 
@@ -4582,7 +4582,49 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (4522, '2', 'https://drive.google.com/file/d/19Ql9J1EYis39Vxf0DGKHkE2bxwxeXDvJ/view?usp=drive_link', 'M04', 'Go Shiina', 'Kimetsu no Yaiba Swordsmith Village Arc Vol.2 Bonus Disc Part 2', '03:03', 'https://drive.google.com/file/d/18XQ6hKZ_-Au9mUhNt3GQJXbf8NDUSoUa/view?usp=drive_link', 0, '2024-08-17 17:52:55'),
 (4523, '2', 'https://drive.google.com/file/d/19VTPT8eyht5Ql648CTpG28IQLjhNMK3i/view?usp=drive_link', 'M03', 'Go Shiina', 'Kimetsu no Yaiba Swordsmith Village Arc Vol.2 Bonus Disc Part 2', '02:45', 'https://drive.google.com/file/d/18XQ6hKZ_-Au9mUhNt3GQJXbf8NDUSoUa/view?usp=drive_link', 0, '2024-08-17 17:52:56'),
 (4524, '2', 'https://drive.google.com/file/d/19Vo3A802PdCnIWLztyOnBb1WfxJy4Sxi/view?usp=drive_link', 'M02', 'Go Shiina', 'Kimetsu no Yaiba Swordsmith Village Arc Vol.2 Bonus Disc Part 2', '00:59', 'https://drive.google.com/file/d/18XQ6hKZ_-Au9mUhNt3GQJXbf8NDUSoUa/view?usp=drive_link', 0, '2024-08-17 17:52:57'),
-(4525, '2', 'https://drive.google.com/file/d/19YYQ9QiOcbPgF5M0fVtV5XwXQCtGuP7L/view?usp=drive_link', 'M01', 'Go Shiina', 'Kimetsu no Yaiba Swordsmith Village Arc Vol.2 Bonus Disc Part 2', '01:13', 'https://drive.google.com/file/d/18XQ6hKZ_-Au9mUhNt3GQJXbf8NDUSoUa/view?usp=drive_link', 0, '2024-08-17 17:52:58');
+(4525, '2', 'https://drive.google.com/file/d/19YYQ9QiOcbPgF5M0fVtV5XwXQCtGuP7L/view?usp=drive_link', 'M01', 'Go Shiina', 'Kimetsu no Yaiba Swordsmith Village Arc Vol.2 Bonus Disc Part 2', '01:13', 'https://drive.google.com/file/d/18XQ6hKZ_-Au9mUhNt3GQJXbf8NDUSoUa/view?usp=drive_link', 0, '2024-08-17 17:52:58'),
+(4526, '2', 'https://drive.google.com/file/d/1KW39DqreSSTU27mmZzIznlPD60Tmb525/view?usp=drive_link', 'Mizu no Kokyu', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '03:03', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:43'),
+(4527, '2', 'https://drive.google.com/file/d/1K7aiL7Btgy5Pizg7yXuESpsR75tNxVS1/view?usp=drive_link', 'Hashibira Inosuke', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '00:49', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:44'),
+(4528, '2', 'https://drive.google.com/file/d/1JxPG-R2cW-eDPxw6DYmGm7aQEtM1r5wq/view?usp=drive_link', 'Agatsuma Zenitsu', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '04:03', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:45'),
+(4529, '2', 'https://drive.google.com/file/d/1Kueo7KJ7yX6_l2yEdg44xP8yMj0DnsAS/view?usp=drive_link', 'Nezuko - Zutto Issho', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '04:58', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:46'),
+(4530, '2', 'https://drive.google.com/file/d/1KyxuJw07y9ZsneLVlfct1G5VKvomeu2m/view?usp=drive_link', 'Susamaru to Yahaba tono Sentou', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '03:06', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:47'),
+(4531, '2', 'https://drive.google.com/file/d/1LCIAr5qRPqSxWM6gGWek-Kx7dnYegrLY/view?usp=drive_link', 'Tamayo -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '03:16', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:48'),
+(4532, '2', 'https://drive.google.com/file/d/1KOBN4bIUX8wYVUCPIeBvPSynBGVF3xvS/view?usp=drive_link', 'Kibutsuji Muzan -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '03:01', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:49'),
+(4533, '2', 'https://drive.google.com/file/d/1Kpp3ABI7BS6-HmTxrrBykD4VHs60ddZQ/view?usp=drive_link', 'Oni', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '00:43', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:50'),
+(4534, '2', 'https://drive.google.com/file/d/1JoGQt-AWt3QhSxZ1Jw9O1Hn4vvL-oNiI/view?usp=drive_link', 'Fushigi - Kamado Tanjiro - Kasugai Garasu to Tomoni', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '02:29', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:51'),
+(4535, '2', 'https://drive.google.com/file/d/1KWPjSb1pta0YYOcsNOHbmcnLSdfQnHNL/view?usp=drive_link', 'Mizu no Kokyu - Teoni', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '02:30', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:52'),
+(4536, '2', 'https://drive.google.com/file/d/1K2xKHu5nQhvNUhIdNrErVG6b4vFf_nXh/view?usp=drive_link', 'Jou', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '04:11', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:53'),
+(4537, '2', 'https://drive.google.com/file/d/1KdDCHRzakbmYppR2l6CkWZuORVBuVmgt/view?usp=drive_link', 'Makomo -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '00:30', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:54'),
+(4538, '2', 'https://drive.google.com/file/d/1KnssaJX-1FUfB_RuzINTg09yEZkFP-a8/view?usp=drive_link', 'Sabito Shutsugen', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '04:37', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:55'),
+(4539, '2', 'https://drive.google.com/file/d/1KISLrLD9CbJQDYpH4xYMNTSQwkhnjaTo/view?usp=drive_link', 'Kunren', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '04:13', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:56'),
+(4540, '2', 'https://drive.google.com/file/d/1KNjg5FDNjVuaS0lFP8sSB0VKGEBZ1baF/view?usp=drive_link', 'Kisatsutai -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '01:24', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:57'),
+(4541, '2', 'https://drive.google.com/file/d/1K048r8Yg90CERQOimrJv-8er4hIy_72y/view?usp=drive_link', 'Kazoku -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '04:49', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:58'),
+(4542, '2', 'https://drive.google.com/file/d/1KE2ooAB3idshb_Qc6rVuengJF2-B_qm9/view?usp=drive_link', 'Gurenge (TV Version)', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '04:02', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:31:59'),
+(4543, '2', 'https://drive.google.com/file/d/1KzzjqBRQyaVtU_LXZ7ox7iAP4s7nGtbC/view?usp=drive_link', 'survive and get the blade, boy', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '01:28', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:00'),
+(4544, '2', 'https://drive.google.com/file/d/1JpoWCa8kLC9ujEXLuj70yopNwI_fnA3K/view?usp=drive_link', 'brace up and run!', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 1', '02:14', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:01'),
+(4545, '2', 'https://drive.google.com/file/d/1L-Rw92bhB7o0a-LoyMdwZt85sdlGJ_Kh/view?usp=drive_link', 'From the Edge (TV Version)', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:42', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:16'),
+(4546, '2', 'https://drive.google.com/file/d/1L5X5dy6j6fuyPgY22JInDK3s9-tRLw68/view?usp=drive_link', 'Aratanaru Ninmu - Mugen Ressha ni Mukatte', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '03:31', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:17'),
+(4547, '2', 'https://drive.google.com/file/d/1LE1SF0MXgtu4-r4fb6uH1sF1Dw97VOM6/view?usp=drive_link', 'Kagen no Oni', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '02:24', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:18'),
+(4548, '2', 'https://drive.google.com/file/d/1MkFF4ZoX_b--oBCEYmExRIBdsi9eW3aX/view?usp=drive_link', 'Tsuyuri Kanao to Taiketsu', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:16', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:19'),
+(4549, '2', 'https://drive.google.com/file/d/1LSktM_Y-8V_g-_TnOP32qS2rfb5z_4y1/view?usp=drive_link', 'Kansha', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '03:39', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:20'),
+(4550, '2', 'https://drive.google.com/file/d/1MqutkbvP9fwvyP0VD7TYp470o-mcsTlD/view?usp=drive_link', 'Shinazugawa Sanemi tono Taiji', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '02:15', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:21'),
+(4551, '2', 'https://drive.google.com/file/d/1LMfbTMc340DTZ4iuW3WzwEMuv2tb9TYz/view?usp=drive_link', 'Hashira no Theme -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '02:54', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:22'),
+(4552, '2', 'https://drive.google.com/file/d/1MizbAnA1usWiNFhVp3NeWWokdaxfs0mJ/view?usp=drive_link', 'Natagumoyama - Yoake', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:10', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:23'),
+(4553, '2', 'https://drive.google.com/file/d/1M66KDhMMlC7x5w72YSaiZzGg7dZ46fNE/view?usp=drive_link', 'Kasugai Garasu no Denrei -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '02:25', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:24'),
+(4554, '2', 'https://drive.google.com/file/d/1LShWDtgmVi5K5NGUyk5DuOTQI5ssRudo/view?usp=drive_link', 'Hashira - Taiji', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:45', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:25'),
+(4555, '2', 'https://drive.google.com/file/d/1LyqnuOX52YoXC0xcMW7ZOs_nl_aAovcT/view?usp=drive_link', 'Kazoku no Omoide', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '03:25', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:26'),
+(4556, '2', 'https://drive.google.com/file/d/1MNg4reGJbs8GjDTnZPmPtyyU-gHNNm-o/view?usp=drive_link', 'Mushi Bashira no Theme -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '00:47', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:27'),
+(4557, '2', 'https://drive.google.com/file/d/1MBTECJD3tKWCPeS2yV3DOviCzxTZzuqY/view?usp=drive_link', 'Nagi', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '03:14', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:28'),
+(4558, '2', 'https://drive.google.com/file/d/1LW8byW0gTsurGW0myCxxWwiEEAm8gt9B/view?usp=drive_link', 'Kamado Tanjiro no Uta -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:56', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:29'),
+(4559, '2', 'https://drive.google.com/file/d/1MRvNiTPaTfZiO9-kW3JE8asW6tqw19Af/view?usp=drive_link', 'Mizu no Kokyu Hatsudou -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:28', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:30'),
+(4560, '2', 'https://drive.google.com/file/d/1LGhFRerW8nzJX0X6hG2S8g7t6TaF3-fO/view?usp=drive_link', 'Hekireki Issen Rokuren - Kisatsutai to shite', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:52', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:31'),
+(4561, '2', 'https://drive.google.com/file/d/1LWdBP8Uy9HtFEmVX3zVKnc2PlI1mdQd4/view?usp=drive_link', 'Mizu no Kokyu - Kanten no Jiu e -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:33', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:32'),
+(4562, '2', 'https://drive.google.com/file/d/1Mhu_eT8yzWas_8wtmApoDiFFJHXElbND/view?usp=drive_link', 'Natagumoyama -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '02:12', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:33'),
+(4563, '2', 'https://drive.google.com/file/d/1MZTP3fghR6_lJIiYO32MrNXJamUlFXzI/view?usp=drive_link', 'Seisei Ruten -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '01:54', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:34'),
+(4564, '2', 'https://drive.google.com/file/d/1Mppqi-w57FAKsBd64ftLfGG9Ai0Njs3F/view?usp=drive_link', 'Tomioka Giyu no Theme - Tanjiro no Tatakai - Kisatsutai', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '04:06', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:35'),
+(4565, '2', 'https://drive.google.com/file/d/1LuA_0sWMqPDB9v7KAEpLh2lflDb4lRX9/view?usp=drive_link', 'Kocho Shinobu Shutsugen -OST version-', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '02:19', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:36'),
+(4566, '2', 'https://drive.google.com/file/d/1M_V29wsy5rpGFSlDevAWWtbLKcl5RqFC/view?usp=drive_link', 'Rui to Taiji', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '04:32', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:37'),
+(4567, '2', 'https://drive.google.com/file/d/1Lk84nr8I__aCFFj69bdZUQAjUwFx9jB_/view?usp=drive_link', 'Kyoudai no Kizuna', 'Go Shiina', 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack Disc 2', '03:02', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 0, '2024-08-18 10:32:38');
 
 -- --------------------------------------------------------
 
@@ -4607,9 +4649,9 @@ CREATE TABLE `playlist` (
 --
 
 INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_pin`, `date`, `editable`) VALUES
-(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', 'Nasrul Wahabi', 'true', '2024-08-14 13:41:36', '2024-08-17 17:39:20', 'false'),
+(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', 'Nasrul Wahabi', 'true', '2024-08-14 13:41:36', '2024-08-18 15:55:11', 'false'),
 (4, 'Danshi Koukousei No Nichijou Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Danshi/cover.jpg', 'album', 'Audio Highs', 'false', NULL, '2024-07-18 19:04:28', 'false'),
-(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama', 'false', NULL, '2024-07-26 13:54:40', 'false'),
+(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama', 'false', NULL, '2024-08-18 07:40:54', 'false'),
 (6, 'Your Name.', 'https://i.scdn.co/image/ab67616d0000b2733d1869d8c477d291a205a2d6', 'album', 'RADWIMPS', 'false', NULL, '2024-06-28 08:14:27', 'false'),
 (8, 'Kimetsu No Yaiba: Mugen Ressha-Hen Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/COVER.jpg', 'album', 'Go Shiina, Yuki Kajiura', 'false', NULL, '2024-07-30 13:55:28', 'false'),
 (9, 'Hotarubi No Mori E Original Soundtrack：Kisetsu No Matataki', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Hotarubi/Cover.jpg', 'album', 'Makoto Yoshimori', 'false', NULL, '2024-06-28 09:03:09', 'false'),
@@ -4632,7 +4674,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (26, 'TV Anime \"Attack On Titan Season 2\" (Original Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b2739c44e39f1b6aafe87a6db356', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-07-18 05:59:58', 'false'),
 (27, 'TV Anime “SPY×FAMILY” Original Soundtrack (Vol.1)', 'https://raw.githubusercontent.com/sibeux/sibeux-contrarians-syntaxianz/main/mewing/STRIX/Berlint%20%E2%80%94%20SPY%20x%20FAMILY%20%5BOST%5D.png', 'album', '(K)NoW_NAME', 'false', NULL, '2024-07-17 17:49:52', 'false'),
 (28, 'Sword Art Online Music Collection', 'https://i.scdn.co/image/ab67616d0000b273136a8ed571891d091ed4715b', 'album', 'Yuki Kajiura', 'false', NULL, '2024-07-17 18:07:56', 'false'),
-(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-08-17 17:02:58', 'false'),
+(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-08-18 10:00:50', 'false'),
 (30, 'DEATH NOTE Original Soundtrack Ⅲ', 'https://i.scdn.co/image/ab67616d0000b2739dd71a92c70af0dc020f7197', 'album', 'Yoshihisa Hirano, Hideki Taniuchi', 'false', NULL, '2024-07-18 15:39:49', 'false'),
 (31, 'Shigatsu Wa Kimi No Uso BONUS DISC 4', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%204/Cover.jpg', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-08-16 15:51:14', 'false'),
 (32, 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 'album', 'Yasuharu Takanashi, YAIBA\r\n\r\n', 'false', NULL, '2024-07-18 19:03:38', 'false'),
@@ -4691,7 +4733,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (87, 'The Seven Deadly Sins Original Soundtrack 2', 'https://i.scdn.co/image/ab67616d0000b2738a8e5ddb90a233e8088a043f', 'album', 'Hiroyuki Sawano, Takafumi Wada\r\n\r\n', 'false', NULL, '2024-07-30 16:59:38', 'false'),
 (88, 'Mushishi Zokushou Vol.1 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Yukinoshita/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 17:01:30', 'false'),
 (89, 'Assassination Classroom Time of 365 days Special CD', 'https://www.googleapis.com/drive/v3/files/1tLGqIJTYbIBzvHS1U5Zkpi0RBIce8W1J?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Shion Miyawaki, Akimitsu Homma, Jun Fukuyama', 'false', NULL, '2024-07-30 17:02:51', 'false'),
-(90, 'Shigatsu wa Kimi no Uso BONUS DISC 2', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/1-krone/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%202/Cover.jpg', 'album', 'masaru yokoyama', 'false', NULL, '2024-07-30 17:03:32', 'false'),
+(90, 'Shigatsu wa Kimi no Uso BONUS DISC 2', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/1-krone/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%202/Cover.jpg', 'album', 'masaru yokoyama', 'false', NULL, '2024-08-18 09:49:28', 'false'),
 (91, 'Shigatsu wa Kimi no Uso BONUS DISC 1', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/1-krone/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%201/Cover.jpg', 'album', 'masaru yokoyama', 'false', NULL, '2024-07-31 15:48:46', 'false'),
 (92, 'Mushishi Zokushou Vol.2 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Hideru%20Ame/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 17:05:06', 'false'),
 (93, 'Mushishi Zokushou Vol.6 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Vol.6/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 17:09:19', 'false'),
@@ -4732,15 +4774,38 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (131, 'One-Punch Man - Original Soundtrack ~ ONE TAKE MAN 2', 'https://drive.google.com/file/d/1GGQaTZEbDaZfNT6otM9_Go-H0TJ1t3ni/view?usp=drive_link', 'album', 'Makoto Miyazaki', 'false', NULL, '2024-08-15 22:22:42', 'false'),
 (132, 'Ranking of Kings ~ The Treasure Chest of Courage Original Soundtrack', 'https://drive.google.com/file/d/1K5C1_ZByDVXIRTC9Y7ov5aXKBgIVOqcK/view?usp=drive_link', 'album', 'MAYUKO', 'false', NULL, '2024-08-17 14:04:46', 'false'),
 (133, 'Tonikaku Kawaii Original Soundtrack', 'https://drive.google.com/file/d/1Pbyp1kxiqo_98t9oLdEKm5IefS8dW0c8/view?usp=drive_link', 'album', 'ENDO.', 'false', NULL, '2024-08-16 15:51:52', 'false'),
-(134, 'Avatar: The Way of Water (Original Score)', 'https://drive.google.com/file/d/1W_D3T6wTMO-Cpu1kkQ-BfE7medZoN-df/view?usp=drive_link', 'album', 'Simon Franglen', 'false', NULL, '2024-08-17 14:06:14', 'false'),
 (135, 'TV ANIMATION SPY×FAMILY ORIGINAL SOUNDTRACK', 'https://drive.google.com/file/d/1c3mF4L9-6vY-DXC_b5w4fOjmLIi6xxMm/view?usp=drive_link', 'album', '(K)NoW_NAME', 'false', NULL, '2024-08-17 12:30:41', 'false'),
-(136, 'Avatar: The Way of Water (Original Motion Picture Soundtrack)', 'https://drive.google.com/file/d/1-yFXZ0Xcu6-A5b7dg9jVwQ4fzZxNPuCI/view?usp=drive_link', 'album', 'Simon Franglen', 'false', NULL, '2024-08-17 16:48:10', 'false'),
+(136, 'Avatar: The Way of Water (Original Motion Picture Soundtrack)', 'https://drive.google.com/file/d/1-yFXZ0Xcu6-A5b7dg9jVwQ4fzZxNPuCI/view?usp=drive_link', 'album', 'Simon Franglen', 'false', NULL, '2024-08-18 09:57:26', 'false'),
 (137, 'TV ANIME \"Migi & Dali\" Original Soundtrack', 'https://drive.google.com/file/d/11gs1T6HsBa-tGXNT-T6dL2hsZ7-D55Rs/view?usp=drive_link', 'album', 'Hiroko Sebu', 'false', NULL, '2024-08-17 17:07:42', 'false'),
 (138, 'Kimetsu no Yaiba Swordsmith Village Arc Vol.1 Bonus Disc', 'https://drive.google.com/file/d/14XU8Ub_TmqvKd6rbZABuyENrYw1jBV2y/view?usp=drive_link', 'album', 'Yuki Kajiura, Go Shiina', 'false', NULL, '2024-08-17 17:16:17', 'false'),
-(139, 'Kimetsu No Yaiba Swordsmith Village Arc - Nezuko Kamado\'s Song', 'https://drive.google.com/file/d/15tx42n4O06YUO2npOBwGqeek1A-Oj7UM/view?usp=drive_link', 'album', 'Go Shiina, Nami Nakagawa', 'false', NULL, '2024-08-17 17:30:46', 'false'),
-(140, 'Kimetsu no Yaiba - Gurenge', 'https://drive.google.com/file/d/161AjNSMSpa1ZxLFqNtbmaLAnbbynwnhZ/view?usp=drive_link', 'album', 'LiSA', 'false', NULL, '2024-08-17 17:34:19', 'false'),
-(141, 'Kimetsu no Yaiba Insert EP 19 Kamado Tanjirou no Uta  Go Shiina featuring Nami Nakagawa', 'https://drive.google.com/file/d/186uy2Ac6y7IBjmOJ2TDsu81Qq0qnKliX/view?usp=drive_link', 'album', 'Go Shiina feat. Nami Nakagawa', 'false', NULL, '2024-08-17 17:38:15', 'false'),
-(142, 'Kimetsu no Yaiba Swordsmith Village Arc Vol.2 Bonus Disc', 'https://drive.google.com/file/d/18XQ6hKZ_-Au9mUhNt3GQJXbf8NDUSoUa/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-08-17 17:53:26', 'false');
+(139, 'Kimetsu No Yaiba Swordsmith Village Arc - Nezuko Kamado\'s Song', 'https://drive.google.com/file/d/15tx42n4O06YUO2npOBwGqeek1A-Oj7UM/view?usp=drive_link', 'album', 'Go Shiina, Nami Nakagawa', 'false', NULL, '2024-08-18 01:32:54', 'false'),
+(140, 'Kimetsu no Yaiba - Gurenge', 'https://drive.google.com/file/d/161AjNSMSpa1ZxLFqNtbmaLAnbbynwnhZ/view?usp=drive_link', 'album', 'LiSA', 'false', NULL, '2024-08-18 06:51:16', 'false'),
+(141, 'Kimetsu no Yaiba Insert EP 19 Kamado Tanjirou no Uta  Go Shiina featuring Nami Nakagawa', 'https://drive.google.com/file/d/186uy2Ac6y7IBjmOJ2TDsu81Qq0qnKliX/view?usp=drive_link', 'album', 'Go Shiina feat. Nami Nakagawa', 'false', NULL, '2024-08-18 01:33:06', 'false'),
+(142, 'Kimetsu no Yaiba Swordsmith Village Arc Vol.2 Bonus Disc', 'https://drive.google.com/file/d/18XQ6hKZ_-Au9mUhNt3GQJXbf8NDUSoUa/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-08-18 04:56:28', 'false'),
+(143, 'Kimetsu no Yaiba Tanjiro Kamado, Unwavering Resolve Arc Original Soundtrack', 'https://drive.google.com/file/d/1Ji-9I8b4fve9_k-nnzYDzwNSmaw3ftdA/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-08-18 10:33:11', 'false'),
+(160, 'Kamaboko', NULL, 'playlist', 'Nasrul Wahabi', 'false', NULL, '2024-08-18 16:07:23', 'true'),
+(163, 'Chill', NULL, 'playlist', 'Nasrul Wahabi', 'false', NULL, '2024-08-18 16:01:49', 'true');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `playlist_music`
+--
+
+CREATE TABLE `playlist_music` (
+  `id_playlist_music` int(5) NOT NULL,
+  `id_music` int(5) NOT NULL,
+  `id_playlist` int(5) NOT NULL,
+  `date_add_music_playlist` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data untuk tabel `playlist_music`
+--
+
+INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) VALUES
+(1, 1, 160, '2024-08-18 15:36:00'),
+(3, 10, 160, '2024-08-18 15:37:04');
 
 -- --------------------------------------------------------
 
@@ -4759,8 +4824,19 @@ CREATE TABLE `recents_music` (
 --
 
 INSERT INTO `recents_music` (`uid_recents`, `uid_music`, `played_at`) VALUES
-(8, 3894, '2024-08-17 17:02:58'),
-(9, 2487, '2024-08-17 17:39:20');
+(69, 1768, '2024-08-18 09:49:28'),
+(70, 212, '2024-08-18 09:57:02'),
+(71, 212, '2024-08-18 09:57:03'),
+(72, 213, '2024-08-18 09:57:03'),
+(73, 1030, '2024-08-18 09:57:26'),
+(74, 3896, '2024-08-18 10:00:50'),
+(75, 3884, '2024-08-18 10:00:50'),
+(76, 3893, '2024-08-18 10:01:04'),
+(77, 10, '2024-08-18 15:44:52'),
+(78, 1, '2024-08-18 15:44:58'),
+(79, 10, '2024-08-18 15:54:41'),
+(80, 3044, '2024-08-18 15:55:11'),
+(81, 10, '2024-08-18 16:07:23');
 
 --
 -- Indexes for dumped tables
@@ -4785,11 +4861,17 @@ ALTER TABLE `playlist`
   ADD PRIMARY KEY (`uid`);
 
 --
+-- Indeks untuk tabel `playlist_music`
+--
+ALTER TABLE `playlist_music`
+  ADD PRIMARY KEY (`id_playlist_music`),
+  ADD UNIQUE KEY `id music` (`id_music`);
+
+--
 -- Indeks untuk tabel `recents_music`
 --
 ALTER TABLE `recents_music`
-  ADD PRIMARY KEY (`uid_recents`),
-  ADD UNIQUE KEY `uid_music` (`uid_music`);
+  ADD PRIMARY KEY (`uid_recents`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -4805,19 +4887,25 @@ ALTER TABLE `designs`
 -- AUTO_INCREMENT untuk tabel `music`
 --
 ALTER TABLE `music`
-  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4526;
+  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4568;
 
 --
 -- AUTO_INCREMENT untuk tabel `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+
+--
+-- AUTO_INCREMENT untuk tabel `playlist_music`
+--
+ALTER TABLE `playlist_music`
+  MODIFY `id_playlist_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `recents_music`
 --
 ALTER TABLE `recents_music`
-  MODIFY `uid_recents` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `uid_recents` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
