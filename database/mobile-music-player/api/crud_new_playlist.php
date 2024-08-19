@@ -11,9 +11,9 @@ if (isset($_GET['action']) && isset($_GET['playlist_name']) && ($_GET['action'] 
 
     $sql = "INSERT INTO playlist (uid, name, image, type, author, pin, date_pin, date, editable) 
     values (NULL, '$name', NULL, 'playlist', 'Nasrul Wahabi', 'false', NULL, NOW(), 'true')";
-} else if (
-    isset($_GET['action']) && isset($_GET['playlist_uid']) && ($_GET['action'] == 'delete')
-) {
+}
+
+if (isset($_GET['action']) && isset($_GET['playlist_uid']) && ($_GET['action'] == 'delete')) {
     $uid = $_GET['playlist_uid'];
 
     $sql = "DELETE FROM playlist WHERE playlist.uid = '$uid'";
