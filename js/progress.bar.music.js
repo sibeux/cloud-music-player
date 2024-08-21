@@ -28,7 +28,7 @@ function changeFavoriteButton(id) {
 }
 
 let nowPlayingIndex = 1;
-function animatedPlayMusic(id, linkGDrive, countMusic) {
+function animatedPlayMusic(index, linkGDrive, countMusic, uid_music) {
 	countMusicNumber = countMusic;
 	// initiate variable
 	const playingMusic = document.getElementsByClassName("play_no");
@@ -36,16 +36,20 @@ function animatedPlayMusic(id, linkGDrive, countMusic) {
 	const currentPlayMusic = document.getElementsByClassName("playing");
 
 	if (currentPlayMusic.length === 0) {
-		nowPlayingIndex = id + 1;
+		nowPlayingIndex = index + 1;
 	}
 
+	setRecentsMusic(uid_music);
+
 	// button play visible and hidden
-	const hiddenButtonPlay = buttonPlay[id];
+	const hiddenButtonPlay = buttonPlay[index];
 	const visibleButtonPlay = buttonPlay[nowPlayingIndex - 1];
 
 	// check index of button play
 	const buttonPlayingMusic =
-		id + 1 <= nowPlayingIndex ? playingMusic[id] : playingMusic[id - 1];
+		index + 1 <= nowPlayingIndex
+			? playingMusic[index]
+			: playingMusic[index - 1];
 
 	// Check if there is currently playing music
 	if (currentPlayMusic.length > 0) {
@@ -59,7 +63,7 @@ function animatedPlayMusic(id, linkGDrive, countMusic) {
 		isPlay = false;
 
 		// If the next music to play is not the one currently playing, call letsGOParty
-		if (id + 1 !== nowPlayingIndex) {
+		if (index + 1 !== nowPlayingIndex) {
 			letsGOParty();
 			isPlay = true;
 		}
@@ -76,8 +80,8 @@ function animatedPlayMusic(id, linkGDrive, countMusic) {
 		buttonPlayingMusic.classList.remove("play_no");
 		buttonPlayingMusic.innerHTML =
 			'<div class="playing"> <span class="playing__bar playing__bar1"> </span> <span class="playing__bar playing__bar2"> </span> <span class="playing__bar playing__bar3"></span> </div>';
-		nowPlayingIndex = id + 1;
-		nowPlayingMusicProgressBar(id);
+		nowPlayingIndex = index + 1;
+		nowPlayingMusicProgressBar(index);
 
 		const link = linkGDrive;
 		playMusic(link);
@@ -146,7 +150,8 @@ function nextMusic(countMusic) {
 			animatedPlayMusic(
 				json[randomNumber]["id_music"] - 1,
 				json[randomNumber]["link"],
-				countMusic
+				countMusic,
+				json[randomNumber]["uid"]
 			)
 		);
 }
@@ -240,7 +245,6 @@ song.addEventListener("timeupdate", () => {
 
 const playIcon = document.getElementById("play-icon");
 
-
 // Play and Pause
 playIcon.addEventListener("click", () => {
 	playIcon.classList.remove("fa-play");
@@ -255,4 +259,19 @@ playIcon.addEventListener("click", () => {
 	}
 });
 
+async function setRecentsMusic(id) {
+	const url = `https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/recents_music?_id=${id}`;
 
+	try {
+		const response = await fetch(url, {
+			method: "POST",
+		});
+		if (!response.ok) {
+			throw new Error("Network response was not ok");
+		}
+	} catch (e) {
+		if (typeof console !== "undefined") {
+			console.error("Error set recents music:", e);
+		}
+	}
+}
