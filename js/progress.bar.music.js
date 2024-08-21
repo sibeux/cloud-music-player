@@ -39,6 +39,7 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music) {
 		nowPlayingIndex = index + 1;
 	}
 
+	console.log(uid_music);
 	setRecentsMusic(uid_music);
 
 	// button play visible and hidden
