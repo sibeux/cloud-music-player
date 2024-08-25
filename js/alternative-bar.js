@@ -27,6 +27,29 @@ function changeFavoriteButton(id) {
     }
 }
 
+function checkUrlFromDrive(urlDb) {
+    // Fetch the Google Drive API key
+    return fetch("https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api")
+        .then(response => response.json())
+        .then(apiData => {
+            const gdriveApiKey = apiData[0].gdrive_api;
+
+            if (urlDb.includes("drive.google.com")) {
+                const matches = urlDb.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if (matches && matches[1]) {
+                    return `https://www.googleapis.com/drive/v3/files/${matches[1]}?alt=media&key=${gdriveApiKey}`;
+                }
+            }
+            return urlDb;
+        })
+        .catch(error => {
+            console.error('Error fetching Google Drive API key:', error);
+            return urlDb;
+        });
+}
+
+
+
 let nowPlayingIndex = 1;
 function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) {
     countMusicNumber = countMusic;
@@ -35,6 +58,8 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) 
     if (currentPlayMusic.length === 0) {
         nowPlayingIndex = index + 1;
     }
+
+    const linkDrive = checkUrlFromDrive(linkGDrive);
 
     setRecentsMusic(uid_music);
 
@@ -59,7 +84,7 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) 
         nowPlayingIndex = index + 1;
         nowPlayingMusicProgressBar(musicData);
 
-        const link = linkGDrive;
+        const link = linkDrive;
         playMusic(link);
     }
 }
@@ -71,8 +96,6 @@ function nowPlayingMusicProgressBar(musicData) {
             /(^\w|\s\w)(\S*)/g,
             (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase()
         );
-
-    console.log(musicData);
 
     const title = musicData.title;
     const artist = musicData.artist;
