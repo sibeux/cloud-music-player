@@ -117,7 +117,7 @@ Author:Webstrot
                                             <ul class="album_list_name ms_cover">
                                                 <li>#</li>
                                                 <li class="song_title_width">Judul</li>
-                                                <li class="song_title_width">Album</li>
+                                                <!-- <li class="song_title_width">Album</li> -->
                                                 <!-- <li class="text-center">time</li> -->
                                                 <!-- <li class="text-center">Favorite</li>
 
@@ -217,7 +217,9 @@ Author:Webstrot
                                                     <div class="top_song_artist_wrapper">
 
                                                         <!-- <img src="<?php echo $cover ?>" alt="img" class="cover_music"> -->
+                                                        <span id="coverSrc" data-src="<?php echo $cover ?>"></span>
 
+                                                        <p> </p>
                                                         <div class="top_song_artist_contnt">
                                                             <h1><a style="cursor: pointer;" class="title_music">
                                                                     <?php echo $title ?>
@@ -230,10 +232,10 @@ Author:Webstrot
 
                                                     </div>
                                                 </li>
-                                                <li class="song_title_width"><a class="album_music">
+                                                <!-- <li class="song_title_width"><a class="album_music">
                                                         <?php echo $album ?>
                                                     </a>
-                                                </li>
+                                                </li> -->
                                                 <!-- <li class="text-center"><a class="time_music"><?php echo $time ?></a>
                                                 </li> -->
                                                 <!-- <li class="text-center favorite-text-center">
@@ -250,7 +252,7 @@ Author:Webstrot
                                                         style="color: #fff;"></i>
                                                     <?php } ?>
                                                 </li> -->
-                                                <li class="text-center top_song_artist_playlist">
+                                                <!-- <li class="text-center top_song_artist_playlist">
                                                     <div class="ms_tranding_more_icon">
                                                         <i class="flaticon-menu" style="color: white;"></i>
                                                     </div>
@@ -271,7 +273,7 @@ Author:Webstrot
                                                                         class="flaticon-trash"></i></span>delete</a>
                                                         </li>
                                                     </ul>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                             <?php
                                                 $number_music++;

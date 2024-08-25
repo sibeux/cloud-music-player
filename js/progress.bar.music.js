@@ -104,8 +104,15 @@ function nowPlayingMusicProgressBar(id) {
 
 	document.getElementById("title").innerHTML = titleArray[id].innerHTML;
 	document.getElementById("artist").innerHTML = artistArray[id].innerHTML;
-	document.getElementById("cover_now_play").src =
+
+	if (coverArray[id].getAttribute("src") === "") {
+		var coverSrc = document.getElementById("coverSrc").getAttribute("data-src");
+		document.getElementById("cover_now_play").src = coverSrc;
+	} else {
+		document.getElementById("cover_now_play").src =
 		coverArray[id].getAttribute("src");
+	}
+	
 	document.getElementById("title_doc").innerHTML =
 		toCapitalize(title) + " ● " + toCapitalize(artist);
 	document.getElementById("title_icon").innerHTML =
