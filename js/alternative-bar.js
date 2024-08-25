@@ -62,11 +62,9 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) 
     var linkDrive = '';
 
     checkUrlFromDrive(linkGDrive)
-        .then(result => {
-            linkDrive = result; // Hasilnya akan ditampilkan di sini
+        .then(result => { // Hasilnya akan ditampilkan di sini
+            console.log(result);
         });
-
-    console.log(linkDrive);
 
     console.log(linkDrive);
 
