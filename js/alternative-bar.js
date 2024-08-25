@@ -91,7 +91,7 @@ async function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, music
     }
 }
 
-function nowPlayingMusicProgressBar(musicData) {
+async function nowPlayingMusicProgressBar(musicData) {
 
     const toCapitalize = (str) =>
         str.replace(
@@ -101,7 +101,7 @@ function nowPlayingMusicProgressBar(musicData) {
 
     const title = musicData.title;
     const artist = musicData.artist;
-    const cover = checkUrlFromDrive(musicData.cover);
+    const cover = await checkUrlFromDrive(musicData.cover);
 
     document.getElementById("title").innerHTML = toCapitalize(title);
     document.getElementById("artist").innerHTML = toCapitalize(artist);
