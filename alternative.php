@@ -234,9 +234,9 @@ Author:Webstrot
                                                         <?php echo $album ?>
                                                     </a>
                                                 </li>
-                                                <li class="text-center"><a class="time_music"><?php echo $time ?></a>
-                                                </li>
-                                                <li class="text-center favorite-text-center">
+                                                <!-- <li class="text-center"><a class="time_music"><?php echo $time ?></a>
+                                                </li> -->
+                                                <!-- <li class="text-center favorite-text-center">
                                                     <?php
                                                         // initiate variable $favorite
                                                         $is_favorite = $favorite;
@@ -249,8 +249,8 @@ Author:Webstrot
                                                         onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
                                                         style="color: #fff;"></i>
                                                     <?php } ?>
-                                                </li>
-                                                <li class="text-center top_song_artist_playlist">
+                                                </li> -->
+                                                <!-- <li class="text-center top_song_artist_playlist">
                                                     <div class="ms_tranding_more_icon">
                                                         <i class="flaticon-menu" style="color: white;"></i>
                                                     </div>
@@ -271,7 +271,7 @@ Author:Webstrot
                                                                         class="flaticon-trash"></i></span>delete</a>
                                                         </li>
                                                     </ul>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                             <?php
                                                 $number_music++;
@@ -290,7 +290,7 @@ Author:Webstrot
     <!-- top songs wrapper end -->
 
     <!-- footer Wrapper start -->
-    <div class="foter_top_wrapper footer_top_wrapper2 ms_cover">
+    <!-- <div class="foter_top_wrapper footer_top_wrapper2 ms_cover">
         <ul>
             <li><a href="#"><i class="fab fa-facebook-f"></i></a>
             </li>
@@ -310,7 +310,7 @@ Author:Webstrot
             <li> <a href="#"><i class="fab fa-dribbble"></i></a> </li>
             <li> <a href="#"><i class="fab fa-whatsapp"></i></a> </li>
         </ul>
-    </div>
+    </div> -->
     <div class="section2_bottom_wrapper index4_bottom_wrapper ms_cover">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
