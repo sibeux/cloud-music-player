@@ -118,10 +118,10 @@ Author:Webstrot
                                                 <li>#</li>
                                                 <li class="song_title_width">Judul</li>
                                                 <li class="song_title_width">Album</li>
-                                                <li class="text-center">time</li>
+                                                <!-- <li class="text-center">time</li>
                                                 <li class="text-center">Favorite</li>
 
-                                                <li class="text-center">More</li>
+                                                <li class="text-center">More</li> -->
                                             </ul>
                                             <?php
                                             $sql_music = "SELECT * FROM music ORDER BY title ASC";
@@ -290,7 +290,7 @@ Author:Webstrot
     <!-- top songs wrapper end -->
 
     <!-- footer Wrapper start -->
-    <!-- <div class="foter_top_wrapper footer_top_wrapper2 ms_cover">
+    <div class="foter_top_wrapper footer_top_wrapper2 ms_cover">
         <ul>
             <li><a href="#"><i class="fab fa-facebook-f"></i></a>
             </li>
@@ -310,7 +310,7 @@ Author:Webstrot
             <li> <a href="#"><i class="fab fa-dribbble"></i></a> </li>
             <li> <a href="#"><i class="fab fa-whatsapp"></i></a> </li>
         </ul>
-    </div> -->
+    </div>
     <div class="section2_bottom_wrapper index4_bottom_wrapper ms_cover">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
