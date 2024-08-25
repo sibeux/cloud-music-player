@@ -72,6 +72,8 @@ function nowPlayingMusicProgressBar(musicData) {
             (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase()
         );
 
+    console.log(musicData);
+
     const title = musicData.title;
     const artist = musicData.artist;
     const cover = musicData.cover;
