@@ -27,7 +27,7 @@ function changeFavoriteButton(id) {
     }
 }
 
-async function checkUrlFromDrive(urlDb) {
+function checkUrlFromDrive(urlDb) {
     // Fetch the Google Drive API key
     return fetch("https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api")
         .then(response => response.json())
@@ -59,7 +59,12 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) 
         nowPlayingIndex = index + 1;
     }
 
-    const linkDrive = checkUrlFromDrive(linkGDrive);
+    var linkDrive = '';
+
+    checkUrlFromDrive(linkGDrive)
+        .then(result => {
+            linkDrive = result; // Hasilnya akan ditampilkan di sini
+        });
 
     console.log(linkDrive);
 
