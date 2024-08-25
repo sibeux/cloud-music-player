@@ -351,7 +351,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
     <script src="js/owl.carousel.js"></script>
     <script src="js/mp3/player.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/progress.bar.music.js"></script>
+    <script src="js/alternative-bar.js"></script>
     <!-- custom js-->
 
 </body>
