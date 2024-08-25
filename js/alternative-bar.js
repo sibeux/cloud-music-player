@@ -57,37 +57,10 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music) {
 
     function letsGOParty() {
         nowPlayingIndex = index + 1;
-        nowPlayingMusicProgressBar(index);
 
         const link = linkGDrive;
         playMusic(link);
     }
-}
-
-function nowPlayingMusicProgressBar(id) {
-    const titleArray = document.getElementsByClassName("title_music");
-    const artistArray = document.getElementsByClassName("artist_music");
-    const coverArray = document.getElementsByClassName("cover_music");
-
-    const toCapitalize = (str) =>
-        str.replace(
-            /(^\w|\s\w)(\S*)/g,
-            (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase()
-        );
-
-    const title = titleArray[id].innerHTML;
-    const artist = artistArray[id].innerHTML;
-
-    document.getElementById("title").innerHTML = titleArray[id].innerHTML;
-    document.getElementById("artist").innerHTML = artistArray[id].innerHTML;
-    document.getElementById("cover_now_play").src =
-        coverArray[id].getAttribute("src");
-    document.getElementById("title_doc").innerHTML =
-        toCapitalize(title) + " ● " + toCapitalize(artist);
-    document.getElementById("title_icon").innerHTML =
-        "<link id='title_icon' rel='shortcut icon' type='image/png' href='" +
-        coverArray[id].getAttribute("src") +
-        "' />";
 }
 
 function playMusic(linkGDrive) {
@@ -119,7 +92,6 @@ function nextMusic(countMusic) {
     // Fetch JSON data from a file
     fetch(
         "https://sibeux.my.id/cloud-music-player/json/music.json"
-        // "http://localhost:3000/Main_Program/Web%20Programming/cloud-music-player/json/music.json"
     )
         .then((response) => response.json())
         .then((json) =>
