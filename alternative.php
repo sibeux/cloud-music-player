@@ -1,36 +1,6 @@
 <?php
 include "./database/db.php";
 
-function deleteJSON()
-{
-    // include "./json/delete.php";
-
-    // delete all data in json file
-    // Path to the JSON file
-    $jsonFilePath = './json/music.json';
-
-    // Open the JSON file for writing
-    $file = fopen($jsonFilePath, 'w');
-
-    // Truncate the file (erase its contents)
-    ftruncate($file, 0);
-
-    // Close the file
-    fclose($file);
-}
-;
-
-deleteJSON();
-
-// File json yang akan dibaca
-$file = "./json/music.json";
-
-// Mendapatkan file json
-$anggota = file_get_contents($file);
-
-// Mendecode anggota.json
-$data = json_decode($anggota, true);
-
 // initiate variable
 $id_music = 0;
 $title = "";
@@ -40,8 +10,24 @@ $cover = "";
 $favorite = 0;
 $link_drive = "";
 
-$gdrive_api_query = $db->query("SELECT gdrive_api FROM API");
-$gdrive_api_key = mysqli_fetch_assoc($gdrive_api_query);
+// URL API
+$url = "https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php";
+
+// Ambil data API
+$response = file_get_contents($url);
+
+// Cek apakah response berhasil diambil
+if ($response === FALSE) {
+    die('Error occurred while accessing the API.');
+}
+
+// Ubah JSON menjadi array PHP
+$data = json_decode($response, true);
+
+$api_key = $data[0]['gdrive_api'];
+
+// Tampilkan hasil
+// print_r($data);
 
 function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 {
@@ -56,15 +42,6 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 ?>
 
 <!DOCTYPE html>
-<!-- 
-Template Name: Tunein
-Version: 1.0.0
-Author:Webstrot 
-
--->
-<!--[if !IE]><!-->
-<html lang="zxx">
-<!--[endif]-->
 
 <head>
     <meta charset="utf-8" />
@@ -117,11 +94,11 @@ Author:Webstrot
                                             <ul class="album_list_name ms_cover">
                                                 <li>#</li>
                                                 <li class="song_title_width">Judul</li>
-                                                <!-- <li class="song_title_width">Album</li> -->
-                                                <!-- <li class="text-center">time</li> -->
-                                                <!-- <li class="text-center">Favorite</li>
+                                                <li class="song_title_width">Album</li>
+                                                <li class="text-center">time</li>
+                                                <li class="text-center">Favorite</li>
 
-                                                <li class="text-center">More</li> -->
+                                                <li class="text-center">More</li>
                                             </ul>
                                             <?php
                                             $sql_music = "SELECT * FROM music ORDER BY title ASC";
@@ -131,9 +108,9 @@ Author:Webstrot
 
                                             $number_music = 1;
 
-                                            while ($array_data_music = mysqli_fetch_array($result_music)) {
+                                            while ($array_data_music = mysqli_fetch_array($result_music) and $number_music <= 2) {
 
-                                                $link_drive = checkUrlFromDrive($array_data_music['link_gdrive'], $gdrive_api_key['gdrive_api']);
+                                                $link_drive = checkUrlFromDrive($array_data_music['link_gdrive'], $api_key);
                                                 $current_number_music = $number_music;
                                                 $id_music = $array_data_music['id_music'];
                                                 $category = $array_data_music['category'];
@@ -144,27 +121,6 @@ Author:Webstrot
                                                 $time = $array_data_music['time'];
                                                 $cover = $array_data_music['cover'];
                                                 $date_added = $array_data_music['date_added'];
-
-                                                // Data array baru
-                                                $data[] = array(
-                                                    'id_music' => $number_music,
-                                                    'uid' => $id_music,
-                                                    'category' => $category,
-                                                    'link' => $link_drive,
-                                                    'title' => $title,
-                                                    'artist' => $artist,
-                                                    'album' => $album,
-                                                    'time' => $time,
-                                                    'cover' => $cover,
-                                                    'favorite' => $favorite,
-                                                    'date_added' => $date_added,
-                                                );
-
-                                                // Mengencode data menjadi json
-                                                $jsonfile = json_encode($data, JSON_PRETTY_PRINT);
-
-                                                // Menyimpan data ke dalam anggota.json
-                                                $anggota = file_put_contents($file, $jsonfile);
 
                                                 if ($array_data_music['link_spotify'] == null) {
 
@@ -191,12 +147,6 @@ Author:Webstrot
 
                                                     $cover = checkUrlFromDrive($array_data_music['cover'], $gdrive_api_key['gdrive_api']);
                                                     $time = $array_data_music['time'];
-
-                                                    // get data time from file music
-                                                    // echo "<script type='module'>
-                                                    //     import { getDataTimeFileMusic } from './js/getDataTime.js';
-                                                    //     getDataTimeFileMusic('{$array_data_music['link_gdrive']}', {$number_music}-1);
-                                                    // </script>";
                                             
                                                 } else {
                                                     echo "<script type='module'>
@@ -216,10 +166,8 @@ Author:Webstrot
                                                 <li class="song_title_width">
                                                     <div class="top_song_artist_wrapper">
 
-                                                        <!-- <img src="<?php echo $cover ?>" alt="img" class="cover_music"> -->
-                                                        <span id="coverSrc" data-src="<?php echo $cover ?>"></span>
+                                                        <img src="<?php echo $cover ?>" alt="img" class="cover_music">
 
-                                                        <p> </p>
                                                         <div class="top_song_artist_contnt">
                                                             <h1><a style="cursor: pointer;" class="title_music">
                                                                     <?php echo $title ?>
@@ -232,13 +180,13 @@ Author:Webstrot
 
                                                     </div>
                                                 </li>
-                                                <!-- <li class="song_title_width"><a class="album_music">
+                                                <li class="song_title_width"><a class="album_music">
                                                         <?php echo $album ?>
                                                     </a>
-                                                </li> -->
-                                                <!-- <li class="text-center"><a class="time_music"><?php echo $time ?></a>
-                                                </li> -->
-                                                <!-- <li class="text-center favorite-text-center">
+                                                </li>
+                                                <li class="text-center"><a class="time_music"><?php echo $time ?></a>
+                                                </li>
+                                                <li class="text-center favorite-text-center">
                                                     <?php
                                                         // initiate variable $favorite
                                                         $is_favorite = $favorite;
@@ -251,8 +199,8 @@ Author:Webstrot
                                                         onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
                                                         style="color: #fff;"></i>
                                                     <?php } ?>
-                                                </li> -->
-                                                <!-- <li class="text-center top_song_artist_playlist">
+                                                </li>
+                                                <li class="text-center top_song_artist_playlist">
                                                     <div class="ms_tranding_more_icon">
                                                         <i class="flaticon-menu" style="color: white;"></i>
                                                     </div>
@@ -273,7 +221,7 @@ Author:Webstrot
                                                                         class="flaticon-trash"></i></span>delete</a>
                                                         </li>
                                                     </ul>
-                                                </li> -->
+                                                </li>
                                             </ul>
                                             <?php
                                                 $number_music++;
