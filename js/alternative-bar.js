@@ -51,7 +51,7 @@ function checkUrlFromDrive(urlDb) {
 
 
 let nowPlayingIndex = 1;
-function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) {
+async function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) {
     countMusicNumber = countMusic;
     const currentPlayMusic = document.getElementsByClassName("playing");
 
@@ -59,13 +59,8 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) 
         nowPlayingIndex = index + 1;
     }
 
-    var linkDrive = '';
-
-    checkUrlFromDrive(linkGDrive)
-        .then(result => { // Hasilnya akan ditampilkan di sini
-            console.log(result);
-        });
-
+    var linkDrive = await checkUrlFromDrive(linkGDrive);
+    
     console.log(linkDrive);
 
     setRecentsMusic(uid_music);
