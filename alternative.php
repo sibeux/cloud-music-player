@@ -118,10 +118,10 @@ Author:Webstrot
                                                 <li>#</li>
                                                 <li class="song_title_width">Judul</li>
                                                 <li class="song_title_width">Album</li>
-                                                <li class="text-center">time</li>
-                                                <li class="text-center">Favorite</li>
+                                                <!-- <li class="text-center">time</li> -->
+                                                <!-- <li class="text-center">Favorite</li>
 
-                                                <li class="text-center">More</li>
+                                                <li class="text-center">More</li> -->
                                             </ul>
                                             <?php
                                             $sql_music = "SELECT * FROM music ORDER BY title ASC";
@@ -250,7 +250,7 @@ Author:Webstrot
                                                         style="color: #fff;"></i>
                                                     <?php } ?>
                                                 </li>
-                                                <li class="text-center top_song_artist_playlist">
+                                                <!-- <li class="text-center top_song_artist_playlist">
                                                     <div class="ms_tranding_more_icon">
                                                         <i class="flaticon-menu" style="color: white;"></i>
                                                     </div>
@@ -271,7 +271,7 @@ Author:Webstrot
                                                                         class="flaticon-trash"></i></span>delete</a>
                                                         </li>
                                                     </ul>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                             <?php
                                                 $number_music++;
