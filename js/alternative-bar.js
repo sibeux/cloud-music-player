@@ -27,7 +27,7 @@ function changeFavoriteButton(id) {
     }
 }
 
-function checkUrlFromDrive(urlDb) {
+async function checkUrlFromDrive(urlDb) {
     // Fetch the Google Drive API key
     return fetch("https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api")
         .then(response => response.json())
@@ -101,13 +101,11 @@ function nowPlayingMusicProgressBar(musicData) {
 
     const title = musicData.title;
     const artist = musicData.artist;
-    const cover = musicData.cover;
+    const cover = checkUrlFromDrive(musicData.cover);
 
-    document.getElementById("title").innerHTML = title;
-    document.getElementById("artist").innerHTML = artist;
+    document.getElementById("title").innerHTML = toCapitalize(title);
+    document.getElementById("artist").innerHTML = toCapitalize(artist);
     document.getElementById("cover_now_play").src = cover;
-    document.getElementById("title_doc").innerHTML =
-        toCapitalize(title) + " ● " + toCapitalize(artist);
 }
 
 function playMusic(linkGDrive) {
