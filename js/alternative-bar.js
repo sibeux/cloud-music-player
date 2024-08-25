@@ -28,7 +28,7 @@ function changeFavoriteButton(id) {
 }
 
 let nowPlayingIndex = 1;
-function animatedPlayMusic(index, linkGDrive, countMusic, uid_music) {
+function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) {
     countMusicNumber = countMusic;
     const currentPlayMusic = document.getElementsByClassName("playing");
 
@@ -46,21 +46,41 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music) {
 
         // If the next music to play is not the one currently playing, call letsGOParty
         if (index + 1 !== nowPlayingIndex) {
-            letsGOParty();
+            letsGOParty(musicData);
             isPlay = true;
         }
     } else {
         // If there is no currently playing music, call letsGOParty
-        letsGOParty();
+        letsGOParty(musicData);
         isPlay = true;
     }
 
-    function letsGOParty() {
+    function letsGOParty(musicData) {
         nowPlayingIndex = index + 1;
+        nowPlayingMusicProgressBar(musicData);
 
         const link = linkGDrive;
         playMusic(link);
     }
+}
+
+function nowPlayingMusicProgressBar(musicData) {
+
+    const toCapitalize = (str) =>
+        str.replace(
+            /(^\w|\s\w)(\S*)/g,
+            (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase()
+        );
+
+    const title = musicData.title;
+    const artist = musicData.artist;
+    const cover = musicData.cover;
+
+    document.getElementById("title").innerHTML = title;
+    document.getElementById("artist").innerHTML = artist;
+    document.getElementById("cover_now_play").src = cover;
+    document.getElementById("title_doc").innerHTML =
+        toCapitalize(title) + " ● " + toCapitalize(artist);
 }
 
 function playMusic(linkGDrive) {
@@ -87,21 +107,24 @@ document.getElementById("next-music").addEventListener("click", () => {
 });
 
 function nextMusic(countMusic) {
-    let randomNumber = Math.floor(Math.random() * countMusic) + 1;
+    let randomNumber = Math.floor(Math.random() * countMusic);
 
-    // Fetch JSON data from a file
-    fetch(
-        "https://sibeux.my.id/cloud-music-player/json/music.json"
-    )
+    // Fetch data from the API
+    fetch("https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/db")
         .then((response) => response.json())
-        .then((json) =>
+        .then((json) => {
+            let musicData = json[randomNumber];
             animatedPlayMusic(
-                json[randomNumber]["id_music"] - 1,
-                json[randomNumber]["link"],
+                musicData.id_music,          // Access the correct property name
+                musicData.link_gdrive,       // Use the correct link property from your API
                 countMusic,
-                json[randomNumber]["uid"]
-            )
-        );
+                musicData.id_music,           // Assuming uid is the same as id_music
+                musicData
+            );
+        })
+        .catch((error) => {
+            console.error('Error fetching the music data:', error);
+        });
 }
 
 function repeatMusic() {
