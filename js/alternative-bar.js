@@ -61,6 +61,8 @@ function animatedPlayMusic(index, linkGDrive, countMusic, uid_music, musicData) 
 
     const linkDrive = checkUrlFromDrive(linkGDrive);
 
+    console.log(linkDrive);
+
     setRecentsMusic(uid_music);
 
     // Check if there is currently playing music
