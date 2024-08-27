@@ -4,20 +4,40 @@ include './connection.php';
 
 $sql = "";
 
-function getFourCovercategory($uid)
+function getFourCovercategory($type)
 {
     global $sql;
 
-    $sql = "SELECT DISTINCT cover
+    $sql = "SELECT 
+    p.uid AS playlist_uid,
+    SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 1) AS cover_1,
+    SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 2), ',', -1) AS cover_2,
+    SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 3), ',', -1) AS cover_3,
+    SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 4), ',', -1) AS cover_4,
+    (CASE WHEN SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 1) IS NOT NULL THEN 1 ELSE 0 END +
+    CASE WHEN SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 2), ',', -1) IS NOT NULL THEN 1 ELSE 0 END +
+    CASE WHEN SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 3), ',', -1) IS NOT NULL THEN 1 ELSE 0 END +
+    CASE WHEN SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 4), ',', -1) IS NOT NULL THEN 1 ELSE 0 END) 
+    AS total_non_null_cover
+FROM 
+    playlist p
+LEFT JOIN 
+    (SELECT min(title) as title, cover, category
 FROM music
-WHERE music.category = '$uid' -- filter berdasarkan album atau playlist yang sesuai
-ORDER BY music.title ASC -- atau urutan lainnya yang relevan
-LIMIT 4";
+GROUP by cover
+ORDER BY title asc
+LIMIT 4
+    ) AS m ON p.uid = m.category
+WHERE p.image IS NULL and p.type = '$type'
+GROUP BY 
+    p.uid
+ORDER BY 
+    p.uid ASC;";
 }
 
 switch ($_GET['method']) {
     case 'four_cover_category':
-        getFourCovercategory($_GET['uid']);
+        getFourCovercategory($_GET['type']);
         break;
     default:
         break;
