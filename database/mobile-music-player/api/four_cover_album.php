@@ -28,7 +28,7 @@ GROUP by cover
 ORDER BY title asc
 LIMIT 4
     ) AS m ON p.uid = m.category
-WHERE p.image IS NULL and p.type = '$type'
+WHERE p.image IS NULL and p.type = 'category'
 GROUP BY 
     p.uid
 ORDER BY 
