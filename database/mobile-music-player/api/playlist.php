@@ -53,7 +53,12 @@ if (isset($_GET['count_favorite'])) {
 }
 
 if (isset($_GET['count_category'])) {
-    $sql = "SELECT music.category, COUNT(*) AS type_count FROM music GROUP BY music.category ORDER BY type_count DESC";
+    $sql = "SELECT playlist.uid, COALESCE(COUNT(music.category), 0) AS type_count
+    FROM playlist
+    LEFT JOIN music ON music.category = playlist.uid
+    WHERE playlist.type = 'category'
+    GROUP BY playlist.uid
+    ORDER BY playlist.uid ASC";
 }
 
 if (isset($_GET['play_playlist'])) {
