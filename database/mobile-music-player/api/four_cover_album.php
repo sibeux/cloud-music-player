@@ -8,31 +8,21 @@ function getFourCovercategory($type)
 {
     global $sql;
 
-    $sql = "SELECT 
-    p.uid AS playlist_uid,
-    SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 1) AS cover_1,
-    SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 2), ',', -1) AS cover_2,
-    SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 3), ',', -1) AS cover_3,
-    SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 4), ',', -1) AS cover_4,
-    (CASE WHEN SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 1) IS NOT NULL THEN 1 ELSE 0 END +
-    CASE WHEN SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 2), ',', -1) IS NOT NULL THEN 1 ELSE 0 END +
-    CASE WHEN SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 3), ',', -1) IS NOT NULL THEN 1 ELSE 0 END +
-    CASE WHEN SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(cover ORDER BY title ASC SEPARATOR ','), ',', 4), ',', -1) IS NOT NULL THEN 1 ELSE 0 END) 
-    AS total_non_null_cover
-FROM 
-    playlist p
-LEFT JOIN 
-    (SELECT min(title) as title, cover, category
-FROM music
-GROUP by cover
-ORDER BY title asc
-LIMIT 4
-    ) AS m ON p.uid = m.category
-WHERE p.image IS NULL and p.type = '$type'
-GROUP BY 
-    p.uid
-ORDER BY 
-    p.uid ASC;";
+    $sql = "SELECT p.uid AS playlist_uid,
+    COALESCE(MAX(CASE WHEN rc.rank = 1 THEN rc.cover END), null) AS cover_1,
+    COALESCE(MAX(CASE WHEN rc.rank = 2 THEN rc.cover END), null) AS cover_2,
+    COALESCE(MAX(CASE WHEN rc.rank = 3 THEN rc.cover END), null) AS cover_3,
+    COALESCE(MAX(CASE WHEN rc.rank = 4 THEN rc.cover END), null) AS cover_4,
+    COUNT(DISTINCT rc.cover) AS total_non_null_cover
+FROM playlist p
+LEFT JOIN (
+    SELECT min(title) as title, cover, category,
+        ROW_NUMBER() OVER (PARTITION BY category ORDER BY title ASC) AS rank
+    FROM music
+    GROUP BY cover, category
+) AS rc ON p.uid = rc.category AND rc.rank <= 4
+WHERE p.type = '$type' and p.image IS NULL
+GROUP BY p.uid;";
 }
 
 switch ($_GET['method']) {
