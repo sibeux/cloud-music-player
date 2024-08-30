@@ -39,7 +39,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         JOIN music on playlist_music.id_music = music.id_music 
         join playlist on playlist_music.id_playlist = playlist.uid 
         WHERE playlist.uid = '$uid' 
-        ORDER BY date_add_music_playlist DESC";
+        ORDER BY date_add_music_playlist ASC";
     }
 
     if ($type == 'favorite') {

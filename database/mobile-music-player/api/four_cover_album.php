@@ -62,7 +62,7 @@ $result = $db->query($sql);
 
 // Check if the query was successful
 if (!$result) {
-    die("Query failed: " . $db->error);
+    die("Query failed");
 }
 
 // Create an array to store the data
