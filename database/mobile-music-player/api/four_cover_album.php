@@ -25,10 +25,33 @@ WHERE p.type = '$type' and p.image IS NULL
 GROUP BY p.uid;";
 }
 
+function getFourCoverPlaylist($type)
+{
+    global $sql;
+
+    $sql = "SELECT p.uid AS playlist_uid,
+    COALESCE(MAX(CASE WHEN rc.rank = 1 THEN rc.cover END), null) AS cover_1,
+    COALESCE(MAX(CASE WHEN rc.rank = 2 THEN rc.cover END), null) AS cover_2,
+    COALESCE(MAX(CASE WHEN rc.rank = 3 THEN rc.cover END), null) AS cover_3,
+    COALESCE(MAX(CASE WHEN rc.rank = 4 THEN rc.cover END), null) AS cover_4,
+    COUNT(DISTINCT rc.cover) AS total_non_null_cover
+FROM playlist p
+LEFT JOIN (
+    SELECT min(title) as title, cover, category,
+        ROW_NUMBER() OVER (PARTITION BY category ORDER BY title ASC) AS rank
+    FROM music
+    GROUP BY cover, category
+) AS rc ON p.uid = rc.category AND rc.rank <= 4
+WHERE p.type = '$type' and p.image IS NULL
+GROUP BY p.uid;";
+}
+
 switch ($_GET['method']) {
     case 'four_cover_category':
         getFourCovercategory($_GET['type']);
         break;
+    case 'four_cover_playlist':
+        getFourCovercategory($_GET['type']);
     default:
         break;
 }
