@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 30 Agu 2024 pada 22.13
+-- Waktu pembuatan: 30 Agu 2024 pada 23.06
 -- Versi server: 10.6.18-MariaDB-cll-lve
 -- Versi PHP: 8.3.9
 
@@ -6089,7 +6089,37 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (6031, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/MP3/Mag%20Mell.flac', 'Mag Mell', 'Jun Maeda, Shinji Orito, Magome Togoshi, eufonius', 'CLANNAD Arrange Album ``MABINOGI``', '01:35', 'https://bitbucket.org/sibeux/warisover/raw/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/Cover.jpg', 0, '2024-08-30 15:03:47'),
 (6032, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/MP3/Running%20along%20the%20yellow-green%20pavement.flac', 'Running along the yellow-green pavement', 'Jun Maeda, Shinji Orito, Magome Togoshi, eufonius', 'CLANNAD Arrange Album ``MABINOGI``', '01:43', 'https://bitbucket.org/sibeux/warisover/raw/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/Cover.jpg', 0, '2024-08-30 15:03:48'),
 (6033, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/MP3/Sunflower%20colored%20dress%20fluttering%20in%20the%20wind.flac', 'Sunflower colored dress fluttering in the wind', 'Jun Maeda, Shinji Orito, Magome Togoshi, eufonius', 'CLANNAD Arrange Album ``MABINOGI``', '01:17', 'https://bitbucket.org/sibeux/warisover/raw/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/Cover.jpg', 0, '2024-08-30 15:03:49'),
-(6034, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/MP3/The%20warmth%20left%20in%20your%20hand%20palm.flac', 'The warmth left in your hand palm', 'Jun Maeda, Shinji Orito, Magome Togoshi, eufonius', 'CLANNAD Arrange Album ``MABINOGI``', '02:54', 'https://bitbucket.org/sibeux/warisover/raw/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/Cover.jpg', 0, '2024-08-30 15:03:50');
+(6034, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/MP3/The%20warmth%20left%20in%20your%20hand%20palm.flac', 'The warmth left in your hand palm', 'Jun Maeda, Shinji Orito, Magome Togoshi, eufonius', 'CLANNAD Arrange Album ``MABINOGI``', '02:54', 'https://bitbucket.org/sibeux/warisover/raw/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/Cover.jpg', 0, '2024-08-30 15:03:50'),
+(6035, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Files/Cherry%20Blossom%20Petals.flac', 'Cherry Blossom Petals', 'Jun Maeda, Magome Togoshi', 'CLANNAD Image Vocal Album \"SoLaLaDo Append\"', '01:41', 'https://bitbucket.org/sibeux/warisover/raw/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Jun%20Maeda%2C%20Magome%20Togoshi.jpg', 0, '2024-08-30 15:31:02'),
+(6036, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Files/Girl%20of%20the%20Wind.flac', 'Girl of the Wind', 'Jun Maeda, Magome Togoshi', 'CLANNAD Image Vocal Album \"SoLaLaDo Append\"', '01:19', 'https://bitbucket.org/sibeux/warisover/raw/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Jun%20Maeda%2C%20Magome%20Togoshi.jpg', 0, '2024-08-30 15:31:03'),
+(6037, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Files/Streaming%20Sunlight.flac', 'Streaming Sunlight', 'Jun Maeda, Magome Togoshi', 'CLANNAD Image Vocal Album \"SoLaLaDo Append\"', '01:33', 'https://bitbucket.org/sibeux/warisover/raw/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Jun%20Maeda%2C%20Magome%20Togoshi.jpg', 0, '2024-08-30 15:31:04'),
+(6038, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Files/The%20Same%20Heights.flac', 'The Same Heights', 'Jun Maeda, Magome Togoshi', 'CLANNAD Image Vocal Album \"SoLaLaDo Append\"', '04:18', 'https://bitbucket.org/sibeux/warisover/raw/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Jun%20Maeda%2C%20Magome%20Togoshi.jpg', 0, '2024-08-30 15:31:05'),
+(6039, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Dare%20Ka.Ja%20Naku.Watashi%20Wo.mp3', 'Dare Ka.Ja Naku.Watashi Wo', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '00:49', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:00'),
+(6040, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Guzen%20Ja%20Nai.mp3', 'Guzen Ja Nai', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:31', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:01'),
+(6041, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Hatsu%20Jouriku!.mp3', 'Hatsu Jouriku!', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '04:07', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:02'),
+(6042, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Himitsu%20-%20Sumika.mp3', 'Himitsu - Sumika', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '03:00', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:03'),
+(6043, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Honshin.mp3', 'Honshin', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '04:52', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:04'),
+(6044, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Hontou%20No%20Omoi.mp3', 'Hontou No Omoi', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '01:23', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:05'),
+(6045, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Issho%20No%20Heya.mp3', 'Issho No Heya', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '04:31', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:06'),
+(6046, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Jibun%20He%20No%20Ba.mp3', 'Jibun He No Ba', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '01:33', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:07'),
+(6047, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Juu%20Dome%20No%20Asa.mp3', 'Juu Dome No Asa', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '03:56', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:08'),
+(6048, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Kimi%20No%20Suizou%20Wo%20Tabe%20Tai%20-Main%20Theme-.mp3', 'Kimi No Suizou Wo Tabe Tai -Main Theme-', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '03:29', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:09'),
+(6049, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Kimi%20No%20Suizou%20Wo%20Tabe%20Tai.mp3', 'Kimi No Suizou Wo Tabe Tai', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:00', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:10'),
+(6050, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Kore%20Ga%20Genjitsu.mp3', 'Kore Ga Genjitsu', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '01:38', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:11'),
+(6051, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Naningaku%20Tsukatta%20Kotoba.mp3', 'Naningaku Tsukatta Kotoba', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '00:51', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:12'),
+(6052, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Paradise.mp3', 'Paradise', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:08', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:13'),
+(6053, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Prologue.mp3', 'Prologue', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:26', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:14'),
+(6054, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Ryokou%20To%20Iu%20Yori.mp3', 'Ryokou To Iu Yori', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '03:41', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:15'),
+(6055, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Sakamichi.mp3', 'Sakamichi', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:52', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:16'),
+(6056, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Sakura%20To%20Haru.mp3', 'Sakura To Haru', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:05', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:17'),
+(6057, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Shinjitsu.mp3', 'Shinjitsu', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '01:17', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:18'),
+(6058, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Tomo%20Byou%20Bunko.mp3', 'Tomo Byou Bunko', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '03:04', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:19'),
+(6059, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Toujisha%20Ni%20Naro%20U%20To%20Suru%20Kanojo.mp3', 'Toujisha Ni Naro U To Suru Kanojo', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:50', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:20'),
+(6060, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Yakusoku%20Wo%20Yabutta.mp3', 'Yakusoku Wo Yabutta', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:03', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:21'),
+(6061, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/Yari%20Tai%20Koto.mp3', 'Yari Tai Koto', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '04:38', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:22'),
+(6062, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/%5BHimitsu%20Wo%20Shittell%20Classmate%5D.mp3', '[Himitsu Wo Shittell Classmate]', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '04:56', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:23'),
+(6063, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/%5BShiawase%20Ni%20Naro%20U%5D.mp3', '[Shiawase Ni Naro U]', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '01:40', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:24'),
+(6064, '2', 'https://api.bitbucket.org/2.0/repositories/sibeux/warisover/src/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/MP3/%5BShinjitsu%20Ka%20Chousen%20Ka%5D.mp3', '[Shinjitsu Ka Chousen Ka]', 'Hiroko Sebu', 'Kimi no Suizou wo Tabetai Original Soundtrack', '02:17', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 0, '2024-08-30 16:05:25');
 
 -- --------------------------------------------------------
 
@@ -6308,7 +6338,9 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (245, 'CLANNAD Toki wo Kizamu Uta ~ TORCH', 'https://bitbucket.org/sibeux/warisover/raw/b700405e73cc451b6cfd257ff6647bff057301c3/Toki%20wo%20Kizamu%20Uta%20~%20TORCH/Lia.jpg', 'album', 'Lia', 'false', NULL, '2024-08-30 12:52:24', 'false'),
 (246, 'CLANNAD The Place Where Wishes Come True ~Vocal&Harmony version~ [Veil ∞ Aoi]', 'https://bitbucket.org/sibeux/warisover/raw/24c3bd6b8143a75707820187facd706d40531d25/The%20Place%20Where%20Wishes%20Come%20True%20~Vocal%26Harmony%20version~/Jun%20Maeda%2C%20Kunihiko%20Murai.jpg', 'album', 'Jun Maeda, Kunihiko Murai', 'false', NULL, '2024-08-30 13:41:31', 'false'),
 (247, 'CLANNAD ~ Tomoyo After Piano Arrange Album \"Piano no Mori\"', 'https://bitbucket.org/sibeux/warisover/raw/24e221ab4fa2b72845fa6a7b0b37cd1d0d1cf279/Tomoyo%20After%20Piano%20Arrange%20Album%20%60%60Piano%20no%20Mori%60%60/Cover.jpg', 'album', 'Magome Togoshi, Shinji Orito, Jun Maeda, eufonius', 'false', NULL, '2024-08-30 14:14:38', 'false'),
-(248, 'CLANNAD Arrange Album ``MABINOGI``', 'https://bitbucket.org/sibeux/warisover/raw/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/Cover.jpg', 'album', 'Jun Maeda, Shinji Orito, Magome Togoshi, eufonius', 'false', NULL, '2024-08-30 15:10:47', 'false');
+(248, 'CLANNAD Arrange Album ``MABINOGI``', 'https://bitbucket.org/sibeux/warisover/raw/742b4fa3d9096f786b9b918b5e9c1ee5734d7916/Arrange%20Album%20%60%60MABINOGI%60%60/Cover.jpg', 'album', 'Jun Maeda, Shinji Orito, Magome Togoshi, eufonius', 'false', NULL, '2024-08-30 15:10:47', 'false'),
+(249, 'CLANNAD Image Vocal Album \"SoLaLaDo Append\"', 'https://bitbucket.org/sibeux/warisover/raw/279ad0da71e19989674f20e0af7a5d69a7fdcf8f/Image%20Vocal%20Album%20SoLaLaDo%20Append/Jun%20Maeda%2C%20Magome%20Togoshi.jpg', 'album', 'Jun Maeda, Magome Togoshi', 'false', NULL, '2024-08-30 15:32:10', 'false'),
+(250, 'Kimi no Suizou wo Tabetai Original Soundtrack', 'https://bitbucket.org/sibeux/warisover/raw/f1d77396f14ea7c00839eb3b6d9f1e5aa575233e/Kimi-no-Suizou-wo-Tabetai-OST/Hiroko%20Sebu.jpg', 'album', 'Hiroko Sebu', 'false', NULL, '2024-08-30 16:05:32', 'false');
 
 -- --------------------------------------------------------
 
@@ -6340,25 +6372,6 @@ CREATE TABLE `recents_music` (
 --
 
 INSERT INTO `recents_music` (`uid_recents`, `uid_music`, `played_at`) VALUES
-(2424, 2892, '2024-08-30 09:50:02'),
-(2425, 3237, '2024-08-30 09:50:56'),
-(2426, 1338, '2024-08-30 09:55:02'),
-(2427, 4712, '2024-08-30 09:58:19'),
-(2428, 3660, '2024-08-30 09:59:09'),
-(2429, 4927, '2024-08-30 10:00:50'),
-(2430, 4991, '2024-08-30 10:02:35'),
-(2431, 5262, '2024-08-30 10:05:50'),
-(2432, 4238, '2024-08-30 10:08:38'),
-(2433, 4631, '2024-08-30 10:11:51'),
-(2434, 4184, '2024-08-30 10:13:44'),
-(2435, 3776, '2024-08-30 10:13:57'),
-(2436, 2953, '2024-08-30 10:16:20'),
-(2437, 3084, '2024-08-30 10:20:40'),
-(2438, 1602, '2024-08-30 10:21:19'),
-(2439, 5882, '2024-08-30 11:01:48'),
-(2440, 5882, '2024-08-30 11:01:50'),
-(2441, 5743, '2024-08-30 11:01:50'),
-(2442, 5886, '2024-08-30 11:05:17'),
 (2443, 5891, '2024-08-30 11:09:39'),
 (2444, 5742, '2024-08-30 11:10:15'),
 (2445, 5898, '2024-08-30 11:10:17'),
@@ -6439,7 +6452,26 @@ INSERT INTO `recents_music` (`uid_recents`, `uid_music`, `played_at`) VALUES
 (2520, 3320, '2024-08-30 15:10:24'),
 (2521, 6026, '2024-08-30 15:10:46'),
 (2522, 6027, '2024-08-30 15:11:28'),
-(2523, 677, '2024-08-30 15:12:56');
+(2523, 677, '2024-08-30 15:12:56'),
+(2524, 3074, '2024-08-30 15:14:51'),
+(2525, 157, '2024-08-30 15:16:46'),
+(2526, 5219, '2024-08-30 15:20:43'),
+(2527, 1092, '2024-08-30 15:22:34'),
+(2528, 4954, '2024-08-30 15:26:35'),
+(2529, 4390, '2024-08-30 15:28:59'),
+(2530, 1672, '2024-08-30 15:30:58'),
+(2531, 6035, '2024-08-30 15:32:10'),
+(2532, 6036, '2024-08-30 15:32:14'),
+(2533, 4991, '2024-08-30 15:34:48'),
+(2534, 3344, '2024-08-30 15:38:09'),
+(2535, 5887, '2024-08-30 15:41:04'),
+(2536, 2365, '2024-08-30 15:45:16'),
+(2537, 4879, '2024-08-30 15:48:24'),
+(2538, 2318, '2024-08-30 15:54:03'),
+(2539, 1222, '2024-08-30 15:56:06'),
+(2540, 2279, '2024-08-30 15:57:50'),
+(2541, 2502, '2024-08-30 16:00:37'),
+(2542, 5826, '2024-08-30 16:03:59');
 
 --
 -- Indexes for dumped tables
@@ -6490,13 +6522,13 @@ ALTER TABLE `designs`
 -- AUTO_INCREMENT untuk tabel `music`
 --
 ALTER TABLE `music`
-  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6035;
+  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6065;
 
 --
 -- AUTO_INCREMENT untuk tabel `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
+  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
 
 --
 -- AUTO_INCREMENT untuk tabel `playlist_music`
@@ -6508,7 +6540,7 @@ ALTER TABLE `playlist_music`
 -- AUTO_INCREMENT untuk tabel `recents_music`
 --
 ALTER TABLE `recents_music`
-  MODIFY `uid_recents` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2524;
+  MODIFY `uid_recents` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2543;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

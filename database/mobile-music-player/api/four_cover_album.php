@@ -4,7 +4,7 @@ include './connection.php';
 
 $sql = "";
 
-function getFourCovercategory($type)
+function getFourCovercategory()
 {
     global $sql;
 
@@ -21,11 +21,11 @@ LEFT JOIN (
     FROM music
     GROUP BY cover, category
 ) AS rc ON p.uid = rc.category AND rc.rank <= 4
-WHERE p.type = '$type' and p.image IS NULL
+WHERE p.type = 'category' and p.image IS NULL
 GROUP BY p.uid;";
 }
 
-function getFourCoverPlaylist($type)
+function getFourCoverPlaylist()
 {
     global $sql;
 
@@ -37,21 +37,23 @@ function getFourCoverPlaylist($type)
     COUNT(DISTINCT rc.cover) AS total_non_null_cover
 FROM playlist p
 LEFT JOIN (
-    SELECT min(title) as title, cover, category,
-        ROW_NUMBER() OVER (PARTITION BY category ORDER BY title ASC) AS rank
-    FROM music
-    GROUP BY cover, category
-) AS rc ON p.uid = rc.category AND rc.rank <= 4
-WHERE p.type = '$type' and p.image IS NULL
+    SELECT min(playlist_music.date_add_music_playlist) as date, title, cover, playlist.uid as puid,
+ROW_NUMBER() OVER (PARTITION BY playlist.uid ORDER BY date ASC) AS rank
+from music
+LEFT JOIN playlist_music ON playlist_music.id_music = music.id_music
+LEFT JOIN playlist ON playlist_music.id_playlist = playlist.uid
+GROUP BY cover, playlist.uid
+) AS rc ON p.uid = rc.puid AND rc.rank <= 4
+WHERE p.type = 'playlist' and p.image IS NULL
 GROUP BY p.uid;";
 }
 
 switch ($_GET['method']) {
     case 'four_cover_category':
-        getFourCovercategory($_GET['type']);
+        getFourCovercategory();
         break;
     case 'four_cover_playlist':
-        getFourCovercategory($_GET['type']);
+        getFourCoverPlaylist();
     default:
         break;
 }
