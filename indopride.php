@@ -125,19 +125,6 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 $cover = $array_data_music['cover'];
                                                 $date_added = $array_data_music['date_added'];
 
-                                                $musicData = json_encode(array(
-                                                    'id_music' => $id_music,
-                                                    'category' => $category,
-                                                    'title' => $title,
-                                                    'artist' => $artist,
-                                                    'favorite' => $favorite,
-                                                    'album' => $album,
-                                                    'time' => $time,
-                                                    'cover' => $cover,
-                                                    'link_gdrive' => $link_drive,
-                                                    'date_added' => $date_added
-                                                ));
-
                                                 if ($array_data_music['link_spotify'] == null) {
 
                                                     // cut string title if too long
@@ -163,7 +150,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 
                                                     $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
                                                     $time = $array_data_music['time'];
-
+                                            
                                                 } else {
                                                     echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
@@ -176,7 +163,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                             <?php echo $number_music; ?>
                                                         </span>
                                                         <span class="play_hover"
-                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,<?php echo $link_drive ?>,<?php echo $count_music ?>, <?php echo $id_music ?>, <?php echo $array_data_music ?>)"><i
+                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>','<?php echo $count_music ?>', '<?php echo $id_music ?>', '<?php echo $array_data_music ?>')"><i
                                                                 class="flaticon-play-button"></i></span></a>
                                                 </li>
                                                 <li class="song_title_width">
@@ -193,6 +180,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                                 </a>
                                                             </p>
                                                         </div>
+
                                                     </div>
                                                 </li>
                                                 <li class="song_title_width"><a class="album_music">
