@@ -137,8 +137,8 @@ function nextMusic(countMusic) {
     // Fetch data from the API
     fetch("https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/playlist?uid=1&type=category")
         .then((response) => response.json())
-        .then((json) => {
-            let musicData = json[randomNumber];
+        .then((list) => {
+            let musicData = list[randomNumber];
             animatedPlayMusic(
                 musicData.id_music,          // Access the correct property name
                 musicData.link_gdrive,       // Use the correct link property from your API
