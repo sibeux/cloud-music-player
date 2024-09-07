@@ -176,7 +176,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                             <?php echo $number_music; ?>
                                                         </span>
                                                         <span class="play_hover"
-                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>','<?php echo $count_music ?>', '<?php echo $id_music ?>', '<?php echo $musicData ?>')"><i
+                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>','<?php echo $count_music ?>', '<?php echo $id_music ?>', '<?php echo $array_data_music ?>)'"><i
                                                                 class="flaticon-play-button"></i></span></a>
                                                 </li>
                                                 <li class="song_title_width">
@@ -193,7 +193,6 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                                 </a>
                                                             </p>
                                                         </div>
-
                                                     </div>
                                                 </li>
                                                 <li class="song_title_width"><a class="album_music">
