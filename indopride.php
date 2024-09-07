@@ -150,7 +150,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 
                                                     $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
                                                     $time = $array_data_music['time'];
-                                            
+
                                                 } else {
                                                     echo "<script type='module'>
                                                         import { getDataFromAPISpotify } from './js/api.spotify.js';
@@ -163,8 +163,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                             <?php echo $number_music; ?>
                                                         </span>
                                                         <span class="play_hover"
-                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>',
-                                                            '<?php echo $count_music ?>', '<?php echo $id_music ?>', '<?php echo $result_music ?>')"><i
+                                                            onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,'<?php echo $link_drive ?>','<?php echo $count_music ?>', '<?php echo $id_music ?>', '<?php echo $result_music ?>')"><i
                                                                 class="flaticon-play-button"></i></span></a>
                                                 </li>
                                                 <li class="song_title_width">
