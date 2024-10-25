@@ -20,6 +20,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
     $type = $_GET['type'];
     $uid = $_GET['uid'];
 
+    echo "<script>console.log('$uid');</script>";
+
     if ($type == 'category' && $uid == 481) {
         echo "<script>console.log('etst');</script>";
         $sql = "SELECT * FROM music ORDER BY music.title ASC";
