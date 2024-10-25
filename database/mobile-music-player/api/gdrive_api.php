@@ -5,11 +5,11 @@ include './connection.php';
 $sql = "SELECT gdrive_api FROM API";
 
 // Query to retrieve data from MySQL
-$result = $conn->query($sql);
+$result = $db->query($sql);
 
 // Check if the query was successful
 if (!$result) {
-    die("Query failed: " . $conn->error);
+    die("Query failed: " . $db->error);
 }
 
 // Create an array to store the data
@@ -43,4 +43,4 @@ if ($json_data === false) {
 echo $json_data;
 
 // Close the connection
-$conn->close();
+$db->close();

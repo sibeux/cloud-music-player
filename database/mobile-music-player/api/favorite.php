@@ -15,12 +15,12 @@ if (isset($_GET['_favorite']) && isset($_GET['_id'])) {
 }
 
 // Query to retrieve data from MySQL
-$result = $conn->query($sql);
-$result = $conn->query($date);
+$result = $db->query($sql);
+$result = $db->query($date);
 
 // Check if the query was successful
 if (!$result) {
-    die("Query failed: " . $conn->error);
+    die("Query failed: " . $db->error);
 } else {
     echo "Success";
 }

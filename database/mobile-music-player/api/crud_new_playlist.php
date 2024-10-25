@@ -21,12 +21,12 @@ if (isset($_GET['action']) && isset($_GET['playlist_uid']) && ($_GET['action'] =
 }
 
 // Query to retrieve data from MySQL
-$result = $conn->query($sql);
-$result = $conn->query($sql2);
+$result = $db->query($sql);
+$result = $db->query($sql2);
 
 // Check if the query was successful
 if (!$result) {
-    die("Query failed: " . $conn->error);
+    die("Query failed: " . $db->error);
 } else {
     echo "Success";
 }
