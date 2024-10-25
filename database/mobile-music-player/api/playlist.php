@@ -68,7 +68,7 @@ if (isset($_GET['play_playlist'])) {
 }
 
 if (isset($_GET['recents_music'])) {
-    $sql = "SELECT * FROM recents_music join music on music.id_music = recents_music.uid_music ORDER BY played_at DESC LIMIT 100";
+    $sql = "SELECT * FROM recents_music join music on music.id_music = recents_music.uid_music ORDER BY played_at DESC LIMIT 500";
 }
 
 // Query to retrieve data from MySQL
