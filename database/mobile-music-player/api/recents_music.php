@@ -18,18 +18,20 @@ WHERE uid_recents NOT IN (
         SELECT uid_recents
         FROM recents_music
         ORDER BY played_at DESC
-        LIMIT 100
-    ) AS last_100
+        LIMIT 500
+    ) AS last_500
 );";
 }
 
 // Query to retrieve data from MySQL
-$result = $conn->query($sql);
-$result = $conn->query($delete);
+$result = $db->query($sql);
+$result = $db->query($delete);
 
 // Check if the query was successful
 if (!$result) {
-    die("Query failed: " . $conn->error);
+    foreach ($db->errorInfo() as $error) {
+        die("Query failed: " . $error);
+    }
 } else {
     echo "Success";
 }
