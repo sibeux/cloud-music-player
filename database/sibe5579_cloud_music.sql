@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 25 Okt 2024 pada 16.05
+-- Waktu pembuatan: 26 Okt 2024 pada 03.17
 -- Versi server: 10.6.19-MariaDB-cll-lve
 -- Versi PHP: 8.3.12
 
@@ -9647,7 +9647,116 @@ INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `
 (9573, '2', 'https://raw.githubusercontent.com/cybeat-music/solid-lamp/main/HeroesRising/flac/To%20Be%20the%20No.%201%20Hero%20-Bakugo%E2%80%99s%20Belief-.flac', 'To Be the No. 1 Hero -Bakugo’s Belief-', 'Yuki Hayashi', 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', '02:51', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 0, '2024-10-25 09:04:54'),
 (9574, '2', 'https://raw.githubusercontent.com/cybeat-music/solid-lamp/main/HeroesRising/flac/To%20the%20Limit.flac', 'To the Limit', 'Yuki Hayashi', 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', '04:54', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 0, '2024-10-25 09:04:55'),
 (9575, '2', 'https://raw.githubusercontent.com/cybeat-music/solid-lamp/main/HeroesRising/flac/What%20is%20a%20Hero....flac', 'What is a Hero...', 'Yuki Hayashi', 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', '03:30', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 0, '2024-10-25 09:04:56'),
-(9576, '2', 'https://raw.githubusercontent.com/cybeat-music/solid-lamp/main/HeroesRising/flac/You%20Chose%20the%20Wrong%20Person%20to%20Ridicule.flac', 'You Chose the Wrong Person to Ridicule', 'Yuki Hayashi', 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', '02:18', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 0, '2024-10-25 09:04:57');
+(9576, '2', 'https://raw.githubusercontent.com/cybeat-music/solid-lamp/main/HeroesRising/flac/You%20Chose%20the%20Wrong%20Person%20to%20Ridicule.flac', 'You Chose the Wrong Person to Ridicule', 'Yuki Hayashi', 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', '02:18', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 0, '2024-10-25 09:04:57'),
+(9577, '2', 'https://drive.google.com/file/d/1PVZeF_YzMzIHnxWYFdF8EQ8McWXltcPW/view?usp=drive_link', 'Mizu no Naka no Bagatelle', 'Ryuichi Sakamoto', 'Opus', '02:57', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:46'),
+(9578, '2', 'https://drive.google.com/file/d/1OM05ozt8OkfEvOOr0QL9mqoJVFSpgxSg/view?usp=drive_link', '20220302 - sarabande', 'Ryuichi Sakamoto', 'Opus', '03:29', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:47'),
+(9579, '2', 'https://drive.google.com/file/d/1PY3pDgbYjdGFYFv8psQFX3slY5kck0LF/view?usp=drive_link', 'Opus - ending', 'Ryuichi Sakamoto', 'Opus', '01:51', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:48'),
+(9580, '2', 'https://drive.google.com/file/d/1OxyE4qI1VDOWxSZAzb494AkuFX6VYb2W/view?usp=drive_link', 'BB', 'Ryuichi Sakamoto', 'Opus', '00:32', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:49'),
+(9581, '2', 'https://drive.google.com/file/d/1PFhabghdh9hGrh41SBe3UGEanUvOs1zf/view?usp=drive_link', 'Merry Christmas Mr. Lawrence', 'Ryuichi Sakamoto', 'Opus', '03:42', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:50'),
+(9582, '2', 'https://drive.google.com/file/d/1P24l2Ug1XXiOwWMLZ2ZPng2J1Y1iBCeL/view?usp=drive_link', 'Happy End', 'Ryuichi Sakamoto', 'Opus', '02:44', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:51'),
+(9583, '2', 'https://drive.google.com/file/d/1Pojpd8PCifKyckYWwTkaEH-vFhG8tNT6/view?usp=drive_link', 'Trioon', 'Ryuichi Sakamoto', 'Opus', '03:22', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:52'),
+(9584, '2', 'https://drive.google.com/file/d/1PbEx1a9Lppwga-yOaaOuyBHEb4CBt-70/view?usp=drive_link', 'The Last Emperor', 'Ryuichi Sakamoto', 'Opus', '02:03', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:53'),
+(9585, '2', 'https://drive.google.com/file/d/1PcOFpkwiJNvuXvhoJJPxr8mzYU2N14Mk/view?usp=drive_link', 'The Sheltering Sky', 'Ryuichi Sakamoto', 'Opus', '01:44', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:54'),
+(9586, '2', 'https://drive.google.com/file/d/1OKOzxVmnYLNXfyyfOodyvzgt_el6JWus/view?usp=drive_link', '20180219 (w⁄ prepared piano)', 'Ryuichi Sakamoto', 'Opus', '00:45', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:55'),
+(9587, '2', 'https://drive.google.com/file/d/1Pg4lA-X3XK5B1jRwujcqK9J6YnQyiAZ2/view?usp=drive_link', 'The Wuthering Heights', 'Ryuichi Sakamoto', 'Opus', '04:09', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:56'),
+(9588, '2', 'https://drive.google.com/file/d/1Pi2uIFxcTeTd2NYxc1zduw5N-8QJwMZ0/view?usp=drive_link', 'Tong Poo', 'Ryuichi Sakamoto', 'Opus', '02:43', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:57'),
+(9589, '2', 'https://drive.google.com/file/d/1P4WJAAsQ0pnU3ChVOyt7WOoYxCIe2xG3/view?usp=drive_link', 'Ichimei - small happiness', 'Ryuichi Sakamoto', 'Opus', '03:55', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:58'),
+(9590, '2', 'https://drive.google.com/file/d/1OyWfYb8eSUT-N7PzPd3mjtudXi7-iH6t/view?usp=drive_link', 'Bibo no Aozora', 'Ryuichi Sakamoto', 'Opus', '01:31', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:41:59'),
+(9591, '2', 'https://drive.google.com/file/d/1OaAE8HVYAWc5MDPdZlpOBM6iYDYuLHKz/view?usp=drive_link', 'Aqua', 'Ryuichi Sakamoto', 'Opus', '03:13', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:42:00'),
+(9592, '2', 'https://drive.google.com/file/d/1OsgnUJzcpHtrIs_DD5wzjNzGUGcCQdxi/view?usp=drive_link', 'Aubade 2020', 'Ryuichi Sakamoto', 'Opus', '03:07', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:42:01'),
+(9593, '2', 'https://drive.google.com/file/d/1PZFZg-XGonWmRWoqijF5Vlnej-CGgVq1/view?usp=drive_link', 'Solitude', 'Ryuichi Sakamoto', 'Opus', '02:38', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:42:02'),
+(9594, '2', 'https://drive.google.com/file/d/1P03fam3y_Ul8QKdpgfJbcMnCe6Tr85Rf/view?usp=drive_link', 'for Jóhann', 'Ryuichi Sakamoto', 'Opus', '04:40', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:42:03'),
+(9595, '2', 'https://drive.google.com/file/d/1P6fPp9sjKvcdn6JQSf3w8abFpX0DleIX/view?usp=drive_link', 'Lack of Love', 'Ryuichi Sakamoto', 'Opus', '01:34', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:42:04'),
+(9596, '2', 'https://drive.google.com/file/d/1OVs5KMRqEeVWtlYV_fKQUNxbQUrFM7dQ/view?usp=drive_link', 'Andata', 'Ryuichi Sakamoto', 'Opus', '04:09', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 0, '2024-10-25 16:42:05'),
+(9597, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Calculated%20Prowess.flac', 'Calculated Prowess', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '02:59', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:12'),
+(9598, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Colette%E2%80%99s%20Theme.flac', 'Colette’s Theme', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '02:58', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:13'),
+(9599, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Elfaria%E2%80%99s%20Theme.flac', 'Elfaria’s Theme', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '03:55', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:14'),
+(9600, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Ever%20After.flac', 'Ever After', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '01:48', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:15'),
+(9601, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Goggles.flac', 'Goggles', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '01:13', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:16'),
+(9602, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Lihanna%E2%80%99s%20Theme.flac', 'Lihanna’s Theme', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '02:06', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:17'),
+(9603, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Records%20of%20Rigarden.flac', 'Records of Rigarden', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '04:43', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:18'),
+(9604, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Reminiscence.flac', 'Reminiscence', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '03:07', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:19'),
+(9605, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Rigarden%20Magical%20Academy.flac', 'Rigarden Magical Academy', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '02:03', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:20'),
+(9606, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Sion%E2%80%99s%20Theme.flac', 'Sion’s Theme', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '00:34', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:21'),
+(9607, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Sword%20of%20Courage.flac', 'Sword of Courage', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '02:37', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:22'),
+(9608, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/TsueTsurugi-music-collection/flac/Wistoria%E2%81%9A%20Wand%20and%20Sword.flac', 'Wistoria⁚ Wand and Sword', 'Yuki Hayashi', 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', '00:47', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 0, '2024-10-25 19:18:23'),
+(9609, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/9%20to%200.flac', '9 to 0', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '04:35', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:37'),
+(9610, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/Alive%20Conscious.flac', 'Alive Conscious', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '02:29', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:38'),
+(9611, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/Apocalypse%20for%20all.flac', 'Apocalypse for all', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '04:05', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:39'),
+(9612, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/Drag%20Score.flac', 'Drag Score', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '00:48', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:40'),
+(9613, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/From%20the%20space%20between%206%20%26%201%E2%81%842%20tatami%20mats.flac', 'From the space between 6 & 1⁄2 tatami mats', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '01:16', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:41'),
+(9614, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/Goodbye%20Everyone.flac', 'Goodbye Everyone', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '00:57', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:42'),
+(9615, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/Han%20Shin%20Han%20Gi%20Me.flac', 'Han Shin Han Gi Me', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '03:33', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:43'),
+(9616, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/I%20Care%20Because.flac', 'I Care Because', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '04:43', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:44'),
+(9617, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/I%20am.flac', 'I am', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '02:03', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:45'),
+(9618, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/Not%20even%20allowed%20to%20get%20old.flac', 'Not even allowed to get old', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '04:16', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:46'),
+(9619, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/Please%20Tell%20me%20Mr.%20Wonder.flac', 'Please Tell me Mr. Wonder', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '03:19', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:47'),
+(9620, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/There%20is%20someone%20I%20can%E2%80%99t%20meet,%20even%20in%20a%20dream.flac', 'There is someone I can’t meet, even in a dream', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '01:20', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:48'),
+(9621, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Ikiru/flac/Young%20Girl%20A.flac', 'Young Girl A', 'Siinamota', 'Siinamota - \"Ikiru\" (To Live)', '00:33', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 0, '2024-10-25 19:24:49'),
+(9622, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Dear%20The%20Night%20I%20Loved/flac/Dear%20The%20Night%20I%20Loved.flac', 'Dear The Night I Loved', 'Nakuru Aitsuki', 'Nakuru Aitsuki - \"Dear The Night I Loved\"', '05:00', 'https://github.com/cybeat-music/silver-robot/blob/main/Dear%20The%20Night%20I%20Loved/art.jpg?raw=true', 0, '2024-10-25 19:26:29'),
+(9623, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/One%20more%20time/flac/One%20more%20time,%20One%20more%20chance%20(Hikigatari%20Ver.).flac', 'One more time, One more chance (Hikigatari Ver.)', 'Masayoshi Yamazaki', 'One more time, One more chance / Masayoshi Yamazaki', '02:24', 'https://github.com/cybeat-music/silver-robot/blob/main/One%20more%20time/art.jpg?raw=true', 0, '2024-10-25 19:29:05'),
+(9624, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/One%20more%20time/flac/One%20more%20time,%20One%20more%20chance.flac', 'One more time, One more chance', 'Masayoshi Yamazaki', 'One more time, One more chance / Masayoshi Yamazaki', '02:17', 'https://github.com/cybeat-music/silver-robot/blob/main/One%20more%20time/art.jpg?raw=true', 0, '2024-10-25 19:29:06'),
+(9625, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/One%20more%20time/flac/Yuki%20no%20Eki%20~One%20more%20time,%20One%20more%20chance~%20(from%20%E2%80%99Byousoku%205%20Centimeter%E2%80%99%20Soundtrack).flac', 'Yuki no Eki ~One more time, One more chance~ (from ’Byousoku 5 Centimeter’ Soundtrack)', 'Masayoshi Yamazaki', 'One more time, One more chance / Masayoshi Yamazaki', '04:45', 'https://github.com/cybeat-music/silver-robot/blob/main/One%20more%20time/art.jpg?raw=true', 0, '2024-10-25 19:29:07'),
+(9626, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/A%20Road%20I%20Can%E2%80%99t%20Recall.flac', 'A Road I Can’t Recall', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:38', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:37'),
+(9627, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/An%20Utter%20Himouto.flac', 'An Utter Himouto', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:09', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:38'),
+(9628, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Big%20Brother%E2%80%99s%20Everyday%20Routine.flac', 'Big Brother’s Everyday Routine', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:55', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:39'),
+(9629, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Day%20Off%20with%20Big%20Brother.flac', 'Day Off with Big Brother', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:16', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:40'),
+(9630, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Days%20Spent%20in%20The%20Sun%20-TV%20version-.flac', 'Days Spent in The Sun -TV version-', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:54', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:41'),
+(9631, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Dekantea%20Commercial.flac', 'Dekantea Commercial', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '01:47', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:42'),
+(9632, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Disgruntled%20Umaru.flac', 'Disgruntled Umaru', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:22', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:43'),
+(9633, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Downtime.flac', 'Downtime', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:43', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:44'),
+(9634, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Fellow%20Younger%20Sisters.flac', 'Fellow Younger Sisters', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:44', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:45'),
+(9635, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Himouto.flac', 'Himouto', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:04', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:46'),
+(9636, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/I%20Can%E2%80%99t%20Decide%20All%20Alone.flac', 'I Can’t Decide All Alone', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:47', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:47'),
+(9637, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/I%20Still%20Wanna%20Lounge%20Around....flac', 'I Still Wanna Lounge Around...', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:29', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:48'),
+(9638, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/I%20Wish%20Time%20Would%20Stop,%20Right%20Now.flac', 'I Wish Time Would Stop, Right Now', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:55', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:49'),
+(9639, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Irritated%20Girl.flac', 'Irritated Girl', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:49', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:50'),
+(9640, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Is%20Big%20Brother%20Scared%E2%81%87.flac', 'Is Big Brother Scared⁇', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:30', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:51'),
+(9641, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/It%E2%80%99s%20a%20Challenge!.flac', 'It’s a Challenge!', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:26', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:52'),
+(9642, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/I%E2%80%99ll%20Follow%20You%20Anywhere.flac', 'I’ll Follow You Anywhere', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '01:52', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:53'),
+(9643, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/I%E2%80%99ll%20Get%20Serious%20Starting%20Next%20Year.flac', 'I’ll Get Serious Starting Next Year', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:02', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:54'),
+(9644, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Japanet%20Commercial.flac', 'Japanet Commercial', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:10', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:55'),
+(9645, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Japanet%20Girl%20Commercial.flac', 'Japanet Girl Commercial', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:49', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:56'),
+(9646, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Let%E2%80%99s%20Go%20Have%20Fun.flac', 'Let’s Go Have Fun', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:15', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:57'),
+(9647, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Let%E2%80%99s%20%E2%80%99Metamorphose%20Innovatingly%E2%80%99%20-TV%20version-.flac', 'Let’s ’Metamorphose Innovatingly’ -TV version-', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:01', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:58'),
+(9648, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Lollygagging%20Way%20of%20Life.flac', 'Lollygagging Way of Life', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:13', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:43:59');
+INSERT INTO `music` (`id_music`, `category`, `link_gdrive`, `title`, `artist`, `album`, `time`, `cover`, `favorite`, `date_added`) VALUES
+(9649, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Lonely%20Night%20Journey.flac', 'Lonely Night Journey', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '00:53', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:00'),
+(9650, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/My%20One%20and%20Only%20Younger%20Sister.flac', 'My One and Only Younger Sister', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:02', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:01'),
+(9651, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Objection!.flac', 'Objection!', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:57', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:02'),
+(9652, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Regrets%20of%20Nighttime.flac', 'Regrets of Nighttime', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:05', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:03'),
+(9653, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Selfish%20Umaru.flac', 'Selfish Umaru', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '00:46', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:04'),
+(9654, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Suggested%20Bluffing.flac', 'Suggested Bluffing', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:13', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:05'),
+(9655, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Thank%20You,%20Big%20Brother.flac', 'Thank You, Big Brother', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '00:39', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:06'),
+(9656, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/The%20Beautiful%20Younger%20Sister.flac', 'The Beautiful Younger Sister', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '01:21', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:07'),
+(9657, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/The%20Feast%20Shall%20Begin!.flac', 'The Feast Shall Begin!', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '01:49', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:08'),
+(9658, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/The%20Perfect%20High%20School%20Girl.flac', 'The Perfect High School Girl', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '00:47', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:09'),
+(9659, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/The%20Strongest%20Gamer.flac', 'The Strongest Gamer', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:40', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:10'),
+(9660, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/This%20Place%20is%20Heaven!.flac', 'This Place is Heaven!', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:08', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:11'),
+(9661, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Thrilling%20Night%20Journey.flac', 'Thrilling Night Journey', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '01:35', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:12'),
+(9662, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Troublesome%20Life.flac', 'Troublesome Life', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '01:53', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:13'),
+(9663, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Umaru%20Complementation%20Project.flac', 'Umaru Complementation Project', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:03', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:14'),
+(9664, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Umaru%20Rhythm%20No.%201.flac', 'Umaru Rhythm No. 1', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '00:35', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:15'),
+(9665, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Umaru%20Rhythm%20No.%202.flac', 'Umaru Rhythm No. 2', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:54', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:16'),
+(9666, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Umaru%20and%20Big%20Brother.flac', 'Umaru and Big Brother', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '00:57', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:17'),
+(9667, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Umaru%20is%20in%20a%20Bad%20Mood.flac', 'Umaru is in a Bad Mood', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '03:20', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:18'),
+(9668, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Umaru-chan%20S.flac', 'Umaru-chan S', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '01:02', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:19'),
+(9669, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Umaru%E2%80%99s%20Summer%20Vacation.flac', 'Umaru’s Summer Vacation', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '02:41', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:20'),
+(9670, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Wasted%20Cola.flac', 'Wasted Cola', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:03', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:21'),
+(9671, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/Wolf%20in%20Sheep%E2%80%99s%20Clothing.flac', 'Wolf in Sheep’s Clothing', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '04:37', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:22'),
+(9672, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Umaru-chan-ost/flac/%E2%81%87%20Cream.flac', '⁇ Cream', 'Yasuhiro Misawa', 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', '01:39', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 0, '2024-10-25 19:44:23'),
+(9673, '2', 'https://raw.githubusercontent.com/cybeat-music/silver-robot/main/Hidamari/flac/Hidamari.flac', 'Hidamari', 'Ms.OOJA', 'TV Anime \"Tsuma, Shougakusei ni Naru.\" ED Theme \"Hidamari\" / Ms.OOJA', '02:25', 'https://github.com/cybeat-music/silver-robot/blob/main/Hidamari/cover.jpg?raw=true', 0, '2024-10-25 19:46:21'),
+(9674, '2', 'https://drive.google.com/file/d/1ZRHm-cBkCD1O4oElD4xbwd3uE_ZYADTJ/view?usp=drive_link', 'Andante (feat. Suo Sango, Shellin Burgundy, Sukoya Kana, Genzuki Tojiro, Suzuki Masaru & Lize Helesta)', 'Kakeru Yumeoi', 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', '00:42', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 0, '2024-10-25 20:12:18'),
+(9675, '2', 'https://drive.google.com/file/d/1ZW6LKEUNlcEabglJ_maVg4G0UhkTSL6z/view?usp=drive_link', 'Lost Finale (feat. Lize Helesta)', 'Kakeru Yumeoi', 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', '02:00', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 0, '2024-10-25 20:12:19'),
+(9676, '2', 'https://drive.google.com/file/d/1Z_I-mLQ9tf-N8I8Rx8Xha5O4logAZZbd/view?usp=drive_link', 'Paradox Asymmetry (feat. Suzuki Masaru)', 'Kakeru Yumeoi', 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', '02:21', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 0, '2024-10-25 20:12:20'),
+(9677, '2', 'https://drive.google.com/file/d/1ZUTr8un7XkIyeQygfqTJb_s7aQ6WrW6z/view?usp=drive_link', 'Gloria Music (feat. Genzuki Tojiro)', 'Kakeru Yumeoi', 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', '01:04', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 0, '2024-10-25 20:12:21'),
+(9678, '2', 'https://drive.google.com/file/d/1ZeQkVF6IiQHqekjGjvhSuXey6Z9wlOEU/view?usp=drive_link', 'The Final Judgement Court (feat. Sukoya Kana)', 'Kakeru Yumeoi', 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', '01:18', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 0, '2024-10-25 20:12:22'),
+(9679, '2', 'https://drive.google.com/file/d/1ZTJtQ_vU6d9Q9xEwCSn4evwJGljNelrx/view?usp=drive_link', 'Attention Note (feat. Shellin Burgundy)', 'Kakeru Yumeoi', 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', '04:01', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 0, '2024-10-25 20:12:23'),
+(9680, '2', 'https://drive.google.com/file/d/1ZVeg08L0kANE7n53vR9ZvudTvzdeqv1I/view?usp=drive_link', 'Illusory Happiness Theory (feat. Suo Sango)', 'Kakeru Yumeoi', 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', '04:10', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 0, '2024-10-25 20:12:24'),
+(9681, '2', 'https://drive.google.com/file/d/1ZaywUKNHeUJLGFFK-XfZHt35ccl40u1M/view?usp=drive_link', 'Silent Dystopia', 'Kakeru Yumeoi', 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', '04:08', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 0, '2024-10-25 20:12:25'),
+(9685, '4', 'https://drive.google.com/file/d/1-FLbCqIZ0Vyd_PXBABrMfsR0Jr4Bzoo4/view?usp=drive_link', 'Daybreak Descends', 'Wuthering Waves Preview Radio & jixwang', 'Wuthering Waves 1.1 Thaw of Eons OST - Mini Album / Wuthering Waves Preview Radio & jixwang', '03:32', 'https://drive.google.com/file/d/1-HIMDGAil8Y6eLPvIGLk_Zduwjaxm9Fd/view?usp=drive_link', 0, '2024-10-25 20:15:59'),
+(9686, '4', 'https://drive.google.com/file/d/1-9mfkTk6r1wWsJRlYKi1Tqpu3J_JkVMO/view?usp=drive_link', 'Lifted Clouds of Eons', 'Wuthering Waves Preview Radio & jixwang', 'Wuthering Waves 1.1 Thaw of Eons OST - Mini Album / Wuthering Waves Preview Radio & jixwang', '03:23', 'https://drive.google.com/file/d/1-HIMDGAil8Y6eLPvIGLk_Zduwjaxm9Fd/view?usp=drive_link', 0, '2024-10-25 20:16:00'),
+(9687, '4', 'https://drive.google.com/file/d/1-3ijuEtBLic9TlC883fHB2iNXCRnqyTi/view?usp=drive_link', 'Loneliness in Resonant Chamber', 'Wuthering Waves Preview Radio & jixwang', 'Wuthering Waves 1.1 Thaw of Eons OST - Mini Album / Wuthering Waves Preview Radio & jixwang', '04:33', 'https://drive.google.com/file/d/1-HIMDGAil8Y6eLPvIGLk_Zduwjaxm9Fd/view?usp=drive_link', 0, '2024-10-25 20:16:01');
 
 -- --------------------------------------------------------
 
@@ -9660,7 +9769,7 @@ CREATE TABLE `playlist` (
   `name` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `image` mediumtext DEFAULT NULL,
   `type` enum('playlist','album','category','favorite') NOT NULL DEFAULT 'playlist',
-  `author` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `author` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `pin` enum('true','false') NOT NULL DEFAULT 'false',
   `date_pin` timestamp NULL DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -9672,10 +9781,10 @@ CREATE TABLE `playlist` (
 --
 
 INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_pin`, `date`, `editable`) VALUES
-(1, 'Indopride', NULL, 'category', '', 'true', '2024-10-21 04:05:26', '2024-10-23 11:09:52', 'false'),
-(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', '', 'true', '2024-10-21 04:05:11', '2024-10-24 21:00:39', 'false'),
-(3, 'Javasong', NULL, 'category', '', 'true', '2024-10-21 04:05:46', '2024-10-21 15:35:33', 'false'),
-(4, 'Worldwide', NULL, 'category', '', 'true', '2024-10-23 15:56:19', '2024-10-24 04:28:39', 'false'),
+(1, 'Indopride', NULL, 'category', NULL, 'true', '2024-10-25 20:07:16', '2024-10-23 11:09:52', 'false'),
+(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', NULL, 'true', '2024-10-25 20:07:08', '2024-10-25 09:06:15', 'false'),
+(3, 'Javasong', NULL, 'category', NULL, 'true', '2024-10-25 20:07:18', '2024-10-21 15:35:33', 'false'),
+(4, 'Worldwide', NULL, 'category', NULL, 'true', '2024-10-25 20:07:20', '2024-10-25 15:10:41', 'false'),
 (5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama', 'false', NULL, '2024-09-09 22:37:16', 'false'),
 (6, 'Your Name.', 'https://i.scdn.co/image/ab67616d0000b2733d1869d8c477d291a205a2d6', 'album', 'RADWIMPS', 'false', NULL, '2024-06-28 08:14:27', 'false'),
 (7, 'Danshi Koukousei No Nichijou Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Danshi/cover.jpg', 'album', 'Audio Highs', 'false', NULL, '2024-07-18 19:04:28', 'false'),
@@ -9704,7 +9813,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (30, 'DEATH NOTE Original Soundtrack Ⅲ', 'https://i.scdn.co/image/ab67616d0000b2739dd71a92c70af0dc020f7197', 'album', 'Yoshihisa Hirano, Hideki Taniuchi', 'false', NULL, '2024-07-18 15:39:49', 'false'),
 (31, 'Shigatsu Wa Kimi No Uso BONUS DISC 4', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%204/Cover.jpg', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-08-16 15:51:14', 'false'),
 (32, 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 'album', 'Yasuharu Takanashi, YAIBA\r\n\r\n', 'false', NULL, '2024-07-18 19:03:38', 'false'),
-(33, 'Liked Songs', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Screenshot%202024-07-16%20145516.png', 'favorite', 'favorite', 'false', NULL, '2024-10-14 04:10:20', 'false'),
+(33, 'Liked Songs', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Screenshot%202024-07-16%20145516.png', 'favorite', NULL, 'false', NULL, '2024-10-14 04:10:20', 'false'),
 (34, 'Kimetsu no Yaiba Entertainment District Arc Vol.1 Bonus Disc', 'https://drive.google.com/file/d/14x0bshuwI3DfZ2X-CngWgWOt7USEwmrm/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-21 09:10:05', 'false'),
 (35, 'Kimetsu no Yaiba Entertainment District Arc Vol.3 Bonus Disc', 'https://drive.google.com/file/d/15yML8Yp9cvdl8-vIiGVYcjcnbs6_S_8c/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-21 15:57:24', 'false'),
 (36, 'Kimetsu no Yaiba TV Animation Series Volume 2 Special CD', 'https://drive.google.com/file/d/16c3ugur1vCO17_X_figfo2xU21Wd21ZF/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-26 13:55:10', 'false'),
@@ -10019,7 +10128,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (401, 'Zetsuen no Tempest Original Soundtrack vol.1', 'https://github.com/cybeat-music/legendary-guacamole/raw/refs/heads/main/Zetsuen-vol.1/art.webp', 'album', 'Michiru Oshima\r\n', 'false', NULL, '2024-10-04 04:39:59', 'false'),
 (402, 'Sword Art Online II Original Soundtrack Vol.1', 'https://github.com/cybeat-music/legendary-guacamole/raw/refs/heads/main/sao-II-ost-Vol.1/art.webp', 'album', 'Yuki Kajiura', 'false', NULL, '2024-10-04 04:56:14', 'false'),
 (403, 'Sword Art Online II Original Soundtrack Vol.2', 'https://github.com/cybeat-music/legendary-guacamole/raw/refs/heads/main/sao-II-ost-Vol.2/art.webp', 'album', 'Yuki Kajiura', 'false', NULL, '2024-10-04 05:27:15', 'false'),
-(404, 'TV Anime “Dandadan” Opening Theme: Otonoke / Creepy Nuts', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/Otonoke/Cover.jpg?raw=true', 'album', 'Creepy Nuts', 'false', NULL, '2024-10-24 20:49:03', 'false'),
+(404, 'TV Anime “Dandadan” Opening Theme: Otonoke / Creepy Nuts', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/Otonoke/Cover.jpg?raw=true', 'album', 'Creepy Nuts', 'false', NULL, '2024-10-25 15:59:47', 'false'),
 (405, 'TV Anime \"Ao no Hako\" ED Theme \"Teenage Blue\" / Eve', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/Teenage%20Blue/Cover.jpg?raw=true', 'album', 'Eve', 'false', NULL, '2024-10-04 17:11:14', 'false'),
 (406, 'TV Anime \"Dandadan\" ED Theme \"TAIDADA\" / Zutto Mayonaka de Iinoni.', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/TAIDADA/art.jpg?raw=true', 'album', 'Zutto Mayonaka de Iinoni.', 'false', NULL, '2024-10-05 10:15:13', 'false'),
 (407, 'TV Anime \"MECHA-UDE\" OP & ED Theme \"VORTEX / karma\" / Setsuko (Kuuhaku Gokko)', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/VORTEX/Cover.jpg?raw=true', 'album', 'Setsuko (Kuuhaku Gokko)', 'false', NULL, '2024-10-04 05:29:24', 'false'),
@@ -10033,12 +10142,12 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (415, 'Zetsuen no Tempest Original Soundtrack vol.2', 'https://github.com/cybeat-music/stunning-winner/blob/main/Zetsuen%20vol.2/art.jpg?raw=true', 'album', 'Michiru Oshima', 'false', NULL, '2024-10-05 10:06:33', 'false'),
 (416, 'Mob Psycho 100 Original Soundtrack', 'https://github.com/cybeat-music/stunning-winner/blob/main/Mob-100-ost-1/Cover.jpg?raw=true', 'album', 'Kenji Kawai, Junichi Sasaki, Hirokazu Ebata', 'false', NULL, '2024-10-05 10:22:21', 'false'),
 (417, 'Kekkai Sensen & BEYOND Original Soundtrack', 'https://github.com/cybeat-music/refactored-doodle/blob/main/BEYOND-OST/Cover.jpg?raw=true', 'album', 'Taisei Iwasaki, Yuki Kanesaka, Magda Giannikou, Takuya Kuroda, George Gershwin, Tomoya Tabuchi, Yasuyuki Okamura', 'false', NULL, '2024-10-05 18:34:26', 'false'),
-(418, 'TV Anime \"Kami no Tou -Tower of God- Ouji no Kikan\" OP & ED Theme \"RISE UP / BELIEVE\" / NiziU', 'https://github.com/cybeat-music/refactored-doodle/blob/main/RISE%20UP/scans/Cover_04.jpg?raw=true', 'album', 'NiziU', 'false', NULL, '2024-10-08 12:44:23', 'false'),
+(418, 'TV Anime \"Kami no Tou -Tower of God- Ouji no Kikan\" OP & ED Theme \"RISE UP / BELIEVE\" / NiziU', 'https://github.com/cybeat-music/refactored-doodle/blob/main/RISE%20UP/scans/Cover_04.jpg?raw=true', 'album', 'NiziU', 'false', NULL, '2024-10-25 15:10:52', 'false'),
 (419, 'TV Anime \"Tsuma, Shougakusei ni Naru.\" OP Theme \"Ainori Union\" / pachae', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Ainori%20Union/Cover.jpg?raw=true', 'album', 'pachae', 'false', NULL, '2024-10-07 01:54:37', 'false'),
 (420, 'Sword Art Online the Movie -Progressive- Aria of a Starless Night Original Soundtrack', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Aria/cover.png?raw=true', 'album', 'Yuki Kajiura', 'false', NULL, '2024-10-07 02:01:57', 'false'),
 (421, 'ERASED Original Soundtrack 01', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/ERASED-01/Cover.jpg?raw=true', 'album', 'yuki kajiura', 'false', NULL, '2024-10-07 03:12:51', 'false'),
 (422, 'TV Anime \"Nageki no Bourei wa Intai Shitai\" OP Theme \"Kattou Tomorrow\" / Lezel', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Kattou%20Tomorrow/art.jpg?raw=true', 'album', 'Lezel', 'false', NULL, '2024-10-07 02:09:34', 'false'),
-(423, 'TV Anime \"Kami no Tou -Tower of God- Koubousen\" OP & ED Theme \"NIGHT / Falling Up\" / Stray Kids', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/NIGHT/Cover_01.jpg?raw=true', 'album', 'Stray Kids', 'false', NULL, '2024-10-23 17:32:28', 'false'),
+(423, 'TV Anime \"Kami no Tou -Tower of God- Koubousen\" OP & ED Theme \"NIGHT / Falling Up\" / Stray Kids', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/NIGHT/Cover_01.jpg?raw=true', 'album', 'Stray Kids', 'false', NULL, '2024-10-25 15:17:06', 'false'),
 (424, 'TV Anime \"Nageki no Bourei wa Intai Shitai\" ED Theme \"Sukuriimu!\" / P Maru-sama.', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Sukuriimu/art.jpg?raw=true', 'album', 'P Maru-sama.', 'false', NULL, '2024-10-07 04:15:38', 'false'),
 (425, 'TV Anime \"Saikyou no Shienshoku [Wajutsushi] de Aru Ore wa Sekai Saikyou Clan wo Shitagaeru\" OP Theme \"Tactics\" / KOHTA YAMAMOTO feat. SAIKI', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Tactics%20(feat.%20SAIKI)/Cover.jpg?raw=true', 'album', 'KOHTA YAMAMOTO feat. SAIKI', 'false', NULL, '2024-10-07 02:20:34', 'false'),
 (426, 'TV Anime \"Chi. -Chikyuu no Undou ni tsuite-\" ED Theme \"Aporia\" / Yorushika', 'https://github.com/cybeat-music/literate-garbanzo/blob/main/Aporia/Cover.jpg?raw=true', 'album', 'Yorushika', 'false', NULL, '2024-10-23 14:04:07', 'false'),
@@ -10095,8 +10204,18 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (476, 'My Hero Academia 4th Original Soundtrack', 'https://github.com/cybeat-music/reimagined-spork/blob/main/bnha-4th-ost/Cover.jpg?raw=true', 'album', 'Yuki Hayashi', 'false', NULL, '2024-10-21 04:28:51', 'false'),
 (477, 'BTS - MAP OF THE SOUL ꞉ 7', 'https://github.com/cybeat-music/solid-engine/blob/main/MAP%20OF%20THE%20SOUL%207/cover.jpg?raw=true', 'album', 'BTS', 'false', NULL, '2024-10-23 16:19:56', 'false'),
 (478, 'Sayuri - Me', 'https://github.com/cybeat-music/solid-engine/blob/main/Sayuri-Me/Cover.jpg?raw=true', 'album', 'Sayuri', 'false', NULL, '2024-10-23 16:38:53', 'false'),
-(479, 'Agust D - D-DAY', 'https://github.com/cybeat-music/solid-lamp/blob/main/D-DAY/cover.jpg?raw=true', 'album', 'Agust D', 'false', NULL, '2024-10-25 08:51:58', 'false'),
-(480, 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 'album', 'Yuki hayashi', 'false', NULL, '2024-10-25 09:04:51', 'false');
+(479, 'Agust D - D-DAY', 'https://github.com/cybeat-music/solid-lamp/blob/main/D-DAY/cover.jpg?raw=true', 'album', 'Agust D', 'false', NULL, '2024-10-25 09:49:34', 'false'),
+(480, 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 'album', 'Yuki hayashi', 'false', NULL, '2024-10-25 09:04:51', 'false'),
+(481, 'All Beat', 'https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg', 'category', NULL, 'true', '2024-10-25 20:04:47', '2024-10-25 14:17:13', 'false'),
+(482, 'Opus', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 'album', 'Ryuichi Sakamoto', 'false', NULL, '2024-10-25 16:42:11', 'false'),
+(483, 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 'album', 'Yuki Hayashi', 'false', NULL, '2024-10-25 19:18:36', 'false'),
+(484, 'Siinamota - \"Ikiru\" (To Live)', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 'album', 'Siinamota', 'false', NULL, '2024-10-25 19:25:01', 'false'),
+(485, 'Nakuru Aitsuki - \"Dear The Night I Loved\"', 'https://github.com/cybeat-music/silver-robot/blob/main/Dear%20The%20Night%20I%20Loved/art.jpg?raw=true', 'album', 'Nakuru Aitsuki', 'false', NULL, '2024-10-25 19:26:48', 'false'),
+(486, 'One more time, One more chance / Masayoshi Yamazaki', 'https://github.com/cybeat-music/silver-robot/blob/main/One%20more%20time/art.jpg?raw=true', 'album', 'Masayoshi Yamazaki', 'false', NULL, '2024-10-25 19:29:24', 'false'),
+(487, 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 'album', 'Yasuhiro Misawa', 'false', NULL, '2024-10-25 19:43:58', 'false'),
+(488, 'TV Anime \"Tsuma, Shougakusei ni Naru.\" ED Theme \"Hidamari\" / Ms.OOJA', 'https://github.com/cybeat-music/silver-robot/blob/main/Hidamari/cover.jpg?raw=true', 'album', 'Ms.OOJA', 'false', NULL, '2024-10-25 19:46:36', 'false'),
+(489, 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 'album', 'Kakeru Yumeoi', 'false', NULL, '2024-10-25 20:12:38', 'false'),
+(490, 'Wuthering Waves 1.1 Thaw of Eons OST - Mini Album / Wuthering Waves Preview Radio & jixwang', 'https://drive.google.com/file/d/1-HIMDGAil8Y6eLPvIGLk_Zduwjaxm9Fd/view?usp=drive_link', 'album', 'Wuthering Waves Preview Radio & jixwang', 'false', NULL, '2024-10-25 20:13:40', 'false');
 
 -- --------------------------------------------------------
 
@@ -10118,7 +10237,7 @@ CREATE TABLE `playlist_music` (
 --
 
 CREATE TABLE `recents_music` (
-  `uid_recents` int(5) NOT NULL,
+  `uid_recents` int(10) NOT NULL,
   `uid_music` int(5) NOT NULL,
   `played_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -10128,10 +10247,6 @@ CREATE TABLE `recents_music` (
 --
 
 INSERT INTO `recents_music` (`uid_recents`, `uid_music`, `played_at`) VALUES
-(19200, 2821, '2024-10-25 00:21:08'),
-(19201, 6873, '2024-10-25 00:22:16'),
-(19202, 1524, '2024-10-25 00:26:37'),
-(19203, 1193, '2024-10-25 00:29:20'),
 (19204, 7183, '2024-10-25 00:31:16'),
 (19205, 948, '2024-10-25 00:31:50'),
 (19206, 2073, '2024-10-25 00:31:58'),
@@ -10227,7 +10342,103 @@ INSERT INTO `recents_music` (`uid_recents`, `uid_music`, `played_at`) VALUES
 (19296, 7293, '2024-10-25 08:30:05'),
 (19297, 149, '2024-10-25 08:41:12'),
 (19298, 2395, '2024-10-25 08:44:43'),
-(19299, 3315, '2024-10-25 08:51:21');
+(19299, 3315, '2024-10-25 08:51:21'),
+(19300, 9554, '2024-10-25 09:06:15'),
+(19301, 7652, '2024-10-25 09:24:16'),
+(19302, 7258, '2024-10-25 09:24:19'),
+(19303, 1054, '2024-10-25 09:25:54'),
+(19304, 7652, '2024-10-25 09:29:44'),
+(19305, 2248, '2024-10-25 09:29:46'),
+(19306, 4715, '2024-10-25 09:33:27'),
+(19307, 9542, '2024-10-25 09:47:27'),
+(19308, 9535, '2024-10-25 09:49:02'),
+(19309, 9542, '2024-10-25 09:49:35'),
+(19310, 9046, '2024-10-25 09:52:57'),
+(19311, 9043, '2024-10-25 09:52:59'),
+(19312, 9046, '2024-10-25 09:52:59'),
+(19313, 9044, '2024-10-25 09:55:57'),
+(19314, 8965, '2024-10-25 09:58:15'),
+(19315, 8962, '2024-10-25 10:01:58'),
+(19316, 2020, '2024-10-25 10:30:21'),
+(19317, 1255, '2024-10-25 10:31:11'),
+(19318, 2794, '2024-10-25 10:33:54'),
+(19319, 3488, '2024-10-25 10:35:55'),
+(19320, 9170, '2024-10-25 10:40:08'),
+(19321, 4718, '2024-10-25 10:41:58'),
+(19322, 8282, '2024-10-25 10:45:28'),
+(19323, 440, '2024-10-25 10:50:55'),
+(19324, 2376, '2024-10-25 10:54:50'),
+(19325, 2236, '2024-10-25 10:57:00'),
+(19326, 5446, '2024-10-25 11:03:00'),
+(19327, 9097, '2024-10-25 11:04:14'),
+(19328, 5767, '2024-10-25 11:06:19'),
+(19329, 7767, '2024-10-25 11:08:16'),
+(19330, 2433, '2024-10-25 11:09:22'),
+(19331, 3918, '2024-10-25 11:10:46'),
+(19332, 8257, '2024-10-25 11:12:52'),
+(19333, 4240, '2024-10-25 11:14:23'),
+(19334, 9408, '2024-10-25 11:16:23'),
+(19335, 8407, '2024-10-25 11:18:07'),
+(19336, 8716, '2024-10-25 11:21:10'),
+(19337, 2800, '2024-10-25 11:21:34'),
+(19338, 475, '2024-10-25 11:24:01'),
+(19339, 1409, '2024-10-25 11:29:01'),
+(19340, 2501, '2024-10-25 11:31:29'),
+(19341, 9542, '2024-10-25 12:45:43'),
+(19342, 9517, '2024-10-25 12:50:10'),
+(19343, 23, '2024-10-25 12:51:37'),
+(19344, 6049, '2024-10-25 12:57:02'),
+(19345, 9536, '2024-10-25 12:58:18'),
+(19346, 6618, '2024-10-25 12:59:33'),
+(19347, 1544, '2024-10-25 13:05:06'),
+(19348, 3976, '2024-10-25 13:06:49'),
+(19349, 2508, '2024-10-25 13:08:30'),
+(19350, 6939, '2024-10-25 13:10:35'),
+(19351, 7955, '2024-10-25 13:16:25'),
+(19352, 1987, '2024-10-25 13:21:25'),
+(19353, 8653, '2024-10-25 13:23:29'),
+(19354, 6266, '2024-10-25 13:23:59'),
+(19355, 5369, '2024-10-25 13:29:19'),
+(19356, 758, '2024-10-25 13:30:31'),
+(19357, 936, '2024-10-25 13:34:09'),
+(19358, 2161, '2024-10-25 13:37:09'),
+(19359, 5887, '2024-10-25 13:39:32'),
+(19360, 1569, '2024-10-25 13:43:43'),
+(19361, 1715, '2024-10-25 13:45:23'),
+(19362, 4184, '2024-10-25 13:45:50'),
+(19363, 7912, '2024-10-25 13:46:07'),
+(19364, 1425, '2024-10-25 13:48:44'),
+(19365, 9043, '2024-10-25 15:08:02'),
+(19366, 9542, '2024-10-25 15:10:41'),
+(19367, 9542, '2024-10-25 15:10:41'),
+(19368, 9498, '2024-10-25 15:10:41'),
+(19369, 8965, '2024-10-25 15:10:53'),
+(19370, 8962, '2024-10-25 15:14:48'),
+(19371, 9043, '2024-10-25 15:17:08'),
+(19372, 9041, '2024-10-25 15:20:23'),
+(19373, 9042, '2024-10-25 15:23:33'),
+(19374, 9046, '2024-10-25 15:26:43'),
+(19375, 9044, '2024-10-25 15:29:38'),
+(19376, 9045, '2024-10-25 15:32:33'),
+(19377, 8808, '2024-10-25 15:59:47'),
+(19378, 7651, '2024-10-25 19:07:23'),
+(19379, 6988, '2024-10-25 19:07:29'),
+(19380, 3178, '2024-10-25 19:11:36'),
+(19381, 3768, '2024-10-25 19:15:37'),
+(19382, 5646, '2024-10-25 19:18:49'),
+(19383, 7673, '2024-10-25 19:20:28'),
+(19384, 3901, '2024-10-25 19:20:38'),
+(19385, 591, '2024-10-25 19:22:31'),
+(19386, 7418, '2024-10-25 19:26:44'),
+(19387, 4728, '2024-10-25 19:31:11'),
+(19388, 8529, '2024-10-25 19:34:06'),
+(19389, 2031, '2024-10-25 19:36:14'),
+(19390, 9048, '2024-10-25 19:37:31'),
+(19391, 1902, '2024-10-25 19:41:36'),
+(19392, 9543, '2024-10-25 19:46:43'),
+(19393, 1064, '2024-10-25 19:48:03'),
+(19394, 5731, '2024-10-25 19:50:16'),
+(19395, 3197, '2024-10-25 19:51:55');
 
 -- --------------------------------------------------------
 
@@ -10280,7 +10491,7 @@ ALTER TABLE `playlist_music`
 -- Indeks untuk tabel `recents_music`
 --
 ALTER TABLE `recents_music`
-  ADD PRIMARY KEY (`uid_recents`);
+  ADD PRIMARY KEY (`uid_recents`) USING BTREE;
 
 --
 -- Indeks untuk tabel `shorten_urls`
@@ -10303,13 +10514,13 @@ ALTER TABLE `designs`
 -- AUTO_INCREMENT untuk tabel `music`
 --
 ALTER TABLE `music`
-  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9577;
+  MODIFY `id_music` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9688;
 
 --
 -- AUTO_INCREMENT untuk tabel `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=481;
+  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=491;
 
 --
 -- AUTO_INCREMENT untuk tabel `playlist_music`
@@ -10321,7 +10532,7 @@ ALTER TABLE `playlist_music`
 -- AUTO_INCREMENT untuk tabel `recents_music`
 --
 ALTER TABLE `recents_music`
-  MODIFY `uid_recents` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19300;
+  MODIFY `uid_recents` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19396;
 
 --
 -- AUTO_INCREMENT untuk tabel `shorten_urls`
