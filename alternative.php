@@ -93,18 +93,20 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                         <div class="album_list_wrapper album_list_wrapper_shop">
                                             <ul class="album_list_name ms_cover">
                                                 <li>#</li>
-                                                <li class="song_title_width">Judul</li>
+                                                <li class="song_title_width">Title</li>
                                                 <li class="song_title_width">Album</li>
                                                 <li class="text-center">time</li>
                                                 <li class="text-center">Favorite</li>
-
                                                 <li class="text-center">More</li>
                                             </ul>
                                             <?php
                                             $sql_music = "SELECT * FROM music ORDER BY title ASC";
+                                            $sql_count_music = "SELECT COUNT(*) as jumlah_music FROM music";
+                                            
                                             $result_music = $db->query($sql_music);
+                                            $result_count_music = $db->query($sql_count_music);
 
-                                            $count_music = mysqli_num_rows($result_music);
+                                            $count_music = mysqli_fetch_array($result_count_music)['jumlah_music'];
 
                                             $number_music = 1;
 
