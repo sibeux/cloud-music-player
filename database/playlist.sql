@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 25 Okt 2024 pada 16.23
--- Versi server: 10.6.19-MariaDB-cll-lve
--- Versi PHP: 8.3.12
+-- Generation Time: Nov 28, 2024 at 01:28 PM
+-- Server version: 10.6.19-MariaDB-cll-lve
+-- PHP Version: 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `playlist`
+-- Table structure for table `playlist`
 --
 
 CREATE TABLE `playlist` (
@@ -32,7 +32,7 @@ CREATE TABLE `playlist` (
   `name` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `image` mediumtext DEFAULT NULL,
   `type` enum('playlist','album','category','favorite') NOT NULL DEFAULT 'playlist',
-  `author` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `author` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `pin` enum('true','false') NOT NULL DEFAULT 'false',
   `date_pin` timestamp NULL DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -40,15 +40,15 @@ CREATE TABLE `playlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `playlist`
+-- Dumping data for table `playlist`
 --
 
 INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_pin`, `date`, `editable`) VALUES
-(1, 'Indopride', NULL, 'category', '', 'true', '2024-10-21 04:05:26', '2024-10-23 11:09:52', 'false'),
-(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', '', 'true', '2024-10-21 04:05:11', '2024-10-25 09:06:15', 'false'),
-(3, 'Javasong', NULL, 'category', '', 'true', '2024-10-21 04:05:46', '2024-10-21 15:35:33', 'false'),
-(4, 'Worldwide', NULL, 'category', '', 'true', '2024-10-23 15:56:19', '2024-10-24 04:28:39', 'false'),
-(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama', 'false', NULL, '2024-09-09 22:37:16', 'false'),
+(1, 'Indopride', NULL, 'category', NULL, 'true', '2024-10-25 20:07:16', '2024-11-26 01:01:45', 'false'),
+(2, '日本の歌', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/8c65dcad-b3ea-4f2e-9d61-1cb2488f7f18.jpg', 'category', NULL, 'true', '2024-10-25 20:07:08', '2024-11-16 14:35:40', 'false'),
+(3, 'Javasong', NULL, 'category', NULL, 'true', '2024-10-25 20:07:18', '2024-11-15 01:38:11', 'false'),
+(4, 'Worldwide', NULL, 'category', NULL, 'true', '2024-11-13 04:01:16', '2024-11-18 02:03:57', 'false'),
+(5, '\"Jujutsu Kaisen The Movie 0\" Original Soundtrack', 'https://sibeux.my.id/cloud-music-player/music-cover/image.png', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama', 'false', NULL, '2024-11-16 23:25:55', 'false'),
 (6, 'Your Name.', 'https://i.scdn.co/image/ab67616d0000b2733d1869d8c477d291a205a2d6', 'album', 'RADWIMPS', 'false', NULL, '2024-06-28 08:14:27', 'false'),
 (7, 'Danshi Koukousei No Nichijou Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Danshi/cover.jpg', 'album', 'Audio Highs', 'false', NULL, '2024-07-18 19:04:28', 'false'),
 (8, 'Kimetsu No Yaiba: Mugen Ressha-Hen Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/Resshahen/COVER.jpg', 'album', 'Go Shiina, Yuki Kajiura', 'false', NULL, '2024-07-30 13:55:28', 'false'),
@@ -58,9 +58,9 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (12, 'TV Anime \"Tokyo Ghoul\" ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b2730809f5b6616747f5abbe8824', 'album', 'Yutaka Yamada', 'false', NULL, '2024-07-26 14:00:13', 'false'),
 (13, 'Ranking Of Kings Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273505c189a4d351a249a9c55a2', 'album', 'MAYUKO', 'false', NULL, '2024-06-28 09:07:18', 'false'),
 (14, 'Shadow Warrior 2 (Deluxe) Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1V3VSQOVAy82fCrNohchYzeFx8VkiH-WT?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Michal Cielecki, Krzysztof Wierzynkiewicz, Adam Skorupa', 'false', NULL, '2024-06-28 09:08:27', 'false'),
-(15, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK II', 'https://i.scdn.co/image/ab67616d0000b273f9f0edfe58bbb6e3c44e574f', 'album', 'Yasuharu Takanashi, YAIBA', 'false', NULL, '2024-06-29 20:20:33', 'false'),
+(15, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK II', 'https://i.scdn.co/image/ab67616d0000b273f9f0edfe58bbb6e3c44e574f', 'album', 'Yasuharu Takanashi, YAIBA', 'false', NULL, '2024-11-26 09:38:26', 'false'),
 (16, 'My Hero Academia 2nd Original Soundtrack', 'https://www.googleapis.com/drive/v3/files/1EtiJDEJ6OBARG7dqG0JI-jR_3E2Xo4O5?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:22:33', 'false'),
-(17, 'TV Anime \"Run With The Wind\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273c6f1af3e00d600747a3cdffa', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:23:23', 'false'),
+(17, 'TV Anime \"Run With The Wind\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273c6f1af3e00d600747a3cdffa', 'album', 'Yuki Hayashi', 'false', NULL, '2024-11-05 12:44:47', 'false'),
 (18, 'ERASED OST', 'https://raw.githubusercontent.com/sibeux/license-sibeux/6490a201304882286d3b3c9610a9cbc7ad619740/artworks-000170281236-tu74m6-original.jpg', 'album', 'Yuki Kajiura', 'false', NULL, '2024-09-27 05:52:58', 'false'),
 (19, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.1', 'https://i.scdn.co/image/ab67616d0000b273e7b3df567bd509d3ada547a4', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:24:52', 'false'),
 (20, 'TV Anime \"Welcome To The Ballroom\" Original Soundtrack Vol.2', 'https://i.scdn.co/image/ab67616d0000b27329a68e040ae9c8711718f7e3', 'album', 'Yuki Hayashi', 'false', NULL, '2024-06-29 20:25:08', 'false'),
@@ -72,19 +72,19 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (26, 'TV Anime \"Attack On Titan Season 2\" (Original Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b2739c44e39f1b6aafe87a6db356', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-08-21 12:22:44', 'false'),
 (27, 'TV Anime “SPY×FAMILY” Original Soundtrack (Vol.1)', 'https://raw.githubusercontent.com/sibeux/sibeux-contrarians-syntaxianz/main/mewing/STRIX/Berlint%20%E2%80%94%20SPY%20x%20FAMILY%20%5BOST%5D.png', 'album', '(K)NoW_NAME', 'false', NULL, '2024-07-17 17:49:52', 'false'),
 (28, 'Sword Art Online Music Collection', 'https://i.scdn.co/image/ab67616d0000b273136a8ed571891d091ed4715b', 'album', 'Yuki Kajiura', 'false', NULL, '2024-07-17 18:07:56', 'false'),
-(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-08-18 10:00:50', 'false'),
+(29, '\"Attack On Titan\" Season 3 Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b27336c663196e968a1f8b7d6842', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-11-26 01:19:10', 'false'),
 (30, 'DEATH NOTE Original Soundtrack Ⅲ', 'https://i.scdn.co/image/ab67616d0000b2739dd71a92c70af0dc020f7197', 'album', 'Yoshihisa Hirano, Hideki Taniuchi', 'false', NULL, '2024-07-18 15:39:49', 'false'),
-(31, 'Shigatsu Wa Kimi No Uso BONUS DISC 4', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%204/Cover.jpg', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-08-16 15:51:14', 'false'),
+(31, 'Shigatsu wa Kimi no Uso BONUS DISC 4. Original Soundtrack Vol.2', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%204/Cover.jpg', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-08-16 15:51:14', 'false'),
 (32, 'BORUTO -NARUTO THE MOVIE- Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2735954f07ec22d5fc16cbf748f', 'album', 'Yasuharu Takanashi, YAIBA\r\n\r\n', 'false', NULL, '2024-07-18 19:03:38', 'false'),
-(33, 'Liked Songs', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Screenshot%202024-07-16%20145516.png', 'favorite', 'favorite', 'false', NULL, '2024-10-14 04:10:20', 'false'),
+(33, 'Liked Songs', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Screenshot%202024-07-16%20145516.png', 'favorite', NULL, 'false', NULL, '2024-11-14 10:26:26', 'false'),
 (34, 'Kimetsu no Yaiba Entertainment District Arc Vol.1 Bonus Disc', 'https://drive.google.com/file/d/14x0bshuwI3DfZ2X-CngWgWOt7USEwmrm/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-21 09:10:05', 'false'),
 (35, 'Kimetsu no Yaiba Entertainment District Arc Vol.3 Bonus Disc', 'https://drive.google.com/file/d/15yML8Yp9cvdl8-vIiGVYcjcnbs6_S_8c/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-21 15:57:24', 'false'),
 (36, 'Kimetsu no Yaiba TV Animation Series Volume 2 Special CD', 'https://drive.google.com/file/d/16c3ugur1vCO17_X_figfo2xU21Wd21ZF/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-26 13:55:10', 'false'),
 (37, 'Jigokuraku Original Soundtrack', 'https://drive.google.com/file/d/18Rlj6c9cZX8gkbfxhzRrCRbErfC0rdTN/view?usp=drive_link', 'album', 'Yoshiaki Dewa', 'false', NULL, '2024-07-22 17:18:09', 'false'),
 (38, 'Kimetsu no Yaiba Entertainment District Arc Vol.2 Bonus Disc', 'https://drive.google.com/file/d/1Df8_VklGMwcrKOfCeCec2XgydwX9Q3sp/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-25 07:54:21', 'false'),
-(39, 'One Piece Best Song Collection', 'https://drive.google.com/file/d/1uHdBew4owwbRKfXa6-nI4NZsdhuAKYOv/view?usp=drive_link', 'album', 'Kohei Tanaka, MORI JUNTA, Masahiro Takami, Hajime Hyakkoku, Hiroshi Kitadani, Eri Takeda, Matto Yamamoto', 'false', NULL, '2024-07-26 13:54:47', 'false'),
+(39, 'One Piece Best Song Collection', 'https://drive.google.com/file/d/1uHdBew4owwbRKfXa6-nI4NZsdhuAKYOv/view?usp=drive_link', 'album', 'Kohei Tanaka, MORI JUNTA, Masahiro Takami, Hajime Hyakkoku, Hiroshi Kitadani, Eri Takeda, Matto Yamamoto', 'false', NULL, '2024-11-15 05:36:18', 'false'),
 (40, 'ONE PIECE MUSIC & BEST SONG Collection', 'https://drive.google.com/file/d/1W6Inh_sslvp7OEVOajIiwnD7HHnenNns/view?usp=drive_link', 'album', 'Kohei Tanaka, Shiro Hamaguchi, Masahiro Takami, Eri Takeda', 'false', NULL, '2024-07-26 13:56:34', 'false'),
-(41, 'ONE PIECE MUSIC & SONG Collection 3', 'https://drive.google.com/file/d/1VcG-1Mk5F-q2MDt6h_-Ltk7jR_RUkrIS/view?usp=drive_link', 'album', 'Kohei Tanaka, Shiro Hamaguchi, Masahiro Takami, Eri Takeda', 'false', NULL, '2024-07-24 17:36:13', 'false'),
+(41, 'ONE PIECE MUSIC & SONG Collection 3', 'https://drive.google.com/file/d/1VcG-1Mk5F-q2MDt6h_-Ltk7jR_RUkrIS/view?usp=drive_link', 'album', 'Kohei Tanaka, Shiro Hamaguchi, Masahiro Takami, Eri Takeda', 'false', NULL, '2024-11-22 15:51:24', 'false'),
 (42, 'One Piece Music & Song Collection 1', 'https://drive.google.com/file/d/1-H2HH6wdvxSEjt1B1ajYfOYbHDDddkc2/view?usp=drive_link', 'album', 'Junta Mori, Kohei Tanaka, Masahiro Takami, Shiro Hamaguchi', 'false', NULL, '2024-07-28 19:44:52', 'false'),
 (43, 'One Piece Music & Song Collection 2', 'https://drive.google.com/file/d/1KbvABPhT3Eg_niVltKmAczSA64h4TpHN/view?usp=drive_link', 'album', 'Hiroshi Kitadani, Kohei Tanaka, Masahiro Takami, Shiro Hamaguchi\r\n', 'false', NULL, '2024-07-27 22:09:01', 'false'),
 (44, 'Kimetsu no Yaiba Entertainment District Arc Vol.4 Bonus Disc', 'https://drive.google.com/file/d/1N4B1MNyyMq4Tlg2cx-7TPJ2rh7D09SP_/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-07-28 19:36:09', 'false'),
@@ -94,7 +94,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (48, 'TV Anime \"Haikyu!! Second Season\" Original Soundtrack (Vol.1)', 'https://i.scdn.co/image/ab67616d0000b27384b14489a08fac0de79912f6', 'album', 'Yuki Hayashi', 'false', NULL, '2024-07-30 15:08:57', 'false'),
 (50, 'TV anime \"Haikyu!!\" Original Soundtrack 2', 'https://i.scdn.co/image/ab67616d0000b273ad4258993022ee1cf4bcdfc2', 'album', 'Yuki Hayashi, Asami Tachibana', 'false', NULL, '2024-07-30 15:18:16', 'false'),
 (51, 'Zankyou no Terror Original Soundtrack 2', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/kvak/alois.png', 'album', 'Yoko Kanno', 'false', NULL, '2024-07-30 15:13:14', 'false'),
-(52, 'Mushishi Original Soundtrack Mushinone Zen', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/a07.jpg', 'album', 'Toshio Masuda', 'false', NULL, '2024-09-01 02:13:40', 'false'),
+(52, 'Mushishi Original Soundtrack Mushinone Zen', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/a07.jpg', 'album', 'Toshio Masuda', 'false', NULL, '2024-11-04 08:49:46', 'false'),
 (53, 'TV Anime \"Haikyuu!! Karasuno High School VS Shiratorizawa Academy\" Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273122cfdb07236e2518a35d406', 'album', 'Yuki Hayashi, Asami Tachibana', 'false', NULL, '2024-07-30 15:15:22', 'false'),
 (54, 'TV Anime \"Haikyuu!!\" Original Soundtrack Vol. 1', 'https://www.googleapis.com/drive/v3/files/1E8uAUaYUq7ttblD9SmSpSS_wERvx0BkB?alt=media&key=AIzaSyCxkdo7DDaO7-QiIxQjGtoTfWo39VwNu-M', 'album', 'Yuki Hayashi, Asami Tachibana\r\n\r\n', 'false', NULL, '2024-07-30 15:16:31', 'false'),
 (55, 'My Hero Academia Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273b8bf049db6f5b729d68e979c', 'album', 'Yuki Hayashi', 'false', NULL, '2024-07-30 15:17:32', 'false'),
@@ -109,11 +109,11 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (65, 'TV Anime \"Dr.STONE\" Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Anime_OST/A%20Battle%20Of%20The%20Mind.png', 'album', 'Hiroaki Tsutsumi\r\n\r\n', 'false', NULL, '2024-07-30 15:34:07', 'false'),
 (66, 'GUILTY CROWN COMPLETE SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b27323be43908481990dce74b994', 'album', 'Hiroyuki Sawano, Mika Kobayashi\r\n\r\n', 'false', NULL, '2024-07-30 15:35:50', 'false'),
 (67, 'Zankyou no Terror Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b2737b5246905b01860da76f2cb5', 'album', 'Yoko Kanno, Arn?r Dan\r\n\r\n', 'false', NULL, '2024-07-30 15:36:13', 'false'),
-(68, 'Shigatsu wa Kimi no Uso BONUS DISC 3', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%203/Cover.jpg', 'album', 'Masaru Yokoyama\r\n\r\n', 'false', NULL, '2024-07-30 15:37:16', 'false'),
+(68, 'Shigatsu wa Kimi no Uso BONUS DISC 3. Original Soundtrack Vol.1', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/2-stradale/Shigatsu%20wa%20Kimi%20no%20Uso%20BONUS%20DISC%203/Cover.jpg', 'album', 'Masaru Yokoyama\r\n\r\n', 'false', NULL, '2024-11-20 09:40:11', 'false'),
 (69, 'Limbo (Original Videogame Soundtrack)', 'https://i.scdn.co/image/ab67616d0000b273337247f66404f4962a0ed4cc', 'album', 'Martin Stig Andersen\r\n\r\n', 'false', NULL, '2024-07-30 15:37:53', 'false'),
 (70, 'Angel Beats! Original Soundtrack', 'https://raw.githubusercontent.com/sibeux/license-sibeux/MyProgram/Akeboshi%20-%20Wind/Angel_Beats%2521_Original_Soundtrack_cover.webp', 'album', 'Jun Maeda, ANANT-GARDE EYES, Karuta', 'false', NULL, '2024-07-30 15:39:24', 'false'),
 (71, 'Mushishi Soundtrack \"Mushinone Ketsu\"', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/Mushinone%20Ketsu/cover.jpg', 'album', 'Toshio Masuda\r\n\r\n', 'false', NULL, '2024-07-30 15:40:00', 'false'),
-(72, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b273d911e43123678e12f4eb2823', 'album', 'Yasuharu Takanashi', 'false', NULL, '2024-07-30 15:40:22', 'false'),
+(72, 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK', 'https://i.scdn.co/image/ab67616d0000b273d911e43123678e12f4eb2823', 'album', 'Yasuharu Takanashi', 'false', NULL, '2024-11-26 09:38:52', 'false'),
 (73, 'Mushishi Zokushou Vol.5 Bonus CD', 'https://raw.githubusercontent.com/sibeux/sibeux-data-center-v1.0/MyProgram/vol5/cover.jpg', 'album', 'Toshio Masuda', 'false', NULL, '2024-07-30 15:40:43', 'false'),
 (74, 'DEATH NOTE Original Soundtrack', 'https://i.scdn.co/image/ab67616d0000b273d4cafdffd73a6d7bdb4a1439', 'album', 'Yoshihisa Hirano, Hideki Taniuchi', 'false', NULL, '2024-07-30 15:41:23', 'false'),
 (75, 'Vinland Saga (Original Soundtracks)', 'https://i.scdn.co/image/ab67616d0000b27337011eccc47bfe57a5f4f494', 'album', 'Yutaka Yamada', 'false', NULL, '2024-07-30 15:50:03', 'false'),
@@ -151,7 +151,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (108, 'TV Animation \"Wistoria: Wand and Sword\" Music Abstract Part 3', 'https://drive.google.com/file/d/1nTRK3knyLa1xW_-jphHlmeoKYVq3_aqH/view?usp=drive_link', 'album', 'Yuki Hayashi', 'false', NULL, '2024-08-11 08:20:49', 'false'),
 (109, 'TV animation 「NORAGAMI」 Original Soundtrack ～NORAGAMI NO OTO～', 'https://drive.google.com/file/d/1sEQs7Z0w-5wAfDgn6nZKE-WEsPkxGBvv/view?usp=drive_link', 'album', 'Taku Iwasaki, Fukuoka Yutaka, Lotus Juice', 'false', NULL, '2024-08-12 00:13:16', 'false'),
 (110, 'TV animation 「NORAGAMI ARAGOTO」 Original Soundtrack ～NORAGAMI NO OTO 2～', 'https://drive.google.com/file/d/1uu8YtpEo61RfNrd90B1wzZkY_tkIC6-r/view?usp=drive_link', 'album', 'Taku Iwasaki, ELECTROCUTICA, Kayo Konishi, Yukio Kondo, MOKA☆', 'false', NULL, '2024-08-12 00:37:01', 'false'),
-(111, 'ROAD TO NINJA NARUTO THE MOVIE Original Soundtrack', 'https://drive.google.com/file/d/14B0Ngesm50C1-DZY1tMo2UlheWel21TK/view?usp=drive_link', 'album', 'Takanashi Yasuharu, YAIBA', 'false', NULL, '2024-08-12 04:32:49', 'false'),
+(111, 'ROAD TO NINJA NARUTO THE MOVIE Original Soundtrack', 'https://drive.google.com/file/d/14B0Ngesm50C1-DZY1tMo2UlheWel21TK/view?usp=drive_link', 'album', 'Takanashi Yasuharu, YAIBA', 'false', NULL, '2024-10-29 16:17:51', 'false'),
 (112, 'Spirited Away Soundtrack', 'https://drive.google.com/file/d/190wgoUREpIaC-dEPhSe35fhbYRXbgTqt/view?usp=drive_link', 'album', 'Joe Hisaishi', 'false', NULL, '2024-09-13 01:58:09', 'false'),
 (113, 'Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai. the Movie Original Soundtrack', 'https://drive.google.com/file/d/1BVRcUMdqHpTmCgG6hSpXcDMxbWEgX29c/view?usp=drive_link', 'album', 'REMEDIOS', 'false', NULL, '2024-08-14 00:50:39', 'false'),
 (114, 'Kyoukai no Kanata OP Single - Kyoukai no Kanata - Minori Chihara', 'https://drive.google.com/file/d/1-10jCdn1LRB6GEEUznvILF2dSNJmx13a/view?usp=drive_link', 'album', 'Minori Chihara', 'false', NULL, '2024-08-12 11:17:31', 'false'),
@@ -186,7 +186,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (168, 'Kimetsu no Yaiba TV Animation Series Volume 11 Special CD', 'https://drive.google.com/file/d/1Z2utpN2Aolvzr0B9WFK0iPpHJDThkBCe/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-08-19 14:04:26', 'false'),
 (182, 'Kimetsu no Yaiba TV Animation Series Volume 9 Special CD', 'https://drive.google.com/file/d/1g6oYlcTlwBrPusOzS1tNd9xivhck3iTN/view?usp=drive_link', 'album', 'Go Shiina', 'false', NULL, '2024-08-19 19:19:18', 'false'),
 (183, 'The Promised Neverland Season 1 Original Soundtrack', 'https://drive.google.com/file/d/1k8aRjcDP6-aeazr360OlcsZwqlWB_r-0/view?usp=drive_link', 'album', 'Takahiro Obata', 'false', NULL, '2024-08-20 03:59:58', 'false'),
-(185, 'Sengoku BASARA -The Last Party- Ongaku Emaki ~Saraba, Tomo yo~', 'https://drive.google.com/file/d/1ovD9TTPagxYzhyoRw8YUE-FkbdnoN9KT/view?usp=drive_link', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-09-01 01:53:47', 'false'),
+(185, 'Sengoku BASARA -The Last Party- Ongaku Emaki ~Saraba, Tomo yo~', 'https://drive.google.com/file/d/1ovD9TTPagxYzhyoRw8YUE-FkbdnoN9KT/view?usp=drive_link', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-11-14 14:39:41', 'false'),
 (187, 'TV Anime \"Dororo\" Ongakushuu -Tamashii no Kodou-', 'https://drive.google.com/file/d/1s5gM9ykrpuhGew7fNxPE5ImjhFjK7ntv/view?usp=drive_link', 'album', 'Yoshihiro Ike', 'false', NULL, '2024-08-20 06:27:31', 'false'),
 (188, 'TV Animation \"Wistoria: Wand and Sword\" Music Abstract Part 4', 'https://drive.google.com/file/d/1xICejLqY2cGaFwz6PH5M3ed6pE0a8PpH/view?usp=drive_link', 'album', 'Yuki Hayashi', 'false', NULL, '2024-08-20 06:36:19', 'false'),
 (190, 'Assassination Classroom Best Album ~Music Memories~', 'https://drive.google.com/file/d/1xYzeeLPnyUlZbjottAXXvnYCT-FX-XHq/view?usp=drive_link', 'album', 'Aya Suzaki, Jun Fukuyama, Mai Fuchigami, moumoon, Nobuhiko Okamoto, Ryota Ohsaka, Shintaro Asanuma, Shion Miyawaki', 'false', NULL, '2024-08-20 11:56:19', 'false'),
@@ -199,7 +199,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (198, 'Another Original Soundtrack', 'https://drive.google.com/file/d/13phmJ4oFyPaAVTspYHHNTQ11xWXsEZQo/view?usp=drive_link', 'album', 'Kow Otani', 'false', NULL, '2024-08-20 17:22:39', 'false'),
 (199, 'Another Character Song Album – Song Party', 'https://drive.google.com/file/d/13SjxJ04XbG-5cxQeVG0jJQSl3egsd-L4/view?usp=drive_link', 'album', 'TESHIGAWARA NAOYA (CV. MAENO TOMOAKI), SAKURAGI YUKARI (CV. NONAKA AI), SAKAKIBARA KOUICHI (CV. ABE ATSUSHI), MOCHIZUKI YUYA (CV. YAMAMOTO KAZUTOMI), MISAKI MEI (CV. TAKAMORI NATSUMI), AKAZAWA IZUMI (CV. YONEZAWA MADOKA)', 'false', NULL, '2024-08-20 19:30:07', 'false'),
 (200, 'TV Animation \"Sengoku BASARA Ni\" Ongaku Emaki Ni ~Ransei, Futatabi!~', 'https://drive.google.com/file/d/16numN_laE5luYwOlUJyf6OHC4u46Xfph/view?usp=drive_link', 'album', 'May\'n, Hiroyuki SAWANO, Chiaki Ishikawa', 'false', NULL, '2024-08-20 21:55:12', 'false'),
-(201, 'Death Parade - Flyers', 'https://drive.google.com/file/d/17l3zEXJPj9DRidE8EeSF_UWxGHVOHdOs/view?usp=drive_link', 'album', 'Bradio', 'false', NULL, '2024-10-02 09:33:58', 'false'),
+(201, 'Death Parade - Flyers', 'https://drive.google.com/file/d/17l3zEXJPj9DRidE8EeSF_UWxGHVOHdOs/view?usp=drive_link', 'album', 'Bradio', 'false', NULL, '2024-11-03 12:12:23', 'false'),
 (202, 'Death Parade Original Soundtrack', 'https://drive.google.com/file/d/185v6WoVTYn4rMWzN7vz5259z42huIyJ0/view?usp=drive_link', 'album', 'Yuki Hayashi', 'false', NULL, '2024-09-17 10:03:51', 'false'),
 (203, '5 Centimeters Per Second Soundtracks', 'https://drive.google.com/file/d/19GNn4kMoJ40lsaU5Ba-beB91VT_jkqb5/view?usp=drive_link', 'album', 'TENMON, Masayoshi Yamazaki', 'false', NULL, '2024-08-21 09:13:32', 'false'),
 (204, 'CODE GEASS Lelouch of the Rebellion Original Motion Picture Soundtrack 1', 'https://drive.google.com/file/d/1A2bMNmbmAjyBRO_xsXioCvLpIApDS8Rt/view?usp=drive_link', 'album', 'Kotaro Nakagawa, Hitomi Kuroishi, Hitomi, Hiroki Shimizu; Tomohiro Tani; Katsuyuki Nakanishi; Ali Project, ', 'false', NULL, '2024-09-21 08:55:39', 'false'),
@@ -274,7 +274,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (283, 'Kung Fu Panda 3 (Music from the Motion Picture)', 'https://bitbucket.org/sibeux/shinsengumi/raw/b4329fcefeb97bdaf28fad0f62caf08ff6eee022/Kungfu-3/Cover.jpeg', 'album', 'Hans Zimmer, Paul Mounsey, John Powell, Biddu, Patrick Brasca', 'false', NULL, '2024-09-12 13:06:42', 'false'),
 (284, 'Kotoura-san ED Collection - Kibou no Hana to Tsurupeta to ESP Ken no Theme', 'https://drive.google.com/file/d/1ABtA2K7rR-8jt3tWXUgNTvlsVMd9WgYb/view?usp=drive_link', 'album', 'Haruka Chisuga, Hisako Kanemoto, Jun Fukushima, Kana Hanazawa, Hiro Shimono, Yurika Kubo', 'false', NULL, '2024-09-14 06:37:00', 'false'),
 (285, 'Kotoura-san OP Single - Sonna Koto Ura no Mata Urabanashi desho?', 'https://bitbucket.org/sibeux/shinsengumi/raw/6028292b28009087c114b953bd3344833fb2882b/Kotoura-san/OP-Single/Cover.jpg', 'album', 'Nakajima Megumi', 'false', NULL, '2024-09-12 13:47:14', 'false'),
-(286, 'Relaxing Piano ~ Hayao Miyazaki Collection', 'https://bitbucket.org/sibeux/arabasta-boom/raw/78b72e15eb05d63c4a200439000d485663b14019/Relaxing%20Piano%20~%20Hayao%20Miyazaki%20Collection/Joe%20Hisaishi.jpg', 'album', 'Joe Hisaishi', 'false', NULL, '2024-09-30 02:08:41', 'false'),
+(286, 'Relaxing Piano ~ Hayao Miyazaki Collection', 'https://bitbucket.org/sibeux/arabasta-boom/raw/78b72e15eb05d63c4a200439000d485663b14019/Relaxing%20Piano%20~%20Hayao%20Miyazaki%20Collection/Joe%20Hisaishi.jpg', 'album', 'Joe Hisaishi', 'false', NULL, '2024-11-14 16:47:11', 'false'),
 (287, 'Spirited Away Memorial Box', 'https://bitbucket.org/sibeux/arabasta-boom/raw/ee17bc2051b588db94757813ebdb54f9c727c0e2/Spirited%20Away%20Memorial%20Box/Cover.jpg', 'album', 'Joe Hisaishi, Youmi Kimura', 'false', NULL, '2024-09-26 05:25:16', 'false'),
 (288, 'GUILTY CROWN SOUNDTRACK ANOTHER SIDE 03', 'https://bitbucket.org/sibeux/arabasta-boom/raw/672cf7094d55cfb3c09e27aac043a032a6e43d9c/SOUNDTRACK%20ANOTHER%20SIDE%2003/cover.jpg', 'album', 'Hiroyuki Sawano', 'false', NULL, '2024-09-13 04:48:35', 'false'),
 (289, 'Mushishi Zokushou Vol.4 Bonus CD', 'https://drive.google.com/file/d/1IA6Kif_hXawU8aTLXdH580Hpy-hXPP35/view?usp=drive_link', 'album', 'Toshio Masuda', 'false', NULL, '2024-09-13 05:56:44', 'false'),
@@ -291,7 +291,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (300, 'Made in Abyss Original Soundtrack 2: Dawn of the Deep Soul', 'https://bitbucket.org/sibeux/prushka-mitty/raw/16a6afefb64cac190ae37a13fa29b1076d414cf1/abyss-2/Cover.jpg', 'album', 'Kevin Penkin', 'false', NULL, '2024-09-22 08:06:24', 'false'),
 (301, 'MADE IN ABYSS Character Song & \"Papa to Issho\" Original Soundtrack CD', 'https://bitbucket.org/sibeux/byte-builders/raw/c89ab29b94233dbf641ede39d97ef3ad06d666f3/papa-issho/Cover.jpg', 'album', 'Miyu Tomita, Mariya Ise, Shiori Izawa, Inori Minase', 'false', NULL, '2024-09-16 09:57:45', 'false'),
 (302, 'Made in Abyss The Golden City of the Scorching Sun - Endless Embrace', 'https://bitbucket.org/sibeux/byte-builders/raw/612f8ec7c54184d3c2432527f84b3858240b1d5d/Endless-Embrace/gjg.jpg', 'album', 'MYTH & ROID (KIHOW)', 'false', NULL, '2024-09-16 10:10:29', 'false'),
-(303, 'Made in Abyss The Golden City of the Scorching Sun - Katachi', 'https://bitbucket.org/sibeux/byte-builders/raw/612f8ec7c54184d3c2432527f84b3858240b1d5d/Katachi/fgd.jpg', 'album', 'Riko Azuna', 'false', NULL, '2024-09-15 14:47:37', 'false'),
+(303, 'Made in Abyss The Golden City of the Scorching Sun - Katachi', 'https://bitbucket.org/sibeux/byte-builders/raw/612f8ec7c54184d3c2432527f84b3858240b1d5d/Katachi/fgd.jpg', 'album', 'Riko Azuna', 'false', NULL, '2024-11-14 23:23:40', 'false'),
 (304, 'BLUE MOON', 'https://drive.google.com/file/d/13UO1rnKb2H7ieAmkxQPltztiefB4l-cU/view?usp=drive_link', 'album', 'Riko Azuna', 'false', NULL, '2024-09-16 10:09:02', 'false'),
 (305, 'MADE IN ABYSS Original Soundtrack 3: The Golden City of the Scorching Sun', 'https://bitbucket.org/sibeux/section-performer/raw/b45fbc98312bce7a112fe3034edf3980d7b41ca9/abyss-3/Cover.jpg', 'album', 'Kevin Penkin', 'false', NULL, '2024-09-29 23:46:14', 'false'),
 (306, 'Guilty Crown OP 1: My Dearest', 'https://bitbucket.org/sibeux/section-performer/raw/879b1f0e5bf3f05ef3b0588d585d23d31c1a677e/my-dearest/supercell.jpg', 'album', 'supercell', 'false', NULL, '2024-09-16 17:47:42', 'false'),
@@ -343,7 +343,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (352, 'flowering / TK from Ling tosite sigure', 'https://bitbucket.org/sibeux/tactic-mechanism/raw/0145bcec638b6a021a6e3ff956b0485e9631aaa9/white-silence/flowering/art.jpg', 'album', 'TK from Ling tosite sigure', 'false', NULL, '2024-09-22 09:19:08', 'false'),
 (353, 'BEASTARS ORIGINAL SOUND TRACKS', 'https://bitbucket.org/sibeux/tactic-mechanism/raw/dbe4b979e21817be4706fe1f0e209beb42812757/BEASTARS/cover.jpg', 'album', 'Satoru Kosaki', 'false', NULL, '2024-09-22 09:31:44', 'false'),
 (354, 'TV Anime \"BEASTARS\" Ending Theme: YURiKA - Le zoo', 'https://bitbucket.org/sibeux/tactic-mechanism/raw/56b483f24c244cac80cbed7572a7a9a7a8ac68e6/Le-zoo/Scans/THCS-60253/01.jpg', 'album', 'YURiKA ', 'false', NULL, '2024-09-22 09:45:12', 'false'),
-(355, 'TV Anime \"BEASTARS\" Opening Theme: ALI - Wild Side', 'https://bitbucket.org/sibeux/tactic-mechanism/raw/56b483f24c244cac80cbed7572a7a9a7a8ac68e6/Wild-Side/Cover.jpg', 'album', 'ALI ', 'false', NULL, '2024-09-22 09:47:44', 'false'),
+(355, 'TV Anime \"BEASTARS\" Opening Theme: ALI - Wild Side', 'https://bitbucket.org/sibeux/tactic-mechanism/raw/56b483f24c244cac80cbed7572a7a9a7a8ac68e6/Wild-Side/Cover.jpg', 'album', 'ALI ', 'false', NULL, '2024-10-27 21:30:28', 'false'),
 (356, 'TV Anime \"BEASTARS\" Episode 12 Ending Theme: YURiKA / Tsuki ni Ukabu Monogatari', 'https://drive.google.com/file/d/1ef_DaY1-ZStlGaUMI6weovjMgFXQ30P_/view?usp=drive_link', 'album', 'YURiKA ', 'false', NULL, '2024-09-22 10:48:59', 'false'),
 (357, 'Beastars Special Soundtrack', 'https://bitbucket.org/sibeux/my-destruction/raw/ac4f316f6e19ec6a7109f06a2d25961f8f85decb/Beastars-Special/cover.png', 'album', 'Satoru Kosaki, Ryuichi Takada', 'false', NULL, '2024-09-22 11:41:22', 'false'),
 (358, 'Angel Beats! Insert Song Album - Keep The Beats! [Girls Dead Monster]', 'https://bitbucket.org/sibeux/my-destruction/raw/87db2b142bb22385445b68226d8eee520b38cfbf/Keep%20The%20Beats/art.jpg', 'album', 'Jun Maeda, LiSA', 'false', NULL, '2024-09-22 11:41:43', 'false'),
@@ -366,7 +366,7 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (375, 'Yuru Camp△ SEASON2 Ending Theme: Haru no Tonari / Eri Sasaki [Anime Edition]', 'https://bitbucket.org/sibeux/option-research/raw/20a6601b9538d658acfd9899e68075fb6cc74429/Haru%20no%20Tonari/cover.jpg', 'album', 'Eri Sasaki, Hero Nakamura', 'false', NULL, '2024-09-23 17:48:14', 'false'),
 (376, 'Charlotte ~insert song~ ECHO / ZHIEND', 'https://bitbucket.org/sibeux/prediction-answer/raw/fd7a5d957c7c3518a95e3d26b2682a060370079c/ECHO/cover.jpg', 'album', 'ZHIEND', 'false', NULL, '2024-09-25 01:33:59', 'false'),
 (377, 'YURUCAMP 8BIT ARRANGE ALBUM', 'https://bitbucket.org/sibeux/prediction-answer/raw/8695e685982c9ed4d1cdf021e497306463b8d823/8BIT/cover.jpg', 'album', 'Show Aratame, Eri Sasaki, Hero Nakamura', 'false', NULL, '2024-09-25 01:33:41', 'false'),
-(378, 'TV anime \"Too Many Losing Heroines!\" Makein Support! Cover Song Collection', 'https://drive.google.com/file/d/11jJxd7eSHoLp3HzyDJhH0J43yiItikud/view?usp=drive_link', 'album', 'Anna Yanami (CV. Hikaru Tōno), Lemon Yakishio (CV. Shion Wakayama), Chika Komari (CV. Momoka Terasawa)', 'false', NULL, '2024-09-29 04:17:04', 'false'),
+(378, 'TV anime \"Too Many Losing Heroines!\" Makein Support! Cover Song Collection', 'https://drive.google.com/file/d/11jJxd7eSHoLp3HzyDJhH0J43yiItikud/view?usp=drive_link', 'album', 'Anna Yanami (CV. Hikaru Tōno), Lemon Yakishio (CV. Shion Wakayama), Chika Komari (CV. Momoka Terasawa)', 'false', NULL, '2024-11-11 00:15:37', 'false'),
 (379, 'PING PONG ORIGINAL SOUNDTRACK', 'https://bitbucket.org/sibeux/employee-contribution/raw/f912c76c374bfa5dd73900e9860869d955f992ca/PING-PONG-ost/cover.jpg', 'album', 'kensuke ushio, Oorutaichi, Taku Izumi', 'false', NULL, '2024-09-29 04:16:47', 'false'),
 (380, 'PING PONG ORIGINAL MOTION PICTURE SOUNDTRACK', 'https://bitbucket.org/sibeux/employee-contribution/raw/3afbfa4bb482924e51464bc0a157fe93ac7eda42/MOTION-PICTURE/Cover.jpg', 'album', 'SUPERCAR, SUBTLE, Takkyu Ishino, DUB SQUAD, sugar plant, [ma-o], GROUP, WORLD FAMOUS, Yoshinori Sunahara, The Art Of Noise, BOOM BOOM SATELLITES, cicada', 'false', NULL, '2024-09-29 00:59:54', 'false'),
 (381, 'TV Anime \"Ping Pong THE ANIMATION\" 1st Ending Theme: Bokura ni Tsuite / Merengue [Limited Edition]', 'https://bitbucket.org/sibeux/file-functional/raw/05306ea8007f9c569819a32178bb481de3064108/Bokura%20ni%20Tsuite/cover.jpg', 'album', 'Merengue', 'false', NULL, '2024-09-29 23:32:47', 'false'),
@@ -391,29 +391,29 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (401, 'Zetsuen no Tempest Original Soundtrack vol.1', 'https://github.com/cybeat-music/legendary-guacamole/raw/refs/heads/main/Zetsuen-vol.1/art.webp', 'album', 'Michiru Oshima\r\n', 'false', NULL, '2024-10-04 04:39:59', 'false'),
 (402, 'Sword Art Online II Original Soundtrack Vol.1', 'https://github.com/cybeat-music/legendary-guacamole/raw/refs/heads/main/sao-II-ost-Vol.1/art.webp', 'album', 'Yuki Kajiura', 'false', NULL, '2024-10-04 04:56:14', 'false'),
 (403, 'Sword Art Online II Original Soundtrack Vol.2', 'https://github.com/cybeat-music/legendary-guacamole/raw/refs/heads/main/sao-II-ost-Vol.2/art.webp', 'album', 'Yuki Kajiura', 'false', NULL, '2024-10-04 05:27:15', 'false'),
-(404, 'TV Anime “Dandadan” Opening Theme: Otonoke / Creepy Nuts', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/Otonoke/Cover.jpg?raw=true', 'album', 'Creepy Nuts', 'false', NULL, '2024-10-24 20:49:03', 'false'),
+(404, 'TV Anime “Dandadan” Opening Theme: Otonoke / Creepy Nuts', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/Otonoke/Cover.jpg?raw=true', 'album', 'Creepy Nuts', 'false', NULL, '2024-11-19 12:50:18', 'false'),
 (405, 'TV Anime \"Ao no Hako\" ED Theme \"Teenage Blue\" / Eve', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/Teenage%20Blue/Cover.jpg?raw=true', 'album', 'Eve', 'false', NULL, '2024-10-04 17:11:14', 'false'),
 (406, 'TV Anime \"Dandadan\" ED Theme \"TAIDADA\" / Zutto Mayonaka de Iinoni.', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/TAIDADA/art.jpg?raw=true', 'album', 'Zutto Mayonaka de Iinoni.', 'false', NULL, '2024-10-05 10:15:13', 'false'),
-(407, 'TV Anime \"MECHA-UDE\" OP & ED Theme \"VORTEX / karma\" / Setsuko (Kuuhaku Gokko)', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/VORTEX/Cover.jpg?raw=true', 'album', 'Setsuko (Kuuhaku Gokko)', 'false', NULL, '2024-10-04 05:29:24', 'false'),
+(407, 'TV Anime \"MECHA-UDE\" OP & ED Theme \"VORTEX / karma\" / Setsuko (Kuuhaku Gokko)', 'https://github.com/cybeat-music/legendary-guacamole/blob/main/VORTEX/Cover.jpg?raw=true', 'album', 'Setsuko (Kuuhaku Gokko)', 'false', NULL, '2024-11-15 06:43:05', 'false'),
 (408, 'TV Anime \"Amagami-san Chi no Enmusubi\" OP Theme \"Yawaku Koishite ~Zutto Bokura de Iraremasu you ni~\" / Momoiro Clover Z', 'https://github.com/cybeat-music/fuzzy-spork/blob/main/Yawaku%20Koishite/art.jpg?raw=true', 'album', 'Momoiro Clover Z', 'false', NULL, '2024-10-04 21:03:42', 'false'),
 (409, 'TV Anime \"Hitoribocchi no Isekai Kouryaku\" OP Theme \"ODD NUMBER\" / Yoshino', 'https://github.com/cybeat-music/fuzzy-spork/blob/main/ODD%20NUMBER/art.jpg?raw=true', 'album', 'Yoshino', 'false', NULL, '2024-10-04 21:09:05', 'false'),
 (410, 'TV Anime \"Hitoribocchi no Isekai Kouryaku\" ED Theme \"Hello to Goodbye\" / Kujiragi', 'https://github.com/cybeat-music/fuzzy-spork/blob/main/Hello%20to%20Goodbye/art.jpg?raw=true', 'album', 'Kujiragi', 'false', NULL, '2024-10-04 21:15:39', 'false'),
-(411, 'TV Anime \"Ao no Hako\" OP Theme \"Same Blue\" / Official HIGE DANDism', 'https://github.com/cybeat-music/fuzzy-spork/blob/main/Same%20Blue/Cover.jpg?raw=true', 'album', 'Official HIGE DANDism', 'false', NULL, '2024-10-23 18:10:58', 'false'),
-(412, 'mafumafu – Kagurairo Artifact', 'https://github.com/cybeat-music/fuzzy-spork/blob/main/Kagurairo-Artifact/Cover.jpg?raw=true', 'album', 'mafumafu', 'false', NULL, '2024-10-05 09:45:20', 'false'),
+(411, 'TV Anime \"Ao no Hako\" OP Theme \"Same Blue\" / Official HIGE DANDism', 'https://github.com/cybeat-music/fuzzy-spork/blob/main/Same%20Blue/Cover.jpg?raw=true', 'album', 'Official HIGE DANDism', 'false', NULL, '2024-10-26 05:42:04', 'false'),
+(412, 'mafumafu – Kagurairo Artifact', 'https://github.com/cybeat-music/fuzzy-spork/blob/main/Kagurairo-Artifact/Cover.jpg?raw=true', 'album', 'mafumafu', 'false', NULL, '2024-11-16 13:08:14', 'false'),
 (413, 'TV Anime “Tensui no Sakuna-hime” Opening Theme: Harebare! / IKIMONOGAKARI', 'https://github.com/cybeat-music/fuzzy-spork/blob/main/Harebare!/Cover.jpg?raw=true', 'album', 'IKIMONOGAKARI', 'false', NULL, '2024-10-04 22:10:00', 'false'),
 (414, 'TV Anime \"Kekkon Surutte, Honto desu ka\" OP Theme \"Kira Kira\" / HoneyWorks feat. Hakoniwa Lily', 'https://github.com/cybeat-music/stunning-winner/blob/main/Kira%20Kira/Cover.jpg?raw=true', 'album', 'HoneyWorks feat. Hakoniwa Lily', 'false', NULL, '2024-10-05 10:00:17', 'false'),
 (415, 'Zetsuen no Tempest Original Soundtrack vol.2', 'https://github.com/cybeat-music/stunning-winner/blob/main/Zetsuen%20vol.2/art.jpg?raw=true', 'album', 'Michiru Oshima', 'false', NULL, '2024-10-05 10:06:33', 'false'),
 (416, 'Mob Psycho 100 Original Soundtrack', 'https://github.com/cybeat-music/stunning-winner/blob/main/Mob-100-ost-1/Cover.jpg?raw=true', 'album', 'Kenji Kawai, Junichi Sasaki, Hirokazu Ebata', 'false', NULL, '2024-10-05 10:22:21', 'false'),
 (417, 'Kekkai Sensen & BEYOND Original Soundtrack', 'https://github.com/cybeat-music/refactored-doodle/blob/main/BEYOND-OST/Cover.jpg?raw=true', 'album', 'Taisei Iwasaki, Yuki Kanesaka, Magda Giannikou, Takuya Kuroda, George Gershwin, Tomoya Tabuchi, Yasuyuki Okamura', 'false', NULL, '2024-10-05 18:34:26', 'false'),
-(418, 'TV Anime \"Kami no Tou -Tower of God- Ouji no Kikan\" OP & ED Theme \"RISE UP / BELIEVE\" / NiziU', 'https://github.com/cybeat-music/refactored-doodle/blob/main/RISE%20UP/scans/Cover_04.jpg?raw=true', 'album', 'NiziU', 'false', NULL, '2024-10-08 12:44:23', 'false'),
+(418, 'TV Anime \"Kami no Tou -Tower of God- Ouji no Kikan\" OP & ED Theme \"RISE UP / BELIEVE\" / NiziU', 'https://github.com/cybeat-music/refactored-doodle/blob/main/RISE%20UP/scans/Cover_04.jpg?raw=true', 'album', 'NiziU', 'false', NULL, '2024-11-15 05:53:46', 'false'),
 (419, 'TV Anime \"Tsuma, Shougakusei ni Naru.\" OP Theme \"Ainori Union\" / pachae', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Ainori%20Union/Cover.jpg?raw=true', 'album', 'pachae', 'false', NULL, '2024-10-07 01:54:37', 'false'),
-(420, 'Sword Art Online the Movie -Progressive- Aria of a Starless Night Original Soundtrack', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Aria/cover.png?raw=true', 'album', 'Yuki Kajiura', 'false', NULL, '2024-10-07 02:01:57', 'false'),
+(420, 'Sword Art Online the Movie -Progressive- Aria of a Starless Night Original Soundtrack', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Aria/cover.png?raw=true', 'album', 'Yuki Kajiura', 'false', NULL, '2024-11-15 05:21:03', 'false'),
 (421, 'ERASED Original Soundtrack 01', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/ERASED-01/Cover.jpg?raw=true', 'album', 'yuki kajiura', 'false', NULL, '2024-10-07 03:12:51', 'false'),
 (422, 'TV Anime \"Nageki no Bourei wa Intai Shitai\" OP Theme \"Kattou Tomorrow\" / Lezel', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Kattou%20Tomorrow/art.jpg?raw=true', 'album', 'Lezel', 'false', NULL, '2024-10-07 02:09:34', 'false'),
-(423, 'TV Anime \"Kami no Tou -Tower of God- Koubousen\" OP & ED Theme \"NIGHT / Falling Up\" / Stray Kids', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/NIGHT/Cover_01.jpg?raw=true', 'album', 'Stray Kids', 'false', NULL, '2024-10-23 17:32:28', 'false'),
+(423, 'TV Anime \"Kami no Tou -Tower of God- Koubousen\" OP & ED Theme \"NIGHT / Falling Up\" / Stray Kids', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/NIGHT/Cover_01.jpg?raw=true', 'album', 'Stray Kids', 'false', NULL, '2024-11-15 03:31:41', 'false'),
 (424, 'TV Anime \"Nageki no Bourei wa Intai Shitai\" ED Theme \"Sukuriimu!\" / P Maru-sama.', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Sukuriimu/art.jpg?raw=true', 'album', 'P Maru-sama.', 'false', NULL, '2024-10-07 04:15:38', 'false'),
 (425, 'TV Anime \"Saikyou no Shienshoku [Wajutsushi] de Aru Ore wa Sekai Saikyou Clan wo Shitagaeru\" OP Theme \"Tactics\" / KOHTA YAMAMOTO feat. SAIKI', 'https://github.com/cybeat-music/cuddly-dollop/blob/main/Tactics%20(feat.%20SAIKI)/Cover.jpg?raw=true', 'album', 'KOHTA YAMAMOTO feat. SAIKI', 'false', NULL, '2024-10-07 02:20:34', 'false'),
-(426, 'TV Anime \"Chi. -Chikyuu no Undou ni tsuite-\" ED Theme \"Aporia\" / Yorushika', 'https://github.com/cybeat-music/literate-garbanzo/blob/main/Aporia/Cover.jpg?raw=true', 'album', 'Yorushika', 'false', NULL, '2024-10-23 14:04:07', 'false'),
+(426, 'TV Anime \"Chi. -Chikyuu no Undou ni tsuite-\" ED Theme \"Aporia\" / Yorushika', 'https://github.com/cybeat-music/literate-garbanzo/blob/main/Aporia/Cover.jpg?raw=true', 'album', 'Yorushika', 'false', NULL, '2024-11-23 07:55:52', 'false'),
 (427, 'TV Anime \"Fullmetal Alchemist Brotherhood\" OP Theme 4: Period / CHEMISTRY', 'https://github.com/cybeat-music/literate-garbanzo/blob/main/Period/cover.jpg?raw=true', 'album', 'CHEMISTRY', 'false', NULL, '2024-10-08 05:17:30', 'false'),
 (428, 'Mob Psycho 100 II Original Soundtrack', 'https://github.com/cybeat-music/literate-garbanzo/blob/main/Mob-II-ost/Cover.jpg?raw=true', 'album', 'Kenji Kawai', 'false', NULL, '2024-10-07 06:03:39', 'false'),
 (429, 'Mob Psycho 100 III Original Soundtrack', 'https://github.com/cybeat-music/literate-garbanzo/blob/main/Mob-III-ost/Cover.jpg?raw=true', 'album', 'Kenji Kawai', 'false', NULL, '2024-10-07 06:09:06', 'false'),
@@ -423,7 +423,6 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (433, 'BLUELOCK Character Song Mini Album Vol.1', 'https://github.com/cybeat-music/probable-happiness/blob/main/BLUELOCK/Cover.jpg?raw=true', 'album', 'Kazuki Ura, Tasuku Kaito, Yuki Ono, Soma Saito, Masatomo Nakazawa, Yoshitsugu Matsuoka, Shoya Chiba, Shugo Nakamura, Daishi Kajita, Ryunosuke Watanuki, Aoi Ichikawa', 'false', NULL, '2024-10-11 06:22:45', 'false'),
 (434, 'TV Anime \"Sakuna: Of Rice and Ruin\" Ending Theme: ORIGAMI / Little Glee Monster', 'https://drive.google.com/file/d/19fFaS8Po7Edf_llSnLhfnbeo9w_3eb_y/view?usp=drive_link', 'album', 'Little Glee Monster', 'false', NULL, '2024-10-11 06:48:52', 'false'),
 (435, 'Yorushika - Yu, Sansan', 'https://drive.google.com/file/d/1AIj_IqrKihFeHWCQ43EjGrdj2xUzQdiT/view?usp=drive_link', 'album', 'Yorushika', 'false', NULL, '2024-10-11 07:19:42', 'false'),
-(436, 'Jujutsu Kaisen 0 the Movie Original Soundtrack', 'https://github.com/cybeat-music/psychic-fishstick/blob/main/JJK-0-OST/Cover.jpg?raw=true', 'album', 'Hiroaki Tsutsumi, Alisa Okehazama, Yoshimasa Terui', 'false', NULL, '2024-10-25 05:41:06', 'false'),
 (437, 'Tensui no Sakunahime Original Soundtrack', 'https://github.com/cybeat-music/psychic-fishstick/blob/main/Sakunahime-ost/cover.jpg?raw=true', 'album', 'Yoshiaki Fujisawa, Yoshiki Mizuno', 'false', NULL, '2024-10-14 00:36:03', 'false'),
 (438, 'TV Anime \"Amagami-san Chi no Enmusubi\" ED Theme \"Kimi ni Koi wo Musunde\" / Amagami Three Sisters', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Kimi%20ni%20Koi%20wo%20Musunde/Cover.jpg?raw=true', 'album', 'Amagami Three Sisters', 'false', NULL, '2024-10-11 09:05:44', 'false'),
 (439, 'Movie \"Blue Lock -EPISODE Nagi-\" Theme Song \"Stormy\" / Nissy × SKY-HI', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Stormy/Cover_01.jpg?raw=true', 'album', 'Nissy × SKY-HI', 'false', NULL, '2024-10-11 09:07:09', 'false'),
@@ -433,8 +432,8 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (443, 'TV Anime \"Youkai Gakkou no Sensei Hajimemashita!\" ED Theme Song \"Bokurashisa\" / Yuika', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Bokurashisa/Cover.jpg?raw=true', 'album', 'Yuika', 'false', NULL, '2024-10-22 19:21:43', 'false'),
 (444, 'TV Anime \"Ranma 1/2 (2024)\" OP Theme \"Yoroshikunkyun\" / ano', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Yoroshikunkyun/Cover_02.jpg?raw=true', 'album', 'ano', 'false', NULL, '2024-10-11 09:51:13', 'false'),
 (445, 'TV Anime \"Blue Lock VS. U-20 JAPAN\" OP Theme \"Boujaku no Charisma\" / UNISON SQUARE GARDEN', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Boujaku%20no%20Charisma/Cover_01.jpg?raw=true', 'album', 'UNISON SQUARE GARDEN', 'false', NULL, '2024-10-11 09:54:57', 'false'),
-(446, 'TV Anime \"Negaposi Angler\" Original Soundtrack #1', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Negaposi%20%231/Cover.jpg?raw=true', 'album', 'Tomoki Kikuta', 'false', NULL, '2024-10-14 03:55:22', 'false'),
-(447, 'TV Anime \"Touhai ~Ura Rate Mahjong Touhairoku~\" ED Theme Song \"Plastic Showcase\" / Taiyou to Odore Tsukiyo ni utae', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Plastic%20Showcase/Cover.jpg?raw=true', 'album', 'Taiyou to Odore Tsukiyo ni utae', 'false', NULL, '2024-10-11 10:29:49', 'false'),
+(446, 'TV Anime \"Negaposi Angler\" Original Soundtrack #1', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Negaposi%20%231/Cover.jpg?raw=true', 'album', 'Tomoki Kikuta', 'false', NULL, '2024-11-15 01:49:34', 'false'),
+(447, 'TV Anime \"Touhai ~Ura Rate Mahjong Touhairoku~\" ED Theme Song \"Plastic Showcase\" / Taiyou to Odore Tsukiyo ni utae', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Plastic%20Showcase/Cover.jpg?raw=true', 'album', 'Taiyou to Odore Tsukiyo ni utae', 'false', NULL, '2024-11-12 23:27:21', 'false'),
 (448, 'TV Anime \"Negaposi Angler\" Original Soundtrack #2', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Negaposi%20%232/Cover.jpg?raw=true', 'album', 'Tomoki Kikuta', 'false', NULL, '2024-10-11 10:46:35', 'false'),
 (449, 'TV Anime \"Negaposi Angler\" OP Theme \"Ito\" / Van de Shop ・ ED Theme \"Shounin Yokkyuu\" / 96Neko', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Ito-Shounin%20Yokkyuu/Cover.jpg?raw=true', 'album', 'Van de Shop / 96Neko', 'false', NULL, '2024-10-11 10:59:47', 'false'),
 (450, 'Rainych - Kanashimi Wo Yasashisa Ni (From Naruto)', 'https://github.com/cybeat-music/crispy-octo-journey/blob/main/Rainych/art.jpg?raw=true', 'album', 'Rainych', 'false', NULL, '2024-10-14 03:56:41', 'false'),
@@ -445,9 +444,9 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (455, '7!! (Seven Oops) — \"Orange\"', 'https://github.com/cybeat-music/probable-telegram/blob/main/Orange/cover.jpg?raw=true', 'album', '7!! (Seven Oops)', 'false', NULL, '2024-10-18 16:49:25', 'false'),
 (456, 'ONE PIECE FILM Z ORIGINAL SOUNDTRACK', 'https://github.com/cybeat-music/probable-telegram/blob/main/op-11-ost/Cover.png?raw=true', 'album', 'Kouhei Tanaka, Shiro Hamaguchi, Yasutaka Nakata', 'false', NULL, '2024-10-12 03:34:04', 'false'),
 (457, 'We Go! - Hiroshi Kitadani', 'https://github.com/cybeat-music/probable-telegram/blob/main/We%20Go!/art.jpeg?raw=true', 'album', 'Hiroshi Kitadani', 'false', NULL, '2024-10-12 11:43:20', 'false'),
-(458, 'TV Anime \"Ranma 1/2 (2024)\" ED Theme \"Anta Nante.\" / Riria.', 'https://github.com/cybeat-music/urban-funicular/blob/main/Anta%20Nante/art.jpg?raw=true', 'album', 'Riria.', 'false', NULL, '2024-10-22 19:23:07', 'false');
+(458, 'TV Anime \"Ranma 1/2 (2024)\" ED Theme \"Anta Nante.\" / Riria.', 'https://github.com/cybeat-music/urban-funicular/blob/main/Anta%20Nante/art.jpg?raw=true', 'album', 'Riria.', 'false', NULL, '2024-10-22 19:23:07', 'false'),
+(459, 'TV Anime \"Kekkon Surutte, Honto desu ka\" ED Theme \"Tsumari wa\" / Gohoubi', 'https://github.com/cybeat-music/urban-funicular/blob/main/Tsumari%20wa/art.jpg?raw=true', 'album', 'Gohoubi', 'false', NULL, '2024-10-17 12:22:58', 'false');
 INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_pin`, `date`, `editable`) VALUES
-(459, 'TV Anime \"Kekkon Surutte, Honto desu ka\" ED Theme \"Tsumari wa\" / Gohoubi', 'https://github.com/cybeat-music/urban-funicular/blob/main/Tsumari%20wa/art.jpg?raw=true', 'album', 'Gohoubi', 'false', NULL, '2024-10-17 12:22:58', 'false'),
 (460, 'Anime \"Maou 2099\" ED Theme \"Spira\" / sekai', 'https://github.com/cybeat-music/urban-funicular/blob/main/Spira/Cover.jpg?raw=true', 'album', 'sekai', 'false', NULL, '2024-10-17 12:48:10', 'false'),
 (461, 'Anime \"Maou 2099\" OP Theme \"Hollow\" / Shiyui', 'https://github.com/cybeat-music/urban-funicular/blob/main/Hollow/Cover.jpg?raw=true', 'album', 'Shiyui', 'false', NULL, '2024-10-17 13:08:06', 'false'),
 (462, 'TV Anime \"Blue Lock VS. U-20 JAPAN\" ED Theme \"One\" / Snow Man', 'https://github.com/cybeat-music/urban-funicular/blob/main/One/Cover.jpg?raw=true', 'album', 'Snow Man', 'false', NULL, '2024-10-17 13:12:40', 'false'),
@@ -467,28 +466,150 @@ INSERT INTO `playlist` (`uid`, `name`, `image`, `type`, `author`, `pin`, `date_p
 (476, 'My Hero Academia 4th Original Soundtrack', 'https://github.com/cybeat-music/reimagined-spork/blob/main/bnha-4th-ost/Cover.jpg?raw=true', 'album', 'Yuki Hayashi', 'false', NULL, '2024-10-21 04:28:51', 'false'),
 (477, 'BTS - MAP OF THE SOUL ꞉ 7', 'https://github.com/cybeat-music/solid-engine/blob/main/MAP%20OF%20THE%20SOUL%207/cover.jpg?raw=true', 'album', 'BTS', 'false', NULL, '2024-10-23 16:19:56', 'false'),
 (478, 'Sayuri - Me', 'https://github.com/cybeat-music/solid-engine/blob/main/Sayuri-Me/Cover.jpg?raw=true', 'album', 'Sayuri', 'false', NULL, '2024-10-23 16:38:53', 'false'),
-(479, 'Agust D - D-DAY', 'https://github.com/cybeat-music/solid-lamp/blob/main/D-DAY/cover.jpg?raw=true', 'album', 'Agust D', 'false', NULL, '2024-10-25 08:51:58', 'false'),
-(480, 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 'album', 'Yuki hayashi', 'false', NULL, '2024-10-25 09:04:51', 'false');
+(479, 'Agust D - D-DAY', 'https://github.com/cybeat-music/solid-lamp/blob/main/D-DAY/cover.jpg?raw=true', 'album', 'Agust D', 'false', NULL, '2024-10-25 09:49:34', 'false'),
+(480, 'My Hero Academia THE MOVIE HEROES:RISING Original Soundtrack', 'https://github.com/cybeat-music/solid-lamp/blob/main/HeroesRising/Cover.jpg?raw=true', 'album', 'Yuki hayashi', 'false', NULL, '2024-10-25 09:04:51', 'false'),
+(481, 'All Beat', 'https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg', 'category', NULL, 'true', '2024-10-25 20:04:47', '2024-11-27 14:54:13', 'false'),
+(482, 'Opus', 'https://drive.google.com/file/d/1OKKxoVnyc9ERC_hZ5B2vAz787lk9lAhN/view?usp=drive_link', 'album', 'Ryuichi Sakamoto', 'false', NULL, '2024-11-03 10:20:29', 'false'),
+(483, 'TV Anime \"Tsue to Tsurugi no Wistoria\" Music Collection', 'https://github.com/cybeat-music/silver-robot/blob/main/TsueTsurugi-music-collection/cover.jpg?raw=true', 'album', 'Yuki Hayashi', 'false', NULL, '2024-10-30 15:06:27', 'false'),
+(484, 'Siinamota - \"Ikiru\" (To Live)', 'https://github.com/cybeat-music/silver-robot/blob/main/Ikiru/art.jpg?raw=true', 'album', 'Siinamota', 'false', NULL, '2024-10-25 19:25:01', 'false'),
+(485, 'Nakuru Aitsuki - \"Dear The Night I Loved\"', 'https://github.com/cybeat-music/silver-robot/blob/main/Dear%20The%20Night%20I%20Loved/art.jpg?raw=true', 'album', 'Nakuru Aitsuki', 'false', NULL, '2024-10-25 19:26:48', 'false'),
+(486, 'One more time, One more chance / Masayoshi Yamazaki', 'https://github.com/cybeat-music/silver-robot/blob/main/One%20more%20time/art.jpg?raw=true', 'album', 'Masayoshi Yamazaki', 'false', NULL, '2024-10-25 19:29:24', 'false'),
+(487, 'TV Anime \"Himouto! Umaru-chan\" Original Soundtrack', 'https://github.com/cybeat-music/silver-robot/blob/main/Umaru-chan-ost/cover.jpg?raw=true', 'album', 'Yasuhiro Misawa', 'false', NULL, '2024-10-25 19:43:58', 'false'),
+(488, 'TV Anime \"Tsuma, Shougakusei ni Naru.\" ED Theme \"Hidamari\" / Ms.OOJA', 'https://github.com/cybeat-music/silver-robot/blob/main/Hidamari/cover.jpg?raw=true', 'album', 'Ms.OOJA', 'false', NULL, '2024-10-25 19:46:36', 'false'),
+(489, 'Kakeru Yumeoi - 1st Story Album \"The City Lost Music\"', 'https://drive.google.com/file/d/1ZPx6_XJA1q1f22fxkMmkyYSwm0r3aFna/view?usp=drive_link', 'album', 'Kakeru Yumeoi', 'false', NULL, '2024-10-29 21:26:22', 'false'),
+(490, 'Wuthering Waves 1.1 Thaw of Eons OST - Mini Album / Wuthering Waves Preview Radio & jixwang', 'https://drive.google.com/file/d/1hgPVFftzC8DZatK3CiOXmMd9RO5fiyix/view?usp=drive_link', 'album', 'Wuthering Waves Preview Radio & jixwang', 'false', NULL, '2024-10-25 21:05:11', 'false'),
+(491, 'ClariS ～SINGLE BEST 2nd～', 'https://drive.google.com/file/d/1_LmCWZ9N-DaqP0yK9nVzS4ElQ_br_2Mk/view?usp=drive_link', 'album', 'ClariS', 'false', NULL, '2024-10-25 21:04:40', 'false'),
+(492, 'Love Yourself Gyeol \"Answer\"', 'https://github.com/cybeat-music/jubilant-potato/blob/main/Answer/Cover.jpg?raw=true', 'album', 'BTS', 'false', NULL, '2024-10-26 08:29:00', 'false'),
+(493, 'The Karate Kid (Music from the Motion Picture)', 'https://github.com/cybeat-music/jubilant-potato/blob/main/The%20Karate%20Kid/art.jpg?raw=true', 'album', 'James Horner', 'false', NULL, '2024-10-26 08:48:38', 'false'),
+(494, 'TV Anime \"Himouto! Umaru-chan R\" Original Soundtrack', 'https://github.com/cybeat-music/urban-fortnight/blob/main/Umaru-chan%20R-ost/cover.jpg?raw=true', 'album', 'Yasuhiro Misawa', 'false', NULL, '2024-10-26 17:11:22', 'false'),
+(495, 'Symphonic Alicization Orchestra #4 & Original Soundtrack Alicization vol.1', 'https://github.com/cybeat-music/urban-fortnight/blob/main/Symphonic%20Alicization%20Orchestra%20%234/cover.jpg?raw=true', 'album', 'Yuki Kajiura', 'false', NULL, '2024-10-26 17:23:04', 'false'),
+(496, 'Symphonic Alicization Orchestra #7 & Original Soundtrack Alicization vol.2', 'https://github.com/cybeat-music/urban-fortnight/blob/main/Symphonic%20Alicization%20Orchestra%20%237/cover.jpg?raw=true', 'album', 'Yuki kajiura', 'false', NULL, '2024-10-26 20:02:28', 'false'),
+(497, 'Watashi Ni Tenshi Ga Maiorita! Sound Collection', 'https://github.com/cybeat-music/urban-fortnight/blob/main/Wataten%20Sound%20Collection/cover.jpg?raw=true', 'album', 'Takuro Iga', 'false', NULL, '2024-11-14 08:59:09', 'false'),
+(498, 'TV Anime \"Sakamoto desu ga?\" Opening Theme - CustomiZ / COOLEST', 'https://github.com/cybeat-music/super-garbanzo/blob/main/COOLEST/COOLEST%20CustomiZ%20Edition.jpg?raw=true', 'album', 'CustomiZ', 'false', NULL, '2024-10-27 11:44:44', 'false'),
+(499, 'TV Anime \"Sakamoto desu ga?\" Ending Theme - Suneohair / 0', 'https://github.com/cybeat-music/super-garbanzo/blob/main/Suneohair/art.jpg?raw=true', 'album', 'Suneohair', 'false', NULL, '2024-10-27 11:54:06', 'false'),
+(500, 'TV Anime \"K-On!\" Original Soundtrack', 'https://github.com/cybeat-music/super-garbanzo/blob/main/K-On!-ost/art.jpg?raw=true', 'album', 'Hajime Hyakkoku', 'false', NULL, '2024-10-27 12:50:46', 'false'),
+(501, 'ReLIFE ORIGINAL SOUNDTRACK', 'https://github.com/cybeat-music/super-garbanzo/blob/main/ReLIFE_OST/cover.jpg?raw=true', 'album', 'Masayasu Tzboguchi', 'false', NULL, '2024-10-27 14:46:03', 'false'),
+(502, 'Tower of God (Original Series Soundtrack)', 'https://github.com/cybeat-music/ubiquitous-sniffle/blob/main/TOG-S1-OST/Cover.jpg?raw=true', 'album', 'Kevin Penkin', 'false', NULL, '2024-10-27 19:50:48', 'false'),
+(503, 'March comes in like a lion Original Soundtrack 1', 'https://github.com/cybeat-music/shiny-lamp/blob/main/3-gatsu-ost-1/Cover.jpg?raw=true', 'album', 'Yukari Hashimoto', 'false', NULL, '2024-10-27 19:26:30', 'false'),
+(504, 'March comes in like a lion Original Soundtrack 2', 'https://github.com/cybeat-music/shiny-lamp/blob/main/3-gatsu-ost-2/Cover.jpg?raw=true', 'album', 'Yukari Hashimoto', 'false', NULL, '2024-10-27 19:18:05', 'false'),
+(505, 'March comes in like a lion Original Soundtrack 3', 'https://github.com/cybeat-music/shiny-lamp/blob/main/3-gatsu-ost-3/Cover.jpg?raw=true', 'album', 'Yukari Hashimoto', 'false', NULL, '2024-10-27 19:28:31', 'false'),
+(506, 'March comes in like a lion Original Soundtrack 4', 'https://github.com/cybeat-music/shiny-lamp/blob/main/3-gatsu-ost-4/Cover.jpg?raw=true', 'album', 'Yukari Hashimoto', 'false', NULL, '2024-10-27 19:28:31', 'false'),
+(507, 'Tamako Love Story Original Soundtrack', 'https://github.com/cybeat-music/shiny-lamp/blob/main/Tamako%20Love%20Story/art.jpg?raw=true', 'album', 'Tomoko Kataoka', 'false', NULL, '2024-10-27 19:47:42', 'false'),
+(508, 'Ansatsu Kyoushitsu 2nd Season Volume 2 Special CD', 'https://github.com/cybeat-music/scaling-robot/blob/main/Ansatsu-S2-Vol.2-CD/art.jpg?raw=true', 'album', 'Naoki Sato', 'false', NULL, '2024-10-28 16:38:53', 'false'),
+(509, 'The Rising of the SHIELD HERO ORIGINAL SOUNDTRACK \"Dusk\"', 'https://github.com/cybeat-music/scaling-robot/blob/main/TateYuusha-Dusk/Cover.jpg?raw=true', 'album', 'Kevin Penkin, Amelia Jones, Asami Seto, Nikki Simmons', 'false', NULL, '2024-10-28 16:44:48', 'false'),
+(510, 'The Rising of the SHIELD HERO ORIGINAL SOUNDTRACK \"Dawn\"', 'https://github.com/cybeat-music/scaling-robot/blob/main/TateYuusha-Dawn/Cover.png?raw=true', 'album', 'Kevin Penkin, Maria Andersson, Nikki Simmons, Ryan Greaves', 'false', NULL, '2024-10-28 16:55:40', 'false'),
+(511, 'Sakamoto desu ga Original Soundtrack CD', 'https://github.com/cybeat-music/scaling-robot/blob/main/Sakamoto-CD/Cover.jpg?raw=true', 'album', 'Yasuhiko Fukuda', 'false', NULL, '2024-10-28 17:04:01', 'false'),
+(512, 'SWORD ART ONLINE ORDINAL SCALE ORIGINAL SOUNDTRACK', 'https://github.com/cybeat-music/bug-free-potato/blob/main/SAO-ordinal-OST/Cover.jpg?raw=true', 'album', 'Yuki Kajiura, Yuna (CV: Sayaka Kanda)', 'false', NULL, '2024-10-28 18:54:50', 'false'),
+(513, 'TV Animation \"Tamako Market\" Original Soundtrack Snappy Music Around of Tamako', 'https://github.com/cybeat-music/bug-free-potato/blob/main/Around%20of%20Tamako/art.jpg?raw=true', 'album', 'Tomoko Kataoka | Manual of Errors Artists Tomoko Kataoka & Manual of Errors Artists\r\n', 'false', NULL, '2024-10-28 19:08:28', 'false'),
+(514, 'TV Anime \"Re: Life in a different world from zero\" 2nd Ending Theme - Stay Alive / Emilia (CV: Rie Takahashi)', 'https://github.com/cybeat-music/bug-free-potato/blob/main/ReZero%20-%20ED2/cover.jpg?raw=true', 'album', 'Rie Takahashi, Inori Minase', 'false', NULL, '2024-10-30 21:57:15', 'false'),
+(515, 'TV Anime \"NOBLESSE\" Ending Theme - Etoile / Nonstop Japanese version Special Edition / OH MY GIRL', 'https://github.com/cybeat-music/improved-umbrella/blob/main/Etoile/1280x1280.jpg?raw=true', 'album', 'OH MY GIRL', 'false', NULL, '2024-10-29 17:42:35', 'false'),
+(516, 'No Game, No Life Original Soundtrack', 'https://github.com/cybeat-music/improved-umbrella/blob/main/NGNL-OST/Cover.jpg?raw=true', 'album', 'Ayako Saso, Fumihisa Tanaka, Shinji Hosoe, Takahiro Eguchi', 'false', NULL, '2024-10-29 18:18:49', 'false'),
+(517, 'No Game, No Life: Zero Original Soundtrack', 'https://github.com/cybeat-music/NGNL-0-OST/blob/main/Cover.jpg?raw=true', 'album', 'Yoshiaki Fujisawa', 'false', NULL, '2024-10-29 19:20:12', 'false'),
+(518, 'Re:Zero kara Hajimeru Isekai Seikatsu Soundtrack CD', 'https://drive.google.com/file/d/1_NM5JMHBkF9i0xa-MlXpJgVuWiydhFiu/view?usp=drive_link', 'album', 'Kenichiro Suehiro', 'false', NULL, '2024-10-29 19:33:40', 'false'),
+(519, 'Koke no Ichinen Kaiba ni Takusu [Limited First Edition]', 'https://github.com/cybeat-music/glowing-system/blob/main/Koke%20no%20Ichinen/cover.jpg?raw=true', 'album', 'Zutto Mayonaka de Iinoni. ', 'false', NULL, '2024-10-29 20:00:19', 'false'),
+(520, 'TV Anime \"Re: Life in a different world from zero\" Ending Theme - STYX HELIX / MYTH & ROID', 'https://github.com/cybeat-music/glowing-system/blob/main/STYX%20HELIX/cover.jpg?raw=true', 'album', 'MYTH & ROID', 'false', NULL, '2024-10-29 20:06:11', 'false'),
+(521, 'TV Anime \"Re: Life in a different world from zero\" 2nd Opening Theme - Paradisus-Paradoxum / MYTH & ROID', 'https://github.com/cybeat-music/glowing-system/blob/main/Paradisus-Paradoxum/cover.jpg?raw=true', 'album', 'MYTH & ROID', 'false', NULL, '2024-10-29 20:20:20', 'false'),
+(522, '311 - Full Bloom', 'https://github.com/cybeat-music/ubiquitous-journey/blob/main/Full%20Bloom/cover.jpg?raw=true', 'album', '311', 'false', NULL, '2024-10-30 19:26:13', 'false'),
+(523, 'Naruto Sad, Vol. 3', 'https://github.com/cybeat-music/ubiquitous-journey/blob/main/Naruto%20Sad,%20Vol.%203/cover.jpg?raw=true', 'album', 'Anime Kei', 'false', NULL, '2024-10-30 19:47:20', 'false'),
+(524, 'Naruto Sad, Vol. 2', 'https://github.com/cybeat-music/ubiquitous-journey/blob/main/Naruto%20Sad,%20Vol.%202/cover.png?raw=true', 'album', 'Anime Kei', 'false', NULL, '2024-10-30 19:47:20', 'false'),
+(525, 'NARUTO SHIPPUDEN -  THE MOVIE ORIGINAL SOUNDTRACK', 'https://github.com/cybeat-music/scaling-winner/blob/main/NARUTO%20THE%20MOVIE/cover.png?raw=true', 'album', 'Yasuharu Takanashi, yaiba', 'false', NULL, '2024-10-30 21:55:01', 'false'),
+(526, 'Hataraku Saibou Original Soundtrack', 'https://github.com/cybeat-music/scaling-winner/blob/main/Hataraku-S1-OST/Cover.jpg?raw=true', 'album', 'Kenichiro Suehiro & MAYUKO', 'false', NULL, '2024-10-30 21:55:15', 'false'),
+(527, 'SPYAIR - Imagination - New Version', 'https://github.com/cybeat-music/verbose-train/blob/main/Imagination%20-%20New/cover.jpg?raw=true', 'album', 'SPYAIR', 'false', NULL, '2024-11-01 17:41:30', 'false'),
+(528, 'SPYAIR - I\'m a Believer - New Version', 'https://github.com/cybeat-music/verbose-train/blob/main/I%60m%20a%20Believer/cover.jpg?raw=true', 'album', 'SPYAIR', 'false', NULL, '2024-11-01 17:51:07', 'false'),
+(529, 'Vivid Lila - Clearness Sign', 'https://github.com/cybeat-music/verbose-train/blob/main/Clearness%20Sign/art.jpg?raw=true', 'album', 'Vivid Lila', 'false', NULL, '2024-11-01 18:14:26', 'false'),
+(530, 'Mili - Hero', 'https://github.com/cybeat-music/verbose-train/blob/main/Hero/Cover.jpg?raw=true', 'album', 'Mili', 'false', NULL, '2024-11-01 18:19:46', 'false'),
+(531, 'Haikyu!! the Movie: Gomi Suteba no Kessen Original Soundtrack', 'https://github.com/cybeat-music/verbose-train/blob/main/Gomi%20Suteba/Cover.jpg?raw=true', 'album', 'Yuki Hayashi, Asami Tachibana', 'false', NULL, '2024-11-15 03:16:41', 'false'),
+(532, 'Sign - EP', 'https://github.com/cybeat-music/automatic-tribble/blob/main/Sign/cover.png?raw=true', 'album', 'FLOW', 'false', NULL, '2024-11-11 00:22:27', 'false'),
+(533, 'Re:Zero kara Hajimeru Isekai Seikatsu Special Soundtrack CD 1', 'https://github.com/cybeat-music/automatic-tribble/blob/main/ReZero%20-%20Bonus%20CD1/cover.jpg?raw=true', 'album', 'Kenichiro Suehiro', 'false', NULL, '2024-11-03 21:06:02', 'false'),
+(534, 'TV Anime \"Re: Life in a different world from zero\" Opening Theme - Redo / Konomi Suzuki', 'https://github.com/cybeat-music/automatic-tribble/blob/main/ReZero%20-%20OP1%20-%20Redo/cover.png?raw=true', 'album', 'Konomi Suzuki', 'false', NULL, '2024-11-03 21:12:09', 'false'),
+(535, 'Re:Zero kara Hajimeru Isekai Seikatsu Special Soundtrack CD 2', 'https://github.com/cybeat-music/automatic-tribble/blob/main/ReZero%20-%20Bonus%20CD2/cover.jpg?raw=true', 'album', 'Kenichiro Suehiro', 'false', NULL, '2024-11-03 21:24:53', 'false'),
+(536, 'Tuyu — Anata o Fukou ni Izanaimasu ne Amazon Tokuten CD', 'https://github.com/cybeat-music/automatic-tribble/blob/main/Amazon/cover.jpg?raw=true', 'album', 'Tuyu', 'false', NULL, '2024-11-03 21:29:36', 'false'),
+(537, 'Tuyu — Anata o Fukou ni Izanaimasu ne Animate Tokuten CD', 'https://github.com/cybeat-music/automatic-tribble/blob/main/Animate/cover.jpg?raw=true', 'album', 'Tuyu', 'false', NULL, '2024-11-03 21:31:23', 'false'),
+(538, 'Seventeen\'s Song - Single', 'https://drive.google.com/file/d/1RJEkGwBvFi9Vj7Js3vqxDFEPvOzhstDK/view?usp=drive_link', 'album', 'Yuika', 'false', NULL, '2024-11-05 17:45:54', 'false'),
+(539, 'MURINANDAGA w', 'https://drive.google.com/file/d/1UnqvrLfyjf84GB1Bndl7KcUQmysmybfV/view?usp=drive_link', 'album', 'NANIMONO', 'false', NULL, '2024-11-05 20:07:19', 'false'),
+(540, 'Haikyu!! Movie Battle of the Garbage Dump Theme Song - Orange／SPYAIR', 'https://drive.google.com/file/d/1VniSEmmu79Dr0gnMZJC-493k25mfN05e/view?usp=drive_link', 'album', 'SPYAIR', 'false', NULL, '2024-11-06 01:20:20', 'false'),
+(541, 'I SCREAM LIVE3', 'https://drive.google.com/file/d/1WfbwkeYxnP6CIT-q_NT6PufsQK6N-6ru/view?usp=drive_link', 'album', 'KAF', 'false', NULL, '2024-11-05 20:53:20', 'false'),
+(542, 'I`ll Put You in Misery', 'https://drive.google.com/file/d/10E3jc_4TsyalYTcXqihtSUrslOky5KNm/view?usp=drive_link', 'album', 'TUYU', 'false', NULL, '2024-11-05 22:30:23', 'false'),
+(543, 'TV Anime \"SPECIAL EDITED VERSION `ONE PIECE` Fishman Island Arc\" ED Theme \"Sailing\" / BE:FIRST', 'https://drive.google.com/file/d/11Itkl75D3BE1H5Fs7NNL-fD8g2CP2ZyR/view?usp=drive_link', 'album', 'BE:FIRST', 'false', NULL, '2024-11-05 23:02:06', 'false'),
+(544, 'TV Anime \"Tohai: Ura Rate Mahjong Tohai Roku\" OP Theme \"Gambling Hall\" / Oishi Masayoshi', 'https://drive.google.com/file/d/11xUrUCvR5W1NPT-djvp4YDSl5DgC9ILW/view?usp=drive_link', 'album', 'Oishi Masayoshi', 'false', NULL, '2024-11-05 23:19:06', 'false'),
+(545, '6 Case', 'https://drive.google.com/file/d/13TuCIlIZR5eNdGKHdT3zfVQo03Cskmu2/view?usp=drive_link', 'album', 'Yourness', 'false', NULL, '2024-11-06 01:20:53', 'false'),
+(546, 'PIXELIZE II', 'https://drive.google.com/file/d/1USb_jdXEVl5SP0NrouvrJSaitdM6b5nT/view?usp=drive_link', 'album', 'Snail`s House', 'false', NULL, '2024-11-13 01:42:57', 'false'),
+(547, 'PIXELIZE', 'https://drive.google.com/file/d/1UIvWYcCd87US3JDOOdZNEGxjrgCBQHs1/view?usp=drive_link', 'album', 'Snail`s House', 'false', NULL, '2024-11-06 00:27:44', 'false'),
+(548, 'Ordinary Songs 5', 'https://drive.google.com/file/d/1TxniAumqpg4jDTfVNaAk-Fd2y-8hMLo9/view?usp=drive_link', 'album', 'Snail`s House', 'false', NULL, '2024-11-06 01:22:21', 'false'),
+(549, 'Dandadan Original Soundtrack - Lead Trax', 'https://github.com/cybeat-music/jubilant-waffle/blob/main/Dandadan%20-%20Lead%20Trax/Cover.jpg?raw=true', 'album', 'Kensuke Ushio', 'false', NULL, '2024-11-12 17:43:01', 'false'),
+(550, 'Kotoura-San Original Soundtrack 1', 'https://github.com/cybeat-music/jubilant-waffle/blob/main/Kotoura-San%20ost%201/Cover.jpg?raw=true', 'album', 'Yasuhiro Misawa', 'false', NULL, '2024-11-12 18:23:57', 'false'),
+(551, 'TV Anime \"Shikanoko Nokonoko Koshitantan\" Original Soundtrack', 'https://github.com/cybeat-music/jubilant-waffle/blob/main/Shikanoko%20ost/art.jpg?raw=true', 'album', 'Yasuhiro Misawa', 'false', NULL, '2024-11-14 14:39:57', 'false'),
+(552, 'Shining at dawn', 'https://drive.google.com/file/d/1HJ9ZPLMM8dsSvOK5M1M_fEoHUzIARu14/view?usp=drive_link', 'album', 'Yoshika', 'false', NULL, '2024-11-13 01:40:13', 'false'),
+(553, 'shining of star - Kurokumo', 'https://drive.google.com/file/d/1RfiJF-s75ipr5tSe7VO_Xz_OwfPF4Lnp/view?usp=drive_link', 'album', 'Kurokumo', 'false', NULL, '2024-11-13 01:46:44', 'false'),
+(554, 'DYNASTY WARRIORS 7 Ressei∶ Shouten Koubu', 'https://drive.google.com/file/d/1GzIBJu3DxIkgbOUb--uxyV_3MoTLQEyx/view?usp=drive_link', 'album', 'Sima Shi (CV: Ryotaro Okiayu)', 'false', NULL, '2024-11-13 02:05:36', 'false'),
+(559, 'Trapezium Original Soundtrack', 'https://github.com/cybeat-music/symmetrical-succotash/blob/main/Trapezium%20OST/cover.jpg?raw=true', 'album', 'Masaru Yokoyama', 'false', NULL, '2024-11-15 03:41:48', 'false'),
+(560, 'Cars (Original Motion Picture Soundtrack)', 'https://github.com/cybeat-music/symmetrical-succotash/blob/main/Cars%20(OST)/cover.png?raw=true', 'album', 'Randy Newman', 'false', NULL, '2024-11-22 15:53:29', 'false'),
+(561, 'The Arrow of Time: Soundtrack to \"Timelapse of the Future\"', 'https://github.com/cybeat-music/symmetrical-succotash/blob/main/Timelapse%20of%20the%20Future/cover.jpeg?raw=true', 'album', 'John D. Boswell, Melodysheep', 'false', NULL, '2024-11-15 04:55:15', 'false'),
+(562, 'One Piece - Der offizielle Soundtrack zur TV-Serie', 'https://github.com/cybeat-music/symmetrical-succotash/blob/main/OP-Der%20offizielle/art.jpg?raw=true', 'album', 'Andy Knote, Noel Pix, Frank Schindel, Ch. Limburg', 'false', NULL, '2024-11-15 05:33:27', 'false'),
+(563, 'Light & Shadow - Star Guardian 2019 Theme Song League of Legends', 'https://github.com/cybeat-music/upgraded-octo-meme/blob/main/Light%20and%20Shadow/cover.jpg?raw=true', 'album', 'SawanoHiroyuki[nZk], Gemie', 'false', NULL, '2024-11-20 21:39:35', 'false'),
+(564, 'KAIJU No.8 Original Soundtrack', 'https://github.com/cybeat-music/upgraded-octo-meme/blob/main/KAIJU%20No.8%20OST/Cover.jpg?raw=true', 'album', 'Yuta Bandoh', 'false', NULL, '2024-11-15 13:54:46', 'false'),
+(565, 'REBIRTH', 'https://github.com/cybeat-music/sturdy-invention/blob/main/REBIRTH/cover.jpg?raw=true', 'album', 'Killing Me Inside', 'false', NULL, '2024-11-16 14:52:44', 'false'),
+(566, 'Pujaan Hati', 'https://github.com/cybeat-music/sturdy-invention/blob/main/Pujaan%20Hati/cover.jpg?raw=true', 'album', 'Kangen Band', 'false', NULL, '2024-11-17 23:25:50', 'false'),
+(567, 'this is what ____ feels like (Vol. 1-4)', 'https://github.com/cybeat-music/sturdy-invention/blob/main/this%20is%20what/cover.jpg?raw=true', 'album', 'JVKE', 'false', NULL, '2024-11-17 01:53:54', 'false'),
+(568, 'Shigatsu wa Kimi no Uso ED Single - Kirameki', 'https://raw.githubusercontent.com/sibeux/redesigned-broccoli/MyProgram/1-krone/Shigatsu%20wa%20Kimi%20no%20Uso%20ED%20Single%20-%20Kirameki/cover.png', 'album', 'wacci', 'false', NULL, '2024-11-16 14:56:01', 'false'),
+(569, 'Shigatsu wa Kimi no Uso OP Single - Hikaru Nara', 'https://github.com/cybeat-music/effective-enigma/blob/main/Hikaru%20Nara/Cover.png?raw=true', 'album', 'Goose house', 'false', NULL, '2024-11-16 14:47:16', 'false'),
+(570, 'Shigatsu wa Kimi no Uso ED2 Single - Orange [Limited Edition]', 'https://github.com/cybeat-music/effective-enigma/blob/main/Orange%20%5BLimited%20Edition%5D/cover.jpg?raw=true', 'album', 'seven oops', 'false', NULL, '2024-11-16 16:43:24', 'false'),
+(571, 'Shigatsu wa Kimi no Uso OP2 Single - Nanairo Symphony', 'https://github.com/cybeat-music/effective-enigma/blob/main/Nanairo%20Symphony/cover.jpg?raw=true', 'album', 'Coalamode.', 'false', NULL, '2024-11-16 16:58:31', 'false'),
+(572, 'Shigatsu wa Kimi no Uso Boku to Kimi to no Ongakuchou', 'https://github.com/cybeat-music/effective-enigma/blob/main/Boku%20to%20Kimi%20to%20no%20Ongakuchou/cover.jpg?raw=true', 'album', 'Violin: Yuna Shinohara, Piano: Tomoki Sakata, Eriko Kawachi', 'false', NULL, '2024-11-18 02:03:12', 'false'),
+(573, 'Takkan Pisah', 'https://raw.githubusercontent.com/cybeat-music/fuzzy-spoon/refs/heads/main/Takkan%20Pisah/cover.jpg', 'album', 'Wali', 'false', NULL, '2024-11-17 08:55:18', 'false'),
+(574, 'Cari Jodoh', 'https://raw.githubusercontent.com/cybeat-music/super-duper-funicular/refs/heads/main/Cari%20Jodoh/Cover.jpg', 'album', 'Wali', 'false', NULL, '2024-11-17 23:17:12', 'false'),
+(575, 'Storytelling', 'https://raw.githubusercontent.com/cybeat-music/super-duper-funicular/refs/heads/main/Storytelling/cover.jpg', 'album', 'Vierra', 'false', NULL, '2024-11-17 09:12:51', 'false'),
+(576, 'Jangan Bertengkar', 'https://raw.githubusercontent.com/cybeat-music/super-duper-funicular/refs/heads/main/Jangan%20Bertengkar/cover.jpg', 'album', 'Kangen Band', 'false', NULL, '2024-11-17 09:43:40', 'false'),
+(577, 'Satu Hati Sejuta Cinta', 'https://raw.githubusercontent.com/cybeat-music/silver-succotash/refs/heads/main/Satu%20Hati%20Sejuta%20Cinta/cover.jpg', 'album', 'Armada', 'false', NULL, '2024-11-18 00:47:57', 'false'),
+(578, 'For All', 'https://raw.githubusercontent.com/cybeat-music/silver-succotash/refs/heads/main/For%20All/cover.jpg', 'album', 'Bondan Prakoso, Fade2Black', 'false', NULL, '2024-11-18 01:18:54', 'false'),
+(579, 'P.U.S.P.A.', 'https://raw.githubusercontent.com/cybeat-music/silver-succotash/refs/heads/main/P.U.S.P.A/cover.jpg', 'album', 'ST12', 'false', NULL, '2024-11-18 01:57:55', 'false'),
+(580, 'Shigatsu wa Kimi no Uso Twinkle Little Star', 'https://drive.google.com/file/d/1Yb9xl131ddgV4wcWwBgev5Y02YXyrega/view?usp=drive_link', 'album', 'Violin: Yuna Shinohara, Piano: Taiji Koga, Tomoki Sakata, Eriko Kawachi', 'false', NULL, '2024-11-21 03:23:34', 'false'),
+(581, 'TV Anime \"Ao no Miburo\" Original Soundtrack', 'https://github.com/cybeat-music/ghoul-mask/blob/main/Ao%20no%20Miburo%20OST/Cover.jpg?raw=true', 'album', 'Yuuki Hayashi', 'false', NULL, '2024-11-21 03:43:23', 'false'),
+(582, 'Dunia Yang Indah', 'https://github.com/cybeat-music/shinobi-path/blob/main/Dunia%20Yang%20Indah/cover.jpg?raw=true', 'album', 'Seventeen', 'false', NULL, '2024-11-23 10:51:02', 'false'),
+(583, 'Iyaya (feat. Toramaru Ema (CV : Lico), Amemura Neri (CV : Noa) & Shoji Momoko (CV : Mone))', 'https://github.com/cybeat-music/shinobi-path/blob/main/Iyaya/cover.jpg?raw=true', 'album', 'OKINI☆PARTY`S & DENONBU', 'false', NULL, '2024-11-23 10:56:35', 'false'),
+(584, 'Bintang Di Surga', 'https://github.com/cybeat-music/shinobi-path/blob/main/Bintang%20Di%20Surga/cover.jpg?raw=true', 'album', 'peterpan ', 'false', NULL, '2024-11-23 11:43:31', 'false'),
+(585, 'Minutes to Midnight [Explicit]', 'https://github.com/cybeat-music/shinobi-path/raw/refs/heads/main/Minutes%20to%20Midnight%20%5BExplicit%5D/cover.webp', 'album', 'Linkin Park', 'false', NULL, '2024-11-26 13:18:13', 'false'),
+(586, 'Bintang 14 Hari', 'https://github.com/cybeat-music/konoha-village/blob/main/Bintang%2014%20Hari/cover.jpg?raw=true', 'album', 'Kangen Band', 'false', NULL, '2024-11-25 17:21:55', 'false'),
+(587, 'TV Anime \"Hitoribocchi no Isekai Kouryaku\" ORIGINAL SOUNDTRACK', 'https://github.com/cybeat-music/konoha-village/blob/main/Hitoribocchi%20no%20Isekai%20Kouryaku%20OST/Cover.jpg?raw=true', 'album', 'Katayama Shuji, Suzuki Akiya', 'false', NULL, '2024-11-25 18:07:58', 'false'),
+(588, 'Konna Sekai, Shiritakunakatta', 'https://github.com/cybeat-music/konoha-village/blob/main/Konna%20Sekai,%20Shiritakunakatta/cover.jpg?raw=true', 'album', 'Miku Sawai', 'false', NULL, '2024-11-25 18:00:55', 'false'),
+(589, 'Gakuen IdolM@ster Shiun Seika (CV: Minato Miya) Tanjoubi Kinenkyoku \"Ride on Beat\"', 'https://drive.google.com/file/d/1TMxfXrQb39ZS3-568-FsLKYTw4RKYR_r/view?usp=drive_link', 'album', 'CV: Minato Miya', 'false', NULL, '2024-11-26 06:05:40', 'false'),
+(590, 'TV Anime \"Amagami-san Chi no Enmusubi\" Character Song Mini Album \"Kimi ni Koi wo Musunde\"', 'https://github.com/cybeat-music/akame-murasame/blob/main/Kimi%20ni%20Koi%20wo%20Musunde/Cover.jpg?raw=true', 'album', 'Amagami Sisters (CV: Sumire Uesaka, Kaede Hondo, Shion Wakayama)', 'false', NULL, '2024-11-26 06:18:57', 'false'),
+(591, 'Into the Depths', 'https://github.com/cybeat-music/akame-murasame/blob/main/Into%20the%20Depths/cover.jpg?raw=true', 'album', 'Wuthering Waves', 'false', NULL, '2024-11-26 06:36:52', 'false'),
+(592, 'Jinkougaku', 'https://github.com/cybeat-music/yato-god/blob/main/Jinkougaku/cover.jpg?raw=true', 'album', 'Zutto Mayonaka de Ii no ni.', 'false', NULL, '2024-11-26 07:55:41', 'false'),
+(593, 'request', 'https://github.com/cybeat-music/yato-god/blob/main/request/Cover.jpg?raw=true', 'album', 'krage', 'false', NULL, '2024-11-26 08:03:41', 'false'),
+(594, 'Kemono Jihen Original Soundtrack', 'https://github.com/cybeat-music/lelouch-geass/raw/refs/heads/main/Kemono%20Jihen%20OST/cover.webp', 'album', 'Yuya Mori', 'false', NULL, '2024-11-28 06:02:36', 'false'),
+(595, 'Saving Light - Single', 'https://github.com/cybeat-music/lelouch-geass/blob/main/Saving%20Light%20-%20Single/cover.jpg?raw=true', 'album', 'Thena A, N2V, xTOx, VISION SOUND, Wuthering Waves', 'false', NULL, '2024-11-26 08:51:12', 'false'),
+(596, 'ONE PIECE BEST ALBUM - One Piece Shudaika Shu', 'https://github.com/cybeat-music/lelouch-geass/blob/main/One%20Piece%20Shudaika%20Shu/art.jpg?raw=true', 'album', 'AI-SACHI, Folder 5, 田中真弓・山口勝平・平田広明・中井和哉・岡村明美・大谷育江・山口由里子, The Kaleidoscope, Ruppina, 上原多香子, DASEIN, 大槻真希, Folder 5, 大槻真希, Janne Da Arc, 推定少女, TOMATO CUBE, きただにひろし', 'false', NULL, '2024-11-26 09:11:29', 'false'),
+(597, 'ONE PIECE SONG Collection', 'https://github.com/cybeat-music/lelouch-geass/blob/main/ONE%20PIECE%20Song%20Collection/art.png?raw=true', 'album', 'Hiroshi Kitadani, Hiroaki Hirata, Kazuya Nakai, Akemi Okamura, Kappei Yamaguchi, Mayumi Tanaka, Kazuki Yao, Kazushige Shimura, Ikue Ohtani', 'false', NULL, '2024-11-26 09:22:27', 'false'),
+(598, 'ONE PIECE Brook Special CD Brook to Mugiwara no Ichimi no Ongakukai', 'https://github.com/cybeat-music/lelouch-geass/blob/main/Brook%20To%20Straw%20Hat%20Pirates%20No%20Ongaku%20Kai/art.jpg?raw=true', 'album', 'Kohei Tanaka, Shiro Hamaguchi', 'false', NULL, '2024-11-26 09:25:18', 'false'),
+(599, 'ONE PIECE BEST ALBUM One Piece Shudaikashuu 2nd Piece', 'https://github.com/cybeat-music/lelouch-geass/blob/main/ONE%20PIECE%20BEST%20ALBUM%202%20Piece/art.jpg?raw=true', 'album', 'ZZ, 晴晴゛, Folder 5, BON-BON BLANCO, イクタ☆アイコ, Ruppina, 田中真弓・山口勝平・平田広明・中井和哉・岡村明美・大谷育江・山口由里子, ザ・ベイビースターズ, 田中真弓・山口勝平・平田広明・中井和哉・岡村明美・大谷育江・山口由里子, shela, 田中真弓・山口勝平・平田広明・中井和哉・岡村明美・大谷育江・山口由里子, きただにひろし', 'false', NULL, '2024-11-26 09:31:21', 'false'),
+(600, 'ONE PIECE 15th Anniversary Best Album', 'https://github.com/cybeat-music/lelouch-geass/blob/main/ONE%20PIECE%2015th%20Anniversary%20BEST%20ALBUM/cover.jpg?raw=true', 'album', 'Kohei Tanaka, GROOVE SURFERS, Akihito Tanaka, Kohsuke Oshima, Kazunori Watanabe, IKUMA, Yasuhide Yoshida, 5050, Kenichi Maeyamada, Kei Takahara, Haruhisa Duran Naito, Nao\'ymt, MORI JUNTA, Matto Yamamoto, Hajime Hyakkoku, Nobuhiko Sato, Takumi Ishida, Kazuhito Kikuchi, yasu, Fumio Yasuda, ZZ, 瀧川潤, ACKO, Kosuke Morimoto, Mikiko Tagata, U.S.B 2.0, Hyoue Ebata, Takeshi Senoo, Hyoutan, Naohisa Taniguchi a.k.a Tony Gucci, Satoshi Nakayama', 'false', NULL, '2024-11-26 09:50:30', 'false'),
+(601, 'From TV animation ONE PIECE Eizou Ongaku Kanzenban', 'https://github.com/cybeat-music/emilia-rose/blob/main/Eizou%20Ongaku%20Kanzen%20Ban/cover.jpg?raw=true', 'album', 'Tanaka Kohei', 'false', NULL, '2024-11-26 13:08:03', 'false'),
+(602, 'One Piece Memorial Best', 'https://github.com/cybeat-music/gomu-gomu/blob/main/One%20Piece%20Memorial%20Best/art-2.jpg?raw=true', 'album', 'Various Artist', 'false', NULL, '2024-11-27 06:54:30', 'false'),
+(604, 'Mone Kamishiraishi 5th Album \"kibi\"', 'https://github.com/cybeat-music/mugen-train/blob/main/kibi/Cover_01.jpg?raw=true', 'album', 'Mone Kamishiraishi', 'false', NULL, '2024-11-28 05:39:53', 'false'),
+(605, 'TV Anime \"Kemono Jihen\" Ending Theme / Sayaka Sasaki - -Shirushi-', 'https://github.com/cybeat-music/mugen-train/blob/main/-Shirushi-/cover.jpg?raw=true', 'album', 'Sayaka Sasaki', 'false', NULL, '2024-11-28 05:57:46', 'false'),
+(606, 'HE4RT BE4T!', 'https://github.com/cybeat-music/mugen-train/blob/main/HE4RT%20BE4T!/art.jpg?raw=true', 'album', 'Nijisanji', 'false', NULL, '2024-11-28 06:14:08', 'false'),
+(607, 'One Piece Character Song Carnival!!', 'https://github.com/cybeat-music/mugen-train/blob/main/Carnival/art.png?raw=true', 'album', 'Various Artists ', 'false', NULL, '2024-11-28 06:26:18', 'false');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `playlist`
+-- Indexes for table `playlist`
 --
 ALTER TABLE `playlist`
   ADD PRIMARY KEY (`uid`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `playlist`
+-- AUTO_INCREMENT for table `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=481;
+  MODIFY `uid` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=608;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
