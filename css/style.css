@@ -2282,6 +2282,7 @@ ul.tranding_more_option li a .opt_icon i:before {
 	text-overflow: ellipsis;
 	vertical-align: middle;
 }
+
 /*  */
 
 .pd1 {
@@ -8615,6 +8616,7 @@ span.ovrly_text2 {
 }
 
 .title,
+.artist_music,
 .artist {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
