@@ -35,6 +35,5 @@ function loadMoreMusic(page) {
 }
 
 function appendMusic(music) {
-    console.log(music);
-    $(".album_list_wrapper album_list_wrapper_shop").append(music);
+    $(".album_list_wrapper_shop").append(music);
 }
