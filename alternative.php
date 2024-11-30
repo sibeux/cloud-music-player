@@ -2,7 +2,7 @@
 include "./database/db.php";
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Ambil halaman saat ini
-$limit = 20; // Tentukan jumlah data per halaman
+$limit = 100; // Tentukan jumlah data per halaman
 $offset = ($page - 1) * $limit; // Hitung offset berdasarkan halaman
 
 // initiate variable
