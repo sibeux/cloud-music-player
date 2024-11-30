@@ -1,5 +1,4 @@
 let currentPage = 1;
-const limit = 10;  // Musik per halaman
 
 window.addEventListener('scroll', function () {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -21,17 +20,6 @@ function loadMoreMusic(page) {
         }
     };
     xhr.send();
-
-    // $.ajax({
-    //     type: "GET",
-    //     url: "lazy.php",
-    //     data: {
-    //         'page': page,
-    //     },
-    //     success: function (data) {
-    //         $(".album_list_wrapper album_list_wrapper_shop").append(data);
-    //     }
-    // });
 }
 
 function appendMusic(music) {
