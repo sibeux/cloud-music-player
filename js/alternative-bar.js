@@ -67,8 +67,6 @@ async function animatedPlayMusic(
 
     var linkDrive = await checkUrlFromDrive(linkGDrive);
 
-    console.log(linkDrive);
-
     setRecentsMusic(uid_music);
 
     // Check if there is currently playing music
@@ -97,6 +95,10 @@ async function animatedPlayMusic(
 }
 
 async function nowPlayingMusicProgressBar(musicData) {
+
+    if (typeof musicData === "string") {
+      musicData = JSON.parse(musicData); // Ubah string menjadi object
+    }
 
     console.log(musicData);
 
