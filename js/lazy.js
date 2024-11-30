@@ -13,9 +13,10 @@ window.addEventListener('scroll', function () {
 function loadMoreMusic(page) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'lazy.php?page=' + page, true);
-    xhr.onload = function (data) {
+    xhr.onload = function () {
         if (xhr.status === 200) {
             // let data = JSON.parse(`${xhr.responseText}`);
+            let data = xhr.responseText;
             appendMusic(data);
         }
     };
