@@ -88,8 +88,10 @@ async function animatedPlayMusic(
         const buttonCurrentPlayingMusic = currentPlayMusic[0];
         buttonCurrentPlayingMusic.classList.remove("playing");
         buttonCurrentPlayingMusic.innerHTML =
-            '<span class="play_no">' + nowPlayingIndex + "</span>";
-        visibleButtonPlay.setAttribute("style", "visibility: visible;");
+        '<span class="play_no">' + nowPlayingIndex + "</span>";
+        if (visibleButtonPlay !== undefined) {
+            visibleButtonPlay.setAttribute("style", "visibility: visible;");
+        }
 
         pauseMusic();
         isPlay = false;
