@@ -13,6 +13,7 @@ function loadMoreMusic(page) {
     xhr.open('GET', 'lazy.php?page=' + page, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
+            console.log(xhr.responseText);
             let data = JSON.parse(`${xhr.responseText}`);
             appendMusic(data);
         }
@@ -21,7 +22,7 @@ function loadMoreMusic(page) {
 }
 
 function appendMusic(music) {
-    const musicList = document.querySelector('.album_inner_list_padding');  // Ambil elemen dengan class 'album_inner_list_padding'
+    const musicList = document.querySelector('.album_inner_list_padding');
 
     music.forEach(function (item) {
         const musicItem = document.createElement('ul');
