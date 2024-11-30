@@ -59,6 +59,8 @@ async function animatedPlayMusic(
     musicData
 ) {
     countMusicNumber = countMusic;
+    const playingMusic = document.getElementsByClassName("play_no");
+    const buttonPlay = document.getElementsByClassName("flaticon-play-button");
     const currentPlayMusic = document.getElementsByClassName("playing");
 
     if (currentPlayMusic.length === 0) {
@@ -67,10 +69,28 @@ async function animatedPlayMusic(
 
     var linkDrive = await checkUrlFromDrive(linkGDrive);
 
+    console.log(linkDrive);
+
     setRecentsMusic(uid_music);
+
+    // button play visible and hidden
+    const hiddenButtonPlay = buttonPlay[index];
+    const visibleButtonPlay = buttonPlay[nowPlayingIndex - 1];
+
+    // check index of button play
+    const buttonPlayingMusic =
+        index + 1 <= nowPlayingIndex
+            ? playingMusic[index]
+            : playingMusic[index - 1];
 
     // Check if there is currently playing music
     if (currentPlayMusic.length > 0) {
+        const buttonCurrentPlayingMusic = currentPlayMusic[0];
+        buttonCurrentPlayingMusic.classList.remove("playing");
+        buttonCurrentPlayingMusic.innerHTML =
+            '<span class="play_no">' + nowPlayingIndex + "</span>";
+        visibleButtonPlay.setAttribute("style", "visibility: visible;");
+
         pauseMusic();
         isPlay = false;
 
@@ -86,6 +106,13 @@ async function animatedPlayMusic(
     }
 
     function letsGOParty(musicData) {
+        // change visibility of play button
+        hiddenButtonPlay.setAttribute("style", "visibility: hidden;");
+
+        buttonPlayingMusic.classList.remove("play_no");
+        buttonPlayingMusic.innerHTML =
+            '<div class="playing"> <span class="playing__bar playing__bar1"> </span> <span class="playing__bar playing__bar2"> </span> <span class="playing__bar playing__bar3"></span> </div>';
+
         nowPlayingIndex = index + 1;
         nowPlayingMusicProgressBar(musicData);
 
@@ -95,12 +122,9 @@ async function animatedPlayMusic(
 }
 
 async function nowPlayingMusicProgressBar(musicData) {
-
     if (typeof musicData === "string") {
         musicData = JSON.parse(`${musicData}`);
     }
-
-    console.log(musicData);
 
     const toCapitalize = (str) =>
         str.replace(
@@ -110,7 +134,6 @@ async function nowPlayingMusicProgressBar(musicData) {
 
     const title = musicData.title;
     const artist = musicData.artist;
-    console.log(musicData.cover);
     const cover = await checkUrlFromDrive(musicData.cover);
 
     document.getElementById("title").innerHTML = toCapitalize(title);
