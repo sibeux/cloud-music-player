@@ -100,7 +100,7 @@ async function nowPlayingMusicProgressBar(musicData) {
     const titleArray = document.getElementsByClassName("title_music");
     const artistArray = document.getElementsByClassName("artist_music");
     const coverArray = document.getElementsByClassName("cover_music");
-    
+
     const toCapitalize = (str) =>
         str.replace(
             /(^\w|\s\w)(\S*)/g,
@@ -151,6 +151,7 @@ function nextMusic(countMusic) {
     )
         .then((response) => response.json())
         .then((json) => {
+            console.log(json);
             let musicData = json[randomNumber];
             animatedPlayMusic(
                 musicData.id_music, // Access the correct property name
