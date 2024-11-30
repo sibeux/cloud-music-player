@@ -31,5 +31,4 @@ echo
     json_encode(
         $music_data,
         JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-
     );
