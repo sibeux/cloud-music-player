@@ -2225,6 +2225,8 @@ ul.tranding_more_option li a .opt_icon i:before {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	line-height: 1;
+	-webkit-line-clamp: 1;
+	line-clamp: 1;
 }
 
 .release_box_overlay .tranding_play_icon {
@@ -8591,6 +8593,7 @@ span.ovrly_text2 {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 1;
+	line-clamp: 1;
 	overflow: hidden;
 	text-transform: capitalize;
 }
