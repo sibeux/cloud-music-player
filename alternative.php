@@ -309,7 +309,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                     <div class="control-buttons">
                                         <i class="fas fa-random"></i>
                                         <i class="fas fa-step-backward"></i>
-                                        <i class="play-pause fas fa-play" id="play-icon" onclick="playPause()"></i>
+                                        <i class="play-pause fas fa-play" id="play-icon"></i>
                                         <i class="fas fa-step-forward" id="next-music"></i>
                                         <i class="fas fa-undo-alt"></i>
                                     </div>
