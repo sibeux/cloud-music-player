@@ -47,5 +47,6 @@ function compressImage($image_url){
     }
 
     // Ambil hasil gambar dalam buffer dan kembalikan
-    return ob_get_clean();
+    // return ob_get_clean();
+    return $image_url;
 }
