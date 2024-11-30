@@ -1,34 +1,119 @@
 <?php
 include "./database/db.php";
 // load_more_music.php
-$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 20;
 $offset = ($page - 1) * $limit;
 
 $sql_music = "SELECT * FROM music ORDER BY title ASC LIMIT $limit OFFSET $offset";
+$sql_count_music = "SELECT COUNT(*) as jumlah_music FROM music";
 $result_music = $db->query($sql_music);
+$result_count_music = $db->query($sql_count_music);
+
+$count_music = mysqli_fetch_array($result_count_music)['jumlah_music'];
+
+$number_music = $offset + 1;
 
 $music_data = [];
 while ($array_data_music = mysqli_fetch_array($result_music)) {
-    // Proses data seperti yang Anda lakukan sebelumnya
-    $data = [
-        'artist' => addslashes($array_data_music['artist']),
-        'category' => $array_data_music['category'],
-        'cover' => $array_data_music['cover'],
-        'date_added' => $array_data_music['date_added'],
-        'favorite' => $array_data_music['favorite'],
-        'id_music' => $array_data_music['id_music'],
-        'link_gdrive' => $array_data_music['link_gdrive'],
-        'time' => $array_data_music['time'],
-        'title' => addslashes($array_data_music['title']),
-    ];
+// Proses data seperti yang Anda lakukan sebelumnya
+    $link_drive = checkUrlFromDrive($array_data_music['link_gdrive'], $api_key);
+    $current_number_music = $number_music;
+    $id_music = $array_data_music['id_music'];
+    $category = $array_data_music['category'];
+    $title = $array_data_music['title'];
+    $artist = $array_data_music['artist'];
+    $favorite = $array_data_music['favorite'];
+    $album = $array_data_music['album'];
+    $time = $array_data_music['time'];
+    $date_added = $array_data_music['date_added'];
+    $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
+    
+$data = [
+'artist' => addslashes($array_data_music['artist']),
+'category' => $array_data_music['category'],
+'cover' => $array_data_music['cover'],
+'date_added' => $array_data_music['date_added'],
+'favorite' => $array_data_music['favorite'],
+'id_music' => $array_data_music['id_music'],
+'link_gdrive' => $array_data_music['link_gdrive'],
+'time' => $array_data_music['time'],
+'title' => addslashes($array_data_music['title']),
+];
 
-    $music_data[] = $data;
+$music_data[] = $data;
+
+    $list = htmlspecialchars(
+        json_encode(
+            $music_data,
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+        ),
+        ENT_QUOTES,
+        'UTF-8'
+    );
+
+    echo `<ul class="album_inner_list_padding">
+                                                <li style="cursor: pointer;"><a><span class="play_no">
+                                                            <?php echo $number_music; ?>
+</span>
+<span class="play_hover" onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,
+                                                            '<?php echo $link_drive ?>','<?php echo $count_music ?>', 
+                                                            '<?php echo $id_music ?>', '<?php echo $list ?>')"><i
+        class="flaticon-play-button"></i></span></a>
+</li>
+<li class="song_title_width">
+    <div class="top_song_artist_wrapper">
+
+        <img src="<?php echo $cover ?>" alt="img" class="cover_music">
+
+        <div class="top_song_artist_contnt">
+            <h1><a style="cursor: pointer;" class="title_music">
+                    <?php echo $title ?>
+                </a></h1>
+            <p class="various_artist_text"><a class="artist_music">
+                    <?php echo $artist ?>
+                </a>
+            </p>
+        </div>
+
+    </div>
+</li>
+<li class="song_title_width"><a class="album_music">
+        <?php echo $album ?>
+    </a>
+</li>
+<li class="text-center"><a class="time_music"><?php echo $time ?></a>
+</li>
+<li class="text-center favorite-text-center">
+    <?php
+                                                        // initiate variable $favorite
+                                                        $is_favorite = $favorite;
+                                                        if ($is_favorite == 1) { ?>
+    <i class="fas fa-heart" onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
+        style="color: #1fd660;"></i>
+    <?php } else { ?>
+    <i class="far fa-heart" onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
+        style="color: #fff;"></i>
+    <?php } ?>
+</li>
+<li class="text-center top_song_artist_playlist">
+    <div class="ms_tranding_more_icon">
+        <i class="flaticon-menu" style="color: white;"></i>
+    </div>
+    <ul class="tranding_more_option">
+        <li><a href="#"><span class="opt_icon"><i class="flaticon-playlist"></i></span>Add To
+                playlist</a>
+        </li>
+        <li><a href="#"><span class="opt_icon"><i class="flaticon-star"></i></span>favourite</a>
+        </li>
+        <li><a href="#"><span class="opt_icon"><i class="flaticon-share"></i></span>share</a></li>
+        <li><a href="#"><span class="opt_icon"><i class="flaticon-files-and-folders"></i></span>view
+                lyrics</a></li>
+        <li><a href="#"><span class="opt_icon"><i class="flaticon-trash"></i></span>delete</a>
+        </li>
+    </ul>
+</li>
+</ul>`;
 }
 
-header('Content-Type: application/json');
-echo
-    json_encode(
-        $music_data,
-        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-    );
+// header('Content-Type: application/json');
