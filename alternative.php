@@ -1,6 +1,10 @@
 <?php
 include "./database/db.php";
 
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Ambil halaman saat ini
+$limit = 20; // Tentukan jumlah data per halaman
+$offset = ($page - 1) * $limit; // Hitung offset berdasarkan halaman
+
 // initiate variable
 $id_music = 0;
 $title = "";
@@ -100,7 +104,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 <li class="text-center">More</li>
                                             </ul>
                                             <?php
-                                            $sql_music = "SELECT * FROM music ORDER BY title ASC";
+                                            $sql_music = "SELECT * FROM music ORDER BY title ASC LIMIT $limit OFFSET $offset";
                                             $sql_count_music = "SELECT COUNT(*) as jumlah_music FROM music";
                                             
                                             $result_music = $db->query($sql_music);
@@ -344,6 +348,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
     <script src="js/mp3/player.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/alternative-bar.js"></script>
+    <script src="js/lazy.js"></script>
     <!-- custom js-->
 
 </body>
