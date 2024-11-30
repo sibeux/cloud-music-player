@@ -231,8 +231,8 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                 </div>
                             </div>
                         </div>
+                        <button id="load-more-btn">Load More</button>
                     </div>
-                    <button id="load-more-btn">Load More</button>
                 </div>
             </div>
         </div>
