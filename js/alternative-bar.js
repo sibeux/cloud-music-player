@@ -271,7 +271,6 @@ playIcon.addEventListener("click", () => {
 
 async function setRecentsMusic(id) {
     const url = `https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/recents_music?_id=${id}`;
-    console.log(id);
 
     try {
         const response = await fetch(url, {
