@@ -125,25 +125,25 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 if ($array_data_music['link_spotify'] == null) {
 
                                                     // cut string title if too long
-                                                    if (strlen($array_data_music['title']) > 25) {
-                                                        $title = substr($array_data_music['title'], 0, 25) . "...";
-                                                    } else {
-                                                        $title = $array_data_music['title'];
-                                                    }
+                                                    // if (strlen($array_data_music['title']) > 25) {
+                                                    //     $title = substr($array_data_music['title'], 0, 25) . "...";
+                                                    // } else {
+                                                    //     $title = $array_data_music['title'];
+                                                    // }
 
                                                     // cut string artist if too long
-                                                    if (strlen($array_data_music['artist']) > 35) {
-                                                        $artist = substr($array_data_music['artist'], 0, 35) . "...";
-                                                    } else {
-                                                        $artist = $array_data_music['artist'];
-                                                    }
+                                                    // if (strlen($array_data_music['artist']) > 35) {
+                                                    //     $artist = substr($array_data_music['artist'], 0, 35) . "...";
+                                                    // } else {
+                                                    //     $artist = $array_data_music['artist'];
+                                                    // }
 
                                                     // cut string album if too long
-                                                    if (strlen($array_data_music['album']) > 80) {
-                                                        $album = substr($array_data_music['album'], 0, 80) . "...";
-                                                    } else {
-                                                        $album = $array_data_music['album'];
-                                                    }
+                                                    // if (strlen($array_data_music['album']) > 80) {
+                                                    //     $album = substr($array_data_music['album'], 0, 80) . "...";
+                                                    // } else {
+                                                    //     $album = $array_data_music['album'];
+                                                    // }
 
                                                     $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
                                                     $time = $array_data_music['time'];
