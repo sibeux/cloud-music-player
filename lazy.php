@@ -1,5 +1,34 @@
 <?php
 include "./database/db.php";
+// URL API
+$url = "https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php";
+
+// Ambil data API
+$response = file_get_contents($url);
+
+// Cek apakah response berhasil diambil
+if ($response === FALSE) {
+    die('Error occurred while accessing the API.');
+}
+
+// Ubah JSON menjadi array PHP
+$data = json_decode($response, true);
+
+$api_key = $data[0]['gdrive_api'];
+
+// Tampilkan hasil
+// print_r($data);
+
+function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
+{
+    if (strpos($url_db, "drive.google.com") !== false) {
+        preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
+        return "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key}";
+    } else {
+        return $url_db;
+    }
+
+}
 // load_more_music.php
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $limit = 20;
