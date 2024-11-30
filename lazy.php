@@ -1,4 +1,5 @@
 <?php
+include "./database/db.php";
 // load_more_music.php
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 20;
