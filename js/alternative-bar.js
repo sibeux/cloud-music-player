@@ -98,6 +98,8 @@ async function animatedPlayMusic(
 
 async function nowPlayingMusicProgressBar(musicData) {
 
+    console.log(musicData);
+
     const toCapitalize = (str) =>
         str.replace(
             /(^\w|\s\w)(\S*)/g,
@@ -149,7 +151,6 @@ function nextMusic(countMusic) {
         .then((response) => response.json())
         .then((json) => {
             let musicData = json[randomNumber];
-            console.log(musicData);
             animatedPlayMusic(
                 musicData.id_music, // Access the correct property name
                 musicData.link_gdrive, // Use the correct link property from your API
