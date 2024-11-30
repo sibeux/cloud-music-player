@@ -107,7 +107,7 @@ async function animatedPlayMusic(
 
     function letsGOParty(musicData) {
         // change visibility of play button
-        hiddenButtonPlay.setAttribute("style", "visibility: hidden;");
+        // hiddenButtonPlay.setAttribute("style", "visibility: hidden;");
 
         buttonPlayingMusic.classList.remove("play_no");
         buttonPlayingMusic.innerHTML =
