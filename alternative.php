@@ -129,8 +129,8 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 $date_added = $array_data_music['date_added'];
                                                 $image_url = checkUrlFromDrive($array_data_music['cover'], $api_key);
 
-                                                // $cover = compressImage($image_url, 100, 100);
-                                                $cover = $image_url;
+                                                $cover = compressImage($image_url);
+                                                // $cover = $image_url;
 
                                                 $data = [
                                                     'artist' => addslashes($artist),

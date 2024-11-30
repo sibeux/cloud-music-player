@@ -55,7 +55,7 @@ while ($array_data_music = mysqli_fetch_array($result_music)) {
     $date_added = $array_data_music['date_added'];
     $url_image = checkUrlFromDrive($array_data_music['cover'], $api_key);
 
-    $cover = compressImage($url_image, 100, 100);
+    $cover = compressImage($url_image);
     
     $data = [
         'artist' => addslashes($array_data_music['artist']),
