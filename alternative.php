@@ -123,8 +123,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
 
                                                 $data = [
-                                                    'album' => $album,
-                                                    'artist' => $artist,
+                                                    'artist' => addslashes($artist),
                                                     'category' => $category,
                                                     'cover' => $cover,
                                                     'date_added' => $date_added,
@@ -132,7 +131,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                     'id_music' => $id_music,
                                                     'link_gdrive' => $link_drive,
                                                     'time' => $time,
-                                                    'title' => $title
+                                                    'title' => addslashes($title)
                                                 ];
 
                                                 $music_data = htmlspecialchars(
