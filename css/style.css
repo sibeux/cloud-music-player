@@ -2217,18 +2217,6 @@ ul.tranding_more_option li a .opt_icon i:before {
 	text-transform: capitalize !important;
 }
 
-/* .top_song_artist_contnt h1 a.title_music,
-.top_song_artist_contnt p.various_artist_text a.artist_music {
-	display: inline-block;
-	max-width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	line-height: 1;
-	-webkit-line-clamp: 1;
-	line-clamp: 1;
-} */
-
 .release_box_overlay .tranding_play_icon {
 	top: 40%;
 }
@@ -2772,6 +2760,7 @@ ul.tranding_more_option li a .opt_icon i:before {
 	color: #fff;
 	border: 5px solid #fff;
 	-webkit-border-radius: 100%;
+	border-radius: 100%;
 	-moz-border-radius: 100%;
 	border-radius: 100%;
 }
@@ -5454,6 +5443,11 @@ body.off-canvas-overlay-on {
 	font-size: 18px;
 	margin-bottom: 5px;
 	font-weight: 400;
+	display: -webkit-box !important;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	line-clamp: 1;
+	overflow: hidden;
 }
 
 .song_title_width {
