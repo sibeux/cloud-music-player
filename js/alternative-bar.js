@@ -35,8 +35,6 @@ function checkUrlFromDrive(urlDb) {
         .then((response) => response.json())
         .then((apiData) => {
             const gdriveApiKey = apiData[0].gdrive_api;
-            
-            console.log(urlDb);
 
             if (urlDb.includes("drive.google.com")) {
                 const matches = urlDb.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -110,6 +108,7 @@ async function nowPlayingMusicProgressBar(musicData) {
 
     const title = musicData.title;
     const artist = musicData.artist;
+    console.log(musicData.cover);
     const cover = await checkUrlFromDrive(musicData.cover);
 
     document.getElementById("title").innerHTML = toCapitalize(title);
