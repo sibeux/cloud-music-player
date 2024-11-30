@@ -35,5 +35,6 @@ function loadMoreMusic(page) {
 }
 
 function appendMusic(music) {
-    $(".album_list_wrapper album_list_wrapper_shop").append(music);
+    var element = document.getElementsByClassName("album_list_wrapper album_list_wrapper_shop");
+    element.innerHTML = music;
 }
