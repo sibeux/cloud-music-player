@@ -1,5 +1,6 @@
 <?php
 include "./database/db.php";
+include "./func.php";
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Ambil halaman saat ini
 $limit = 100; // Tentukan jumlah data per halaman
@@ -126,7 +127,9 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 $album = $array_data_music['album'];
                                                 $time = $array_data_music['time'];
                                                 $date_added = $array_data_music['date_added'];
-                                                $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
+                                                $image_url = checkUrlFromDrive($array_data_music['cover'], $api_key);
+
+                                                $cover = compressImage($image_url, 100, 100);
 
                                                 $data = [
                                                     'artist' => addslashes($artist),
