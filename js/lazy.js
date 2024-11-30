@@ -9,7 +9,6 @@ window.addEventListener("scroll", function () {
         currentPage++;
         loadMoreMusic(currentPage)
         isFetching = false; // Reset setelah data selesai dimuat
-
     }
 });
 
