@@ -2217,7 +2217,7 @@ ul.tranding_more_option li a .opt_icon i:before {
 	text-transform: capitalize !important;
 }
 
-.top_song_artist_contnt h1 a.title_music,
+/* .top_song_artist_contnt h1 a.title_music,
 .top_song_artist_contnt p.various_artist_text a.artist_music {
 	display: inline-block;
 	max-width: 100%;
@@ -2227,7 +2227,7 @@ ul.tranding_more_option li a .opt_icon i:before {
 	line-height: 1;
 	-webkit-line-clamp: 1;
 	line-clamp: 1;
-}
+} */
 
 .release_box_overlay .tranding_play_icon {
 	top: 40%;
@@ -2250,40 +2250,6 @@ ul.tranding_more_option li a .opt_icon i:before {
 	-o-transition: all 0.3s ease 0s;
 	transition: all 0.3s ease 0s;
 }
-
-/*  */
-.top_song_artist_wrapper {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	/* Spasi antara gambar dan teks */
-}
-
-.cover_music {
-	width: 50px;
-	/* Sesuaikan ukuran gambar */
-	height: 50px;
-	object-fit: cover;
-	border-radius: 4px;
-}
-
-.top_song_artist_contnt {
-	flex: 1;
-	/* Agar teks mengisi sisa ruang */
-	overflow: hidden;
-}
-
-.title_music,
-.artist_music {
-	display: inline-block;
-	max-width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	vertical-align: middle;
-}
-
-/*  */
 
 .pd1 {
 	margin-bottom: 30px;
@@ -2525,8 +2491,15 @@ ul.tranding_more_option li a .opt_icon i:before {
 }
 
 .various_artist_text a {
-	display: inline-block !important;
+	/* display: inline-block !important; */
 	padding-right: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box !important;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	line-clamp: 1;
+	overflow: hidden;
 }
 
 .release_box_main_content .various_artist_text a {
@@ -5499,8 +5472,6 @@ body.off-canvas-overlay-on {
 	font-weight: 300 !important;
 	font-size: 14px !important;
 	color: #797979 !important;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .album_list_wrapper>ul>li:last-child {
