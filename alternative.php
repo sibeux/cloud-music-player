@@ -135,8 +135,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                     'title' => $title
                                                 ];
 
-                                                $music_data = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-
+                                                $music_data = htmlspecialchars(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
 
                                                 ?>
                                             <ul class="album_inner_list_padding">
