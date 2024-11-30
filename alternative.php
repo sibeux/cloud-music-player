@@ -138,7 +138,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 $music_data = htmlspecialchars(
                                                     json_encode(
                                                         $data,
-                                                        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
+                                                        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
                                                     ),
                                                     ENT_QUOTES,
                                                     'UTF-8'
