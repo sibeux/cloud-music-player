@@ -98,7 +98,7 @@ async function animatedPlayMusic(
 
 async function nowPlayingMusicProgressBar(musicData) {
 
-    // console.log(musicData);
+    console.log(musicData);
 
     const toCapitalize = (str) =>
         str.replace(
