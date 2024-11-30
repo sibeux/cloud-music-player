@@ -108,7 +108,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 
                                             $number_music = 1;
 
-                                            while ($array_data_music = mysqli_fetch_array($result_music) and $number_music <= 3) {
+                                            while ($array_data_music = mysqli_fetch_array($result_music) and $number_music <= 100) {
 
                                                 $link_drive = checkUrlFromDrive($array_data_music['link_gdrive'], $api_key);
                                                 $current_number_music = $number_music;
