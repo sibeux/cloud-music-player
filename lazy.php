@@ -29,7 +29,7 @@ while ($array_data_music = mysqli_fetch_array($result_music)) {
     $time = $array_data_music['time'];
     $date_added = $array_data_music['date_added'];
     $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
-
+    
     $data = [
         'artist' => addslashes($array_data_music['artist']),
         'category' => $array_data_music['category'],
@@ -42,55 +42,7 @@ while ($array_data_music = mysqli_fetch_array($result_music)) {
         'title' => addslashes($array_data_music['title']),
     ];
 
-    $music_data = htmlspecialchars(
-        json_encode(
-            $data,
-            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-        ),
-        ENT_QUOTES,
-        'UTF-8'
-    );
-
-    echo '<ul class="album_inner_list_padding">
-    <li style="cursor: pointer;">
-        <a><span class="play_no">' . $number_music . '</span>
-        <span class="play_hover" onclick="animatedPlayMusic(' . ($number_music - 1) . ',\'' . $link_drive . '\',\'' . $count_music . '\', \'' . $id_music . '\', \'' . $music_data . '\')">
-            <i class="flaticon-play-button"></i>
-        </span></a>
-    </li>
-    <li class="song_title_width">
-        <div class="top_song_artist_wrapper">
-            <img src="' . $cover . '" alt="img" class="cover_music">
-            <div class="top_song_artist_contnt">
-                <h1><a style="cursor: pointer;" class="title_music">' . $title . '</a></h1>
-                <p class="various_artist_text"><a class="artist_music">' . $artist . '</a></p>
-            </div>
-        </div>
-    </li>
-    <li class="song_title_width"><a class="album_music">' . $album . '</a></li>
-    <li class="text-center"><a class="time_music">' . $time . '</a></li>
-    <li class="text-center favorite-text-center">';
-
-    if ($favorite == 1) {
-        echo '<i class="fas fa-heart" onclick="changeFavoriteButton(' . ($current_number_music - 1) . ')" style="color: #1fd660;"></i>';
-    } else {
-        echo '<i class="far fa-heart" onclick="changeFavoriteButton(' . ($current_number_music - 1) . ')" style="color: #fff;"></i>';
-    }
-
-    echo '</li>
-    <li class="text-center top_song_artist_playlist">
-        <div class="ms_tranding_more_icon">
-            <i class="flaticon-menu" style="color: white;"></i>
-        </div>
-        <ul class="tranding_more_option">
-            <li><a href="#"><span class="opt_icon"><i class="flaticon-playlist"></i></span>Add To playlist</a></li>
-            <li><a href="#"><span class="opt_icon"><i class="flaticon-star"></i></span>favourite</a></li>
-            <li><a href="#"><span class="opt_icon"><i class="flaticon-share"></i></span>share</a></li>
-            <li><a href="#"><span class="opt_icon"><i class="flaticon-files-and-folders"></i></span>view lyrics</a></li>
-            <li><a href="#"><span class="opt_icon"><i class="flaticon-trash"></i></span>delete</a></li>
-        </ul>
-    </li>
-</ul>';
+    $music_data[] = $data;
 }
 
 header('Content-Type: application/json');
