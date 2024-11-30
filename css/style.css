@@ -2251,14 +2251,38 @@ ul.tranding_more_option li a .opt_icon i:before {
 	transition: all 0.3s ease 0s;
 }
 
-.release_box_main_content:hover p a,
-.release_box_main_content:hover .various_artist_text a {
-	color: #fff !important;
-	-webkit-transition: all 0.3s ease 0s;
-	-moz-transition: all 0.3s ease 0s;
-	-o-transition: all 0.3s ease 0s;
-	transition: all 0.3s ease 0s;
+/*  */
+.top_song_artist_wrapper {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	/* Spasi antara gambar dan teks */
 }
+
+.cover_music {
+	width: 50px;
+	/* Sesuaikan ukuran gambar */
+	height: 50px;
+	object-fit: cover;
+	border-radius: 4px;
+}
+
+.top_song_artist_contnt {
+	flex: 1;
+	/* Agar teks mengisi sisa ruang */
+	overflow: hidden;
+}
+
+.title_music,
+.artist_music {
+	display: inline-block;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+}
+/*  */
 
 .pd1 {
 	margin-bottom: 30px;
@@ -5474,6 +5498,8 @@ body.off-canvas-overlay-on {
 	font-weight: 300 !important;
 	font-size: 14px !important;
 	color: #797979 !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .album_list_wrapper>ul>li:last-child {
