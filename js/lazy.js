@@ -15,8 +15,8 @@ function loadMoreMusic(page) {
     xhr.open('GET', 'lazy.php?page=' + page, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            // let data = JSON.parse(`${xhr.responseText}`);
-            // appendMusic(data);
+            let data = JSON.parse(`${xhr.responseText}`);
+            appendMusic(data);
         }
     };
     xhr.send();
