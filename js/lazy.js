@@ -5,7 +5,8 @@ window.addEventListener('scroll', function () {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollPosition = window.innerHeight + window.scrollY;
     if (scrollHeight - scrollPosition <= 200) { // jika dekat dengan bawah
-        loadMoreData();
+        currentPage++;
+        loadMoreMusic(currentPage);
     }
 });
 
