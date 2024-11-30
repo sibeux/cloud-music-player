@@ -97,7 +97,7 @@ async function animatedPlayMusic(
 async function nowPlayingMusicProgressBar(musicData) {
 
     if (typeof musicData === "string") {
-        musicData = JSON.parse(musicData);
+        musicData = JSON.parse(`${musicData}`);
     }
 
     console.log(musicData);
