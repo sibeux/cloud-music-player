@@ -1,19 +1,19 @@
 let currentPage = 1;
 const limit = 10;  // Musik per halaman
 
-window.onscroll = function () {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        currentPage++;
-        loadMoreMusic(currentPage);
+window.addEventListener('scroll', function () {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollPosition = window.innerHeight + window.scrollY;
+    if (scrollHeight - scrollPosition <= 200) { // jika dekat dengan bawah
+        loadMoreData();
     }
-};
+});
 
 function loadMoreMusic(page) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'lazy.php?page=' + page, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            console.log(xhr.responseText);
             let data = JSON.parse(`${xhr.responseText}`);
             appendMusic(data);
         }
