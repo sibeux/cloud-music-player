@@ -15,7 +15,7 @@ function loadMoreMusic(page) {
     xhr.open('GET', 'lazy.php?page=' + page, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            let data = JSON.parse(`${xhr.responseText}`);
+            // let data = JSON.parse(`${xhr.responseText}`);
             appendMusic(data);
         }
     };
@@ -34,9 +34,5 @@ function loadMoreMusic(page) {
 }
 
 function appendMusic(music) {
-    
-
-    music.forEach(function (item) {
-        
-    });
+    $(".album_list_wrapper album_list_wrapper_shop").append(music);
 }
