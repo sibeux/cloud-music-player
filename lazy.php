@@ -1,5 +1,6 @@
 <?php
 include "./database/db.php";
+include "./func.php";
 // URL API
 $url = "https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php";
 
@@ -30,7 +31,7 @@ $limit = 100;
 $offset = ($page - 1) * $limit;
 
 $sql_music = "SELECT * FROM music ORDER BY title ASC LIMIT $limit OFFSET $offset";
-$sql_count_music = "SELECT COUNT(*) FROM music";
+$sql_count_music = "SELECT COUNT(*) as jumlah_music FROM music";
 
 $result_music = $db->query($sql_music);
 $result_count_music = $db->query($sql_count_music);
@@ -52,7 +53,9 @@ while ($array_data_music = mysqli_fetch_array($result_music)) {
     $album = $array_data_music['album'];
     $time = $array_data_music['time'];
     $date_added = $array_data_music['date_added'];
-    $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
+    $url_image = checkUrlFromDrive($array_data_music['cover'], $api_key);
+
+    $cover = compressImage($url_image, 100, 100);
     
     $data = [
         'artist' => addslashes($array_data_music['artist']),
@@ -115,6 +118,7 @@ while ($array_data_music = mysqli_fetch_array($result_music)) {
         </ul>
     </li>
 </ul>';
+$number_music++;
 }
 
 // header('Content-Type: application/json');
