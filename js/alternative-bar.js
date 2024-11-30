@@ -109,9 +109,9 @@ async function animatedPlayMusic(
         // change visibility of play button
         // hiddenButtonPlay.setAttribute("style", "visibility: hidden;");
 
-        buttonPlayingMusic.classList.remove("play_no");
-        buttonPlayingMusic.innerHTML =
-            '<div class="playing"> <span class="playing__bar playing__bar1"> </span> <span class="playing__bar playing__bar2"> </span> <span class="playing__bar playing__bar3"></span> </div>';
+        // buttonPlayingMusic.classList.remove("play_no");
+        // buttonPlayingMusic.innerHTML =
+        //     '<div class="playing"> <span class="playing__bar playing__bar1"> </span> <span class="playing__bar playing__bar2"> </span> <span class="playing__bar playing__bar3"></span> </div>';
 
         nowPlayingIndex = index + 1;
         nowPlayingMusicProgressBar(musicData);
