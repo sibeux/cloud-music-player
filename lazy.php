@@ -26,6 +26,7 @@ $data = [
 $music_data[] = $data;
 }
 
+header('Content-Type: application/json');
 echo htmlspecialchars(
     json_encode(
         $music_data,
