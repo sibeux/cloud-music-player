@@ -13,12 +13,12 @@ window.addEventListener('scroll', function () {
 function loadMoreMusic(page) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'lazy.php?page=' + page, true);
-    // xhr.onload = function () {
-    //     if (xhr.status === 200) {
-    //         let data = JSON.parse(`${xhr.responseText}`);
-    //         appendMusic(data);
-    //     }
-    // };
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // let data = JSON.parse(`${xhr.responseText}`);
+            // appendMusic(data);
+        }
+    };
     xhr.send();
 }
 
