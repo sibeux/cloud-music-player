@@ -97,9 +97,6 @@ async function animatedPlayMusic(
 }
 
 async function nowPlayingMusicProgressBar(musicData) {
-    const titleArray = document.getElementsByClassName("title_music");
-    const artistArray = document.getElementsByClassName("artist_music");
-    const coverArray = document.getElementsByClassName("cover_music");
 
     const toCapitalize = (str) =>
         str.replace(

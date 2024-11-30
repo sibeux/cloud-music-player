@@ -121,6 +121,21 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 $time = $array_data_music['time'];
                                                 $date_added = $array_data_music['date_added'];
                                                 $cover = checkUrlFromDrive($array_data_music['cover'], $api_key);
+
+                                                $data = [
+                                                    'album' => $album,
+                                                    'artist' => $artist,
+                                                    'category' => $category,
+                                                    'cover' => $cover,
+                                                    'date_added' => $date_added,
+                                                    'favorite' => $favorite,
+                                                    'id_music' => $id_music,
+                                                    'link_gdrive' => $link_drive,
+                                                    'time' => $time,
+                                                    'title' => $title,
+                                                ];
+
+                                                $music_data = json_encode($data);
                                                 
                                                 ?>
                                             <ul class="album_inner_list_padding">
@@ -129,7 +144,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                         </span>
                                                         <span class="play_hover" onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,
                                                             '<?php echo $link_drive ?>','<?php echo $count_music ?>', 
-                                                            '<?php echo $id_music ?>')"><i
+                                                            '<?php echo $id_music ?>', '<?php echo $music_data ?>')"><i
                                                                 class="flaticon-play-button"></i></span></a>
                                                 </li>
                                                 <li class="song_title_width">
