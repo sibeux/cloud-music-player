@@ -1,4 +1,5 @@
 let currentPage = 1;
+let isFetching = false;
 
 window.addEventListener("scroll", function () {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -6,7 +7,6 @@ window.addEventListener("scroll", function () {
     if (scrollHeight - scrollPosition <= 20 && !isFetching) {
         isFetching = true; // Set flag untuk mencegah panggilan berulang
         currentPage++;
-        console.log(currentPage);
         loadMoreMusic(currentPage).then(() => {
             isFetching = false; // Reset setelah data selesai dimuat
         });
