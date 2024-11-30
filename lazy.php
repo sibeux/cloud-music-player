@@ -6,7 +6,14 @@ $limit = 20;
 $offset = ($page - 1) * $limit;
 
 $sql_music = "SELECT * FROM music ORDER BY title ASC LIMIT $limit OFFSET $offset";
+$sql_count_music = "SELECT COUNT(*) FROM music";
+
 $result_music = $db->query($sql_music);
+$result_count_music = $db->query($sql_count_music);
+
+$count_music = mysqli_fetch_array($result_count_music)['jumlah_music'];
+
+$number_music = 1;
 
 $music_data = [];
 while ($array_data_music = mysqli_fetch_array($result_music)) {
