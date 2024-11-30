@@ -7,9 +7,9 @@ window.addEventListener("scroll", function () {
     if (scrollHeight - scrollPosition <= 20 && !isFetching) {
         isFetching = true; // Set flag untuk mencegah panggilan berulang
         currentPage++;
-        loadMoreMusic(currentPage).then(() => {
-            isFetching = false; // Reset setelah data selesai dimuat
-        });
+        loadMoreMusic(currentPage)
+        isFetching = false; // Reset setelah data selesai dimuat
+
     }
 });
 
