@@ -446,6 +446,7 @@ a:hover {
 	opacity: 0;
 	top: 100%;
 	border-radius: 10px;
+	filter: alpha(opacity=0);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 	visibility: hidden;
 	transform-origin: top;
@@ -460,6 +461,7 @@ a:hover {
 .mainmenu ul li:hover>ul,
 .mainmenu ul li:hover>.mega-menu {
 	opacity: 1;
+	filter: alpha(opacity=100);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 	visibility: visible;
 	top: 100%;
@@ -2222,6 +2224,7 @@ ul.tranding_more_option li a .opt_icon i:before {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	line-height: 1;
 }
 
 .release_box_overlay .tranding_play_icon {
