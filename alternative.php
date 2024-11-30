@@ -132,7 +132,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                     'id_music' => $id_music,
                                                     'link_gdrive' => $link_drive,
                                                     'time' => $time,
-                                                    'title' => $title,
+                                                    'title' => $title
                                                 ];
 
                                                 $music_data = json_encode($data);
@@ -144,7 +144,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                         </span>
                                                         <span class="play_hover" onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,
                                                             '<?php echo $link_drive ?>','<?php echo $count_music ?>', 
-                                                            '<?php echo $id_music ?>', '<?php echo $music_data ?>')"><i
+                                                            '<?php echo $id_music ?>')"><i
                                                                 class="flaticon-play-button"></i></span></a>
                                                 </li>
                                                 <li class="song_title_width">
