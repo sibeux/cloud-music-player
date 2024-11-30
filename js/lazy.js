@@ -1,4 +1,10 @@
 let currentPage = 1;
+const loadMoreButton = document.getElementById('load-more-btn');
+
+loadMoreButton.addEventListener('click', function () {
+    currentPage++;
+    loadMoreMusic(currentPage);
+});
 
 // window.addEventListener('scroll', function () {
 //     const scrollHeight = document.documentElement.scrollHeight;
