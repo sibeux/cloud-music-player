@@ -2215,6 +2215,15 @@ ul.tranding_more_option li a .opt_icon i:before {
 	text-transform: capitalize !important;
 }
 
+.top_song_artist_contnt h1 a.title_music,
+.top_song_artist_contnt p.various_artist_text a.artist_music {
+	display: inline-block;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .release_box_overlay .tranding_play_icon {
 	top: 40%;
 }
