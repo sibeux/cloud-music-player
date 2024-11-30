@@ -151,8 +151,8 @@ function nextMusic(countMusic) {
     )
         .then((response) => response.json())
         .then((json) => {
-            console.log(json);
             let musicData = json[randomNumber];
+            console.log(musicData);
             animatedPlayMusic(
                 musicData.id_music, // Access the correct property name
                 musicData.link_gdrive, // Use the correct link property from your API
