@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 26, 2024 at 12:21 AM
--- Server version: 10.6.19-MariaDB-cll-lve
--- PHP Version: 8.3.13
+-- Generation Time: Feb 01, 2025 at 02:49 AM
+-- Server version: 10.6.20-MariaDB-cll-lve
+-- PHP Version: 8.3.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,54 @@ SET time_zone = "+00:00";
 --
 -- Database: `sibe5579_sihalal`
 --
+
+DELIMITER $$
+--
+-- Functions
+--
+CREATE DEFINER=`sibe5579`@`localhost` FUNCTION `Levenshtein` (`str1` VARCHAR(255), `str2` VARCHAR(255)) RETURNS INT(11) DETERMINISTIC BEGIN
+    DECLARE len1 INT DEFAULT LENGTH(str1);
+    DECLARE len2 INT DEFAULT LENGTH(str2);
+    DECLARE i INT;
+    DECLARE j INT;
+    DECLARE cost INT;
+    DECLARE prev_row TEXT;
+    DECLARE curr_row TEXT;
+    DECLARE temp_row TEXT;
+    DECLARE res INT;
+
+    -- Initialize the first row (0, 1, 2, ..., len2)
+    SET prev_row = '';
+    SET i = 0;
+    WHILE i <= len2 DO
+        SET prev_row = CONCAT(prev_row, ',', i);
+        SET i = i + 1;
+    END WHILE;
+
+    -- Iterate over each character of str1
+    SET i = 1;
+    WHILE i <= len1 DO
+        SET curr_row = i; -- First column in the current row
+        SET j = 1;
+        WHILE j <= len2 DO
+            SET cost = IF(SUBSTRING(str1, i, 1) = SUBSTRING(str2, j, 1), 0, 1);
+            SET curr_row = CONCAT(curr_row, ',', LEAST(
+                SUBSTRING_INDEX(prev_row, ',', j) + 1,    -- Deletion
+                SUBSTRING_INDEX(curr_row, ',', -1) + 1,  -- Insertion
+                SUBSTRING_INDEX(prev_row, ',', j - 1) + cost -- Substitution
+            ));
+            SET j = j + 1;
+        END WHILE;
+        SET prev_row = curr_row;
+        SET i = i + 1;
+    END WHILE;
+
+    -- Get the last value in the last row
+    SET res = SUBSTRING_INDEX(curr_row, ',', -1);
+    RETURN res;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -51,9 +99,12 @@ CREATE TABLE `alamat` (
 
 INSERT INTO `alamat` (`id_alamat`, `id_user`, `nama_penerima`, `nomor_penerima`, `label_alamat`, `provinsi`, `id_provinsi`, `kota`, `id_kota`, `kode_pos`, `detail_alamat`, `jalan_alamat`, `pinpoint_alamat`, `is_utama`, `is_toko`) VALUES
 (39, 23, 'awas', '0812121221', 'office', 'Jawa Timur', 11, 'Kab. Jember', 127, '68113', 'Jawa Timur\nKab. Jember\n68113', '123', 'LatLng(-8.164723199437482, 113.68636585772038)', 'false', 'false'),
-(41, 23, 'Bagas', '0896513621235', 'office', 'DKI Jakarta', 6, 'Kota Jakarta Selatan', 127, '12230', 'DKI Jakarta\nKota Jakarta Selatan\n12230', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan', 'LatLng(-8.124360517876784, 113.73067561537027)', 'true', 'true'),
-(49, 28, 'Akmal Satria Kadhafi', '0895412225866', 'office', 'Jawa Timur', 11, 'Kab. Blitar', 74, '66171', 'Jawa Timur\nKab. Blitar\n66171', 'Jl. Mawar', 'LatLng(-8.021683661842639, 112.00679272413254)', 'true', 'true'),
-(50, 29, 'Chandra Bintang Wijaya', '0895486952366', 'primary', 'Jawa Timur', 11, 'Kota Surabaya', 127, '60119', 'Jawa Timur\nKota Surabaya\n60119', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234', 'LatLng(-8.01230899518247, 112.00445953756571)', 'true', 'true');
+(41, 23, 'Bagas', '08965136212366', 'office', 'DKI Jakarta', 6, 'Kota Jakarta Selatan', 127, '12230', 'DKI Jakarta\nKota Jakarta Selatan\n12230', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan', 'LatLng(-8.124360517876784, 113.73067561537027)', 'false', 'false'),
+(49, 28, 'Brian Tan William', '0895412225866', 'office', 'Jawa Timur', 11, 'Kab. Blitar', 74, '66171', 'Jawa Timur\nKab. Blitar\n66171', 'Jl. Mawar', 'LatLng(-8.021683661842639, 112.00679272413254)', 'true', 'true'),
+(50, 29, 'Chandra Bintang Wijaya', '0895486952366', 'primary', 'Jawa Timur', 11, 'Kota Surabaya', 127, '60119', 'Jawa Timur\nKota Surabaya\n60119', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234', 'LatLng(-8.01230899518247, 112.00445953756571)', 'true', 'true'),
+(51, 32, 'jafar', '089509233166', 'primary', 'Jawa Timur', 11, 'Kab. Blitar', 74, '66171', 'Jawa Timur\nKab. Blitar\n66171', 'tunjung', 'LatLng(-8.0216685, 112.006783)', 'true', 'true'),
+(52, 23, 'Yosi', '08956325685', 'office', 'Bangka Belitung', 2, 'Kab. Bangka Tengah', 30, '33613', 'Bangka Belitung\nKab. Bangka Tengah\n33613', 'Jl. mawar', 'LatLng(-8.176895624876492, 113.72011844068766)', 'false', 'false'),
+(53, 23, 'M Nasrul Wahabi', '08954286889', 'office', 'DKI Jakarta', 6, 'Kota Jakarta Timur', 127, '13330', 'DKI Jakarta\nKota Jakarta Timur\n13330', 'Jl. mawar', 'LatLng(-8.163113257368407, 113.72729703783989)', 'true', 'true');
 
 -- --------------------------------------------------------
 
@@ -64,10 +115,50 @@ INSERT INTO `alamat` (`id_alamat`, `id_user`, `nama_penerima`, `nomor_penerima`,
 CREATE TABLE `favorite` (
   `id_favorite` int(5) NOT NULL,
   `id_produk` int(5) NOT NULL,
-  `id_user` mediumint(5) NOT NULL,
-  `id_pesanan` int(11) NOT NULL,
-  `tanggal_favorite` timestamp NOT NULL DEFAULT current_timestamp()
+  `id_user` mediumint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `favorite`
+--
+
+INSERT INTO `favorite` (`id_favorite`, `id_produk`, `id_user`) VALUES
+(34, 53, 28),
+(35, 48, 28),
+(36, 75, 23),
+(40, 47, 28),
+(41, 50, 28),
+(43, 73, 28),
+(51, 90, 28),
+(52, 91, 28),
+(54, 88, 23),
+(57, 90, 23);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `keranjang`
+--
+
+CREATE TABLE `keranjang` (
+  `id_keranjang` int(11) NOT NULL,
+  `id_user` mediumint(11) NOT NULL,
+  `id_produk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `keranjang`
+--
+
+INSERT INTO `keranjang` (`id_keranjang`, `id_user`, `id_produk`) VALUES
+(106, 28, 89),
+(107, 28, 88),
+(108, 28, 87),
+(110, 28, 84),
+(111, 28, 86),
+(112, 28, 83),
+(122, 23, 88),
+(125, 23, 91);
 
 -- --------------------------------------------------------
 
@@ -114,7 +205,31 @@ INSERT INTO `pesanan` (`id_pesanan`, `no_pesanan`, `id_user`, `id_produk`, `juml
 (34, 'SHL/20241124/2372/17085642be', 23, 72, 2, 'pos', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 62000, 20000, 82000, '2024-11-24 17:08:56.514818', 'ulas'),
 (35, 'SHL/20241124/2972/204756ae7e', 29, 72, 3, 'jnt', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jalan Gatot Subroto No. Kav. 52-53, Kelurahan Kuningan Timur, Kecamatan Setiabudi, Jakarta Selatan, DKI Jakarta, 12950, Kota Jakarta Selatan, DKI Jakarta, 12230', 93000, 20000, 113000, '2024-11-24 20:47:56.454931', 'ulas'),
 (36, 'SHL/20241125/2952/164710a79b', 29, 52, 11, 'jnt', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234, Kota Surabaya, Jawa Timur, 60119', 99000, 100000, 199000, '2024-11-25 16:47:10.319363', 'ulas'),
-(37, 'SHL/20241126/2371/0005384aaf', 23, 71, 7, 'jnt', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 735000, 700000, 1435000, '2024-11-26 00:05:38.771179', 'tunggu');
+(37, 'SHL/20241126/2371/0005384aaf', 23, 71, 7, 'jnt', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 735000, 700000, 1435000, '2024-11-26 00:05:38.771179', 'ulas'),
+(38, 'SHL/20241127/2372/141502258c', 23, 72, 1, 'jne', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 31000, 20000, 51000, '2024-11-27 14:15:02.690501', 'batal'),
+(39, 'SHL/20241127/2372/1415151d0c', 23, 72, 1, 'jne', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 31000, 20000, 51000, '2024-11-27 14:15:15.508348', 'batal'),
+(40, 'SHL/20241201/2858/135522714f', 28, 58, 1, 'jne', 'Akmal Satria Kadhafi | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 5100, 20000, 25100, '2024-12-01 13:55:22.115831', 'ulas'),
+(41, 'SHL/20241204/2858/1826292b30', 28, 58, 1, 'jne', 'Akmal Satria Kadhafi | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 5100, 20000, 25100, '2024-12-04 18:26:29.265505', 'batal'),
+(42, 'SHL/20241204/2848/183244eabe', 28, 48, 5, 'jne', 'Akmal Satria Kadhafi | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 60000, 40000, 100000, '2024-12-04 18:32:44.066928', 'ulas'),
+(43, 'SHL/20241204/2850/1958488fa0', 28, 50, 1, 'jne', 'Akmal Satria Kadhafi | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 17500, 20000, 37500, '2024-12-04 19:58:48.695738', 'batal'),
+(44, 'SHL/20241205/2391/0347413c85', 23, 91, 5, 'jnt', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 51000, 20000, 71000, '2024-12-05 03:47:41.669943', 'selesai'),
+(45, 'SHL/20241209/2891/232809586c', 28, 91, 1, 'jne', 'Akmal Satria Kadhafi | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 10200, 20000, 30200, '2024-12-09 23:28:09.957066', 'batal'),
+(46, 'SHL/20241210/2891/1853299c4f', 28, 91, 1, 'jne', 'Akmal Satria Kadhafi | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 10200, 20000, 30200, '2024-12-10 18:53:29.935591', 'batal'),
+(47, 'SHL/20241210/2891/224956e33b', 28, 91, 1, 'jne', 'Akmal Satria Kadhafi | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 10200, 20000, 30200, '2024-12-10 22:49:56.673601', 'ulas'),
+(48, 'SHL/20241210/2957/233613f930', 29, 57, 1, 'jne', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234, Kota Surabaya, Jawa Timur, 60119', 142900, 80000, 222900, '2024-12-10 23:36:13.795854', 'ulas'),
+(49, 'SHL/20241212/2890/1437239126', 28, 90, 5, 'jnt', 'Akmal Satria Kadhafi | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 230775, 40000, 270775, '2024-12-12 14:37:23.775343', 'selesai'),
+(50, 'SHL/20241216/2390/1945415d98', 23, 90, 2, 'jne', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 92310, 20000, 112310, '2024-12-16 19:45:41.597925', 'batal'),
+(51, 'SHL/20241216/2391/2014040a6f', 23, 91, 1, 'jne', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 10200, 20000, 30200, '2024-12-16 20:14:04.409266', 'batal'),
+(52, 'SHL/20241216/2391/201424016b', 23, 91, 1, 'jne', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 10200, 20000, 30200, '2024-12-16 20:14:24.886488', 'ulas'),
+(53, 'SHL/20241216/2950/20155121d4', 29, 50, 1, 'jne', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234, Kota Surabaya, Jawa Timur, 60119', 17500, 20000, 37500, '2024-12-16 20:15:51.265179', 'batal_toko'),
+(54, 'SHL/20241216/2971/201558acf7', 29, 71, 1, 'jne', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234, Kota Surabaya, Jawa Timur, 60119', 105000, 100000, 205000, '2024-12-16 20:15:58.866703', 'batal_toko'),
+(55, 'SHL/20250111/2884/1503254c7a', 28, 84, 1, 'jne', 'Brian Tan William | (+62) 0895412225866', 'Jl. Mawar, Kab. Blitar, Jawa Timur, 66171', 127000, 60000, 187000, '2025-01-11 15:03:25.919295', 'batal'),
+(56, 'SHL/20250112/2391/20093015a6', 23, 91, 1, 'jne', 'Bagas | (+62) 0896513621235', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 10200, 20000, 30200, '2025-01-12 20:09:30.669125', 'batal'),
+(57, 'SHL/20250112/2391/222102d56c', 23, 91, 1, 'jne', 'Bagas | (+62) 0896513621236', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 10200, 20000, 30200, '2025-01-12 22:21:02.127805', 'ulas'),
+(58, 'SHL/20250113/2391/2027122661', 23, 91, 1, 'jne', 'Bagas | (+62) 0896513621236', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 10200, 20000, 30200, '2025-01-13 20:27:12.680730', 'batal'),
+(59, 'SHL/20250113/2389/232801ea0e', 23, 89, 1, 'jne', 'M Nasrul Wahabi | (+62) 08954286889', 'Jl. mawar, Kota Jakarta Timur, DKI Jakarta, 13330', 8500, 20000, 28500, '2025-01-13 23:28:01.212930', 'kirim'),
+(60, 'SHL/20250117/2394/153303f628', 23, 94, 1, 'jne', 'M Nasrul Wahabi | (+62) 08954286889', 'Jl. mawar, Kota Jakarta Timur, DKI Jakarta, 13330', 2500, 20000, 22500, '2025-01-17 15:33:03.499386', 'kirim'),
+(61, 'SHL/20250121/2968/2014056db6', 29, 68, 1, 'jne', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234, Kota Surabaya, Jawa Timur, 60119', 14000, 20000, 34000, '2025-01-21 20:14:05.780637', 'batal');
 
 -- --------------------------------------------------------
 
@@ -142,23 +257,41 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_user`, `id_shhalal`, `nama_produk`, `deskripsi_produk`, `foto_produk_1`, `foto_produk_2`, `foto_produk_3`, `harga_produk`, `berat_produk`, `stok_produk`, `is_ditampilkan`) VALUES
-(46, 23, 1604, 'Gula 500 gram Gula Putih Gula Pasir 500 gram Gula Lokal setengah kilo', 'PENGUMUMAN :\r\nSelama Promo Termurah Shopee, Order Gula 500 gram 2 pcs maka dikirim kemasan kiloan 1 pcs.\r\n\r\n\r\nDemi percepatan pengiriman, kami kirim kemasan 1 kilo untuk orderan 2pcs Gula 500 gram.\r\n\r\nGula Lokal Kemasan 500 Gram\r\n\r\nGula Lokal dijamin manis ya say.. bukan gula Rafinasi.\r\n\r\nBerat Bersih 500 Gram (dijamin sesuai)\r\ndikemas rapi, dan packing aman..\r\n\r\nBisa kirim instan area Surabaya dan sekitarnya, lgsg kirim langsung sampai..\r\n\r\n#gula\r\n#gulapasir\r\n#gulaputih\r\n#gula500gr', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110222517_TMGX.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110222517_0266.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110222517_5821.jpg', 10500, 500, 84690, 'false'),
-(47, 23, 158, 'BOGASARI Tepung Terigu Segitiga Biru Premium 1 kg', 'BOGASARI Tepung Terigu Segitiga Biru Premium 1 kg\r\nNetto : 1,000 gr\r\n\r\nSegitiga Biru adalah terigu serbaguna protein sedang, yang cocok untuk membuat berbagai jenis makanan seperti bolu, brownies, banana cake, martabak manis, kue bulan, dan lain-lain. Segitiga Biru diciptakan untuk menjadi terigu yang fleksibel dan mudah untuk digunakan, terutama untuk penggunaan di dapur rumah tangga.', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110223646_6WD9.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110223646_5T1W.jpg', '', 13500, 1000, 105, 'true'),
-(48, 23, 209, 'INDOMILK SUSU KENTAL MANIS 370 GRAM', 'indomilk susu kental manis 370 gram', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110230619_CIGA.jpg', '', '', 12000, 370, 50, 'true'),
-(49, 23, 304, 'Tenderloin / Has Dalam Daging Sapi', 'Tenderloin adalah daging sapi bagian atas tengah badan. Tenderloin memiliki tekstur daging yang lebih lembut / daerah ini adalah bagian yang paling lunak, karena otot-otot di bagian ini jarang dipakai untuk beraktivitas. \r\nRekomendasi masakan: Steak, Roll, Tumis\r\n- Fresh, kualitas diutamakan\r\n- Dikemas higienis dan sesuai standart kualitas\r\n- Halal dan berkualitas \r\n\r\nPengiriman :\r\nPemesanan sebelum jam 4 sore di kirim di Hari yang sama \r\nStok Selalu ready\r\n \r\n#tenderloin #tenderloinsby #tenderloinsapi #tenderloin500gr', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110231402_71GD.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110231402_SNNZ.jpg', '', 42295, 250, 43, 'true'),
-(50, 23, 841, 'MINYAK GORENG SUNCO 1 LITER', 'minyak goreng sunco 1 liter\r\n\r\n', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110231917_AJTO.jpg', '', '', 17500, 1000, 111, 'true'),
+(47, 23, 158, 'BOGASARI Tepung Terigu Segitiga Biru Premium 1 kg', 'BOGASARI Tepung Terigu Segitiga Biru Premium 1 kg\nNetto : 1,000 gr\n\nSegitiga Biru adalah terigu serbaguna protein sedang, yang cocok untuk membuat berbagai jenis makanan seperti bolu, brownies, banana cake, martabak manis, kue bulan, dan lain-lain. Segitiga Biru diciptakan untuk menjadi terigu yang fleksibel dan mudah untuk digunakan, terutama untuk penggunaan di dapur rumah tangga.', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110223646_6WD9.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110223646_5T1W.jpg', '', 13500, 1000, 50, 'true'),
+(48, 23, 209, 'INDOMILK SUSU KENTAL MANIS 370 GRAM', 'indomilk susu kental manis 370 gram', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110230619_CIGA.jpg', '', '', 12000, 370, 0, 'true'),
+(49, 23, 304, 'Tenderloin/Has dalam Daging Sapi', 'Tenderloin adalah daging sapi bagian atas tengah badan. Tenderloin memiliki tekstur daging yang lebih lembut / daerah ini adalah bagian yang paling lunak, karena otot-otot di bagian ini jarang dipakai untuk beraktivitas. \r\nRekomendasi masakan: Steak, Roll, Tumis\r\n- Fresh, kualitas diutamakan\r\n- Dikemas higienis dan sesuai standart kualitas\r\n- Halal dan berkualitas \r\n\r\nPengiriman :\r\nPemesanan sebelum jam 4 sore di kirim di Hari yang sama \r\nStok Selalu ready\r\n \r\n#tenderloin #tenderloinsby #tenderloinsapi #tenderloin500gr', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110231402_71GD.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110231402_SNNZ.jpg', '', 42295, 250, 43, 'true'),
+(50, 23, 841, 'MINYAK GORENG SUNCO 1 LITER', 'minyak goreng sunco 1 liter\r\n\r\n', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110231917_AJTO.jpg', '', '', 17500, 1000, 109, 'true'),
 (51, 23, 1142, 'Sedani Makaroni Pipa 1 Kg – Elbow Pasta Macaroni 1Kg', 'SEDANI Makaroni adalah makaroni yang diproduksi oleh Bogasari dengan harga yang ekonomis. Terbuat dari gandum semolina dengan aneka bentuk.\r\n\r\nCocok untuk aneka menu pasta, macaroni schotel, salad, sup dan lainnya.\r\n\r\n', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110233112_HGIM.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110233112_AUOW.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241110233112_96AR.jpg', 19900, 1000, 37, 'true'),
 (52, 23, 1186, 'Tempe 1 Papan Daun Pisang Makanan Sayuran Jakarta', '*(Berat Tempe : 400 Gram)\r\nTEMPE\r\n~Informasi produk :  Tempe merupakan masak khas Indonesia, berbahan dasar kacang kedelai yang telah difermentasi oleh microorganisme, memiliki tekstur kering, dan kenyal.\r\n~Manfaat dan Nutrisi : Tempe mengandung banyak nutrisi baik yang dibutuhkan tubuh, seperti protein tinggi, dan rendah kandungan lemak.\r\n~Cara penyimpanan : Masukan kedalam plastik dan simpan di kulkas\r\n\r\nJadwal Pemesanan :\r\n- Pukul 05.00 - 19.00 (Dikirim H+1)\r\n-Pukul 19.00 - 24.00 (Dikirim H+2, kecuali jika produk ready akan dikirim H+ 1)\r\nPengiriman : \r\n- Jam pengiriman pukul 07.00 - 17.00\r\n- Jam pengiriman diatas pukul 17.00 silahkan request melalui chat, jika memungkinkan akan dikirim sesuai request.\r\n\r\n*Packing Rapih dan Aman\r\n*Free gift untuk orderan diatas 300.000\r\n\r\nNOTE : \r\n* RESIKO BARANG LAYU, ATAU ADA BUSUK DILUAR TANGGUNG JAWAB KAMI UNTUK LUAR KOTA\r\n* MEMBELI BERARTI MENYETUJUI ATURAN KAMI, JIKA STOCK KOSONG, DANA AKAN DIKEMBALIKAN ATAU DIKIRIM DI HARI SELANJUTNYA\r\n\r\nLARIS SEDOYO \" Pusat Belanja Kebutuhan Dapur Anda\"\r\nHappy Shopphing!\r\n\r\n#sayur #sayuran #Jakarta #Jakartabarat #Jakartatimur #Jakartautara #Jakartaselatan #Jakartapusat #Tangerang', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111001039_OU86.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111001039_PE5C.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111001039_860J.jpg', 9000, 400, 3552, 'true'),
 (53, 23, 1269, 'Za\'atar Spice Blend - Mediterania Series - Bumbu Arab', 'A touch of the Middle East and the Mediterranean awaits! Our Zesty Za’atar exhibits woody and floral aromatics, and is perfect topped onto bread, dips, salads and avocado toast. Freely season on any meat, veggies, seafood and many more.\r\n\r\nIngredients: \r\nSumac, Sesame Seed, Cumin, Coriander, Thyme, Sea Salt, Red Pepper\r\n\r\nNatural Ingredients \r\nNo MSG \r\nNo Preservatives \r\nVegan \r\nGluten-Free \r\nHalal', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111003403_7QGW.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111003403_E1K5.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111003403_4TGK.jpg', 55000, 200, 30, 'true'),
 (54, 23, 1287, 'Sasa santan cair 65ml × 10pcs\r\n\r\n', 'harga untuk per 10pcs ya exp aman barang di jamin ori', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111011847_CYY0.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111011847_H96H.jpg', '', 39900, 650, 5876, 'true'),
 (55, 23, 1600, 'Syrup Pandan Delifru 1 Liter - Sirup Daun Pandan Premium', 'Diekstrak dari daun pandan yang paling harum, Sirup Pandan Delifru memberikan nuansa yang lembut dan menenangkan pada campuran minuman Anda. Dengan cita rasa yang cocok dikreasikan menjadi berbagai jenis minuman, Sirup Pandan Delifru menjadi salah satu sirup favorit bagi banyak orang.\n\nSeluruh produk kami menggunakan 100% gula murni & ekstrak buah asli, serta sudah mendapatkan sertifikat Halal, BPOM & PIRT sehingga terjamin mutunya.', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111012944_48IO.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111012944_LE4U.jpg', '', 104000, 1000, 1014, 'true'),
-(56, 23, 1437, 'Garam Dapur Murni Beryodium Cap Katak 200 gr / GARAM CAP KATAK BERYODIUM 200 gr / GARAM KONSUMSI CAP KATAK', 'Barang kami Ready sesuai di etalase ya kak Dan akan kami kirim secepatnya 🙏🏻😊\r\n\r\nInformasi produk: \r\nGaram Konsumsi Beryodium ukuran 200 gram \r\nGARAM KECIL = 150 GRAM\r\n*harga tertera untuk 1 pcs*\r\n\r\nMOHON DIPERHATIKAN!!!\r\n1. Semua barang yg ada di toko ini ready sesuai stok ya kak\r\n2. Kami pastikan semua barang yg kami kirim dalam keadaan baik dan kami proses sesuai pesanan dan variasi:)\r\n3. Packing box kami lipat ya kak mengindari penyok saat dalam perjalanan \r\n4. Mohon Lakukan  Video Unboxing Saat Paket Diterima, jika ada kekurangan barang ,harap foto Label pengiriman dan Melampirkan video unboxing , karena kesalahan bukan kami sengaja kak tapi murni human eror :)\r\n5. Cek dahulu sebelum Checkout karena pihak penjual tidak bisa mengganti Nama, Nomor, Alamat, atau Barang setelah Checkout \r\n6. Mohon cek barang langsung setelah barang sampai. Komplain kami terima apabila ada bukti video dan akan Kami cek berdasarkan tanggal dan jam di resi pengiriman.\r\n7. Kerusakan barang, retur dll. Akan dicek dulu kasusnya. Tentunya kami akan memberikan solusi terbaik buat Customer kami ya kak:)\r\n8.Kalau dropsip tuliskan nama DROPSHIP di fitur dropship pada saat cek out\r\n9. Order yg sudah kami proses tidak bisa dibatalkan\r\n10. Hari minggu tidak ada pengiriman karena toko libur, jadi harap dimaklumi jika slow respon dalam chat ya kak:)\r\n\r\nTERIMA KASIH , SEMOGA SENANG BERBELANJA DI TOKO KAMI 😊🙏🏻', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111013343_3K15.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111013343_VGFY.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111013343_LL0N.jpg', 1489, 200, 19555, 'true'),
-(57, 23, 1483, 'ABC Saus Sambal Asli 135 ml - Multipack 24 pcs\r\r', 'ABC Sambal Asli 135 ml isi 24 pcs, paling hemat!\r\n\r\nABC Sambal Asli, Sambal No 1 di Indonesia, adalah pilihan utama bagi pecinta pedas yang menghargai kualitas dan keaslian rasa. Terbuat dari Cabai Hiyung berkualitas yang menjadi kunci rahasia di tiap Sambal ABC favorit keluarga Indonesia dan tanpa tambahan pewarna, sambal ini dihasilkan melalui proses penggilingan tradisional untuk menghadirkan rasa pedas yang maksimal dan alami.\r\n\r\nSambal ABC adalah pelengkap sempurna untuk hidangan favorit Anda. Seperti Jalangkote khas Makasar, Bakso Malang, atau Bakwan goreng. sambal ini akan menambahkan sentuhan pedas yang tak terlupakan pada hidangan Anda.\r\n\r\nKualitas yang terjaga dan citarasa yang otentik membuat Sambal asli ABC menjadi pilihan yang tepat untuk meningkatkan pengalaman kuliner Anda.\r\nSambal ABC, Sambal Asli Indonesia Asli Pedasnya!\r\n\r\nKomposisi:\r\nCabai (36%), Air, Gula, Garam, Bawang putih (3%), Penstabil nabati, Pengatur keasaman, Pengawet (natrium benzoat dan natrium metabisulfit), Penguat rasa (mononatrium glutamat dan inosinat guanilat), Pemanis alami glikosida steviol. \r\n\r\nKeunggulan:\r\n- Terbuat dari Cabai Hiung yang otentik dan berkualitas dari desa Tapin Kalimantan, kemudian dipetik hingga dikemas maksimal 51 jam. \r\n- Lebih pedas dari saus sambal lain.\r\n- Tanpa bahan pewarna makanan buatan. \r\n- Sambal No. 1 Pilihan Keluarga Indonesia.\r\n- Sambal asli dengan rasa yang otentik.\r\n\r\nMau masakan favorit keluarga Anda makin mantap pedasnya? Ayo segera beli dan gunakan ABC Sambal Asli Indonesia!\r\n\r\nJaminan Keamanan Makanan:\r\nHalal No.ID00410000054900720 \r\nBPOM No.MD 222871000500373', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111014112_5FQS.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111014112_8HCQ.jpg', '', 142900, 3240, 44, 'true'),
-(58, 23, 1549, 'Kraft Keju Cheddar Regular 30g, kemasan kecil untuk memasak kue dan burger', '� Keju Kraft Cheddar adalah keju cheddar olahan dengan bahan utama keju asli New Zealand\r\n� Mengandung Calcimilk: Kaya akan Kalsium, Sumber Protein dan Vitamin D \r\n� Memiliki rasa gurih keju yang lezat tanpa perisa tambahan\r\n� Mudah di parut dan hasil panggangan kuning keemasan cocok untuk berbagai aplikasi\r\n� Halal', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111014739_8ON2.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111014739_5RFB.jpg', '', 5100, 30, 3, 'true'),
-(59, 23, 1564, 'Gulaku Gula Tebu (Putih) Premium 1000G', 'Gulaku premium adalah gula pasir putih produksi nasional\r\nyang berkualitas lebih putih dan lebih jernih, serta diproduksi dari tebu alami langsung dari perkebunan. Gulaku diproduksi dari tebu segar bermutu baik dari perkebunan kami di Lampung.', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111064910_HZL2.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111064910_W703.jpg', '', 20900, 1000, 492, 'false'),
-(68, 28, 158, 'Tepung Terigu KUNCI BIRU PREMIUM 1Kg [ Protein Rendah ]', 'Cocok untuk aneka cake, bolu dan kue kering', 'https://sibeux.my.id/project/sihalal/uploads/28_IMG_20241123075437_4NHP.jpg', 'https://sibeux.my.id/project/sihalal/uploads/28_IMG_20241123075437_VI1B.jpg', 'https://sibeux.my.id/project/sihalal/uploads/28_IMG_20241123075437_H521.jpg', 14000, 1000, 84, 'true'),
-(71, 28, 838, 'Minyak Goreng Sawit 5L | Rose Brand', 'Minyak Goreng Sawit 5L\r\n\r\nRose Brand\r\nTerbuat dari kelapa sawit pilihan yang telah melalui proses pengolahan yang higienis sehingga menghasilkan minyak jernih dan berkualitas. Mengandung BETA karoten, omega 9 , dan vitamin A yang baik bagi asupan minyak sayur dalam tubuh\r\n\r\nMinyak Goreng Tawon cocok untuk memasak, menggoreng, ataupun menumis agar masakan menjadi lebih gurih, renyah, dan lezat\r\n\r\nED 24 Januari 2026\r\nIsi 5L\r\nKemasan Jirigen\r\n\r\nBPOM RI MD 208113008251\r\nHALAL INDONESIA\r\nSNI\r\n\r\nPengiriman Instant maksimal 4 jirigen\r\n\r\n*Silahkan menambahkan BUBBLE WRAP / KARDUS untuk extra keamanan \r\n*Seluruh pesanan sebelum dipacking telah kami cek terlebih dahulu bocor atau tidak\r\n*Pembeli mengetahui bahwa produk ini adalah produk cairan yang dapat bocor saat perjalanan\r\n*Paket yang sudah diserahkan ke pihak ekspedisi dan kurir akan menjadi tanggungjawab pihak bersangkutan\r\n\r\nTerima Kasih telah berbelanja di toko kami\r\n\r\nHappy Shopping!', 'https://sibeux.my.id/project/sihalal/uploads/IMG_295d7608-3d2c-49d3-884e-a752a7708a77.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_e3eb2ac9-ac3c-407a-b956-65be4358543c.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_6ba0b0ee-025f-447a-90d9-063377cd72c7.jpg', 105000, 5000, 49, 'true'),
-(72, 28, 1251, 'Bumbu Gado-Gado Boplo 140gr', 'Bumbu Gado-Gado Boplo yang mudah dan cepat untuk dimakan dimanapun Anda berada.\r\n\r\nKelezatan bumbu kami sudah teruji selama 50 tahun dikonsumsi oleh Pelanggan Restoran Gado-Gado Boplo, kini Anda dapat nikmati dimanapun  dan kapanpun. \r\n\r\nPerpaduan kacang tanah dan KACANG MEDE yang berkualitas  menghasilkan rasanya yang Khas, Legit dan Nikmat akan membuat Anda tidak ingin berhenti menikmatinya.\r\n\r\nHARAP TANYAKAN KETERSEDIAAN PRODUK TERLEBIH DAHULU\r\n\r\nPRODUK LAINNYA :\r\n- Ayam Kuning Boplo\r\n- Empal Boplo\r\n- Rendang Daging Boplo\r\n- Hamper Boplo untuk berbagai event (ulang tahun, natal/imlek/idul fitri, one month old/sebulanan, congratulation, surprise dll) isinya lengkap: bumbu gado-gado, ayam kuning, empal, rendang dan sambal\r\n\r\nBatas order jam 14.00, lewat dari jam tersebut diproses hari berikutnya. \r\nJam operasional toko:\r\nSenin-Minggu jam 9.00-16.00\r\nDi luar jam tersebut & tanggal merah,  Mohon Maaf Slow Respon', 'https://sibeux.my.id/project/sihalal/uploads/IMG_b9f1f184-5bfd-4c3b-bc76-57fed8ad32c5.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_6ebcfe94-e9b4-45f7-ac81-5c917e886674.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_2416bbee-738a-4c84-aba1-b9dfbdf42e81.jpg', 31000, 140, 64, 'true');
+(56, 23, 1437, 'Garam Dapur Murni Beryodium Cap Katak 200 gr / GARAM CAP KATAK BERYODIUM 200 gr / GARAM KONSUMSI CAP KATAK', 'Barang kami Ready sesuai di etalase ya kak Dan akan kami kirim secepatnya 🙏🏻😊\r\n\r\nInformasi produk: \r\nGaram Konsumsi Beryodium ukuran 200 gram \r\nGARAM KECIL = 150 GRAM\r\n*harga tertera untuk 1 pcs*\r\n\r\nMOHON DIPERHATIKAN!!!\r\n1. Semua barang yg ada di toko ini ready sesuai stok ya kak\r\n2. Kami pastikan semua barang yg kami kirim dalam keadaan baik dan kami proses sesuai pesanan dan variasi:)\r\n3. Packing box kami lipat ya kak mengindari penyok saat dalam perjalanan \r\n4. Mohon Lakukan  Video Unboxing Saat Paket Diterima, jika ada kekurangan barang ,harap foto Label pengiriman dan Melampirkan video unboxing , karena kesalahan bukan kami sengaja kak tapi murni human eror :)\r\n5. Cek dahulu sebelum Checkout karena pihak penjual tidak bisa mengganti Nama, Nomor, Alamat, atau Barang setelah Checkout \r\n6. Mohon cek barang langsung setelah barang sampai. Komplain kami terima apabila ada bukti video dan akan Kami cek berdasarkan tanggal dan jam di resi pengiriman.\r\n7. Kerusakan barang, retur dll. Akan dicek dulu kasusnya. Tentunya kami akan memberikan solusi terbaik buat Customer kami ya kak:)\r\n8.Kalau dropsip tuliskan nama DROPSHIP di fitur dropship pada saat cek out\r\n9. Order yg sudah kami proses tidak bisa dibatalkan\r\n10. Hari minggu tidak ada pengiriman karena toko libur, jadi harap dimaklumi jika slow respon dalam chat ya kak:)\r\n\r\nTERIMA KASIH , SEMOGA SENANG BERBELANJA DI TOKO KAMI 😊🙏🏻', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111013343_3K15.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111013343_VGFY.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111013343_LL0N.jpg', 1489, 200, 9555, 'true'),
+(57, 23, 1483, 'ABC Saus Sambal Asli 135 ml - Multipack 24 pcs\r\r', 'ABC Sambal Asli 135 ml isi 24 pcs, paling hemat!\r\n\r\nABC Sambal Asli, Sambal No 1 di Indonesia, adalah pilihan utama bagi pecinta pedas yang menghargai kualitas dan keaslian rasa. Terbuat dari Cabai Hiyung berkualitas yang menjadi kunci rahasia di tiap Sambal ABC favorit keluarga Indonesia dan tanpa tambahan pewarna, sambal ini dihasilkan melalui proses penggilingan tradisional untuk menghadirkan rasa pedas yang maksimal dan alami.\r\n\r\nSambal ABC adalah pelengkap sempurna untuk hidangan favorit Anda. Seperti Jalangkote khas Makasar, Bakso Malang, atau Bakwan goreng. sambal ini akan menambahkan sentuhan pedas yang tak terlupakan pada hidangan Anda.\r\n\r\nKualitas yang terjaga dan citarasa yang otentik membuat Sambal asli ABC menjadi pilihan yang tepat untuk meningkatkan pengalaman kuliner Anda.\r\nSambal ABC, Sambal Asli Indonesia Asli Pedasnya!\r\n\r\nKomposisi:\r\nCabai (36%), Air, Gula, Garam, Bawang putih (3%), Penstabil nabati, Pengatur keasaman, Pengawet (natrium benzoat dan natrium metabisulfit), Penguat rasa (mononatrium glutamat dan inosinat guanilat), Pemanis alami glikosida steviol. \r\n\r\nKeunggulan:\r\n- Terbuat dari Cabai Hiung yang otentik dan berkualitas dari desa Tapin Kalimantan, kemudian dipetik hingga dikemas maksimal 51 jam. \r\n- Lebih pedas dari saus sambal lain.\r\n- Tanpa bahan pewarna makanan buatan. \r\n- Sambal No. 1 Pilihan Keluarga Indonesia.\r\n- Sambal asli dengan rasa yang otentik.\r\n\r\nMau masakan favorit keluarga Anda makin mantap pedasnya? Ayo segera beli dan gunakan ABC Sambal Asli Indonesia!\r\n\r\nJaminan Keamanan Makanan:\r\nHalal No.ID00410000054900720 \r\nBPOM No.MD 222871000500373', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111014112_5FQS.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111014112_8HCQ.jpg', '', 142900, 3240, 43, 'true'),
+(58, 23, 1549, 'Kraft Keju Cheddar Regular 30g, kemasan kecil untuk memasak kue dan burger', '� Keju Kraft Cheddar adalah keju cheddar olahan dengan bahan utama keju asli New Zealand\r\n� Mengandung Calcimilk: Kaya akan Kalsium, Sumber Protein dan Vitamin D \r\n� Memiliki rasa gurih keju yang lezat tanpa perisa tambahan\r\n� Mudah di parut dan hasil panggangan kuning keemasan cocok untuk berbagai aplikasi\r\n� Halal', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111014739_8ON2.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111014739_5RFB.jpg', '', 5100, 30, 51, 'true'),
+(59, 23, 1564, 'Gulaku Gula Tebu (Putih) Premium 1000G', 'Gulaku premium adalah gula pasir putih produksi nasional\r\nyang berkualitas lebih putih dan lebih jernih, serta diproduksi dari tebu alami langsung dari perkebunan. Gulaku diproduksi dari tebu segar bermutu baik dari perkebunan kami di Lampung.', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111064910_HZL2.jpg', 'https://sibeux.my.id/project/sihalal/uploads/23_IMG_20241111064910_W703.jpg', '', 20900, 1000, 492, 'true'),
+(68, 28, 158, 'Tepung Terigu KUNCI BIRU PREMIUM 1Kg [ Protein Rendah ]', 'Cocok untuk aneka cake, bolu dan kue kering', 'https://sibeux.my.id/project/sihalal/uploads/28_IMG_20241123075437_4NHP.jpg', 'https://sibeux.my.id/project/sihalal/uploads/28_IMG_20241123075437_VI1B.jpg', 'https://sibeux.my.id/project/sihalal/uploads/28_IMG_20241123075437_H521.jpg', 14000, 1000, 83, 'true'),
+(71, 28, 838, 'Minyak Goreng Sawit 5L | Rose Brand', 'Minyak Goreng Sawit 5L\r\n\r\nRose Brand\r\nTerbuat dari kelapa sawit pilihan yang telah melalui proses pengolahan yang higienis sehingga menghasilkan minyak jernih dan berkualitas. Mengandung BETA karoten, omega 9 , dan vitamin A yang baik bagi asupan minyak sayur dalam tubuh\r\n\r\nMinyak Goreng Tawon cocok untuk memasak, menggoreng, ataupun menumis agar masakan menjadi lebih gurih, renyah, dan lezat\r\n\r\nED 24 Januari 2026\r\nIsi 5L\r\nKemasan Jirigen\r\n\r\nBPOM RI MD 208113008251\r\nHALAL INDONESIA\r\nSNI\r\n\r\nPengiriman Instant maksimal 4 jirigen\r\n\r\n*Silahkan menambahkan BUBBLE WRAP / KARDUS untuk extra keamanan \r\n*Seluruh pesanan sebelum dipacking telah kami cek terlebih dahulu bocor atau tidak\r\n*Pembeli mengetahui bahwa produk ini adalah produk cairan yang dapat bocor saat perjalanan\r\n*Paket yang sudah diserahkan ke pihak ekspedisi dan kurir akan menjadi tanggungjawab pihak bersangkutan\r\n\r\nTerima Kasih telah berbelanja di toko kami\r\n\r\nHappy Shopping!', 'https://sibeux.my.id/project/sihalal/uploads/IMG_295d7608-3d2c-49d3-884e-a752a7708a77.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_e3eb2ac9-ac3c-407a-b956-65be4358543c.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_6ba0b0ee-025f-447a-90d9-063377cd72c7.jpg', 105000, 5000, 148, 'true'),
+(72, 28, 1251, 'Bumbu Gado-Gado Boplo 140gr', 'Bumbu Gado-Gado Boplo yang mudah dan cepat untuk dimakan dimanapun Anda berada.\r\n\r\nKelezatan bumbu kami sudah teruji selama 50 tahun dikonsumsi oleh Pelanggan Restoran Gado-Gado Boplo, kini Anda dapat nikmati dimanapun  dan kapanpun. \r\n\r\nPerpaduan kacang tanah dan KACANG MEDE yang berkualitas  menghasilkan rasanya yang Khas, Legit dan Nikmat akan membuat Anda tidak ingin berhenti menikmatinya.\r\n\r\nHARAP TANYAKAN KETERSEDIAAN PRODUK TERLEBIH DAHULU\r\n\r\nPRODUK LAINNYA :\r\n- Ayam Kuning Boplo\r\n- Empal Boplo\r\n- Rendang Daging Boplo\r\n- Hamper Boplo untuk berbagai event (ulang tahun, natal/imlek/idul fitri, one month old/sebulanan, congratulation, surprise dll) isinya lengkap: bumbu gado-gado, ayam kuning, empal, rendang dan sambal\r\n\r\nBatas order jam 14.00, lewat dari jam tersebut diproses hari berikutnya. \r\nJam operasional toko:\r\nSenin-Minggu jam 9.00-16.00\r\nDi luar jam tersebut & tanggal merah,  Mohon Maaf Slow Respon', 'https://sibeux.my.id/project/sihalal/uploads/IMG_b9f1f184-5bfd-4c3b-bc76-57fed8ad32c5.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_6ebcfe94-e9b4-45f7-ac81-5c917e886674.jpg', '', 31000, 140, 52, 'true'),
+(73, 29, 1235, 'Tahu Lombok 2 Bungkus isi 10 pcs - Dewi Sri Mart\r\r', 'Selamat Datang di Dewi Sri Mart!\r\nPenuhi kebutuhan dapur Anda dengan berbelanja di sini.\r\nBelanja praktis, pesan hari ini bisa langsung diantar!\r\nHarga murah kualitas Premium!\r\n\r\nDESKRIPSI PRODUK\r\nTahu Lombok 2 Bungkus isi 12 pcs - Dewi Sri Mart\r\n\r\nDESKRIPSI PENGIRIMAN - (PENTING!)\r\nPesanan hari ini 06:00 - 20.00 dikirim hari yg sama .\r\nmenggunakan jasa kirim Gosend Instant & Grabsend Instant\r\n\r\nStart pengiriman setiap harinya pk. 06:00 - 20.00 (mengikuti antrian dan sistem pengantaran)\r\n\r\nKami menjamin kesegaran produk kami terutama Sayur yang kami kirim setiap harinya, sehingga, sayur yang baru dipanen akan dikirim setiap harinya waktu dini hari. Setelah datang, kami bersihkan dan siapkan untuk dikirimkan ke pelanggan. \r\n\r\nSelamat Berbelanja dan Selamat Menikmati.', 'https://sibeux.my.id/project/sihalal/uploads/IMG_3dcf4c6c-0e1a-4bc3-9a4a-41ec33de9353.jpg', '', '', 17500, 128, 500, 'true'),
+(74, 29, 1187, 'Tahu Yungfu 500 Gram', 'Ready setiap tahu Pong Yungfu dengan kemasan pack berat 500 gr. Dalam kemasan pack isi 4 psc tahu. Ready tahu putih dan tahu kuning. Setiap hari datang produksi baru dari pabrik. Dimohon konfirmasi terlebih dahulu terkait good stok produksi baru.', 'https://sibeux.my.id/project/sihalal/uploads/IMG_c2f4ed0b-0304-4528-8d97-3756ab29298c.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_f183c695-dac5-48be-8016-1ae4df101209.jpg', '', 18850, 500, 563, 'true'),
+(75, 29, 1197, 'Tahu Putih Jombang Ekonomis', '* Mohon diperhatikan *\r\n\r\n1. Keterangan Produk :\r\n\r\n- Tahu Putih Jombang Ekonomis\r\n\r\n2. Info pemesanan dan pengiriman :\r\n\r\n- Pesanan yg masuk 07.00 - 14.00 akan diproses hari itu juga\r\n- pesanan lewat jam 14.00 akan di proses hari berikutnya\r\n- Waktu pengiriman mulai pukul 08.00 - 16.00\r\n- Utk pengiriman diproses berdasarkan antrian order dan itu merupakan hak penjual\r\n- Utk keperluan mendadak silahkan tanya terlebih dahulu, jika stock tersedia dan kondisi memungkinkan akan diproses di hari yg sama\r\n- Jika stock kosong akan diberlakukan sistem refund, ganti produk lain, kembali tunai dlm paket, mundur waktu pengiriman (tergantung kesepakatan bersama)\r\n- Utk memudahkan pencarian produk silahkan klik Etalase\r\n\r\n3. Kurir :\r\n- Gojek dan Grab (area Surabaya, Gresik, Sidoarjo)\r\n- Untuk luar Surabaya harap pilih expedisi dengan bijak ya \r\n- Penggunaan selain instan kurir, kami tdk bertanggung jawab jika terjadi kerusakan produk\r\n\r\n4. Aturan komplain :\r\n- Komplain akan diterima max 3jam stlh produk diterima dgn mengunggah foto atau video sbg bukti, lewat dari waktu tersebut komplain tdk kami respon\r\n- Komplain diberlakukan jika produk busuk atau layu yg terlalu parah\r\n\r\n5. Feel free to ask at chat or discussion', 'https://sibeux.my.id/project/sihalal/uploads/IMG_75dc29ee-31c1-4da9-bed6-d250cd80cb3d.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_80c71e91-ecb1-47ad-be19-d9a9c56172d1.jpg', '', 5000, 100, 5966, 'true'),
+(76, 29, 1432, 'Javaland Syrup / Sirup All Varian 620ml - Premium', 'HARAP CO DUS \r\nSirup JavalandPremium,  cocok untuk Campuran berbagai jenis minuman dan kopi.\r\n\r\nKami adalah Supplier resmi produk Javaland yang merupakan produk bubuk minuman dan perlengkapan usaha *terlaris di Indonesia sejak tahun 2013*.\r\nProduk yang kami jual sudah bersertifikasi *BPOM* dan *Halal*\r\n\r\nSpesifikasi Produk:\r\n• Isi 620ml\r\n• Kemasan Botol Plastik', 'https://sibeux.my.id/project/sihalal/uploads/IMG_0edc24b3-a37e-4517-8d2b-37ad4177a10f.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_bcaaae7d-2ab0-423c-b98e-6b7108fef809.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_36b234b9-740c-4912-8205-634be03e4a0a.jpg', 60000, 620, 96, 'true'),
+(78, 29, 1564, 'Gulaku Kuning Gula Pasir Tebu 1kg', 'Gulaku Kuning 1kg\r\n\r\nPengiriman setiap hari senin - sabtu dari jam 08.00-16.00\r\n- Dengan memesan, kami anggap pembeli sudah paham, jika terdapat pertanyaan silahkan hubungi kami\r\n- Kerusakan yang diakibatkan proses pengiriman dan kelalaian penyimpanan pembeli tidak dapat kami ganti\r\n\r\nTerima kasih untuk kerjasamanya 🙏', 'https://sibeux.my.id/project/sihalal/uploads/IMG_8969fca5-96a9-4435-80dc-009f8afe179f.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_62c6f62d-5e53-466c-b1ba-77363e6dd9e6.jpg', '', 19900, 1000, 174, 'true'),
+(79, 29, 91, 'Gula Pasir Segi Tiga Emas 1000gr x 20pcs', 'Gula Pasir Segi Tiga Emas ukuran 1 Dus (1000gr x 20pcs )\r\n\r\nGula murni yang terbuat dari tebu asli, alami dan tebu pilihan yang berkualitas tinggi. Diproduksi melalui proses yang memenuhi standar mutu untuk menghasilkan produk yang bermutu tinggi.\r\n\r\nKeunggulan Gula Pasir Segi Tiga Emas :\r\n1. Diproduksi dari bahan berkualitas.\r\n2. Bersih, manis, dan alami.\r\n3. Sertifikasi BPOM, HALAL dan SNI.\r\n4. Tersedia dalam berbagai jenis kemasan yang dapat disesuaikan dengan kebutuhan.\r\n\r\nUkuran :\r\n1 Pcs : 1 Kg (1 Box isi : 20 Pcs)\r\nEXPIRED DATE : DESEMBER 2027 (ADA DIPOJOK KANAN BAWAH BAGIAN BELAKANG)\r\nBPOM RI MD 251428029389', 'https://sibeux.my.id/project/sihalal/uploads/IMG_f48244a8-99c2-4444-b6fb-1aa33029c523.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_444f42f6-658a-4190-8dc1-c296d5f48256.jpg', '', 365000, 20000, 971, 'true'),
+(80, 29, 1269, 'Bu Lani Bumbu Dasar Tumis / Bumbu Nasi Goreng 250gr', 'Bahan baku utama adalah bawang merah dan putih.\r\n\r\nDapat digunakan untuk nasi goreng, mi goreng, tumis sayur, lodeh, dan sebagainya yang mengandung bawang merah dan bawang putih.', 'https://sibeux.my.id/project/sihalal/uploads/IMG_5fd3a186-a911-4180-b787-f5ee6c22c4ac.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_506eac04-250c-48a0-b19a-80442d2d9ea7.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_957abe5c-7a85-4436-8503-c957ddd90dc3.jpg', 18500, 250, 20, 'true'),
+(81, 29, 1625, 'Tepung Tapioka Cap Gunung Agung 500 Gram\r\r', 'Tepung Tapioka Cap Gunung Agung 500 Gram\r\n\r\nMerupakan tepung yang terbuat dari singkong pilihan terbaik yang diolah secara higienis dengan menggunakan teknologi modern sehingga terjaga keaslian dan kebersihannya.\r\n- Berat : 500 Gram', 'https://sibeux.my.id/project/sihalal/uploads/IMG_c3d9fb4f-37a3-4991-aea5-9dded3cdc0bd.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_d62faa94-2f6b-47cc-afdc-6ba61f9e96c6.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_0f06e6ca-bcb9-4855-9014-0212e67f9be9.jpg', 5600, 500, 480, 'true'),
+(82, 29, 1287, 'Sasa Santan Cair 200 ml', 'Sasa Santan cair adalah santan perasan pertama yang terbuat dari daging buah kelapa tua segar pilihan. Diproses secara higienis, dengan teknologi modern. Rasa dan aroma santan asli. ', 'https://sibeux.my.id/project/sihalal/uploads/IMG_1d7ad1eb-410d-406b-868b-64ab01dcb97a.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_8829b553-b52f-473e-82e6-404bac76dc58.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_3989d169-6104-4c3b-bcd1-0b28175087c4.jpg', 7500, 200, 57, 'true'),
+(83, 29, 240, 'Ternak Syams Susu Kambing Etawa Plus Kolostrum Bubuk 1KG Rasa Original Natural rendah gula mengatasi asam urat nyeri sendi osteoporosis kebas keram kesemutan pengeroposan tulang syaraf kejepit lansia pegel linu diabetes', 'Susu Kambing Etawa Plus Kolostrum Bubuk\r\nNetto : 1000gram / 1KG\r\nProduk tahan 1 tahun setelah kemasan dibuka\r\n\r\nKolostrum susu kambing adalah cairan susu berwarna kekuning-kuningan dan sedikit kental. Cairan susu tersebut keluar pada saat pertama kali setelah induk kambing melahirkan, yang dinamakan kolostrum kambing pada umumnya keluar saat 0-36 jam pertama cairan susu keluar, dan kolostrum kambing terdapat banyak sekali gizi, protein dan nutrisi yang terkandung.\r\n\r\nkolostrum kambing dapat membantu mempertahankan kekebalan tubuh. Kolostrum kambing juga kaya akan zat antibody yang dapat melindungi tubuh dari serangan bakteri dan penyakit. Protein yang terkandung di dalam kolostrum kambing kaya akan protein yang dapat membantu agar pertumbuhan otot, kulit, dan jaringan tubuh bayi bekerja dengan lebih optimal.\r\n\r\nBahkan lebih dari 1.000 studi klinis telah menyatakan bahwa kolostrum telah terbukti aman dan efektif untuk kondisi klinis, seperti virus, alergi dan auto imun / Lupus, penyakit jantung, kanker, program penurunan berat badan, stres atletik, sindrom Usus bocor, penyembuhan luka dan memperbaiki otot.\r\n\r\nManfaat Susu Kambing Etawa Kolostrum Ternak Syams :\r\n1. Mengatasi Infeksi Bakteri\r\n2. Memperkuat Kesehatan Tulang, sendi dan otot\r\n3. Membantu Penyerapan Nutrisi\r\n4. Menjaga Kesehatan Sistem Pencernaan\r\n5. Meningkatkan Kekuatan Otot\r\n6. Meredakan Diare\r\n7. Memperlancara Proses Pernapasan dan Penyebaran Oksigen di Seluruh Tubuh\r\n8. Menajamkan Pandangan Mata\r\n9.Memperkuat Imunitas Tubuh\r\n11. Merawat Sistem Saraf\r\n12. Menurunkan Tekanan Darah\r\n13. Merawat Fungsi Jantung\r\n\r\nKelebihan Susu Kambing Etawa Bubuk Ternak Syams :\r\n1. Tidak ada aroma prengus atau aroma kambing, nyaman di konsumsi.\r\n2. Kualitas susu tidak mengandung bahan pengawet dan juga tidak mengandung bahan kimiawi.\r\n3. Hanya produksi dari susu kambing etawa asli yang berkualitas baik, kami cek selalu kualitasnya.\r\n4. Di olah langsung dari peternakan kambing Ternak Syams, kualitas dan mutu susu kambing etawa terjaga.\r\n5. Di proses melalui teknologi canggih Try Dryer, di olah tanpa mengurangi kandungan gizi dan manfaat susu kambing etawa. Susu Kambing Etawa Ternak Syams akan lebih terasa manfaat dan khasiat nya.\r\n6. Melalui proses pengolahan produksi yang steril dan sesuai dengan ketentuan BPOM.\r\n7. Kualitas dan mutu produk susu kambing etawa bubuk selalu di perhatikan dan di kembangkan, kami berikan yang terbaik agar customer mendapatkan produk berkualitas terbaik.\r\n8. Mengutamakan Kepuasan Pelanggan, karna Kepuasan Anda adalah Tanggung Jawab kami.\r\n\r\nSusu Kambing Etawa Bubuk Ternak Syams dapat di konsumsi oleh :\r\nAnak-anak minimal usia 1 tahun, orang dewasa, ibu hamil dan menyusui, dan juga lansia.\r\n\r\nSusu Kambing Etawa Bubuk Ternak Syams dapat dikonsumsi minimal 2x sehari, pagi hari setelah sarapan dan malam hari sebelum tidur, untuk anak-anak bisa disesuaikan dengan kebutuhan sehari-hari nya.\r\n\r\nNOTE : EXP SESUAI YANG TERTERA PADA KEMASAN', 'https://sibeux.my.id/project/sihalal/uploads/IMG_3d9fb3d9-0068-472a-8369-9b6606d6d1a5.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_e9611c06-0c4d-45ac-a086-d9f0b010ffdb.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_b0fba17c-e6a4-413a-8364-fd93e749654d.jpg', 175000, 1000, 1152, 'true'),
+(84, 29, 1630, 'Marjan Boudoin Syrup Cocopandan 460ml x6\r\r', 'Marjan Sirup terbuat dari 100% gula murni, tanpa pengawet dan pemanis buatan. Marjan Sirup hadir dalam berbagai pilihan rasa. Rasa yang terbaik ada di sini. \r\n\r\nBPOM 167210093027\r\nShelf Life: 36 Bulan', 'https://sibeux.my.id/project/sihalal/uploads/IMG_9d8b6953-4cc7-4b2c-b042-6c7dc673a6aa.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_17628bbc-cd1a-44a7-9571-fc639b37d7ad.jpg', '', 127000, 2760, 124, 'true'),
+(85, 29, 291, 'AUS Shortplate Beef Slice FRESH CUT! 500gr', 'Shortplate Aus Beef Slice Premium! 500gr \r\nAsal Sapi Dari Australia, Bahan Dasar Shortplate, Berbeda Dengan Us Shortplate yaitu Asal Dan Pakan Sapi nya saja. 🥰 Harga Lebih Terjangkau \r\n\r\nPERBEDAAN UTAMA DENGAN US SHORTPLATE BEEF:\r\n\r\n1. Berasal dari AUSTRALIA, BUKAN USA ya, walaupun sama2 dr bagian shortplate (beef belly).\r\n2. Mayoritas LEMAK 60-70% karena merupakan bagian dari PERUT SAPI.\r\n3. Marblingnya minim, beda dengan US sliced beef yg lebih bermarbling.\r\n4. Level gurih dan juicy di bawah US Shortplate\r\n\r\nASLI AUSTRALIA . Warna Lemaknya Agak Lebih Kuning, Karena Perbedaan Pakan GrassFed. Kalau US lemak Lebih Putih karena Pakan Grainfeed \r\n\r\nWarna Lemaknya Agak Lebih Kuning, Karena Perbedaan Pakan GrassFed. Kalau US lemak Lebih Putih karena Pakan Grainfeed\r\n\r\nS&K Berlaku, mohon dibaca sebelum membeli:\r\n-Daging Halal 100% (Baik jenis daging dan cara pemotongan)\r\n-Disarankan menggunakan pengirimann kurir Instant, apabila menggunakan same day pembeli sudah menerima konsekuensi pengiriman dalam waktu yang lama dan daging sudah cair. \r\n-Tidak menerima complain daging cair dalam perjalanan, karena sudah menjadi tanggung jawab kurir dimana hal ini diluar kapasitas penjual untuk kontrol.\r\n-Complain maksimal 1x24 dari pesanan diterima\r\n-Daging tahan di freezer selama -/+ 1 tahun \r\n-Daging adalah barang ternak dimana warna, dan tekstur tidak selalu sama seperti hasil produksi pabrik maupun foto, namun kami jamin daging yang diterima memiliki kualitas dan grade yang sama sesuai deskripsi toko.\r\n-Semua foto diambil saat daging baru diiris dan belum dibekukan sedangkan daging yang kami kirimkan sudah beku sehingga warna nya akan berbeda dan menjadi lebih gelap.\r\n-Warna Daging yang gelap bukan berarti rusak, warna daging yang rusak bewarna hijau/ bau tidak sedap/ bau asam.\r\n\r\nKetentuan untuk pengiriman melalui Go Sent/ Grab Sent:\r\n-Semua pesanan baik Instant/ Sameday akan kami proses sesuai urutan yang pertama kali pesan.\r\n-Pengiriman Sameday kami terima paling lambat jam 14.00, karena driver membutuhkan waktu pick up lebih lama 1-4 jam sedangkan Kuka Kuka Shop tutup jam 17.00\r\n-Pengiriman Instant akan sampai 1-3 jam, mohon menunggu sesuai waktu tsb karena seller membutuhkan waktu untuk pengemasan dan proses sesuai urutan pembelian.\n', 'https://sibeux.my.id/project/sihalal/uploads/IMG_7b129bd6-d423-4f7e-b675-cd9c37541e01.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_ab08fe0e-161c-4ded-9423-30f437b744f0.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_b9b2ae87-5403-40f7-a5ed-7b0802f75780.jpg', 77500, 500, 85, 'true'),
+(86, 29, 1641, 'Garam Himalaya Original 1 kg Asli Organik Himalayan Salt Himsalt Organic Garem Premium MPASI', 'HIMALAYAN SALT - GARAM HIMALAYA ORIGINAL\r\nBy SAIN ORGANIC\r\n\r\nORIGINAL 100% FROM PAKISTAN (BER-GARANSI)\r\nGARANSI UANG KEMBALI\r\n\r\nTersedia ukuran ( pilih di variasi)\r\n- kemasan 250 gram\r\n- kemasan 500 gram\r\n- kemasan 1000 gram (dapat 2 pcs kemasan 500 gram)\r\n\r\nPACKING : GRATIS Bubble Wrap dan Kardus\r\nJika Paket Pecah Garansi Uang Kembali (Syarat : konfirmasi ke seller sebelum memberi penilaian)\r\nExpired : > 4 Tahun\r\n\r\nHimsalt = Garam organik dari pegunungan himalaya tanpa bahan tambahan,\r\ntanpa bahan anti caking (anti penggumpalan).\r\nHimalayan Salt merupakan garam alternatif yang sehat, alami dan bebas bahan kimia.\r\nserta Mengandung mineral alami.\r\n\r\nManfaat Konsumsi :\r\n1. Garam ini mengandung hampir 80 mineral yang berbeda seperti  zat besi magnesium, kalsium, kalium, fosfor, klorida, boron, fluoride, yodium, seng, selenium, tembaga, dan masih banyak lagi.\r\n2. Mengontrol tekanan darah, baik untuk penderita darah tinggi\r\n3. Satu porsi biasa garam pink Himalayan mengandung sodium yang rendah\r\n4. Meningkatkan kemampuan tubuh dalam menyerap nutrisi makanan\r\n5. Menjaga kesehatan pembuluh darah\r\n6. Dapat melegakan fungsi saluran pernapasan\r\n7. Menjaga kesehatan ginjal dan kandung empedu\r\n8. Memperkuat tulang dan gigi\r\n\r\nPenggunaan\r\n1. Dapat dikonsumsi untuk masakan sebagai pengganti garam dapur \r\n2. garam himalaya asli ini juga bisa dicampur ke dalam air mandi untuk mencegah pertumbuhan bakteri dan jamur kulit anak.\r\n3. Dapat digunakan sebagai obat kumur saat sakit gigi\r\n4. Dapat dicampurkan ke dalam minuman (resep JSR)\r\n\r\n#garamhimalaya #himalayansalt #salt #garam #garampink #garamhimalayaasli #garamhimalayaorganik #MPASI #garamMPASI #garemhimalaya #pinksalt #rocksalt #garamsehat #organic #bumbudapur #scrub #himsalt', 'https://sibeux.my.id/project/sihalal/uploads/IMG_7f9479ee-4e61-4b58-86b3-89e8912ad0b0.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_18f90839-af54-41d7-9acc-ec54993e83d9.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_2cc61148-0b59-4b82-bd2d-e4bcf693742e.jpg', 115520, 1000, 652, 'true'),
+(87, 29, 829, 'Minyak Goreng Segi Tiga Emas 1000ml x 12pcs\r\r', 'Minyak Goreng Segi Tiga Emas ukuran 1 Dus ( 1000ml x 12pcs )\r\n\r\nMinyak goreng di buat dari kelapa sawit pilihan dan secara PREMIUM MULTI PROSES tanpa bahan pengawet yang menghasilkan minyak dengan warna kuning alami  berasal dari  sawit alam berkualitas. Dengan Proses 2 kali penyaringan sehingga menghasilkan minyak goreng yang jernih dan sehat.\r\n\r\nKeunggulan Minyak Goreng Segi Tiga Emas:\r\n1. Diproduksi dengan bahan pilihan yang berkualitas secara Premium Multi Proses.\r\n2. Diproses melalui 2 kali penyaringan sehingga menghasilkan minyak yang jernih dan sehat\r\n3. Mengandung Omega-9.\r\n4. Sertifikasi BPOM, HALAL, SNI.\r\n5. Tersedia dalam berbagai jenis kemasan yang dapat disesuaikan dengan kebutuhan.\r\n\r\nUkuran : 1 Liter /Pcs\r\nMaterial : Pouch\r\nEXPIRED DATE : DESEMBER 2027\r\nBPOM RI MD 208128015389\r\n\r\nGunakan selalu minyak yang berkualitas. Karena lebih jernih, hemat pemakaiannya, cepat panas, serta tahan terhadap panas.', 'https://sibeux.my.id/project/sihalal/uploads/IMG_ee1f6e61-3bd6-42a9-bbad-7b922e793f07.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_81a30417-d2d7-4cb8-8489-227d4765fb7d.jpg', '', 236000, 12000, 19635, 'true'),
+(88, 29, 1518, '1 Dus Saus Sambal Sari Pedas Kemasan Sachet\r\r', 'Selamat datang di Toko kami, kami menjual kebutuhan baksoan yang siap menjadi mitra bisnis anda.\r\n\r\nSaus Sambal Sari Pedas Kemasan Sachet 35g\r\n\r\nHadir memberi kemudahan, jadi gak perlu repot bungkusin lagi,tentunya menghemat waktu, tenaga dan uang anda, Cocok untuk bakso, mie ayam dan makanan lainnya. \r\n\r\nHarga tertera untuk 1 Dus isi 300 sachet\r\n@35 gr\r\n\r\nKomposisi:\r\nUbi, Cabe rawit, Pewarna makanan, orange red No. 2107, Garam, Cuka Makanan, Rempah-rempah, Na Benzoat, Pemanis, Air. \r\n\r\nTerbuat dari bahan pilihan dikerjakan dengan resik dan teliti, rasanya enak, gurih, wangi & halal. \r\n\r\nCocok untuk bakso dan mie ayam. \r\n\r\nMUI: 15060047900420\r\nP-IRT No. : 11129010165-22\r\n\r\nDi produksi oleh:\r\nSumber Sari\r\n\r\nMohon Diperhatikan:\r\n- Kami buka hari Senin sd Sabtu ( Minggu Off )\r\n- Pesanan yang masuk di hari senin - Jumat lewat jam 14.00 di proses di hari berikutnya\r\n- Pesanan yang masuk di hari sabtu lewat jam 14.00 akan di proses di hari senin\r\n- Mohon di pastikan pesanan sesuai varian dan ukuran gramaturnya\r\n- Jika ada pesanan yang tidak sesuai silahkan ajukan melalui chat Admin\r\n- Memberi ulasan tidak baik tanpa alasan yang jelas kami auto blokir\r\n\r\nSelamat Berbelanja dan sukses selalu..\r\n\r\nPENTING!\r\nJangan lupa untuk mengambil video Unboxing sebagai bukti untuk klaim jika ada barang kurang atau tidak sesuai pesanan\r\n\r\n', 'https://sibeux.my.id/project/sihalal/uploads/IMG_3bc7063f-25b4-4fdc-abda-91addde17a34.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_eac68c60-b019-4510-b187-48c633d77957.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_ec5938c3-f4f1-4c8b-a4d1-b68f36ae5eb5.jpg', 95000, 11000, 96, 'true'),
+(89, 29, 1142, 'La Fonte Pasta Macaroni 225gr, Halal', '“LABEL INSTANT 2 JAM” yang tertera pada gambar produk di Shopee hanyalah iklan promosi dari pihak shopee (bukan ketentuan dari Toko). INSTANT 2 JAM adalah WAKTU ESTIMASI kedatangan paket di lokasi tujuan, setelah kurir mengambil [PICK UP] paket pesanan yang sudah disiapkan dari Toko. “(Bukan sejak pesanan kami terima)”.\r\n\r\nINFORMASI PRODUK:\r\nLa Fonte Macaroni Pasta berbentuk pendek [Elbow Macaroni & Elbow Macaroni]. Terbuat dari Semolina gandum durum pilihan. Untuk toppingnya, tinggal tambahkan saus krim keju susu, saus tomat dengan daging atau irisan ikan. Karena pasta ini mempunyai  permukaan yang bertekstur sehingga saus mudah meresap dan tahan lama. 225 gr =  40 - 60 gr/porsi. Rebus pasta selama 8 - 12 menit atau sesuai dengan tingkat kekenyalan yang diinginkan. Sajikan dengan saus tomat lalu kombinasikan dengan sayuran atau keju, dan pasta pun siap untuk dinikmati.\r\n- Jenis Produk: Pasta/Macaroni [Spiral & Elbow]\r\n- Merek: La Fonte\r\n- Berat: 225\r\n- Penyimpanan: Suhu Ruangan/Kering\r\n- Sertifikasi : Halal Terverifikasi MUI.\r\n\r\nINFORMASI PENGIRIMAN:\r\n- Pengiriman ke alamat kantor & butuh cepat sampai sangat dianjurkan [WAJIB] menggunakan pengiriman kurir INSTANT.\r\n- FYI bahwa kami sebagai penjual di berikan batas waktu oleh Shopee 1x24 jam (Minimum) untuk melakukan pengiriman ke pembeli.\r\n- Kami memproses pesanan segera SETELAH JAM BUKA TOKO, sesuai antrian pesanan.\r\n\r\nKETENTUAN BATAS PENGIRIMAN:\r\n1.  Pesanan menggunakan Kurir SameDay sebelum jam 14:00 diproses di hari yang sama.\r\n2.  Pesanan menggunakan Kurir INSTANT sebelum jam 16:00 diproses di hari yang sama.\r\n*DILUAR KETENTUAN TERSEBUT AKAN DIPROSES DI HARI BERIKUTNYA.\r\n\r\nSYARAT PENGAJUAN KOMPLAIN:\r\nKami hanya menerima komplain yang disertai dengan video unboxing. “(Video dari awal paket sebelum dibuka hingga selesai)”.\r\n*KOMPLAIN TANPA VIDEO UNBOXING TIDAK DAPAT DIPROSES.\r\n\r\nMEMBELI = MENYETUJUI KETENTUAN YANG DITETAPKAN.', 'https://sibeux.my.id/project/sihalal/uploads/IMG_8fef8ca4-a90b-4bab-96b0-b7707ca14907.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_0fcfd330-9619-4fae-9889-1145ee42749f.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_70a52b2f-8ffc-452b-a064-3b6ecd90ee5a.jpg', 8500, 225, 55, 'true'),
+(90, 29, 1551, 'Del\'s - Keju Mozzarella / Mozzarella Cheese Extra Stretchy - 250 Gram', 'DELS Keju Mozzarella / Mozzarella Cheese Stretchy - 250 Gr\r\n\r\nSpesifikasi :\r\nDels Keju Mozzarella / Mozzarella Cheese Stretchy memberikan rasa creamy yang lezat, mudah meleleh dan menyebar saat dipanggang serta ekstra stretchy saat masih hangat.\r\n\r\nInformasi Produk: ​\r\n- Keju Mozzarella ​\r\n- Berat Bersih : 250 Gr\r\n- Extra Stretchy\r\n- Easy Melt\r\n- High Protein & Calcium\r\n- Saran penggunaan: Cocok diaplikasikan pada pizza, sandwich, toast, pasta dll.​\r\n- Diimport dari Irlandia​\r\n- Pengemasan : Vacuum sealed​\r\n- Expired Date : Chat untuk informasi terupdate berkenaan ED\r\n- HALAL\r\n- Saran Penyimpanan: Simpan di Freezer (-18\'C) sebelum digunakan, jangan dibekukan kembali setelah dicairkan. Simpan dalam chiller (-4\'C) dalam wadah tertutup rapat setelah dicairkan.​\r\n___________________________________________________​\r\n\r\nCatatan:​\r\n* Batas waktu order dengan pengiriman instant sampai jam 4 sore akan dikirim di hari yang sama​\r\n* Batas waktu order dengan pengiriman sameday sampai jam 2 siang akan dikirim di hari yang sama​\r\n* Pesanan melewati batas waktu atau hari libur akan diproses keesokan harinya pada hari kerja.​\r\n*Khusus semua produk frozen hanya bisa dikirim melalui GOJEK/GRAB instant untuk menjaga kulaitasnya\r\n* Produk frozen hanya dapat bertahan maksimal 4 jam di luar suhu penyimpanan freezer.​\r\n\r\n', 'https://sibeux.my.id/project/sihalal/uploads/IMG_09ebecea-816c-43e2-b570-9ea205eafc50.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_5d5e6bf0-8db4-4934-bec0-718ed60ed6aa.jpg', '', 46155, 250, 89, 'true'),
+(91, 29, 1193, 'Tempe Daun 1 Pcs Freshbox', 'Tempe yang dikemas dengan daun pisang sebagai pembungkusnya yang memiliki aroma harum yang berasal dar daun pisang\r\n\r\n[FRESHBOX INFO]\r\n\r\nInfo Pengiriman:\r\n1. Order yang masuk pukul 00.00 – 20.00 akan dikirimkan H+1\r\n2. Order yang masuk pukul 20.00 – 23.58 akan dikirimkan H+2\r\n\r\nInfo Penukaran Barang/Komplain:\r\n1.  Batas maksimal keluhan adalah 3 jam setelah barang diterima oleh customer \r\n2.  Jika pesanan yang diterima tidak sesuai dengan spesifikasi customer dapat melampirkan foto produk dan shipping label\r\n\r\nJam operational Customer Service 09.30 – 18.30\r\n\r\nKami selalu berusaha memberikan yang terbaik untuk merespon kebutuhan kamu!\r\n\r\nFreshBox, \r\nFrom Our Farm to Your Table', 'https://sibeux.my.id/project/sihalal/uploads/IMG_2cfba39f-65c8-486a-ba6d-7d058dea9746.jpg', '', '', 10200, 126, 662, 'true'),
+(94, 29, 1404, 'Telur rebus asin', 'telur rebus asin', 'https://sibeux.my.id/project/sihalal/uploads/IMG_038141e7-5acb-4111-8af8-485a175010ec.jpg', '', '', 2500, 100, 49, 'true');
 
 -- --------------------------------------------------------
 
@@ -184,7 +317,14 @@ INSERT INTO `rating` (`id_rating`, `id_produk`, `id_user`, `id_pesanan`, `bintan
 (5, 58, 28, 32, 4, '', '2024-11-24 09:22:35'),
 (6, 72, 23, 34, 3, 'Suka banget sama bumbunya, enak pollll', '2024-11-24 10:10:56'),
 (7, 72, 29, 35, 4, 'Baru coba bumbu gado-gado Boplo, rasanya otentik banget! Praktis tinggal tambahin air, dan aromanya wangi khas. Cocok untuk yang kangen rasa gado-gado asli. Recommended!', '2024-11-24 14:48:56'),
-(8, 52, 29, 36, 5, 'Tempenya enak bgt! Rasanya gurih, tekstur lembut tapi tetep ada kriuk dikit di pinggirannya. Bungkus daun pisang bikin aromanya tambah mantap. Cocok banget buat lauk nasi panas. Recommended bgt buat yg suka tempe tradisional. 👍', '2024-11-25 10:01:42');
+(8, 52, 29, 36, 5, 'Tempenya enak bgt! Rasanya gurih, tekstur lembut tapi tetep ada kriuk dikit di pinggirannya. Bungkus daun pisang bikin aromanya tambah mantap. Cocok banget buat lauk nasi panas. Recommended bgt buat yg suka tempe tradisional. 👍', '2024-11-25 10:01:42'),
+(9, 71, 23, 37, 5, '', '2024-11-26 14:02:34'),
+(10, 58, 28, 40, 5, 'Josssss', '2024-12-03 08:52:41'),
+(11, 48, 28, 42, 4, '', '2024-12-04 12:22:21'),
+(12, 91, 28, 47, 5, 'Tempenya fresh, gk bau, top bgt pokoknya dah... ', '2024-12-12 07:38:35'),
+(13, 57, 29, 48, 3, 'cukup ok sausnya, tapi tadi ada beberapa kemasa yg sdh rusak.. but overalls oke 👌', '2024-12-12 08:27:25'),
+(14, 91, 23, 52, 4, 'sedap bangetttt', '2025-01-12 14:42:29'),
+(15, 91, 23, 57, 4, 'good', '2025-01-13 15:10:13');
 
 -- --------------------------------------------------------
 
@@ -941,11 +1081,17 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `email_user`, `nama_user`, `pass_user`, `nama_toko`, `deskripsi_toko`, `foto_user`) VALUES
 (1, 'wahabinasrul@gmail.com ', 'M Nasrul Wahabi', 'sibeHBQ342169', 'Habiqi.Shop', 'Gramedia Official Store Menyediakan Buku-buku Asli dan Berkualitas. Toko ini buka setiap hari Senin - Sabtu (Pukul 09.00 -16:30 WIB)', 'https://sibeux.my.id/images/sibe.png'),
 (9, 'sibesibe86@gmail.com', 'Sibeux', '$2y$10$tPQwbnID1BsdNcKxv92MPus2zngBmCGPmGFiyzweYlnPsttGkUkvu', NULL, NULL, NULL),
-(23, 'a@gmail.com', 'Akmal Satria Kadhafi', '$2y$10$Wj/y.ccjPHUX.DLhk9s5uucSdrTfojPyOvLzJCQAW9fDIVizhCexC', 'Genjiro.id', NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_ca447458-4e72-472e-85a4-a4f3a92ecd2b.jpg'),
-(28, 'b@gmail.com', 'Brian Tan William', '$2y$10$/zlN4KYkLA/a.gghmsCoaukHSLoyAbQuuy1FFr8eYnYrYWYSwc4da', NULL, NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_89020a52-4baa-40fb-994f-1c5e22d2a900.jpg'),
-(29, 'c@gmail.com', 'Chandra Bintang Wjiaya', '$2y$10$gQ31E14OdmFOqNWnapbgpOwX2xjBnFmZQDIpPn0ATy.FjkJGHJUde', NULL, NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_580f9801-1c51-4e36-9b04-0957332f6e13.jpg'),
+(23, 'a@gmail.com', 'Akmal Satria Kadhafis', '$2y$10$Wj/y.ccjPHUX.DLhk9s5uucSdrTfojPyOvLzJCQAW9fDIVizhCexC', 'IndoFoods', NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_35dcb8e5-6690-44fb-8bfe-6df760603cfd.jpg'),
+(28, 'b@gmail.com', 'Brian Tan William', '$2y$10$/zlN4KYkLA/a.gghmsCoaukHSLoyAbQuuy1FFr8eYnYrYWYSwc4da', NULL, NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_5fce29c0-9854-403b-b420-ff245ef8f72c.jpg'),
+(29, 'c@gmail.com', 'Chandra Bintang Wjiaya', '$2y$10$gQ31E14OdmFOqNWnapbgpOwX2xjBnFmZQDIpPn0ATy.FjkJGHJUde', 'C20 Baker\'s Warehouse', NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_580f9801-1c51-4e36-9b04-0957332f6e13.jpg'),
 (30, 'samasama@yahoo.com', 'Sama Sama', '$2y$10$5kveGMU8MsHzKlyPcRPkDeGyneI3etP3sEeuL4mNn7W.VeC34DfrW', NULL, NULL, NULL),
-(31, 'gamermanoj00@gmail.com', 'manoj', '$2y$10$/Rrt8HKUsEIrYQFzNg8iS.GEozSINKEhFFoLfSznuKYZjhKZc5ILC', NULL, NULL, NULL);
+(31, 'gamermanoj00@gmail.com', 'manoj', '$2y$10$/Rrt8HKUsEIrYQFzNg8iS.GEozSINKEhFFoLfSznuKYZjhKZc5ILC', NULL, NULL, NULL),
+(32, 'mjafarbaihaqi@gmail.com', 'M Jafar Baihaqi', '$2y$10$BO75pK2XlHNwpT.Kji7U7.yGoD2BWMHA0RnZo1oC3tHqc1OB.45he', NULL, NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_1c85651f-e7f5-4052-a3f0-e2c95249152e.jpg'),
+(33, 'd@gmail.com', 'd', '$2y$10$SZiky.82iVsb6UBNa6sOh.QAljR7FO9pOuh7RRHeLn66CPndzjoWG', NULL, NULL, NULL),
+(34, 'g@gmail.com', 'Gerrald Wijaya', '$2y$10$sSDO4w087HAVcDtESQJTVe75pktTn5pGH/ufKYAcilyoxi6vXCFQ.', NULL, NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_3bc42504-f23c-45a4-b4f5-78890363c6cb.jpg'),
+(35, 'v@gmail.com', 'Vins', '$2y$10$Zokc56IQ.2KlOK8TPW4VvOrIjjrMLavDGSoWoBUZ9szQzLdvrm6Ae', NULL, NULL, NULL),
+(36, 'bajabs@hotmail.com', 'hsbsinss', '$2y$10$0f2Qy2GopRAUMg33ArSwKukJIUP3ewy5WqWOtZOA1Vbgidvd8jL7S', NULL, NULL, NULL),
+(37, '67yytym@hotmail.com', 'fyhyfyhyf', '$2y$10$8u8QMV4KSXPUOmyfHoXcbuI.dpIREKZvBTwnXTohmYRdlAQzDcGmO', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -964,8 +1110,15 @@ ALTER TABLE `alamat`
 ALTER TABLE `favorite`
   ADD PRIMARY KEY (`id_favorite`),
   ADD KEY `Delete Favorite by Produk` (`id_produk`) USING BTREE,
-  ADD KEY `Delete Favorite by User` (`id_user`),
-  ADD KEY `id_pesanan` (`id_pesanan`);
+  ADD KEY `Delete Favorite by User` (`id_user`);
+
+--
+-- Indexes for table `keranjang`
+--
+ALTER TABLE `keranjang`
+  ADD PRIMARY KEY (`id_keranjang`),
+  ADD KEY `Delete Cart by Procut` (`id_produk`),
+  ADD KEY `Delete Cart by User` (`id_user`);
 
 --
 -- Indexes for table `pesanan`
@@ -980,6 +1133,7 @@ ALTER TABLE `pesanan`
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`),
   ADD KEY `Delete Produk by User` (`id_user`);
+ALTER TABLE `produk` ADD FULLTEXT KEY `nama_produk` (`nama_produk`,`deskripsi_produk`);
 
 --
 -- Indexes for table `rating`
@@ -995,6 +1149,7 @@ ALTER TABLE `rating`
 ALTER TABLE `shhalal`
   ADD PRIMARY KEY (`id_shhalal`),
   ADD UNIQUE KEY `Nomor SH Halal` (`nomor_shhalal`) USING HASH;
+ALTER TABLE `shhalal` ADD FULLTEXT KEY `kategori_shhalal` (`kategori_shhalal`);
 
 --
 -- Indexes for table `user`
@@ -1002,6 +1157,7 @@ ALTER TABLE `shhalal`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
   ADD UNIQUE KEY `email_user` (`email_user`) USING HASH;
+ALTER TABLE `user` ADD FULLTEXT KEY `nama_toko` (`nama_toko`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1011,31 +1167,37 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id_alamat` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_alamat` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `favorite`
 --
 ALTER TABLE `favorite`
-  MODIFY `id_favorite` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_favorite` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+
+--
+-- AUTO_INCREMENT for table `keranjang`
+--
+ALTER TABLE `keranjang`
+  MODIFY `id_keranjang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_pesanan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_produk` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id_rating` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_rating` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `shhalal`
@@ -1047,7 +1209,7 @@ ALTER TABLE `shhalal`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_user` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Constraints for dumped tables
@@ -1065,6 +1227,13 @@ ALTER TABLE `alamat`
 ALTER TABLE `favorite`
   ADD CONSTRAINT `Delete Favorite by Produk` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`) ON DELETE CASCADE,
   ADD CONSTRAINT `Delete Favorite by User` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `keranjang`
+--
+ALTER TABLE `keranjang`
+  ADD CONSTRAINT `Delete Cart by Procut` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Delete Cart by User` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `produk`
