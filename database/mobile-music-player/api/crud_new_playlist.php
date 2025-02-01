@@ -42,6 +42,39 @@ function createPlaylist($db){
     }
 }
 
+function updatePlaylist($db)
+{
+    if (
+        $stmt = $db->prepare("UPDATE playlist SET name = ? WHERE playlist.uid = ?")
+    ) {
+        $name = $_POST['name_playlist'];
+        $uid = $_POST['playlist_uid'];
+
+        $stmt->bind_param(
+            'si',
+            $name,
+            $uid
+        );
+
+        if ($stmt->execute()) {
+            $response = ["status" => "success"];
+        } else {
+            $response = [
+                "status" => "error",
+                "message" => "Failed to execute the query.",
+                "error" => $stmt->error // Pesan error untuk debugging
+            ];
+        }
+
+        $stmt->close();
+        echo json_encode($response);
+    } else {
+        $response = ["status" => "failed"];
+        echo json_encode($response);
+        echo 'Could not prepare statement!';
+    }
+}
+
 function deletePlaylist($db)
 {
     if (
@@ -76,6 +109,9 @@ function deletePlaylist($db)
 switch ($method) {
     case 'create':
         createPlaylist($db);
+        break;
+    case 'update':
+        updatePlaylist($db);
         break;
     case 'delete':
         deletePlaylist($db);
