@@ -11,12 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $method = $_GET['method'] ?? '';
 }
 
-if (isset($_GET['action']) && isset($_GET['playlist_uid']) && ($_GET['action'] == 'delete')) {
-    $uid = $_GET['playlist_uid'];
-
-    $sql = "";
-}
-
 function createPlaylist($db){
     if (
         $stmt = $db->prepare("INSERT INTO playlist (uid, name, image, type, author, pin, date_pin, date, editable) 
