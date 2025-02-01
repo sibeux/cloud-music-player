@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_GET['action']) && isset($_GET['playlist_uid']) && ($_GET['action'] == 'delete')) {
     $uid = $_GET['playlist_uid'];
 
-    $sql = "DELETE FROM playlist WHERE playlist.uid = '$uid'";
+    $sql = "";
 }
 
 function createPlaylist($db){
@@ -48,10 +48,43 @@ function createPlaylist($db){
     }
 }
 
+function deletePlaylist($db)
+{
+    if (
+        $stmt = $db->prepare("DELETE FROM playlist WHERE playlist.uid = ?")
+    ) {
+        $uid = $_POST['playlist_uid'];
+
+        $stmt->bind_param(
+            'i',
+            $uid
+        );
+
+        if ($stmt->execute()) {
+            $response = ["status" => "success"];
+        } else {
+            $response = [
+                "status" => "error",
+                "message" => "Failed to execute the query.",
+                "error" => $stmt->error // Pesan error untuk debugging
+            ];
+        }
+
+        $stmt->close();
+        echo json_encode($response);
+    } else {
+        $response = ["status" => "failed"];
+        echo json_encode($response);
+        echo 'Could not prepare statement!';
+    }
+}
+
 switch ($method) {
     case 'create':
         createPlaylist($db);
         break;
+    case 'delete':
+        deletePlaylist($db);
     default:
         break;
 }
