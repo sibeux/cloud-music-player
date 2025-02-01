@@ -2,31 +2,97 @@
 
 include './connection.php';
 
-$sql = "";
-$sql2 = "";
+$method = '';
+$sql = '';
 
-if (isset($_GET['action']) && isset($_GET['playlist_name']) && ($_GET['action'] == 'create')) {
-
-    $name = $_GET['playlist_name'];
-
-    $sql = "INSERT INTO playlist (uid, name, image, type, author, pin, date_pin, date, editable) 
-    values (NULL, '$name', NULL, 'playlist', 'Nasrul Wahabi', 'false', NULL, NOW(), 'true')";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $method = $_POST['method'] ?? '';
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $method = $_GET['method'] ?? '';
 }
 
 if (isset($_GET['action']) && isset($_GET['playlist_uid']) && ($_GET['action'] == 'delete')) {
     $uid = $_GET['playlist_uid'];
 
     $sql = "DELETE FROM playlist WHERE playlist.uid = '$uid'";
-    $sql2 = "DELETE FROM playlist_music WHERE playlist_music.id_playlist = '$uid'";
 }
 
-// Query to retrieve data from MySQL
-$result = $db->query($sql);
-$result = $db->query($sql2);
+function createPlaylist($db){
+    if (
+        $stmt = $db->prepare("INSERT INTO playlist (uid, name, image, type, author, pin, date_pin, date, editable) 
+    values (NULL, ?, NULL, 'playlist', 'Nasrul Wahabi', 'false', NULL, NOW(), 'true')")
+    ) {
+        $name = $_POST['name_playlist'];
 
-// Check if the query was successful
-if (!$result) {
-    die("Query failed: " . $db->error);
-} else {
-    echo "Success";
+        $stmt->bind_param(
+            's',
+            $name
+        );
+
+        if ($stmt->execute()) {
+            $response = ["status" => "success"];
+        } else {
+            $response = [
+                "status" => "error",
+                "message" => "Failed to execute the query.",
+                "error" => $stmt->error // Pesan error untuk debugging
+            ];
+        }
+
+        $stmt->close();
+        echo json_encode($response);
+    } else {
+        $response = ["status" => "failed"];
+        echo json_encode($response);
+        echo 'Could not prepare statement!';
+    }
 }
+
+switch ($method) {
+    case 'create':
+        createPlaylist($db);
+        break;
+    default:
+        break;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $result = $db->query($sql);
+
+    // Check if the query was successful
+    if (!$result) {
+        die("Query failed: " . (is_object($db) ? $db->error : 'Database connection error'));
+    }
+
+    // Create an array to store the data
+    $data = array();
+
+    // Check if there is any data
+    if ($result->num_rows > 0) {
+        // Loop through each row of data
+        while ($row = $result->fetch_assoc()) {
+            // Clean up the data to handle special characters
+            array_walk_recursive($row, function (&$item) {
+                if (is_string($item)) {
+                    $item = htmlentities($item, ENT_QUOTES, 'UTF-8');
+                }
+            });
+
+            // Add each row to the data array
+            $data[] = $row;
+        }
+    }
+
+    // Convert the data array to JSON format
+    $json_data = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+    // Check if JSON conversion was successful
+    if ($json_data === false) {
+        die("JSON encoding failed");
+    }
+
+    // Output the JSON data
+    echo $json_data;
+}
+
+$db->close();
