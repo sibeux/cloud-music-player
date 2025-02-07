@@ -43,7 +43,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 <head>
     <meta charset="utf-8" />
     <!-- <title id="title_doc">iTunein Responsive HTML Template</title> -->
-    <title id="title_doc">Cybeat - IndoPride</title>
+    <title id="title_doc">Cybeat - Worldwide</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="Tunein,music,song" />
     <meta name="keywords" content="Tunein,music,song" />
@@ -84,7 +84,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                             <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 fixed_top_songs">
                                 <div class="song_heading_wrapper ms_cover">
                                     <div class="ms_heading_wrapper white_heading_wrapper">
-                                        <h1>IndoPride</h1>
+                                        <h1>Worldwide</h1>
                                     </div>
                                     <div>
                                         <div class="album_list_wrapper album_list_wrapper_shop">
@@ -100,7 +100,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                             <?php
                                             $sql_music = "SELECT * FROM music
                                                             join playlist on music.category like playlist.uid
-                                                            WHERE music.category = '1'
+                                                            WHERE music.category = '4'
                                                             ORDER BY music.title ASC";
                                                             
                                             $result_music = $db->query($sql_music);
@@ -337,7 +337,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
     <script src="js/owl.carousel.js"></script>
     <script src="js/mp3/player.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/indopride-bar.js"></script>
+    <script src="js/worldwide-bar.js"></script>
     <!-- custom js-->
 
 </body>
