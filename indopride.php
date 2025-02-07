@@ -43,7 +43,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 <head>
     <meta charset="utf-8" />
     <!-- <title id="title_doc">iTunein Responsive HTML Template</title> -->
-    <title id="title_doc">Cybeat - Music Player </title>
+    <title id="title_doc">Cybeat - IndoPride</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="Tunein,music,song" />
     <meta name="keywords" content="Tunein,music,song" />
@@ -84,7 +84,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                             <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 fixed_top_songs">
                                 <div class="song_heading_wrapper ms_cover">
                                     <div class="ms_heading_wrapper white_heading_wrapper">
-                                        <h1>日本の歌</h1>
+                                        <h1>IndoPride</h1>
                                     </div>
                                     <div>
                                         <div class="album_list_wrapper album_list_wrapper_shop">
