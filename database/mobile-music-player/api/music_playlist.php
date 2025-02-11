@@ -46,58 +46,57 @@ function updateMusicOnPlaylist($db)
     global $toAdd;
     global $toRemove;
 
-    // Buat string untuk VALUES
-    $values = implode(',', array_map(fn($id) => "(NULL, $id_music, '$id', NOW())", $toAdd));
+    if (!empty($toAdd)) {
+        // Siapkan SQL dengan placeholder untuk parameter binding
+        $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
+            VALUES (?, ?, ?, NOW())";
 
-    $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
-        VALUES $values";
+        if ($stmt = $db->prepare($sql)) {
+            foreach ($toAdd as $id) {
+                $id_playlist_music = NULL; // ID auto-increment
+                $stmt->bind_param("iis", $id_playlist_music, $id_music, $id);
 
-    // Eksekusi query
-    if ($stmt = $db->prepare($sql)) {
-        if (
-            $stmt->execute()
-        ) {
-            $response = ["status" => "success"];
+                if (!$stmt->execute()) {
+                    $response = [
+                        "status" => "error",
+                        "message" => "Failed to execute the query.",
+                        "error" => $stmt->error
+                    ];
+                    echo json_encode($response);
+                    exit; // Keluar jika terjadi error
+                }
+            }
+            $stmt->close();
+            echo json_encode(["status" => "success"]);
         } else {
-            $response = [
-                "status" => "error",
-                "message" => "Failed to execute the query.",
-                "error" => $stmt->error // Pesan error untuk debugging
-            ];
+            echo json_encode(["status" => "failed", "message" => "Could not prepare statement!"]);
         }
-        $stmt->close();
-        echo json_encode($response);
-    } else {
-        $response = ["status" => "failed"];
-        echo json_encode($response);
-        echo 'Could not prepare statement!';
     }
 
+    if (!empty($toRemove)) {
+        $sql = "DELETE FROM `playlist_music` WHERE `id_music` = $id_music AND `id_playlist` IN (" . implode(',', $toRemove) . ");";
 
-
-    $sql = "DELETE FROM `playlist_music` WHERE `id_music` = $id_music AND `id_playlist` IN (" . implode(',', $toRemove) . ");";
-
-    // Eksekusi query
-    if ($stmt = $db->prepare($sql)) {
-        if (
-            $stmt->execute()
-        ) {
-            $response = ["status" => "success"];
+        // Eksekusi query
+        if ($stmt = $db->prepare($sql)) {
+            if (
+                $stmt->execute()
+            ) {
+                $response = ["status" => "success"];
+            } else {
+                $response = [
+                    "status" => "error",
+                    "message" => "Failed to execute the query.",
+                    "error" => $stmt->error // Pesan error untuk debugging
+                ];
+            }
+            $stmt->close();
+            echo json_encode($response);
         } else {
-            $response = [
-                "status" => "error",
-                "message" => "Failed to execute the query.",
-                "error" => $stmt->error // Pesan error untuk debugging
-            ];
+            $response = ["status" => "failed"];
+            echo json_encode($response);
+            echo 'Could not prepare statement!';
         }
-        $stmt->close();
-        echo json_encode($response);
-    } else {
-        $response = ["status" => "failed"];
-        echo json_encode($response);
-        echo 'Could not prepare statement!';
     }
-
 }
 
 switch ($method) {
