@@ -51,9 +51,6 @@ function updateMusicOnPlaylist($db)
         $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
             VALUES (?, ?, ?, NOW())";
 
-
-        echo json_encode(["status" => "prok"]);
-
         if ($stmt = $db->prepare($sql)) {
             foreach ($toAdd as $id) {
                 $id_playlist_music = NULL; // ID auto-increment
@@ -72,6 +69,7 @@ function updateMusicOnPlaylist($db)
             $stmt->close();
             echo json_encode(["status" => "success"]);
         } else {
+            echo json_encode(["status" => "prok"]);
             echo json_encode(["status" => "failed", "message" => "Could not prepare statement!"]);
         }
     }
