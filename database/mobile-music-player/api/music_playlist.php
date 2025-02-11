@@ -1,6 +1,6 @@
 <?php
 
-include './database/db.php';
+include './connection.php';
 
 $method = '';
 $sql = '';
@@ -48,10 +48,10 @@ function updateMusicOnPlaylist($db)
 
     if (!empty($toAdd)) {
         // Siapkan SQL dengan placeholder untuk parameter binding
-        if (
-            $stmt = $db->prepare("INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
-            VALUES (?, ?, ?, NOW())")
-        ) {
+        $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
+            VALUES (?, ?, ?, NOW())";
+
+        if ($stmt = $db->prepare($sql)) {
             foreach ($toAdd as $id) {
                 $id_playlist_music = NULL; // ID auto-increment
                 $stmt->bind_param("iii", $id_playlist_music, $id_music, $id);
