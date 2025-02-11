@@ -51,11 +51,13 @@ function updateMusicOnPlaylist($db)
         $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
             VALUES (?, ?, ?, NOW())";
 
+
+        echo json_encode(["status" => "prok"]);
+
         if ($stmt = $db->prepare($sql)) {
-            echo json_encode(["status" => "success"]);
             foreach ($toAdd as $id) {
                 $id_playlist_music = NULL; // ID auto-increment
-                $stmt->bind_param("iis", $id_playlist_music, $id_music, $id);
+                $stmt->bind_param("iii", $id_playlist_music, $id_music, $id);
 
                 if (!$stmt->execute()) {
                     $response = [
