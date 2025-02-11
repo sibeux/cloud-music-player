@@ -47,12 +47,12 @@ function updateMusicOnPlaylist($db)
     global $toRemove;
 
     if (!empty($toAdd)) {
-        echo json_encode(["status" => "brok"]);
         // Siapkan SQL dengan placeholder untuk parameter binding
         $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
             VALUES (?, ?, ?, NOW())";
 
         if ($stmt = $db->prepare($sql)) {
+            echo json_encode(["status" => "success"]);
             foreach ($toAdd as $id) {
                 $id_playlist_music = NULL; // ID auto-increment
                 $stmt->bind_param("iis", $id_playlist_music, $id_music, $id);
