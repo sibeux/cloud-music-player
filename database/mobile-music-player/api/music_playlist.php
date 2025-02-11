@@ -39,6 +39,8 @@ function updateMusicOnPlaylist($db)
     $toRemove = $data['toRemove'] ?? [];
     $id_music = $data['id_music'] ?? '';
 
+    $response = ["message" => "nothing"];
+
     if (!empty($toAdd)) {
         // Buat string untuk VALUES
         $values = implode(',', array_map(fn($id) => "(NULL, $id_music, '$id', NOW())", $toAdd));
@@ -92,6 +94,8 @@ function updateMusicOnPlaylist($db)
             echo 'Could not prepare statement!';
         }
     }
+
+    echo json_encode($response);
 }
 
 switch ($method) {
