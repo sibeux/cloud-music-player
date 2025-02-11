@@ -48,10 +48,10 @@ function updateMusicOnPlaylist($db)
 
     if (!empty($toAdd)) {
         // Siapkan SQL dengan placeholder untuk parameter binding
-        $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
-            VALUES (?, ?, ?, NOW())";
-
-        if ($stmt = $db->prepare($sql)) {
+        if (
+            $stmt = $db->prepare("INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
+            VALUES (?, ?, ?, NOW())")
+        ) {
             foreach ($toAdd as $id) {
                 $id_playlist_music = NULL; // ID auto-increment
                 $stmt->bind_param("iii", $id_playlist_music, $id_music, $id);
@@ -69,7 +69,6 @@ function updateMusicOnPlaylist($db)
             $stmt->close();
             echo json_encode(["status" => "success"]);
         } else {
-            echo json_encode(["status" => "prok"]);
             echo json_encode(["status" => "failed", "message" => "Could not prepare statement!"]);
         }
     }
