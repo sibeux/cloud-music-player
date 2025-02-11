@@ -46,7 +46,8 @@ function updateMusicOnPlaylist($db)
     global $toAdd;
     global $toRemove;
 
-    if ($toAdd !== []) {
+    if (!empty($toAdd)) {
+        echo json_encode(["status" => "brok"]);
         // Siapkan SQL dengan placeholder untuk parameter binding
         $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
             VALUES (?, ?, ?, NOW())";
