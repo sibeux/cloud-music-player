@@ -46,7 +46,7 @@ function updateMusicOnPlaylist($db)
     global $toAdd;
     global $toRemove;
 
-    if (!empty($toAdd)) {
+    if ($toAdd !== []) {
         // Siapkan SQL dengan placeholder untuk parameter binding
         $sql = "INSERT INTO `playlist_music` (`id_playlist_music`, `id_music`, `id_playlist`, `date_add_music_playlist`) 
             VALUES (?, ?, ?, NOW())";
