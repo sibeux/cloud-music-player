@@ -47,6 +47,8 @@ function updateMusicOnPlaylist($db)
     global $toRemove;
 
     if (!empty($toAdd)) {
+        $response = ["status" => "oke"];
+        echo json_encode($response);
         // Buat string untuk VALUES
         $values = implode(',', array_map(fn($id) => "(NULL, $id_music, '$id', NOW())", $toAdd));
 
