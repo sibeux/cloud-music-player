@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $method = $data['method'] ?? '';
     $id_music = $data['id_music'] ?? '';
-    $toAdd = $data['toAdd'] ?? [];
-    $toRemove = $data['toRemove'] ?? [];
+    $toAdd = $data['to_add'] ?? [];
+    $toRemove = $data['to_remove'] ?? [];
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $method = $_GET['method'] ?? '';
 }
