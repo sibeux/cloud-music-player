@@ -6,6 +6,10 @@ $method = '';
 $sql = '';
 $data = [];
 
+$id_music = '';
+$toAdd = [];
+$toRemove = [];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mendapatkan data JSON dari body request
     $input = file_get_contents('php://input');
@@ -22,6 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $method = $data['method'] ?? '';
+    $id_music = $data['id_music'] ?? '';
+    $toAdd = $data['toAdd'] ?? [];
+    $toRemove = $data['toRemove'] ?? [];
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $method = $_GET['method'] ?? '';
 }
@@ -35,11 +42,9 @@ function getMusicOnPlaylist($id_music)
 
 function updateMusicOnPlaylist($db)
 {
-    $toAdd = $data['toAdd'] ?? [];
-    $toRemove = $data['toRemove'] ?? [];
-    $id_music = $data['id_music'] ?? '';
-
-    $response = ["message" => "nothing"];
+    global $id_music;
+    global $toAdd;
+    global $toRemove;
 
     if (!empty($toAdd)) {
         // Buat string untuk VALUES
@@ -94,8 +99,6 @@ function updateMusicOnPlaylist($db)
             echo 'Could not prepare statement!';
         }
     }
-
-    echo json_encode($response);
 }
 
 switch ($method) {
