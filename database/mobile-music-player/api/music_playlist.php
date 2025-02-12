@@ -83,9 +83,7 @@ function updateMusicOnPlaylist($db)
             if (
                 $stmt->execute()
             ) {
-                if (empty($toAdd)){
-                    $response = ["status" => "success"];
-                }
+                $response = ["status" => "success"];
             } else {
                 $response = [
                     "status" => "error",
@@ -94,7 +92,9 @@ function updateMusicOnPlaylist($db)
                 ];
             }
             $stmt->close();
-            echo json_encode($response);
+            if (empty($toAdd)) {
+                echo json_encode($response);
+            }
         } else {
             $response = ["status" => "failed"];
             echo json_encode($response);
@@ -103,7 +103,8 @@ function updateMusicOnPlaylist($db)
     }
 }
 
-function deleteMusicOnPlaylist($db): void{
+function deleteMusicOnPlaylist($db): void
+{
     global $id_playlist_music;
 
     $sql = "DELETE FROM `playlist_music` WHERE `id_playlist_music` = $id_playlist_music;";
