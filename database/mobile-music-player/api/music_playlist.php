@@ -83,7 +83,9 @@ function updateMusicOnPlaylist($db)
             if (
                 $stmt->execute()
             ) {
-                $response = ["status" => "success"];
+                if (empty($toAdd)){
+                    $response = ["status" => "success"];
+                }
             } else {
                 $response = [
                     "status" => "error",
