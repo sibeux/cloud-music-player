@@ -99,12 +99,42 @@ function updateMusicOnPlaylist($db)
     }
 }
 
+function deleteMusicOnPlaylist($db): void{
+    $id_music_playlist = $_POST['id_music_playlist'];
+
+    $sql = "DELETE FROM `playlist_music` WHERE `id_music_playlist` = $id_music_playlist;";
+
+    // Eksekusi query
+    if ($stmt = $db->prepare($sql)) {
+        if (
+            $stmt->execute()
+        ) {
+            $response = ["status" => "success"];
+        } else {
+            $response = [
+                "status" => "error",
+                "message" => "Failed to execute the query.",
+                "error" => $stmt->error // Pesan error untuk debugging
+            ];
+        }
+        $stmt->close();
+        echo json_encode($response);
+    } else {
+        $response = ["status" => "failed"];
+        echo json_encode($response);
+        echo 'Could not prepare statement!';
+    }
+}
+
 switch ($method) {
     case 'get_music_on_playlist':
         getMusicOnPlaylist($_GET['id_music']);
         break;
     case 'update_music_on_playlist':
         updateMusicOnPlaylist($db);
+        break;
+    case 'delete_music_on_playlist':
+        deleteMusicOnPlaylist($db);
         break;
     default:
         break;
