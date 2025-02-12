@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_music = $data['id_music'] ?? '';
     $toAdd = $data['to_add'] ?? [];
     $toRemove = $data['to_remove'] ?? [];
-    $id_music_playlist = $data['id_music_playlist'] ?? '';
+    $id_playlist_music = $data['id_playlist_music'] ?? '';
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $method = $_GET['method'] ?? '';
 }
@@ -102,9 +102,9 @@ function updateMusicOnPlaylist($db)
 }
 
 function deleteMusicOnPlaylist($db): void{
-    global $id_music_playlist;
+    global $id_playlist_music;
 
-    $sql = "DELETE FROM `playlist_music` WHERE `id_music_playlist` = $id_music_playlist;";
+    $sql = "DELETE FROM `playlist_music` WHERE `id_playlist_music` = $id_playlist_music;";
 
     // Eksekusi query
     if ($stmt = $db->prepare($sql)) {
