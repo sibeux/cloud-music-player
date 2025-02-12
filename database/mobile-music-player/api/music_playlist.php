@@ -9,6 +9,7 @@ $data = [];
 $id_music = '';
 $toAdd = [];
 $toRemove = [];
+$id_music_playlist = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mendapatkan data JSON dari body request
@@ -29,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_music = $data['id_music'] ?? '';
     $toAdd = $data['to_add'] ?? [];
     $toRemove = $data['to_remove'] ?? [];
+    $id_music_playlist = $data['id_music_playlist'] ?? '';
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $method = $_GET['method'] ?? '';
 }
@@ -100,7 +102,7 @@ function updateMusicOnPlaylist($db)
 }
 
 function deleteMusicOnPlaylist($db): void{
-    $id_music_playlist = $_POST['id_music_playlist'];
+    global $id_music_playlist;
 
     $sql = "DELETE FROM `playlist_music` WHERE `id_music_playlist` = $id_music_playlist;";
 
