@@ -33,7 +33,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
 
     if ($type == 'album') {
         $sql = "SELECT * FROM music 
-        JOIN playlist ON music.album LIKE CONCAT('%', TRIM(playlist.name), '%') 
+        JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%')
         WHERE playlist.uid = '$uid'
         ORDER BY title ASC";
     }
