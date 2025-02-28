@@ -32,4 +32,4 @@ if (empty($codec)) {
 
 // Tampilkan hasil dalam format JSON
 header('Content-Type: application/json');
-echo $code;
+echo $codec;
