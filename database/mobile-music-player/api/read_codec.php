@@ -8,7 +8,7 @@ if (!isset($_POST['url']) || empty($_POST['url'])) {
     die(json_encode(["error" => "URL tidak boleh kosong."]));
 }
 
-$file = $_POST['url'];
+$file = rawurlencode($_POST['url']);
 
 // Path lengkap ke ffprobe (sesuaikan dengan lokasi di hosting kamu)
 $ffprobePath = "/home/sibe5579/ffmpeg/ffprobe"; // Ganti "username" dengan username cPanel-mu
