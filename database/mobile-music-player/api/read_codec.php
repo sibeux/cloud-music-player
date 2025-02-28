@@ -7,4 +7,4 @@ $command = "ffprobe -i \"$file\" -show_streams -show_format -print_format json 2
 $codec = shell_exec($command);
 
 // echo "<pre>$metadata</pre>";
-echo $codec;
+echo $file;
