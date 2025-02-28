@@ -8,15 +8,15 @@ if (!isset($_POST['url']) || empty($_POST['url'])) {
     die(json_encode(["error" => "URL tidak boleh kosong."]));
 }
 
-$file = rawurlencode($_POST['url']);
+$file = $_POST['url'];
 
 // Path lengkap ke ffprobe (sesuaikan dengan lokasi di hosting kamu)
 $ffprobePath = "/home/sibe5579/ffmpeg/ffprobe"; // Ganti "username" dengan username cPanel-mu
 
 // Validasi URL jika menggunakan URL, atau validasi path jika file lokal
-if (!filter_var($file, FILTER_VALIDATE_URL) && !file_exists($file)) {
-    die(json_encode(["error" => "File tidak valid."]));
-}
+// if (!filter_var($file, FILTER_VALIDATE_URL) && !file_exists($file)) {
+//     die(json_encode(["error" => "File tidak valid."]));
+// }
 
 // Escape shell argument untuk keamanan
 // $file = escapeshellarg($file);
