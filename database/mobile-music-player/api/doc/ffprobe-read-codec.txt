@@ -1,0 +1,9 @@
+Dokumentasi install ffprobe untuk read codec music di cpanel.
+
+Karena cpanel rumahweb by default tidak meng-install ffmpeg, maka harus diinstall manual di file manager. Langkah-Langkah sesuai petunjuk dari ChatGPT dan work.
+
+1. Download file tar.xz di website ini: https://www.johnvansickle.com/ffmpeg/
+2. Setelah itu, extract file tar-nya dan ambil file ffprobe. 
+3. Buat direktori baru di file manager cpanel, seperti: "/home/sibe5579/ffmpeg/", lalu upload file ffprobe tadi ke dalam direktori tersebut.
+4. Di read_codec.php, buat fungsi seperti biasa dengan shell_exec (btw, ini harus minta si penyedia hosting buat nge-aktifinnya) dan panggil file ffprobe tadi sesuai direktorinya, yaitu "/home/sibe5579/ffmpeg/ffprobe".
+5. Dan, yaudah gitu aja sih, tinggal execute dan beres.
