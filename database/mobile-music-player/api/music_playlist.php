@@ -83,7 +83,7 @@ function updateMusicOnPlaylist($db)
             if (
                 $stmt->execute()
             ) {
-                $response = ["status" => "success"];
+                $response = ["status" => "success", "message" => "Data has been deleted."];
             } else {
                 $response = [
                     "status" => "error",

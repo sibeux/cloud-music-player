@@ -22,6 +22,7 @@ if (!filter_var($file, FILTER_VALIDATE_URL) && !file_exists($file)) {
 // $file = escapeshellarg($file);
 
 // Jalankan ffprobe untuk mendapatkan metadata dalam format JSON
+// \"$file\" digunakan untuk menangani spasi dan karakter khusus dalam path, seperti tanda kurung
 $command = "$ffprobePath -v error -show_streams -show_format -print_format json \"$file\" 2>&1";
 
 $codec = shell_exec($command);
