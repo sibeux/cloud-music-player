@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 01, 2025 at 02:49 AM
--- Server version: 10.6.20-MariaDB-cll-lve
+-- Generation Time: Mar 15, 2025 at 12:43 AM
+-- Server version: 10.6.21-MariaDB-cll-lve
 -- PHP Version: 8.3.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -98,13 +98,14 @@ CREATE TABLE `alamat` (
 --
 
 INSERT INTO `alamat` (`id_alamat`, `id_user`, `nama_penerima`, `nomor_penerima`, `label_alamat`, `provinsi`, `id_provinsi`, `kota`, `id_kota`, `kode_pos`, `detail_alamat`, `jalan_alamat`, `pinpoint_alamat`, `is_utama`, `is_toko`) VALUES
-(39, 23, 'awas', '0812121221', 'office', 'Jawa Timur', 11, 'Kab. Jember', 127, '68113', 'Jawa Timur\nKab. Jember\n68113', '123', 'LatLng(-8.164723199437482, 113.68636585772038)', 'false', 'false'),
+(39, 23, 'Satria', '0812121221', 'office', 'Jawa Timur', 11, 'Kab. Jember', 127, '68113', 'Jawa Timur\nKab. Jember\n68113', '123', 'LatLng(-8.164723199437482, 113.68636585772038)', 'true', 'false'),
 (41, 23, 'Bagas', '08965136212366', 'office', 'DKI Jakarta', 6, 'Kota Jakarta Selatan', 127, '12230', 'DKI Jakarta\nKota Jakarta Selatan\n12230', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan', 'LatLng(-8.124360517876784, 113.73067561537027)', 'false', 'false'),
 (49, 28, 'Brian Tan William', '0895412225866', 'office', 'Jawa Timur', 11, 'Kab. Blitar', 74, '66171', 'Jawa Timur\nKab. Blitar\n66171', 'Jl. Mawar', 'LatLng(-8.021683661842639, 112.00679272413254)', 'true', 'true'),
 (50, 29, 'Chandra Bintang Wijaya', '0895486952366', 'primary', 'Jawa Timur', 11, 'Kota Surabaya', 127, '60119', 'Jawa Timur\nKota Surabaya\n60119', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234', 'LatLng(-8.01230899518247, 112.00445953756571)', 'true', 'true'),
 (51, 32, 'jafar', '089509233166', 'primary', 'Jawa Timur', 11, 'Kab. Blitar', 74, '66171', 'Jawa Timur\nKab. Blitar\n66171', 'tunjung', 'LatLng(-8.0216685, 112.006783)', 'true', 'true'),
 (52, 23, 'Yosi', '08956325685', 'office', 'Bangka Belitung', 2, 'Kab. Bangka Tengah', 30, '33613', 'Bangka Belitung\nKab. Bangka Tengah\n33613', 'Jl. mawar', 'LatLng(-8.176895624876492, 113.72011844068766)', 'false', 'false'),
-(53, 23, 'M Nasrul Wahabi', '08954286889', 'office', 'DKI Jakarta', 6, 'Kota Jakarta Timur', 127, '13330', 'DKI Jakarta\nKota Jakarta Timur\n13330', 'Jl. mawar', 'LatLng(-8.163113257368407, 113.72729703783989)', 'true', 'true');
+(53, 23, 'M Nasrul Wahabi', '08954286889', 'office', 'DKI Jakarta', 6, 'Kota Jakarta Timur', 127, '13330', 'DKI Jakarta\nKota Jakarta Timur\n13330', 'Jl. mawar', 'LatLng(-8.163113257368407, 113.72729703783989)', 'false', 'true'),
+(54, 38, 'harry', '081542786745', 'office', 'Jawa Timur', 11, 'Kab. Jember', 127, '68113', 'Jawa Timur\nKab. Jember\n68113', '12', 'LatLng(-8.16590501425282, 113.7169437110424)', 'true', 'true');
 
 -- --------------------------------------------------------
 
@@ -130,9 +131,9 @@ INSERT INTO `favorite` (`id_favorite`, `id_produk`, `id_user`) VALUES
 (41, 50, 28),
 (43, 73, 28),
 (51, 90, 28),
-(52, 91, 28),
 (54, 88, 23),
-(57, 90, 23);
+(57, 90, 23),
+(61, 58, 28);
 
 -- --------------------------------------------------------
 
@@ -152,11 +153,8 @@ CREATE TABLE `keranjang` (
 
 INSERT INTO `keranjang` (`id_keranjang`, `id_user`, `id_produk`) VALUES
 (106, 28, 89),
-(107, 28, 88),
 (108, 28, 87),
-(110, 28, 84),
 (111, 28, 86),
-(112, 28, 83),
 (122, 23, 88),
 (125, 23, 91);
 
@@ -228,8 +226,9 @@ INSERT INTO `pesanan` (`id_pesanan`, `no_pesanan`, `id_user`, `id_produk`, `juml
 (57, 'SHL/20250112/2391/222102d56c', 23, 91, 1, 'jne', 'Bagas | (+62) 0896513621236', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 10200, 20000, 30200, '2025-01-12 22:21:02.127805', 'ulas'),
 (58, 'SHL/20250113/2391/2027122661', 23, 91, 1, 'jne', 'Bagas | (+62) 0896513621236', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 10200, 20000, 30200, '2025-01-13 20:27:12.680730', 'batal'),
 (59, 'SHL/20250113/2389/232801ea0e', 23, 89, 1, 'jne', 'M Nasrul Wahabi | (+62) 08954286889', 'Jl. mawar, Kota Jakarta Timur, DKI Jakarta, 13330', 8500, 20000, 28500, '2025-01-13 23:28:01.212930', 'kirim'),
-(60, 'SHL/20250117/2394/153303f628', 23, 94, 1, 'jne', 'M Nasrul Wahabi | (+62) 08954286889', 'Jl. mawar, Kota Jakarta Timur, DKI Jakarta, 13330', 2500, 20000, 22500, '2025-01-17 15:33:03.499386', 'kirim'),
-(61, 'SHL/20250121/2968/2014056db6', 29, 68, 1, 'jne', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234, Kota Surabaya, Jawa Timur, 60119', 14000, 20000, 34000, '2025-01-21 20:14:05.780637', 'batal');
+(60, 'SHL/20250117/2394/153303f628', 23, 94, 1, 'jne', 'M Nasrul Wahabi | (+62) 08954286889', 'Jl. mawar, Kota Jakarta Timur, DKI Jakarta, 13330', 2500, 20000, 22500, '2025-01-17 15:33:03.499386', 'ulas'),
+(61, 'SHL/20250121/2968/2014056db6', 29, 68, 1, 'jne', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234, Kota Surabaya, Jawa Timur, 60119', 14000, 20000, 34000, '2025-01-21 20:14:05.780637', 'batal'),
+(62, 'SHL/20250203/2394/095556721a', 23, 94, 10, 'jnt', 'Bagas | (+62) 08965136212366', 'Jl. Keramat Jati, Dukuh Atas, Jakarta Selatan, Kota Jakarta Selatan, DKI Jakarta, 12230', 25000, 20000, 45000, '2025-02-03 09:55:56.574073', 'ulas');
 
 -- --------------------------------------------------------
 
@@ -291,7 +290,8 @@ INSERT INTO `produk` (`id_produk`, `id_user`, `id_shhalal`, `nama_produk`, `desk
 (89, 29, 1142, 'La Fonte Pasta Macaroni 225gr, Halal', '“LABEL INSTANT 2 JAM” yang tertera pada gambar produk di Shopee hanyalah iklan promosi dari pihak shopee (bukan ketentuan dari Toko). INSTANT 2 JAM adalah WAKTU ESTIMASI kedatangan paket di lokasi tujuan, setelah kurir mengambil [PICK UP] paket pesanan yang sudah disiapkan dari Toko. “(Bukan sejak pesanan kami terima)”.\r\n\r\nINFORMASI PRODUK:\r\nLa Fonte Macaroni Pasta berbentuk pendek [Elbow Macaroni & Elbow Macaroni]. Terbuat dari Semolina gandum durum pilihan. Untuk toppingnya, tinggal tambahkan saus krim keju susu, saus tomat dengan daging atau irisan ikan. Karena pasta ini mempunyai  permukaan yang bertekstur sehingga saus mudah meresap dan tahan lama. 225 gr =  40 - 60 gr/porsi. Rebus pasta selama 8 - 12 menit atau sesuai dengan tingkat kekenyalan yang diinginkan. Sajikan dengan saus tomat lalu kombinasikan dengan sayuran atau keju, dan pasta pun siap untuk dinikmati.\r\n- Jenis Produk: Pasta/Macaroni [Spiral & Elbow]\r\n- Merek: La Fonte\r\n- Berat: 225\r\n- Penyimpanan: Suhu Ruangan/Kering\r\n- Sertifikasi : Halal Terverifikasi MUI.\r\n\r\nINFORMASI PENGIRIMAN:\r\n- Pengiriman ke alamat kantor & butuh cepat sampai sangat dianjurkan [WAJIB] menggunakan pengiriman kurir INSTANT.\r\n- FYI bahwa kami sebagai penjual di berikan batas waktu oleh Shopee 1x24 jam (Minimum) untuk melakukan pengiriman ke pembeli.\r\n- Kami memproses pesanan segera SETELAH JAM BUKA TOKO, sesuai antrian pesanan.\r\n\r\nKETENTUAN BATAS PENGIRIMAN:\r\n1.  Pesanan menggunakan Kurir SameDay sebelum jam 14:00 diproses di hari yang sama.\r\n2.  Pesanan menggunakan Kurir INSTANT sebelum jam 16:00 diproses di hari yang sama.\r\n*DILUAR KETENTUAN TERSEBUT AKAN DIPROSES DI HARI BERIKUTNYA.\r\n\r\nSYARAT PENGAJUAN KOMPLAIN:\r\nKami hanya menerima komplain yang disertai dengan video unboxing. “(Video dari awal paket sebelum dibuka hingga selesai)”.\r\n*KOMPLAIN TANPA VIDEO UNBOXING TIDAK DAPAT DIPROSES.\r\n\r\nMEMBELI = MENYETUJUI KETENTUAN YANG DITETAPKAN.', 'https://sibeux.my.id/project/sihalal/uploads/IMG_8fef8ca4-a90b-4bab-96b0-b7707ca14907.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_0fcfd330-9619-4fae-9889-1145ee42749f.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_70a52b2f-8ffc-452b-a064-3b6ecd90ee5a.jpg', 8500, 225, 55, 'true'),
 (90, 29, 1551, 'Del\'s - Keju Mozzarella / Mozzarella Cheese Extra Stretchy - 250 Gram', 'DELS Keju Mozzarella / Mozzarella Cheese Stretchy - 250 Gr\r\n\r\nSpesifikasi :\r\nDels Keju Mozzarella / Mozzarella Cheese Stretchy memberikan rasa creamy yang lezat, mudah meleleh dan menyebar saat dipanggang serta ekstra stretchy saat masih hangat.\r\n\r\nInformasi Produk: ​\r\n- Keju Mozzarella ​\r\n- Berat Bersih : 250 Gr\r\n- Extra Stretchy\r\n- Easy Melt\r\n- High Protein & Calcium\r\n- Saran penggunaan: Cocok diaplikasikan pada pizza, sandwich, toast, pasta dll.​\r\n- Diimport dari Irlandia​\r\n- Pengemasan : Vacuum sealed​\r\n- Expired Date : Chat untuk informasi terupdate berkenaan ED\r\n- HALAL\r\n- Saran Penyimpanan: Simpan di Freezer (-18\'C) sebelum digunakan, jangan dibekukan kembali setelah dicairkan. Simpan dalam chiller (-4\'C) dalam wadah tertutup rapat setelah dicairkan.​\r\n___________________________________________________​\r\n\r\nCatatan:​\r\n* Batas waktu order dengan pengiriman instant sampai jam 4 sore akan dikirim di hari yang sama​\r\n* Batas waktu order dengan pengiriman sameday sampai jam 2 siang akan dikirim di hari yang sama​\r\n* Pesanan melewati batas waktu atau hari libur akan diproses keesokan harinya pada hari kerja.​\r\n*Khusus semua produk frozen hanya bisa dikirim melalui GOJEK/GRAB instant untuk menjaga kulaitasnya\r\n* Produk frozen hanya dapat bertahan maksimal 4 jam di luar suhu penyimpanan freezer.​\r\n\r\n', 'https://sibeux.my.id/project/sihalal/uploads/IMG_09ebecea-816c-43e2-b570-9ea205eafc50.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_5d5e6bf0-8db4-4934-bec0-718ed60ed6aa.jpg', '', 46155, 250, 89, 'true'),
 (91, 29, 1193, 'Tempe Daun 1 Pcs Freshbox', 'Tempe yang dikemas dengan daun pisang sebagai pembungkusnya yang memiliki aroma harum yang berasal dar daun pisang\r\n\r\n[FRESHBOX INFO]\r\n\r\nInfo Pengiriman:\r\n1. Order yang masuk pukul 00.00 – 20.00 akan dikirimkan H+1\r\n2. Order yang masuk pukul 20.00 – 23.58 akan dikirimkan H+2\r\n\r\nInfo Penukaran Barang/Komplain:\r\n1.  Batas maksimal keluhan adalah 3 jam setelah barang diterima oleh customer \r\n2.  Jika pesanan yang diterima tidak sesuai dengan spesifikasi customer dapat melampirkan foto produk dan shipping label\r\n\r\nJam operational Customer Service 09.30 – 18.30\r\n\r\nKami selalu berusaha memberikan yang terbaik untuk merespon kebutuhan kamu!\r\n\r\nFreshBox, \r\nFrom Our Farm to Your Table', 'https://sibeux.my.id/project/sihalal/uploads/IMG_2cfba39f-65c8-486a-ba6d-7d058dea9746.jpg', '', '', 10200, 126, 662, 'true'),
-(94, 29, 1404, 'Telur rebus asin', 'telur rebus asin', 'https://sibeux.my.id/project/sihalal/uploads/IMG_038141e7-5acb-4111-8af8-485a175010ec.jpg', '', '', 2500, 100, 49, 'true');
+(94, 29, 1404, 'Telur rebus asin 500g', 'telur rebus asin', 'https://sibeux.my.id/project/sihalal/uploads/IMG_038141e7-5acb-4111-8af8-485a175010ec.jpg', '', '', 2500, 100, 39, 'true'),
+(95, 38, 1192, 'roti', 'makanan', 'https://sibeux.my.id/project/sihalal/uploads/IMG_4b49f958-e57b-4a0e-b55d-4e8ec38d1a2b.jpg', '', '', 5000, 250, 5, 'true');
 
 -- --------------------------------------------------------
 
@@ -324,7 +324,9 @@ INSERT INTO `rating` (`id_rating`, `id_produk`, `id_user`, `id_pesanan`, `bintan
 (12, 91, 28, 47, 5, 'Tempenya fresh, gk bau, top bgt pokoknya dah... ', '2024-12-12 07:38:35'),
 (13, 57, 29, 48, 3, 'cukup ok sausnya, tapi tadi ada beberapa kemasa yg sdh rusak.. but overalls oke 👌', '2024-12-12 08:27:25'),
 (14, 91, 23, 52, 4, 'sedap bangetttt', '2025-01-12 14:42:29'),
-(15, 91, 23, 57, 4, 'good', '2025-01-13 15:10:13');
+(15, 91, 23, 57, 4, 'good', '2025-01-13 15:10:13'),
+(16, 94, 23, 60, 4, 'Enak Sekali', '2025-02-03 02:59:05'),
+(17, 94, 23, 62, 3, 'Terlalu asin', '2025-02-14 07:18:54');
 
 -- --------------------------------------------------------
 
@@ -1081,7 +1083,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `email_user`, `nama_user`, `pass_user`, `nama_toko`, `deskripsi_toko`, `foto_user`) VALUES
 (1, 'wahabinasrul@gmail.com ', 'M Nasrul Wahabi', 'sibeHBQ342169', 'Habiqi.Shop', 'Gramedia Official Store Menyediakan Buku-buku Asli dan Berkualitas. Toko ini buka setiap hari Senin - Sabtu (Pukul 09.00 -16:30 WIB)', 'https://sibeux.my.id/images/sibe.png'),
 (9, 'sibesibe86@gmail.com', 'Sibeux', '$2y$10$tPQwbnID1BsdNcKxv92MPus2zngBmCGPmGFiyzweYlnPsttGkUkvu', NULL, NULL, NULL),
-(23, 'a@gmail.com', 'Akmal Satria Kadhafis', '$2y$10$Wj/y.ccjPHUX.DLhk9s5uucSdrTfojPyOvLzJCQAW9fDIVizhCexC', 'IndoFoods', NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_35dcb8e5-6690-44fb-8bfe-6df760603cfd.jpg'),
+(23, 'a@gmail.com', 'Akmal Satria Kadhafi', '$2y$10$Wj/y.ccjPHUX.DLhk9s5uucSdrTfojPyOvLzJCQAW9fDIVizhCexC', 'IndoFoods', NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_35dcb8e5-6690-44fb-8bfe-6df760603cfd.jpg'),
 (28, 'b@gmail.com', 'Brian Tan William', '$2y$10$/zlN4KYkLA/a.gghmsCoaukHSLoyAbQuuy1FFr8eYnYrYWYSwc4da', NULL, NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_5fce29c0-9854-403b-b420-ff245ef8f72c.jpg'),
 (29, 'c@gmail.com', 'Chandra Bintang Wjiaya', '$2y$10$gQ31E14OdmFOqNWnapbgpOwX2xjBnFmZQDIpPn0ATy.FjkJGHJUde', 'C20 Baker\'s Warehouse', NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_580f9801-1c51-4e36-9b04-0957332f6e13.jpg'),
 (30, 'samasama@yahoo.com', 'Sama Sama', '$2y$10$5kveGMU8MsHzKlyPcRPkDeGyneI3etP3sEeuL4mNn7W.VeC34DfrW', NULL, NULL, NULL),
@@ -1091,7 +1093,8 @@ INSERT INTO `user` (`id_user`, `email_user`, `nama_user`, `pass_user`, `nama_tok
 (34, 'g@gmail.com', 'Gerrald Wijaya', '$2y$10$sSDO4w087HAVcDtESQJTVe75pktTn5pGH/ufKYAcilyoxi6vXCFQ.', NULL, NULL, 'https://sibeux.my.id/project/sihalal/uploads/profile_3bc42504-f23c-45a4-b4f5-78890363c6cb.jpg'),
 (35, 'v@gmail.com', 'Vins', '$2y$10$Zokc56IQ.2KlOK8TPW4VvOrIjjrMLavDGSoWoBUZ9szQzLdvrm6Ae', NULL, NULL, NULL),
 (36, 'bajabs@hotmail.com', 'hsbsinss', '$2y$10$0f2Qy2GopRAUMg33ArSwKukJIUP3ewy5WqWOtZOA1Vbgidvd8jL7S', NULL, NULL, NULL),
-(37, '67yytym@hotmail.com', 'fyhyfyhyf', '$2y$10$8u8QMV4KSXPUOmyfHoXcbuI.dpIREKZvBTwnXTohmYRdlAQzDcGmO', NULL, NULL, NULL);
+(37, '67yytym@hotmail.com', 'fyhyfyhyf', '$2y$10$8u8QMV4KSXPUOmyfHoXcbuI.dpIREKZvBTwnXTohmYRdlAQzDcGmO', NULL, NULL, NULL),
+(38, 'harsoe2021@gmail.com', 'harry', '$2y$10$PNoRI5TVLc79P4OH9/Cc1.6NJZHqFQ3QqAy5XWFUPN4QxHsYA/gny', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -1167,37 +1170,37 @@ ALTER TABLE `user` ADD FULLTEXT KEY `nama_toko` (`nama_toko`);
 -- AUTO_INCREMENT for table `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id_alamat` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_alamat` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `favorite`
 --
 ALTER TABLE `favorite`
-  MODIFY `id_favorite` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id_favorite` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id_keranjang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id_keranjang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_pesanan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id_produk` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id_rating` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_rating` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `shhalal`
@@ -1209,7 +1212,7 @@ ALTER TABLE `shhalal`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_user` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Constraints for dumped tables
