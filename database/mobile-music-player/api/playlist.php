@@ -26,9 +26,10 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
 
     if ($type == 'category' && $uid != 481) {
         $sql = "SELECT * FROM music
-        join playlist on music.category like playlist.uid
-        WHERE music.category = '$uid'
-        ORDER BY music.title ASC";
+                JOIN playlist ON music.category = playlist.uid
+                WHERE music.category = '$uid'
+                ORDER BY music.title ASC;
+                ";
     }
 
     if ($type == 'album') {
