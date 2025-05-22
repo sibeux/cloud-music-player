@@ -28,8 +28,10 @@ if ($response === FALSE) {
 
 // Ubah JSON menjadi array PHP
 $data = json_decode($response, true);
-
-$api_key = $data[0]['gdrive_api'];
+// Get the length of the array
+$apiArrayLength = count($data);
+$apiRandomIndex = mt_rand(0, $apiArrayLength - 1);
+$api_key = $data[$apiRandomIndex]['gdrive_api'];
 
 // Tampilkan hasil
 // print_r($data);
