@@ -2,7 +2,7 @@
 
 include './connection.php';
 
-$sql = "SELECT gdrive_api FROM API";
+$sql = "SELECT * FROM API";
 
 // Query to retrieve data from MySQL
 $result = $db->query($sql);
