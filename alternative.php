@@ -21,17 +21,28 @@ $url = "https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api
 // Ambil data API
 $response = file_get_contents($url);
 
-// Cek apakah response berhasil diambil
 if ($response === FALSE) {
     die('Error occurred while accessing the API.');
 }
 
-// Ubah JSON menjadi array PHP
 $data = json_decode($response, true);
-// Get the length of the array
-$apiArrayLength = count($data);
-$apiRandomIndex = mt_rand(0, $apiArrayLength - 1);
-$api_key = $data[$apiRandomIndex]['gdrive_api'];
+
+// Filter data untuk email yang mengandung '@gmail.com'
+$gmailData = array_filter($data, function($item) {
+    return strpos($item['email'], '@gmail.com') !== false;
+});
+
+if (empty($gmailData)) {
+    die('No Gmail API key found.');
+}
+
+// Reset indeks supaya bisa random dengan mt_rand
+$gmailData = array_values($gmailData);
+
+$length = count($gmailData);
+$randomIndex = mt_rand(0, $length - 1);
+
+$api_key = $gmailData[$randomIndex]['gdrive_api'];
 
 // Tampilkan hasil
 // print_r($data);
