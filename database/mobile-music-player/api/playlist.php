@@ -78,43 +78,41 @@ if (isset($_GET['recents_music'])) {
     $sql = "SELECT * FROM recents_music join music on music.id_music = recents_music.uid_music ORDER BY played_at DESC";
 }
 
-// Query to retrieve data from MySQL
+// Jalankan query
 $result = $db->query($sql);
 
-// Check if the query was successful
+// Cek error
 if (!$result) {
-    die("Query failed: " . $db->error);
+    http_response_code(500);
+    echo json_encode(["error" => "Query failed", "detail" => $db->error]);
+    $db->close();
+    exit;
 }
 
-// Create an array to store the data
-$data = array();
+// Set header JSON
+header('Content-Type: application/json');
 
-// Check if there is any data
-if ($result->num_rows > 0) {
-    // Loop through each row of data
-    while ($row = $result->fetch_assoc()) {
-        // Clean up the data to handle special characters
-        array_walk_recursive($row, function (&$item) {
-            if (is_string($item)) {
-                $item = htmlentities($item, ENT_QUOTES, 'UTF-8');
-            }
-        });
+// Stream JSON array
+echo '[';
+$first = true;
 
-        // Add each row to the data array
-        $data[] = $row;
+while ($row = $result->fetch_assoc()) {
+    // Optional sanitize ringan, tanpa htmlentities
+    array_walk_recursive($row, function (&$item) {
+        if (is_string($item)) {
+            $item = mb_convert_encoding($item, 'UTF-8', 'UTF-8');
+        }
+    });
+    
+    if (!$first) {
+        echo ',';
     }
+
+    echo json_encode($row, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $first = false;
 }
 
-// Convert the data array to JSON format
-$json_data = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+echo ']';
 
-// Check if JSON conversion was successful
-if ($json_data === false) {
-    die("JSON encoding failed");
-}
-
-// Output the JSON data
-echo $json_data;
-
-// Close the connection
 $db->close();
+exit;
