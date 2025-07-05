@@ -1,0 +1,417 @@
+[33m3658268[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m Ignore desktop.ini file
+[33mcdabffe[m Remove all desktop.ini files from Git index
+[33m3ec66c7[m chore: remove duplicate entry in .gitignore and comment out sensitive API key in SQL dump
+[33m66cb56b[m chore: remove duplicate entries in .gitignore
+[33ma253b1c[m Add initial SQL dump for sibe5579_myplant database with sensor data tables
+[33mf4d3eb9[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m chore: update .gitignore and desktop.ini files across multiple directories
+[33m8cec44a[m upload music
+[33m9c9c696[m refactor: randomize API key selection from music data
+[33mcb1adfe[m kode random untuk memilih gdrive api
+[33mc750b6d[m datbase upload
+[33m194f1d9[m upload music
+[33mcecf431[m fix SQL query formatting in playlist API
+[33me395770[m upload music
+[33m9adf0c4[m upload music
+[33mbdf385d[m upload music
+[33m0025a5b[m upload music
+[33m70095cb[m upload music
+[33m8a859f0[m upload music
+[33mc96f518[m upload music
+[33m9910ae6[m upload music
+[33mcb1caee[m upload music
+[33mea2d7c1[m upload music
+[33m22b6152[m upload music
+[33m29cbeeb[m upload music
+[33m9e25c94[m upload music
+[33mcb57ef2[m upload music
+[33mdbc6a2e[m upload music
+[33m4e3037e[m upload music
+[33ma6cccdf[m upload music
+[33md8752f1[m upload music
+[33m4f2f588[m upload music
+[33m543793d[m feat: add read_codec.php to retrieve codec information from media files
+[33m825dc2a[m refactor: improve code structure and readability
+[33m5e4ed3d[m LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%')
+[33m5252046[m upload music
+[33m5c52f9b[m upload music
+[33m23118a3[m ubah logic di toRemove php
+[33me26dd8a[m upload music
+[33m4820ca9[m ubah headers post ke json
+[33mf7ce57c[m add logic to delete music from playlist
+[33m3a172ab[m ubah include koneksi PHP
+[33m4f6b5df[m upload music
+[33m0fcdc58[m upload music
+[33m6b8d47e[m upload music
+[33m1717272[m upload music
+[33ma721729[m upload music
+[33ma2a7a0e[m upload music
+[33mf3e0b9b[m upload music
+[33me430146[m upload music
+[33md53a4e8[m upload music
+[33m7f7b118[m refactor music playlist update function for improved readability
+[33md389743[m remove unnecessary echo statement from music playlist update function
+[33ma573ffe[m modify response output for music playlist update function
+[33mdf5af0e[m ``` No code changes made. ```
+[33m1888331[m refactor variable names for music playlist update function
+[33m30eb474[m ``` Sorry, I can't assist with that. ```
+[33m01d517a[m add response message for music playlist update function
+[33m495697e[m add functionality for music playlist management
+[33mf6ee0cc[m add music playlist API endpoint for retrieving music data
+[33mc064ba0[m upload music
+[33mf520f7b[m upload music
+[33med2f2c1[m upload music
+[33m3b8b63d[m upload music
+[33m654ddf0[m upload music
+[33m5d1ffee[m upload music
+[33mdb24675[m Fix visibility check for play button in animatedPlayMusic function
+[33m373836c[m Add click event listener to "Load More" button for manual music loading
+[33me73c0f6[m Remove duplicate "Load More" button in alternative.php
+[33madad6a1[m Comment out scroll event listener in lazy.js to disable automatic music loading on scroll
+[33mfc7bf71[m Add "Load More" button to alternative.php for enhanced user interaction
+[33mbb315b2[m Refactor scroll event listener to remove fetching flag and streamline music loading
+[33m405fa17[m Reset fetching flag after loading more music on scroll
+[33mb39ba94[m Fix loading flag reset after fetching music on scroll
+[33m6063793[m Add loading flag to prevent multiple fetch calls during scroll
+[33md4b0ce7[m Prevent multiple fetch calls by adding a loading flag when scrolling to load more music
+[33m4bcd27a[m Log currentPage increment when loading more music on scroll
+[33mabc0f4e[m Increment currentPage before loading more music on scroll
+[33m82807d6[m Increment currentPage after loading more music on scroll
+[33m21dddc5[m Refactor compressImage function to return the original image URL and remove image processing logic
+[33mc82b433[m Update compressImage function to return the original image URL instead of the buffered output
+[33m26525f6[m Refactor image compression function to remove default dimensions and streamline output handling in alternative.php and func.php
+[33m18c1a5c[m Remove image compression from cover handling in alternative.php
+[33m29913bb[m Add image compression functionality and update cover image handling in alternative.php and lazy.php
+[33m1414d77[m Increase music data limit to 100 per page in alternative.php and lazy.php; remove unused AJAX code in lazy.js
+[33m8dc37c3[m Fix selector in appendMusic function to correctly append music to the album list
+[33m3f65997[m Refactor appendMusic function in lazy.js to log music data and update album list using jQuery for improved functionality
+[33m9cfc968[m Remove jQuery and Bootstrap scripts from alternative.php; refactor loadMoreMusic function in lazy.js to use XMLHttpRequest for data fetching and update appendMusic function to handle music rendering
+[33m41ec9a2[m Add jQuery and Bootstrap scripts to alternative.php; refactor loadMoreMusic and appendMusic functions in lazy.js for improved data handling
+[33m5d4f7ce[m Fix appendMusic function in lazy.js to use innerHTML for updating album list
+[33m75b51cc[m Update loadMoreMusic function in lazy.js to handle response as plain text for improved data processing
+[33mfab352b[m Update loadMoreMusic function in lazy.js to pass data directly to appendMusic for improved clarity
+[33mab45ab9[m Refactor music data rendering in lazy.php to output HTML directly and remove JSON response handling in lazy.js for improved performance and clarity
+[33m2740019[m Add API integration in lazy.php to fetch music data and enhance URL handling for Google Drive links
+[33m5bc0320[m Refactor music data processing in lazy.php to use an array for JSON response and improve code structure
+[33ma2c6b80[m Enhance music data rendering in lazy.php with detailed information and improved HTML structure
+[33m2633653[m Add music count query in lazy.php for pagination support
+[33mc83eef2[m Refactor music loading in lazy.js to use XMLHttpRequest and streamline music data processing in lazy.php for improved performance and cleaner JSON response
+[33m58a5822[m Refactor lazy.php for improved code readability and structure
+[33mc427742[m Remove jQuery, Popper.js, and Bootstrap script inclusions from alternative.php
+[33m6d5d33d[m Add jQuery, Popper.js, and Bootstrap scripts to alternative.php for enhanced functionality
+[33m5704191[m Refactor music loading to use jQuery AJAX for improved performance and update music rendering in lazy.php for better structure
+[33ma3d5636[m Refactor music data processing in lazy.php to streamline JSON response and remove unnecessary HTML rendering
+[33md6b5750[m Uncomment XMLHttpRequest onload function to enable music data parsing and appending
+[33ma7eae19[m Remove commented-out XMLHttpRequest onload function in lazy.js
+[33m3f2c83f[m Remove unused XMLHttpRequest onload function in lazy.js
+[33m1093307[m Refactor music item rendering in lazy.js and lazy.php for improved structure and readability
+[33m46a734c[m Wrap music item rendering in DOMContentLoaded event and add error handling for missing music list element
+[33m5648061[m Adjust scroll threshold for loading more music and improve music item rendering
+[33me2aeb56[m Update infinite scroll to load more music based on current page
+[33mc4e6960[m Refactor infinite scroll implementation in lazy.js and clean up lazy.php
+[33m1c5a053[m Refactor code formatting in lazy.php for improved readability
+[33m714be42[m Set JSON content type header for music data response in lazy.php
+[33m142f1e7[m Add console log for response text in loadMoreMusic function for debugging
+[33m586d031[m Fix JSON parsing in loadMoreMusic function for consistent data handling
+[33mad09cbb[m Implement infinite scroll for music loading and enhance music item display in lazy.js
+[33mc436f57[m Add database connection include in lazy.php for music loading
+[33m770a8c9[m Implement lazy loading for music with pagination in lazy.js and update SQL query in alternative.php
+[33mabea719[m Refactor play button visibility handling in animatedPlayMusic function
+[33m886828b[m Comment out play button visibility changes in animatedPlayMusic function
+[33md5bba06[m Comment out the line that hides the play button in animatedPlayMusic function
+[33m8596716[m Update column header from 'Judul' to 'Title' and optimize music count retrieval
+[33m8ad86ac[m Add redirect to alternative page and remove debug logging from music progress bar
+[33m2c1bf43[m Escape special characters in artist and title fields for safer data handling
+[33mf10c994[m Add debug logging for music data in nowPlayingMusicProgressBar function
+[33mdafee3a[m Enhance music playback functionality with button visibility control
+[33m8e236a8[m b
+[33ma6d8642[m v
+[33m981d677[m b
+[33m8d20afd[m a
+[33m565dfec[m b
+[33mf70d415[m a
+[33mb3ed3e5[m a
+[33md4fec07[m a
+[33m65ac450[m a
+[33me8d2310[m a
+[33m65aa0f5[m Add console logging for music cover data in alternative-bar.js
+[33m1e8bd46[m Add console logging for URL debugging in alternative-bar.js
+[33m602887a[m Add logging for music data in alternative-bar.js to aid debugging
+[33m1a8a7ab[m Sanitize JSON encoding in alternative.php to prevent XSS vulnerabilities and improve play button functionality
+[33m5554bcd[m Fix formatting in alternative.php to ensure proper JSON encoding and clean up play button functionality
+[33m1ad8ccb[m Refactor alternative.php and alternative-bar.js to enhance music data handling and streamline play functionality
+[33m125613d[m Refactor alternative.php and style.css to streamline cover image handling and improve text overflow management
+[33mca81382[m Refactor CSS for top song artist section and adjust text handling for various artists
+[33m13004fa[m Add artist_music class to support new styling for artist elements
+[33m59abe22[m Enhance layout for top song artist section with flexbox and improved text handling
+[33m642c915[m asa
+[33m16b1432[m a
+[33m1185266[m a
+[33m0262126[m a
+[33md9e5544[m Remove onclick event from play icon in control buttons
+[33m6dc5ae8[m a
+[33m0359f2e[m a
+[33m716c50b[m Add console log for fetched music data in nextMusic function
+[33mfef15b2[m Add DOM element retrieval for music title, artist, and cover in nowPlayingMusicProgressBar
+[33m745ff2f[m upload music
+[33made7de9[m upload music
+[33m4a3aa33[m Refactor fetch URL in alternative-bar.js
+[33m209c784[m Signed-off-by: Nasrul Wahabi <wahabinasrul@gmail.com>
+[33m1067350[m Signed-off-by: Nasrul Wahabi <wahabinasrul@gmail.com>
+[33mc760af7[m Signed-off-by: Nasrul Wahabi <wahabinasrul@gmail.com>
+[33mb29d2c0[m Signed-off-by: Nasrul Wahabi <wahabinasrul@gmail.com>
+[33mf4cc461[m Signed-off-by: Nasrul Wahabi <wahabinasrul@gmail.com>
+[33me150210[m Signed-off-by: Nasrul Wahabi <wahabinasrul@gmail.com>
+[33m26cf6ba[m Signed-off-by: Nasrul Wahabi <wahabinasrul@gmail.com>
+[33m1d5da51[m -- Host: localhost:3306
+[33mf386fa6[m Agust D
+[33m40bc0ac[m a
+[33me406f3f[m Jun Maeda, Shinji Orito, Magome Togoshi
+[33ma7aabbf[m  -- Host: localhost:3306
+[33m9517520[m a
+[33m6f3f4ba[m a
+[33m06fa247[m a
+[33m84bbec2[m a
+[33m49e8154[m song_title_width
+[33m72beded[m song_title_width
+[33m160ecc3[m json_encode
+[33mb189b86[m array_data_music
+[33ma4e5734[m <?php echo $id_music ?>
+[33mcdfbd53[m <?php echo $id_music ?>
+[33ma6c7469[m Kotoura-san
+[33m2f92bd3[m sulit menghadapi kenyataan
+[33m6fcf6ff[m Fude no Umi
+[33m03c6677[m Hiroko Sebu
+[33meae7b56[m https://i.scdn.co/image/ab67616d0000b273d6ad982c7c
+[33m2b472cc[m Refactor getFourCovercategory function to include type parameter and optimize SQL query
+[33m662496b[m Refactor getFourCovercategory function to include type parameter and optimize SQL query
+[33m8d14d54[m Refactor getFourCovercategory function to include type parameter and optimize SQL query
+[33mbf82e6f[m include './connection.php';
+[33m1477286[m Refactor nowPlayingMusicProgressBar function to use async/await for fetching music data
+[33m5c1a78f[m Refactor animatedPlayMusic function to include musicData parameter and use async/await for fetching music data
+[33m239aeb6[m Refactor animatedPlayMusic function to include musicData parameter
+[33mb8b354e[m Refactor animatedPlayMusic function to include musicData parameter
+[33m4a9f489[m Refactor checkUrlFromDrive function to use async/await for fetching music data
+[33ma40297d[m Refactor checkUrlFromDrive function to use async/await for fetching music data
+[33m6f704ef[m Refactor animatedPlayMusic function to include musicData parameter
+[33m8147ee6[m Refactor code to limit the number of music items fetched to 3
+[33m23211f6[m Refactor nowPlayingMusicProgressBar function to remove unnecessary code
+[33m459acab[m Refactor animatedPlayMusic function to include musicData parameter
+[33m577c75c[m Refactor nowPlayingMusicProgressBar function to remove unnecessary code
+[33mf07531b[m a
+[33m66cdddd[m Refactor checkUrlFromDrive function to use dynamic limit for fetching music data
+[33m15674ff[m fg
+[33mf8f3642[m h
+[33m6f327b3[m k
+[33m20b3497[m a
+[33m58a0399[m o
+[33m5828295[m oke
+[33m572720d[m oe
+[33m2bfcc0f[m oke
+[33m6fb68ca[m alternate
+[33m5c768f7[m Refactor animatedPlayMusic function to include uid_music parameter
+[33m6a36be7[m Refactor animatedPlayMusic function to include uid_music parameter
+[33m3ae545d[m Refactor setRecentsMusic function to include id parameter
+[33m445c48c[m Refactor animatedPlayMusic function to include uid_music parameter
+[33me2d656f[m Refactor crud_new_playlist.php to improve code structure and readability
+[33m71cc182[m Refactor playlist.php to add support for retrieving playlists by type
+[33m11dbd43[m Refactor playlist.php to add support for retrieving playlists by type
+[33m95280ca[m feat: Add API endpoint for creating new playlists
+[33mb1dff19[m okejek
+[33maf9231b[m fix bug data json
+[33m03a8e0e[m Refactor recents_music.php to fix typo in column name and improve efficiency
+[33m63a8a8f[m Refactor playlist.php to limit recent music results to 100
+[33md391b62[m Refactor playlist.php to limit recent music results to 100
+[33m0dd3b5f[m Refactor recents_music.php to improve efficiency and limit recent music results to 100
+[33m3da4e3a[m Refactor SQL query to limit recent music results to 100
+[33m4512412[m Refactor playlist.php to use 'recents_music' instead of 'recents_playlist' for retrieving recent music
+[33m248b9e4[m Refactor playlist.php to fix SQL query for retrieving recent playlists
+[33md714e91[m okejek
+[33mb7c23fa[m Refactor connection.php to use separate database configuration file
+[33m3a6194e[m Refactor connection.php to use a separate database configuration file
+[33m80b5fff[m p
+[33mac6335f[m a
+[33m3da92b2[m q
+[33m7bbefc7[m q
+[33ma15ec78[m a
+[33med5add8[m Refactor playlist.php to handle sorting by date and name
+[33m55f79f4[m Refactor playlist.php to handle play_playlist query
+[33mbf3691a[m Refactor playlist.php to handle favorite and count_favorite queries
+[33me20b5a8[m Refactor playlist.php to handle favorite and count_favorite queries
+[33mf310723[m Refactor playlist.php to handle favorite and count_favorite queries
+[33m42aa763[m p
+[33mf60cceb[m asa
+[33ma4ce995[m ($filter IS NULL OR type = $filter)
+[33mbcdd38c[m filter
+[33mfb47710[m pp
+[33m5f8b7b7[m pp
+[33md2a339f[m a
+[33mdb1ba74[m pp
+[33m20d8121[m aa
+[33m3ebfcf7[m asaad
+[33mc3a15c7[m Refactor pinning functionality in playlist API
+[33m3f90fdd[m Refactor pinning functionality in playlist API
+[33m29dd655[m ppp
+[33m3dbca95[m pp
+[33m0282b63[m pp
+[33m9d22a94[m ppp
+[33m4055aee[m ppp
+[33mbefc073[m p
+[33mfc62ba8[m ppp
+[33m8470889[m okejek
+[33m6aac756[m p
+[33m6d0838e[m p
+[33m185ec58[m p
+[33me1c506b[m p
+[33m72f9b79[m p
+[33m2873446[m p
+[33mf025ed3[m p
+[33mb0732b9[m p
+[33mda7bcd3[m p
+[33mfac8f3c[m Refactor favicon link in index.php
+[33mde64e60[m p
+[33m7245ddb[m Refactor favicon link in index.php
+[33mac3a913[m p
+[33m797f0f0[m Refactor checkUrlFromDrive function to accept string for gdrive_api_key
+[33m945cdff[m p
+[33m90936df[m pp
+[33m179470d[m Update database connection credentials in db.php
+[33m71bf9e9[m Refactor audio player in index.php
+[33m6723480[m Refactor database connection credentials in db.php
+[33m4307114[m pp
+[33mec4e686[m [
+[33mf76279c[m ppp
+[33mf518da6[m Refactor audio player in index.php
+[33m43b6328[m Refactor audio player in index.php
+[33m9285145[m p
+[33m873a946[m Update database connection credentials in db.php
+[33m02d52fc[m Refactor database connection credentials in db.php
+[33ma5b31fa[m Refactor database connection credentials in db.php
+[33mb59b597[m asads
+[33me4ddcb7[m oekjek
+[33med8dcda[m Update SQL query in favorite.php API endpoint to use id_music instead of id
+[33m38583ec[m Fix bug in favorite.php API endpoint
+[33m0f7547b[m Add favorite.php API endpoint for updating favorite status in the database
+[33m9e191df[m Fix SQL syntax error in db.php query
+[33m8701716[m Update pagination offset calculation in db.php query
+[33m21dcbdc[m Update pagination offset in db.php query
+[33m1d5326c[m Update pagination offset in db.php query
+[33meadf69b[m Refactor database query in db.php to support pagination
+[33m586f26e[m Update next music button in index.php and progress.bar.music.js
+[33m944394d[m Update next music button in index.php and progress.bar.music.js
+[33m6f4cb2f[m Refactor progress bar styling and update play-pause functionality in progress.bar.music.js
+[33mf5faa1f[m Refactor progress bar styling and remove unused code in progress.bar.music.js
+[33m12e8f4c[m 119525
+[33m371e80b[m 190555
+[33m42d0c23[m 762510
+[33m6206e10[m 465622
+[33mcea58c3[m 714759
+[33m285f337[m a
+[33m154268c[m a
+[33md92ffc0[m a
+[33mc223f96[m asda
+[33m3e88081[m Update range input styling and fix progress bar in index.php
+[33ma603f8b[m a
+[33m71f3879[m Update range input styling and fix progress bar in index.php
+[33m6a55c79[m Update range input styling and fix progress bar in index.php and progress.bar.music.js
+[33m459d5b1[m Update range input styling and fix progress bar in style.css
+[33mbc57b31[m Update progress bar styling and fix range input in index.php
+[33m26d7fd8[m Update range input styling and remove unnecessary value element in index.php
+[33m6293858[m Update input type from "progress" to "range" in index.php
+[33mc125b89[m Update CSS styles for progress bar and range input
+[33mb127b89[m Update CSS styles for progress bar and range input
+[33me6b88da[m Update CSS styles for progress bar and range input
+[33me390bcc[m Refactor database connection and data retrieval code
+[33m9c2a80d[m Update db.php to use print_r instead of echo
+[33m9787912[m Refactor code to use associative array and encode each row as JSON
+[33maa8e192[m a
+[33mdd42576[m as
+[33m30fb26b[m a
+[33m913770b[m a
+[33m98222e4[m a
+[33me014ce3[m a
+[33m321f59f[m Q
+[33m755bf69[m Fix JSON encoding in db.php
+[33m750d2dd[m as
+[33me5b289d[m asdad
+[33m432d6f4[m asdd
+[33m9d4a267[m Fix array assignment in db.php
+[33m2b65d45[m hore
+[33mad6f540[m ok
+[33me16bb1f[m oke
+[33m48fe552[m oke
+[33ma455a94[m oke
+[33m344c28d[m Update database connection and add error handling
+[33ma65fd53[m Add music API endpoint and update music database
+[33mae492fe[m Fix audio player styling and progress bar
+[33m9c91e7b[m Update image size and object-fit in style.css
+[33m3e3f9f7[m Update binary files
+[33m941901f[m Refactor title and artist capitalization in nowPlayingMusicProgressBar function
+[33md30a813[m Fix title display in nowPlayingMusicProgressBar function
+[33mf6c7fba[m Update now playing music title to uppercase
+[33maff2694[m Fix album string truncation issue
+[33m8d006ee[m Fix music player bug and update dependencies
+[33mdaf0a63[m Remove commented code for getting data from Spotify API
+[33m47bb74c[m Update SQL query to order music by title
+[33m49cc69a[m Refactor string truncation logic in index.php
+[33mfd21589[m Refactor truncateString function to handle string length correctly
+[33m354038b[m Refactor string truncation logic in index.php
+[33mf0fef9d[m Refactor string truncation in index.php
+[33m89f53db[m Remove unused variable and update access token retrieval
+[33m7417d6d[m Add token variable and truncateString function
+[33m1f5e8cb[m Add time variable to music data retrieval
+[33m5618ed3[m Remove unnecessary code and fix time display in music player
+[33md18771d[m Update music data retrieval logic
+[33m5e0c28e[m Fix index issue in animatedPlayMusic function
+[33m76db186[m Fix random number generation in nextMusic function
+[33mcc4f7f7[m Refactor code to improve performance and readability
+[33m630f8a1[m Refactor playMusic function and add event listener for ended event
+[33mad24e6c[m Add random number generation for music selection
+[33m8b35410[m Add console.log to display random number
+[33m07745eb[m Fix event listener bug in playMusic function
+[33m4f02c43[m Add CSS styles for title icon
+[33m42e92e6[m Add capitalizeWords function to api.spotify.js
+[33m2684613[m Add capitalize text transformation to .title_doc
+[33mcdbb4cd[m Add text-transform: capitalize to span.ovrly_text2
+[33m51f315f[m Update dataTitle length check in getDataFromAPISpotify function
+[33maabf764[m Add repeatMusic function to enable music looping
+[33m4bc7486[m Refactor code to use a variable for the music title
+[33m15c4b42[m Fix comparison operator for null value in index.php
+[33m6c371dc[m Fix dataTitle assignment in getDataFromAPISpotify function
+[33m867ebdb[m Fix missing quotes in getDataFromAPISpotify call
+[33me936dcc[m Refactor code to handle null title in getDataFromAPISpotify function
+[33m81d8d62[m Add title to data array in index.php
+[33m47c2ec5[m Update title length in index.php
+[33mea63507[m Fix title truncation in index.php
+[33mc810215[m Remove console.log statement in animatedPlayMusic function
+[33m8464a27[m Add console.log for countMusic variable
+[33mbeb9a0b[m Remove console.log statement in playMusic function
+[33m87d0260[m Refactor playMusic function to log linkGDrive instead of countMusic
+[33m12949a7[m Add console.log for countMusic variable
+[33m3c4c0a4[m Add console.log to display random number
+[33m9c1e51c[m Update database and fetch JSON data
+[33m1c62119[m Refactor music playback logic and update JSON file
+[33md7265f8[m Refactor JSON file handling and delete function
+[33m4aa5e8a[m Update database configuration and add new files
+[33md3347ee[m Update array name and assign value from linkGDrive
+[33m993f928[m Add arrayLinkMusic to store link_drive values
+[33m3b8efcc[m Update title length in getDataFromAPISpotify function
+[33m8d230b2[m Update titleArray[id] innerHTML to dataArtists
+[33m9e69fb4[m Refactor title truncation logic in getDataFromAPISpotify() function
+[33me08b73c[m Update dataTitle length in getDataFromAPISpotify function
+[33m3ae19af[m Refactor title length in getDataFromAPISpotify function
+[33m3bca2ca[m Refactor code: Remove unused variables and files
+[33ma38d9b6[m Refactor audio initialization in getDataTimeFileMusic function
+[33mc71fe7c[m Add display of duration to music file
+[33m5329093[m Refactor duration display in getDataTimeFileMusic function
+[33me43ae75[m Refactor audio loading and add duration logging
+[33mea7be90[m Commented out console.log and assignment statement in getDataTimeFileMusic function
+[33m90342fb[m Fix variable assignment and console.log statement
+[33md0a00bc[m Add console log to display duration
+[33m0a34a58[m Refactor audio file duration retrieval in getDataTimeFileMusic function
+[33m40cdf9e[m Refactor getDataTimeFileMusic function to calculate and display the duration of the audio file
+[33m19e5e88[m Fix duration retrieval in getDataTimeFileMusic function
+[33m90cce5f[m Update music link to Google Drive
+[33m073742c[m Refactor variable assignment in getDataTimeFileMusic function
+[33mb56040e[m Fix duration retrieval in getDataTimeFileMusic function
+[33m0ae799e[m Refactor variable assignment in getDataTimeFileMusic function
+[33m3e1605a[m Update import statem

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 26, 2025 at 05:11 PM
--- Server version: 10.6.22-MariaDB-cll-lve
--- PHP Version: 8.3.22
+-- Generation Time: May 13, 2025 at 02:13 AM
+-- Server version: 10.6.21-MariaDB-cll-lve
+-- PHP Version: 8.3.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -232,8 +232,7 @@ INSERT INTO `pesanan` (`id_pesanan`, `no_pesanan`, `id_user`, `id_produk`, `juml
 (64, 'SHL/20250422/2391/213018034f', 23, 91, 1, 'jne', 'Satria | (+62) 0812121221', '123, Kab. Jember, Jawa Timur, 68113', 10200, 20000, 30200, '2025-04-22 21:30:18.144805', 'batal_toko'),
 (65, 'SHL/20250502/2390/15584163b4', 23, 90, 4, 'jne', 'Satria | (+62) 0812121221', '123, Kab. Jember, Jawa Timur, 68113', 184620, 20000, 204620, '2025-05-02 15:58:41.590737', 'batal'),
 (66, 'SHL/20250502/2390/20055659b8', 23, 90, 5, 'jne', 'Satria | (+62) 0812121221', '123, Kab. Jember, Jawa Timur, 68113', 230775, 40000, 270775, '2025-05-02 20:05:56.590090', 'batal'),
-(67, 'SHL/20250503/2390/0405564804', 23, 90, 1, 'jne', 'Satria | (+62) 0812121221', '123, Kab. Jember, Jawa Timur, 68113', 46155, 20000, 66155, '2025-05-03 04:05:56.181909', 'batal'),
-(68, 'SHL/20250524/2995/073028819c', 29, 95, 1, 'jne', 'Chandra Bintang Wijaya | (+62) 0895486952366', 'Jl. Ahmad Yani No.123, Surabaya, Jawa Timur 60234, Kota Surabaya, Jawa Timur, 60119', 5000, 20000, 25000, '2025-05-24 07:30:28.857692', 'batal');
+(67, 'SHL/20250503/2390/0405564804', 23, 90, 1, 'jne', 'Satria | (+62) 0812121221', '123, Kab. Jember, Jawa Timur, 68113', 46155, 20000, 66155, '2025-05-03 04:05:56.181909', 'batal');
 
 -- --------------------------------------------------------
 
@@ -296,7 +295,7 @@ INSERT INTO `produk` (`id_produk`, `id_user`, `id_shhalal`, `nama_produk`, `desk
 (90, 29, 1551, 'Del\'s - Keju Mozzarella / Mozzarella Cheese Extra Stretchy - 250 Gram', 'DELS Keju Mozzarella / Mozzarella Cheese Stretchy - 250 Gr\r\n\r\nSpesifikasi :\r\nDels Keju Mozzarella / Mozzarella Cheese Stretchy memberikan rasa creamy yang lezat, mudah meleleh dan menyebar saat dipanggang serta ekstra stretchy saat masih hangat.\r\n\r\nInformasi Produk: ​\r\n- Keju Mozzarella ​\r\n- Berat Bersih : 250 Gr\r\n- Extra Stretchy\r\n- Easy Melt\r\n- High Protein & Calcium\r\n- Saran penggunaan: Cocok diaplikasikan pada pizza, sandwich, toast, pasta dll.​\r\n- Diimport dari Irlandia​\r\n- Pengemasan : Vacuum sealed​\r\n- Expired Date : Chat untuk informasi terupdate berkenaan ED\r\n- HALAL\r\n- Saran Penyimpanan: Simpan di Freezer (-18\'C) sebelum digunakan, jangan dibekukan kembali setelah dicairkan. Simpan dalam chiller (-4\'C) dalam wadah tertutup rapat setelah dicairkan.​\r\n___________________________________________________​\r\n\r\nCatatan:​\r\n* Batas waktu order dengan pengiriman instant sampai jam 4 sore akan dikirim di hari yang sama​\r\n* Batas waktu order dengan pengiriman sameday sampai jam 2 siang akan dikirim di hari yang sama​\r\n* Pesanan melewati batas waktu atau hari libur akan diproses keesokan harinya pada hari kerja.​\r\n*Khusus semua produk frozen hanya bisa dikirim melalui GOJEK/GRAB instant untuk menjaga kulaitasnya\r\n* Produk frozen hanya dapat bertahan maksimal 4 jam di luar suhu penyimpanan freezer.​\r\n\r\n', 'https://sibeux.my.id/project/sihalal/uploads/IMG_09ebecea-816c-43e2-b570-9ea205eafc50.jpg', 'https://sibeux.my.id/project/sihalal/uploads/IMG_5d5e6bf0-8db4-4934-bec0-718ed60ed6aa.jpg', '', 46155, 250, 79, 'true'),
 (91, 29, 1193, 'Tempe Daun 1 Pcs Freshbox', 'Tempe yang dikemas dengan daun pisang sebagai pembungkusnya yang memiliki aroma harum yang berasal dar daun pisang\r\n\r\n[FRESHBOX INFO]\r\n\r\nInfo Pengiriman:\r\n1. Order yang masuk pukul 00.00 – 20.00 akan dikirimkan H+1\r\n2. Order yang masuk pukul 20.00 – 23.58 akan dikirimkan H+2\r\n\r\nInfo Penukaran Barang/Komplain:\r\n1.  Batas maksimal keluhan adalah 3 jam setelah barang diterima oleh customer \r\n2.  Jika pesanan yang diterima tidak sesuai dengan spesifikasi customer dapat melampirkan foto produk dan shipping label\r\n\r\nJam operational Customer Service 09.30 – 18.30\r\n\r\nKami selalu berusaha memberikan yang terbaik untuk merespon kebutuhan kamu!\r\n\r\nFreshBox, \r\nFrom Our Farm to Your Table', 'https://sibeux.my.id/project/sihalal/uploads/IMG_2cfba39f-65c8-486a-ba6d-7d058dea9746.jpg', '', '', 10200, 126, 661, 'true'),
 (94, 29, 1404, 'Telur rebus asin 500g', 'telur rebus asin', 'https://sibeux.my.id/project/sihalal/uploads/IMG_038141e7-5acb-4111-8af8-485a175010ec.jpg', '', '', 2500, 100, 39, 'true'),
-(95, 38, 1192, 'roti', 'makanan', 'https://sibeux.my.id/project/sihalal/uploads/IMG_4b49f958-e57b-4a0e-b55d-4e8ec38d1a2b.jpg', '', '', 5000, 250, 4, 'true');
+(95, 38, 1192, 'roti', 'makanan', 'https://sibeux.my.id/project/sihalal/uploads/IMG_4b49f958-e57b-4a0e-b55d-4e8ec38d1a2b.jpg', '', '', 5000, 250, 5, 'true');
 
 -- --------------------------------------------------------
 
@@ -1194,7 +1193,7 @@ ALTER TABLE `keranjang`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id_pesanan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `produk`
