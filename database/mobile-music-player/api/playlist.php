@@ -1,5 +1,6 @@
 <?php
 ob_start('ob_gzhandler'); // aktifkan gzip (opsional)
+header('Content-Type: application/json; charset=utf-8');
 // Sementara
 ini_set('memory_limit', '256M'); // atau '512M' kalau perlu
 include './connection.php';
@@ -78,10 +79,7 @@ if (isset($_GET['recents_music'])) {
     $sql = "SELECT * FROM recents_music join music on music.id_music = recents_music.uid_music ORDER BY played_at DESC";
 }
 
-// Jalankan query
 $result = $db->query($sql);
-
-// Cek error
 if (!$result) {
     http_response_code(500);
     echo json_encode(["error" => "Query failed", "detail" => $db->error]);
@@ -89,29 +87,14 @@ if (!$result) {
     exit;
 }
 
-// Set header JSON
-header('Content-Type: application/json');
-
-// Stream JSON array
 echo '[';
 $first = true;
-
 while ($row = $result->fetch_assoc()) {
-    // Tetap pakai htmlentities agar tampil rapi di frontend kamu
-    array_walk_recursive($row, function (&$item) {
-        if (is_string($item)) {
-            $item = htmlentities($item, ENT_QUOTES, 'UTF-8');
-        }
-    });
-    
-    if (!$first) {
+    if (!$first)
         echo ',';
-    }
-
     echo json_encode($row, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     $first = false;
 }
-
 echo ']';
 
 $db->close();
