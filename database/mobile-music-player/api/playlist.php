@@ -97,12 +97,6 @@ echo '[';
 $first = true;
 
 while ($row = $result->fetch_assoc()) {
-    array_walk_recursive($row, function (&$item) {
-        if (is_string($item)) {
-            $item = htmlentities($item, ENT_QUOTES, 'UTF-8');
-        }
-    });
-
     if (!$first) {
         echo ',';
     }
