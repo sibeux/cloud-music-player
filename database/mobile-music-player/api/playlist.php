@@ -97,10 +97,10 @@ echo '[';
 $first = true;
 
 while ($row = $result->fetch_assoc()) {
-    // Optional sanitize ringan, tanpa htmlentities
+    // Tetap pakai htmlentities agar tampil rapi di frontend kamu
     array_walk_recursive($row, function (&$item) {
         if (is_string($item)) {
-            $item = mb_convert_encoding($item, 'UTF-8', 'UTF-8');
+            $item = htmlentities($item, ENT_QUOTES, 'UTF-8');
         }
     });
     
