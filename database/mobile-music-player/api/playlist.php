@@ -2,8 +2,7 @@
 ob_start('ob_gzhandler'); // aktifkan gzip (opsional)
 header('Content-Type: application/json; charset=utf-8');
 // Sementara
-ini_set('memory_limit', '512'); // atau '512M' kalau perlu
-
+ini_set('memory_limit', '256M'); // atau '512M' kalau perlu
 include './connection.php';
 
 $sql = "SELECT * FROM playlist ORDER BY pin";
