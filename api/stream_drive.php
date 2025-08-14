@@ -1,4 +1,7 @@
 <?php
+// ** Kelemahan kode ini yaitu dia menghabiskan jatah "Number of Processes" dari cpanel.
+// ** Kalau yang pakai aplikasi banyak, bisa jadi error.
+
 session_start();
 $config = include './google-oauth-config.php';
 
