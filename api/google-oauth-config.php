@@ -19,7 +19,7 @@ foreach ($data as $item) {
     } else if (isset($item['email']) && $item['email'] === 'sibesibe86_googleoauth_client_secret') {
         $clientSecret = $item['gdrive_api'];
     } else if (isset($item['email']) && $item['email'] === 'sibesibe86_googleoauth_refresh_token') {
-        $clientSecret = $item['gdrive_api'];
+        $refreshToken = $item['gdrive_api'];
     }
 }
 
