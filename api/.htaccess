@@ -1,3 +1,13 @@
 # Ini adalah komentar
-# Fungsi ini untuk meng-error-kan dir jika tidak ada index.html/.php
-Options -Indexes  # Menonaktifkan directory listing
+# Pastikan folder menggunakan index.php atau index.html
+DirectoryIndex index.php index.html
+
+# Nonaktifkan directory listing jika modul tersedia
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# Redirect akses langsung ke folder ke halaman utama
+RewriteEngine On
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/cloud-music-player/api/?\s [NC]
+RewriteRule ^.*$ / [R=302,L]
