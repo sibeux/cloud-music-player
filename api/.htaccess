@@ -1,0 +1,3 @@
+# Ini adalah komentar
+# Fungsi ini untuk meng-error-kan dir jika tidak ada index.html/.php
+Options -Indexes  # Menonaktifkan directory listing
