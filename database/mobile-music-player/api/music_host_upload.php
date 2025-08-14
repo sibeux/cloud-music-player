@@ -17,7 +17,7 @@ $targetFile = $targetDir . $fileName . '.' . $fileExt;
 // $jsonFile = $targetDir . 'music_host_list.json';
 
 // === Cek apakah file sudah ada di DB ===
-$stmt = $mysqli->prepare("SELECT uid_music FROM hosted_music WHERE uid_music = ?");
+$stmt = $db->prepare("SELECT uid_music FROM hosted_music WHERE uid_music = ?");
 $stmt->bind_param("s", $fileName);
 $stmt->execute();
 $stmt->store_result();
@@ -55,7 +55,7 @@ curl_close($ch);
 fclose($fp);
 
 // === Insert ke database ===
-$stmt = $mysqli->prepare("INSERT INTO hosted_music (uid_music, music_dir, uploaded_at) VALUES (?, ?, NOW())");
+$stmt = $db->prepare("INSERT INTO hosted_music (uid_music, music_dir, uploaded_at) VALUES (?, ?, NOW())");
 $musicUrl = $targetFile;
 $stmt->bind_param("ss", $fileName, $musicUrl);
 if (!$stmt->execute()) {
