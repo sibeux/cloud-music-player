@@ -1,5 +1,5 @@
 <?php
-include '../connection.php';
+include './connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die(json_encode(["error" => "Invalid request method."]));
