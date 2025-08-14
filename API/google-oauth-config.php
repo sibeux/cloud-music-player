@@ -9,13 +9,16 @@ if ($goauthResponse === FALSE) {
 }
 
 $data = json_decode($goauthResponse, true);
-$clientId = null; // Initialize accountKey as null
-$clientSecret = null; // Initialize accountKey as null
+$clientId = null; // Initialize as null
+$clientSecret = null; // Initialize as null
+$refreshToken = null; // Initialize as null
 
 foreach ($data as $item) {
     if (isset($item['email']) && $item['email'] === 'sibesibe86_googleoauth_client_id') {
         $clientId = $item['gdrive_api'];
     } else if (isset($item['email']) && $item['email'] === 'sibesibe86_googleoauth_client_secret') {
+        $clientSecret = $item['gdrive_api'];
+    } else if (isset($item['email']) && $item['email'] === 'sibesibe86_googleoauth_refresh_token') {
         $clientSecret = $item['gdrive_api'];
     }
 }
@@ -26,4 +29,5 @@ foreach ($data as $item) {
 return [
     'client_id' => $clientId,
     'client_secret' => $clientSecret,
+    'refresh_token' => $refreshToken,
 ];
