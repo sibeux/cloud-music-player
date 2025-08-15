@@ -1,6 +1,8 @@
 <?php
+
 // ** Kelemahan kode ini yaitu dia menghabiskan jatah "Number of Processes" dari cpanel.
 // ** Kalau yang pakai aplikasi banyak, bisa jadi error.
+// ** PERBAIKAN: Menambahkan file locking (flock) untuk mencegah race condition saat token di-refresh.
 
 session_start();
 $config = include './google-oauth-config.php';
@@ -8,106 +10,162 @@ $config = include './google-oauth-config.php';
 $fileId = $_GET['fileId'] ?? null;
 if (!$fileId) {
     http_response_code(400);
-    die("fileId required");
+    die("fileId is required");
 }
 
-// --- 1. Ambil token dari session (cache memory) ---
-$tokenData = $_SESSION['gdrive_token'] ?? null;
-
-// --- 2. Load dari file kalau session kosong ---
-if (!$tokenData) {
+// --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
+function get_token($config) {
     $tokenFile = __DIR__ . '/token.json';
+    
+    // --- 1. Coba ambil dari session (cache paling cepat) ---
+    if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {
+        return $_SESSION['gdrive_token'];
+    }
+
+    // --- 2. Jika tidak ada di session atau sudah expired, baca dari file ---
     if (!file_exists($tokenFile)) {
         http_response_code(500);
-        die("Token file not found");
-    }
-    $tokenData = json_decode(file_get_contents($tokenFile), true);
-}
-
-// --- 3. Refresh token jika expired ---
-if (time() >= $tokenData['expires_at']) {
-    $postData = http_build_query([
-        'client_id' => $config['client_id'],
-        'client_secret' => $config['client_secret'],
-        'refresh_token' => $config['refresh_token'],
-        'grant_type' => 'refresh_token',
-    ]);
-
-    $ch = curl_init('https://oauth2.googleapis.com/token');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-    $resp = curl_exec($ch);
-    curl_close($ch);
-
-    $respData = json_decode($resp, true);
-    if (!isset($respData['access_token'])) {
-        http_response_code(500);
-        die("Failed to get access token");
+        die("Token file not found. Please run authentication flow first.");
     }
 
-    $tokenData['access_token'] = $respData['access_token'];
-    $tokenData['expires_at'] = time() + $respData['expires_in'] - 60;
+    $fp = fopen($tokenFile, 'r+');
+    if (!flock($fp, LOCK_EX)) { // Kunci file secara eksklusif untuk mencegah proses lain mengganggu
+        http_response_code(503);
+        die("Could not get file lock. Server is busy.");
+    }
 
-    // --- Simpan di session (cache) ---
-    $_SESSION['gdrive_token'] = $tokenData;
+    $tokenData = json_decode(fread($fp, filesize($tokenFile)), true);
 
-    // --- Optional: update token.json untuk persistency ---
-    file_put_contents(__DIR__ . '/token.json', json_encode($tokenData, JSON_PRETTY_PRINT));
-} else {
-    // Simpan di session kalau belum ada
+    // --- 3. Refresh token jika sudah expired ---
+    if (time() >= $tokenData['expires_at']) {
+        $postData = http_build_query([
+            'client_id' => $config['client_id'],
+            'client_secret' => $config['client_secret'],
+            'refresh_token' => $config['refresh_token'],
+            'grant_type' => 'refresh_token',
+        ]);
+
+        $ch = curl_init('https://oauth2.googleapis.com/token');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        $resp = curl_exec($ch);
+        curl_close($ch);
+
+        $respData = json_decode($resp, true);
+        if (!isset($respData['access_token'])) {
+            flock($fp, LOCK_UN); // Lepas kunci sebelum mati
+            fclose($fp);
+            http_response_code(500);
+            die("Failed to refresh access token: " . $resp);
+        }
+
+        $tokenData['access_token'] = $respData['access_token'];
+        $tokenData['expires_at'] = time() + $respData['expires_in'] - 60; // Kurangi 60 detik sebagai buffer
+
+        // Update file token.json dengan token baru
+        ftruncate($fp, 0);
+        rewind($fp);
+        fwrite($fp, json_encode($tokenData, JSON_PRETTY_PRINT));
+    }
+
+    flock($fp, LOCK_UN); // Lepas kunci
+    fclose($fp);
+
+    // --- 4. Simpan di session untuk request berikutnya ---
     $_SESSION['gdrive_token'] = $tokenData;
+    return $tokenData;
 }
 
-// --- 4. Ambil metadata file ---
-$curlHeaders = ["Authorization: Bearer " . $tokenData['access_token']];
+// --- Ambil Token ---
+$tokenData = get_token($config);
+$accessToken = $tokenData['access_token'];
+
+// --- Ambil metadata file ---
+$curlHeaders = ["Authorization: Bearer " . $accessToken];
 $metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=mimeType,size,name";
 $chMeta = curl_init($metaUrl);
 curl_setopt($chMeta, CURLOPT_HTTPHEADER, $curlHeaders);
 curl_setopt($chMeta, CURLOPT_RETURNTRANSFER, true);
 $metaResp = curl_exec($chMeta);
+$httpCode = curl_getinfo($chMeta, CURLINFO_HTTP_CODE);
 curl_close($chMeta);
+
+if ($httpCode !== 200) {
+    http_response_code($httpCode);
+    die("Failed to get file metadata: " . $metaResp);
+}
 
 $metaData = json_decode($metaResp, true);
 $mimeType = $metaData['mimeType'] ?? 'application/octet-stream';
 $fileSize = isset($metaData['size']) ? intval($metaData['size']) : 0;
 $fileName = $metaData['name'] ?? 'file';
 
-// --- 5. Prepare Range request ---
-$headers = getallheaders();
-$range = $headers['Range'] ?? null;
+// --- PENANGANAN HEADER UNTUK SEEKING (BUG FIX) ---
+// ** PENJELASAN: Ini adalah bagian perbaikan utama.
+// ** Browser perlu tahu total ukuran file (`Content-Length`) dan bahwa server menerima `Range` request
+// ** (`Accept-Ranges: bytes`) pada permintaan PERTAMA agar fitur seek bisa aktif.
 
 header("Content-Type: $mimeType");
 header("Accept-Ranges: bytes");
-header("Cache-Control: public, max-age=86400");
-header("Content-Disposition: attachment; filename=\"$fileName\"");
+header("Cache-Control: public, max-age=86400"); // Cache di browser selama 1 hari
+$fileNameSafe = str_replace('"', '\"', $fileName);
+header("Content-Disposition: inline; filename=\"$fileNameSafe\""); // 'inline' lebih baik untuk streaming
 
 $start = 0;
 $end = $fileSize - 1;
+$isPartial = false;
 
-if ($range && preg_match('/bytes=(\d+)-(\d*)/', $range, $matches)) {
+// Periksa apakah browser meminta bagian tertentu dari file (seeking)
+if (isset($_SERVER['HTTP_RANGE'])) {
+    $isPartial = true;
+    preg_match('/bytes=(\d+)-(\d*)/', $_SERVER['HTTP_RANGE'], $matches);
     $start = intval($matches[1]);
-    $end = $matches[2] !== '' ? intval($matches[2]) : $fileSize - 1;
+    if (!empty($matches[2])) {
+        $end = intval($matches[2]);
+    }
+    
+    // Kirim header 206 Partial Content
+    header("HTTP/1.1 206 Partial Content");
     header("Content-Range: bytes $start-$end/$fileSize");
     header("Content-Length: " . ($end - $start + 1));
-    header("HTTP/1.1 206 Partial Content");
+} else {
+    // Jika ini permintaan pertama, kirim status 200 OK dan total ukuran file
+    header("HTTP/1.1 200 OK");
+    header("Content-Length: $fileSize");
 }
 
-$curlHeaders[] = "Range: bytes=$start-$end";
-
-// --- 6. Stream file dengan callback (tidak full memory) ---
+// --- Stream file dengan cURL ---
 $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
 $ch = curl_init($driveUrl);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $curlHeaders);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-curl_setopt($ch, CURLOPT_BUFFERSIZE, 1024 * 1024);
-curl_setopt($ch, CURLOPT_NOPROGRESS, false);
-curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function () { }); // optional
 
-curl_exec($ch);
-if (curl_errno($ch)) {
-    http_response_code(500);
-    echo "Error streaming file: " . curl_error($ch);
+// Tambahkan header 'Range' ke request cURL ke Google HANYA jika ini adalah partial request
+$curlHeadersToGoogle = ["Authorization: Bearer " . $accessToken];
+if ($isPartial) {
+    $curlHeadersToGoogle[] = "Range: bytes=$start-$end";
 }
+
+curl_setopt($ch, CURLOPT_HTTPHEADER, $curlHeadersToGoogle);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+// Nonaktifkan output buffering PHP dan kirim data langsung ke browser
+// Ini penting untuk file besar agar tidak membebani memori server
+if (ob_get_level() > 0) ob_end_flush();
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, false); 
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($curl, $data) {
+    echo $data;
+    return strlen($data);
+});
+
+// Eksekusi cURL
+curl_exec($ch);
+
+if (curl_errno($ch)) {
+    // Error tidak bisa dikirim ke browser karena header sudah terkirim,
+    // jadi kita catat di log server saja.
+    error_log("cURL Error on streaming: " . curl_error($ch));
+}
+
 curl_close($ch);
+exit();
