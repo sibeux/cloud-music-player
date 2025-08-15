@@ -33,10 +33,10 @@ function log_message($message) {
 // --- KONFIGURASI CACHE ---
 // Path direktori di server untuk menyimpan file cache
 // **PENTING**: Path ini harus sesuai dengan lokasi folder cache Anda.
-$cacheDir = __DIR__ . '/../../database/mobile-music/api/cache'; 
+$cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; 
 // URL publik yang bisa diakses oleh klien untuk folder cache
 // **PENTING**: URL ini harus benar dan bisa diakses dari internet.
-$cacheUrl = 'https://sibeux.my.id/cloud-music-player/database/mobile-music/api/cache';
+$cacheUrl = 'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/music-host';
 
 // Dapatkan fileId dari parameter GET
 $fileId = $_GET['fileId'] ?? null;
