@@ -1,73 +1,63 @@
 <?php
 
-// ** Kelemahan kode ini yaitu dia menghabiskan jatah "Number of Processes" dari cpanel.
-// ** Kalau yang pakai aplikasi banyak, bisa jadi error.
-// ** PERBAIKAN: Menambahkan file locking (flock) untuk mencegah race condition saat token di-refresh.
+/**
+ * Google Drive Direct Streaming Proxy
+ *
+ * Arsitektur:
+ * 1. Skrip ini bertindak sebagai proxy aman antara klien (Flutter) dan Google Drive.
+ * 2. TIDAK menggunakan cache lokal. Semua data dialirkan (stream) secara real-time.
+ * 3. Meneruskan header HTTP Range dari klien ke Google Drive untuk mendukung seeking (mencari posisi lagu).
+ * 4. Mengelola refresh token dengan aman menggunakan file locking (flock) untuk mencegah race conditions.
+ *
+ * Kelemahan Arsitektur Saat Ini:
+ * - Menggunakan satu file token.json untuk semua pengguna. Ini tidak cocok untuk aplikasi multi-user sejati.
+ * Untuk multi-user, setiap pengguna harus memiliki token sendiri yang disimpan di database.
+ * Namun, untuk proyek pribadi atau dengan satu akun Google, ini sudah cukup aman.
+ */
 
 session_start();
 $config = include './google-oauth-config.php';
 
 // Fungsi untuk membuat log manual
 function log_message($message) {
-    $logFile = 'custom.log';
+    $logFile = 'streaming.log';
     file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
 }
 
-// --- BARU: Konfigurasi Cache Lokal ---
-// Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
-$cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
-// Fungsi $cacheDuration adalah untuk mendownload ulang file dari GDRIVE-
-// jika sudah expired. Kita set ke 1 tahun, karena file lagu statis banget.
-$cacheDuration = 31536000; // Durasi cache dalam detik (86400 = 24 jam)
-
-// Dapatkan file id GDRIVE lewat method GET.
-$fileId = $_GET['fileId'] ?? null;
-if (!$fileId) {
-    http_response_code(400);
-    die("fileId is required");
-}
-
-// --- BARU: Pastikan direktori cache ada dan bisa ditulisi ---
-// Fungsi: Membuat folder cache jika belum ada.
-if (!is_dir($cacheDir)) {
-    if (!mkdir($cacheDir, 0755, true)) {
-        http_response_code(500);
-        die("Failed to create cache directory.");
-    }
-}
-
-// --- BARU: Tentukan path file cache ---
-// Fungsi: Membuat path file unik untuk setiap fileId di dalam folder cache.
-// basename() digunakan untuk keamanan, mencegah directory traversal.
-$cacheFilePath = $cacheDir . '/' . basename($fileId);
-
-// --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
-function get_token($config) {
+/**
+ * Mengelola token (mengambil dari sesi, file, atau me-refresh jika perlu) dengan aman.
+ * Menggunakan file locking (flock) untuk memastikan hanya satu proses yang dapat me-refresh token pada satu waktu.
+ *
+ * @param array $config Konfigurasi OAuth Google.
+ * @return array Data token yang valid.
+ */
+function get_valid_token($config) {
     $tokenFile = __DIR__ . '/token.json';
-    
-    // --- 1. Coba ambil dari session (cache paling cepat) ---
+
+    // 1. Coba ambil dari session (cache paling cepat)
     if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {
         return $_SESSION['gdrive_token'];
     }
 
-    // --- 2. Jika tidak ada di session atau sudah expired, baca dari file ---
+    // 2. Jika tidak ada di session, baca dari file dengan locking
     if (!file_exists($tokenFile)) {
         http_response_code(500);
         log_message("Token file not found. Please run authentication flow first.");
-        die("Token file not found. Please run authentication flow first.");
+        die("Token file not found.");
     }
 
     $fp = fopen($tokenFile, 'r+');
-    if (!flock($fp, LOCK_EX)) { // Kunci file secara eksklusif untuk mencegah proses lain mengganggu
+    if (!$fp || !flock($fp, LOCK_EX)) { // Kunci file secara eksklusif
         http_response_code(503);
         log_message("Could not get file lock. Server is busy.");
-        die("Could not get file lock. Server is busy.");
+        die("Could not get file lock.");
     }
 
-    $tokenData = json_decode(fread($fp, filesize($tokenFile)), true);
+    $tokenData = json_decode(stream_get_contents($fp), true);
 
-    // --- 3. Refresh token jika sudah expired ---
+    // 3. Refresh token jika sudah kedaluwarsa
     if (time() >= $tokenData['expires_at']) {
+        log_message("Token expired. Refreshing...");
         $postData = http_build_query([
             'client_id' => $config['client_id'],
             'client_secret' => $config['client_secret'],
@@ -80,163 +70,117 @@ function get_token($config) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $resp = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
         $respData = json_decode($resp, true);
-        if (!isset($respData['access_token'])) {
-            flock($fp, LOCK_UN); // Lepas kunci sebelum mati
+        if ($http_code !== 200 || !isset($respData['access_token'])) {
+            flock($fp, LOCK_UN);
             fclose($fp);
             http_response_code(500);
-            log_message("Failed to refresh access token: " . $resp);
-            die("Failed to refresh access token: " . $resp);
+            log_message("Failed to refresh access token. Response: " . $resp);
+            die("Failed to refresh access token.");
         }
 
         $tokenData['access_token'] = $respData['access_token'];
-        $tokenData['expires_at'] = time() + $respData['expires_in'] - 60; // Kurangi 60 detik sebagai buffer
+        $tokenData['expires_at'] = time() + $respData['expires_in'] - 60; // Buffer 60 detik
 
         // Update file token.json dengan token baru
         ftruncate($fp, 0);
         rewind($fp);
         fwrite($fp, json_encode($tokenData, JSON_PRETTY_PRINT));
+        log_message("Token refreshed successfully.");
     }
 
     flock($fp, LOCK_UN); // Lepas kunci
     fclose($fp);
 
-    // --- 4. Simpan di session untuk request berikutnya ---
+    // 4. Simpan di session untuk request berikutnya
     $_SESSION['gdrive_token'] = $tokenData;
     return $tokenData;
 }
 
-// --- BARU: Logika Pengecekan dan Pembuatan Cache ---
-// Fungsi: Memeriksa apakah file ada di cache dan valid. Jika tidak, unduh dari GDrive.
-$isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePath) < $cacheDuration);
 
-if (!$isCacheValid) {
-    log_message("Cache MISS for fileId: $fileId. Downloading from Google Drive.");
-    
-    // --- Ambil Token ---
-    $tokenData = get_token($config);
-    $accessToken = $tokenData['access_token'];
+// --- MAIN LOGIC ---
 
-    // --- Buka file cache untuk ditulis ---
-    // Fungsi: Membuka file di server lokal untuk menampung data dari Google Drive.
-    $cacheFp = fopen($cacheFilePath, 'w');
-    if (!$cacheFp) {
-        http_response_code(500);
-        log_message("Could not open cache file for writing: $cacheFilePath");
-        die("Could not open cache file for writing.");
-    }
-
-    // --- BARU: Kunci file cache untuk mencegah penulisan ganda ---
-    // Fungsi: Mencegah proses lain menulis ke file yang sama saat sedang diunduh.
-    if (!flock($cacheFp, LOCK_EX)) {
-        fclose($cacheFp);
-        http_response_code(503);
-        log_message("Could not get lock on cache file. Server is busy.");
-        die("Could not get lock on cache file. Server is busy.");
-    }
-
-    // --- Unduh file dari Google Drive dan simpan ke cache ---
-    $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
-    $ch = curl_init($driveUrl);
-    
-    $curlHeadersToGoogle = ["Authorization: Bearer " . $accessToken];
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $curlHeadersToGoogle);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_HEADER, false);
-
-    // --- BARU: Alihkan output cURL ke file cache, bukan ke browser ---
-    // Fungsi: Opsi ini mengarahkan semua data yang diterima cURL untuk ditulis ke file handle ($cacheFp).
-    curl_setopt($ch, CURLOPT_FILE, $cacheFp);
-    
-    curl_exec($ch);
-
-    if (curl_errno($ch)) {
-        log_message("cURL Error on downloading to cache: " . curl_error($ch));
-        // --- BARU: Hapus file cache yang gagal/rusak ---
-        // Fungsi: Membersihkan file yang tidak lengkap jika unduhan gagal.
-        flock($cacheFp, LOCK_UN);
-        fclose($cacheFp);
-        unlink($cacheFilePath); // Hapus file yang gagal
-        http_response_code(500);
-        die("Failed to download file from Google Drive.");
-    }
-    
-    curl_close($ch);
-
-    // --- BARU: Lepas kunci dan tutup file handle cache ---
-    // Fungsi: Menyelesaikan proses penulisan ke file cache.
-    flock($cacheFp, LOCK_UN);
-    fclose($cacheFp);
-
-} else {
-    log_message("Cache HIT for fileId: $fileId. Serving from local server.");
+$fileId = $_GET['fileId'] ?? null;
+if (!$fileId) {
+    http_response_code(400);
+    die("fileId is required");
 }
 
-
-// --- BAGIAN PENYAJIAN FILE (STREAMING DARI CACHE LOKAL) ---
-// Fungsi: Bagian ini sekarang selalu menyajikan file dari cache lokal, baik yang baru diunduh maupun yang sudah ada.
-
-// --- Ambil metadata dari file LOKAL ---
-$fileSize = filesize($cacheFilePath);
-$mimeType = mime_content_type($cacheFilePath) ?: 'application/octet-stream';
-
-// --- Ambil nama file asli dari Google Drive (opsional, tapi bagus untuk 'Content-Disposition') ---
-// Kita hanya perlu melakukan ini sekali jika cache baru dibuat, tapi untuk simplicitas kita query lagi.
-// Untuk performa lebih, nama file bisa disimpan di file terpisah misal `cache/fileId.meta`.
-$tokenData = get_token($config);
+// Ambil token yang valid
+$tokenData = get_valid_token($config);
 $accessToken = $tokenData['access_token'];
-$metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=name";
-$chMeta = curl_init($metaUrl);
-curl_setopt($chMeta, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . $accessToken]);
-curl_setopt($chMeta, CURLOPT_RETURNTRANSFER, true);
-$metaResp = curl_exec($chMeta);
-curl_close($chMeta);
-$metaData = json_decode($metaResp, true);
-$fileName = $metaData['name'] ?? $fileId; // Gunakan fileId sebagai fallback
 
-// --- PENANGANAN HEADER UNTUK SEEKING (BUG FIX) ---
-header("Content-Type: $mimeType");
-header("Accept-Ranges: bytes");
-header("Cache-Control: public, max-age=86400");
-$fileNameSafe = str_replace('"', '\"', $fileName);
-header("Content-Disposition: inline; filename=\"$fileNameSafe\"");
+// URL endpoint Google Drive API
+$driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
 
-$start = 0;
-$end = $fileSize - 1;
+// Siapkan cURL
+$ch = curl_init();
 
+// Siapkan header untuk dikirim ke Google Drive
+$headersToGoogle = [
+    "Authorization: Bearer " . $accessToken
+];
+
+// ** INI BAGIAN PENTING UNTUK SEEKING / STREAMING **
+// Cek apakah klien (Flutter) mengirim header 'Range'
 if (isset($_SERVER['HTTP_RANGE'])) {
-    preg_match('/bytes=(\d+)-(\d*)/', $_SERVER['HTTP_RANGE'], $matches);
-    $start = intval($matches[1]);
-    if (!empty($matches[2])) {
-        $end = intval($matches[2]);
-    }
-    
-    header("HTTP/1.1 206 Partial Content");
-    header("Content-Range: bytes $start-$end/$fileSize");
-    header("Content-Length: " . ($end - $start + 1));
+    // Jika iya, teruskan header tersebut ke Google Drive
+    $headersToGoogle[] = "Range: " . $_SERVER['HTTP_RANGE'];
+    log_message("Proxying Range request: " . $_SERVER['HTTP_RANGE']);
 } else {
-    header("HTTP/1.1 200 OK");
-    header("Content-Length: $fileSize");
+    log_message("Serving file from start (no Range header).");
 }
 
-// --- BARU: Stream file dari CACHE LOKAL dengan PHP ---
-// Fungsi: Membaca file dari disk server dan mengirimkannya ke browser dalam potongan (chunk) untuk efisiensi memori.
-$localFp = fopen($cacheFilePath, 'rb');
-fseek($localFp, $start);
-$bytesSent = 0;
-$chunkSize = 8192; // 8KB per chunk
+// Fungsi untuk menangani header yang diterima dari Google Drive
+// dan meneruskannya ke klien (Flutter)
+curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($curl, $header) {
+    // Teruskan hanya header yang relevan untuk streaming
+    $forwardHeaders = [
+        'Content-Type',
+        'Content-Length',
+        'Content-Range',
+        'Accept-Ranges'
+    ];
+    $parts = explode(':', $header, 2);
+    if (count($parts) === 2 && in_array(trim($parts[0]), $forwardHeaders)) {
+        header(trim($header));
+    }
+    return strlen($header);
+});
 
-// Nonaktifkan output buffering PHP
-if (ob_get_level() > 0) ob_end_flush();
+// Fungsi untuk menulis data (potongan file) yang diterima dari Google Drive
+// langsung ke output PHP (yang akan dikirim ke klien)
+curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($curl, $data) {
+    echo $data;
+    // Flush output buffer untuk memastikan data dikirim segera
+    if (ob_get_level() > 0) {
+        ob_flush();
+    }
+    flush();
+    return strlen($data);
+});
 
-while (!feof($localFp) && ($bytesSent < ($end - $start + 1)) && !connection_aborted()) {
-    $bytesToRead = min($chunkSize, ($end - $start + 1) - $bytesSent);
-    echo fread($localFp, $bytesToRead);
-    $bytesSent += $bytesToRead;
-    flush(); // Kirim output ke browser segera
+curl_setopt($ch, CURLOPT_URL, $driveUrl);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headersToGoogle);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+// Eksekusi cURL
+curl_exec($ch);
+
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+// Set status code respons PHP sesuai dengan respons dari Google Drive
+// Jika ada 'Range', Google akan merespons dengan 206 (Partial Content)
+// Jika tidak, akan merespons dengan 200 (OK)
+http_response_code($httpCode);
+
+if (curl_errno($ch)) {
+    log_message('cURL error: ' . curl_error($ch));
 }
 
-fclose($localFp);
+curl_close($ch);
+
 exit();
