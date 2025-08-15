@@ -4,6 +4,8 @@
 // ** Kalau yang pakai aplikasi banyak, bisa jadi error.
 // ** PERBAIKAN: Menambahkan file locking (flock) untuk mencegah race condition saat token di-refresh.
 
+// Tingkatkan Batas Waktu Eksekusi
+set_time_limit(0);
 session_start();
 $config = include './google-oauth-config.php';
 
@@ -11,6 +13,12 @@ $fileId = $_GET['fileId'] ?? null;
 if (!$fileId) {
     http_response_code(400);
     die("fileId is required");
+}
+
+// Fungsi untuk membuat log manual
+function log_message($message) {
+    $logFile = 'custom.log';
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
 }
 
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
@@ -25,12 +33,14 @@ function get_token($config) {
     // --- 2. Jika tidak ada di session atau sudah expired, baca dari file ---
     if (!file_exists($tokenFile)) {
         http_response_code(500);
+        log_message("Token file not found. Please run authentication flow first.");
         die("Token file not found. Please run authentication flow first.");
     }
 
     $fp = fopen($tokenFile, 'r+');
     if (!flock($fp, LOCK_EX)) { // Kunci file secara eksklusif untuk mencegah proses lain mengganggu
         http_response_code(503);
+        log_message("Could not get file lock. Server is busy.");
         die("Could not get file lock. Server is busy.");
     }
 
@@ -57,6 +67,7 @@ function get_token($config) {
             flock($fp, LOCK_UN); // Lepas kunci sebelum mati
             fclose($fp);
             http_response_code(500);
+            log_message("Failed to refresh access token: " . $resp);
             die("Failed to refresh access token: " . $resp);
         }
 
@@ -93,6 +104,7 @@ curl_close($chMeta);
 
 if ($httpCode !== 200) {
     http_response_code($httpCode);
+    log_message("Failed to get file metadata: " . $metaResp);
     die("Failed to get file metadata: " . $metaResp);
 }
 
@@ -164,6 +176,7 @@ curl_exec($ch);
 if (curl_errno($ch)) {
     // Error tidak bisa dikirim ke browser karena header sudah terkirim,
     // jadi kita catat di log server saja.
+    log_message("cURL Error on streaming: " . curl_error($ch));
     error_log("cURL Error on streaming: " . curl_error($ch));
 }
 
