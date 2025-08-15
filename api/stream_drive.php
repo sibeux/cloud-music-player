@@ -13,7 +13,7 @@ function log_message($message) {
     file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
 }
 
-// --- BARU: Konfigurasi Cache Lokal ---
+// --- Konfigurasi Cache Lokal ---
 // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
 $cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
 // URL publik yang bisa diakses oleh klien untuk folder cache
@@ -32,7 +32,7 @@ if (!$fileId) {
 
 $cacheFileUrl = $cacheUrl . '/' . basename($fileId);
 
-// --- BARU: Pastikan direktori cache ada dan bisa ditulisi ---
+// --- Pastikan direktori cache ada dan bisa ditulisi ---
 // Fungsi: Membuat folder cache jika belum ada.
 if (!is_dir($cacheDir)) {
     if (!mkdir($cacheDir, 0755, true)) {
@@ -41,7 +41,7 @@ if (!is_dir($cacheDir)) {
     }
 }
 
-// --- BARU: Tentukan path file cache ---
+// --- Tentukan path file cache ---
 // Fungsi: Membuat path file unik untuk setiap fileId di dalam folder cache.
 // basename() digunakan untuk keamanan, mencegah directory traversal.
 $cacheFilePath = $cacheDir . '/' . basename($fileId);
@@ -113,7 +113,7 @@ function get_token($config) {
     return $tokenData;
 }
 
-// --- BARU: Logika Pengecekan dan Pembuatan Cache ---
+// --- Logika Pengecekan dan Pembuatan Cache ---
 // Fungsi: Memeriksa apakah file ada di cache dan valid. Jika tidak, unduh dari GDrive.
 $isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePath) < $cacheDuration);
 
@@ -133,7 +133,7 @@ if (!$isCacheValid) {
         die("Could not open cache file for writing.");
     }
 
-    // --- BARU: Kunci file cache untuk mencegah penulisan ganda ---
+    // --- Kunci file cache untuk mencegah penulisan ganda ---
     // Fungsi: Mencegah proses lain menulis ke file yang sama saat sedang diunduh.
     if (!flock($cacheFp, LOCK_EX)) {
         fclose($cacheFp);
@@ -151,7 +151,7 @@ if (!$isCacheValid) {
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
 
-    // --- BARU: Alihkan output cURL ke file cache, bukan ke browser ---
+    // --- Alihkan output cURL ke file cache, bukan ke browser ---
     // Fungsi: Opsi ini mengarahkan semua data yang diterima cURL untuk ditulis ke file handle ($cacheFp).
     curl_setopt($ch, CURLOPT_FILE, $cacheFp);
     
@@ -159,7 +159,7 @@ if (!$isCacheValid) {
 
     if (curl_errno($ch)) {
         log_message("cURL Error on downloading to cache: " . curl_error($ch));
-        // --- BARU: Hapus file cache yang gagal/rusak ---
+        // --- Hapus file cache yang gagal/rusak ---
         // Fungsi: Membersihkan file yang tidak lengkap jika unduhan gagal.
         flock($cacheFp, LOCK_UN);
         fclose($cacheFp);
@@ -170,13 +170,102 @@ if (!$isCacheValid) {
     
     curl_close($ch);
 
-    // --- BARU: Lepas kunci dan tutup file handle cache ---
+    // --- Lepas kunci dan tutup file handle cache ---
     // Fungsi: Menyelesaikan proses penulisan ke file cache.
     flock($cacheFp, LOCK_UN);
     fclose($cacheFp);
 
 } else {
     log_message("Cache HIT for fileId: $fileId. Redirect to local server.");
+}
+
+// Fungsi: Memeriksa tipe MIME file di cache untuk menentukan tindakan selanjutnya.
+// Ini penting agar request untuk pre-cache gambar tidak di-redirect.
+if (file_exists($cacheFilePath)) {
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_file($finfo, $cacheFilePath);
+    finfo_close($finfo);
+
+    // Jika tipe file adalah gambar, hentikan eksekusi dan jangan redirect.
+    // Klien akan mendapatkan respons kosong (200 OK), yang menandakan pre-cache berhasil.
+    if (strpos($mimeType, 'image/') === 0) {
+        log_message("File is an image ($mimeType). Pre-cache successful. No redirect needed.");
+
+        // --- BAGIAN PENYAJIAN FILE (STREAMING DARI CACHE LOKAL) ---
+        // Fungsi: Bagian ini sekarang selalu menyajikan file dari cache lokal, baik yang baru diunduh maupun yang sudah ada.
+
+        // --- Ambil metadata dari file LOKAL ---
+        $fileSize = filesize($cacheFilePath);
+        $mimeType = mime_content_type($cacheFilePath) ?: 'application/octet-stream';
+
+        // --- Ambil nama file asli dari Google Drive (opsional, tapi bagus untuk 'Content-Disposition') ---
+        // Kita hanya perlu melakukan ini sekali jika cache baru dibuat, tapi untuk simplicitas kita query lagi.
+        // Untuk performa lebih, nama file bisa disimpan di file terpisah misal `cache/fileId.meta`.
+        $tokenData = get_token($config);
+        $accessToken = $tokenData['access_token'];
+        $metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=name";
+        $chMeta = curl_init($metaUrl);
+        curl_setopt($chMeta, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . $accessToken]);
+        curl_setopt($chMeta, CURLOPT_RETURNTRANSFER, true);
+        $metaResp = curl_exec($chMeta);
+        curl_close($chMeta);
+        $metaData = json_decode($metaResp, true);
+        $fileName = $metaData['name'] ?? $fileId; // Gunakan fileId sebagai fallback
+
+        // --- PENANGANAN HEADER UNTUK SEEKING (BUG FIX) ---
+        header("Content-Type: $mimeType");
+        header("Accept-Ranges: bytes");
+        header("Cache-Control: public, max-age=86400");
+        $fileNameSafe = str_replace('"', '\"', $fileName);
+        header("Content-Disposition: inline; filename=\"$fileNameSafe\"");
+
+        $start = 0;
+        $end = $fileSize - 1;
+
+        if (isset($_SERVER['HTTP_RANGE'])) {
+            preg_match('/bytes=(\d+)-(\d*)/', $_SERVER['HTTP_RANGE'], $matches);
+            $start = intval($matches[1]);
+            if (!empty($matches[2])) {
+                $end = intval($matches[2]);
+            }
+            
+            header("HTTP/1.1 206 Partial Content");
+            header("Content-Range: bytes $start-$end/$fileSize");
+            header("Content-Length: " . ($end - $start + 1));
+        } else {
+            header("HTTP/1.1 200 OK");
+            header("Content-Length: $fileSize");
+        }
+
+        // --- BARU: Stream file dari CACHE LOKAL dengan PHP ---
+        // Fungsi: Membaca file dari disk server dan mengirimkannya ke browser dalam potongan (chunk) untuk efisiensi memori.
+        $localFp = fopen($cacheFilePath, 'rb');
+        fseek($localFp, $start);
+        $bytesSent = 0;
+        $chunkSize = 8192; // 8KB per chunk
+
+        // Nonaktifkan output buffering PHP
+        if (ob_get_level() > 0) ob_end_flush();
+
+        while (!feof($localFp) && ($bytesSent < ($end - $start + 1)) && !connection_aborted()) {
+            $bytesToRead = min($chunkSize, ($end - $start + 1) - $bytesSent);
+            echo fread($localFp, $bytesToRead);
+            $bytesSent += $bytesToRead;
+            flush(); // Kirim output ke browser segera
+        }
+
+        fclose($localFp);
+
+        // Hentikan script di sini agar tidak terjadi redirect.
+        exit();
+    }
+    // Jika tipe file adalah audio atau lainnya, biarkan script melanjutkan ke redirect.
+    elseif (strpos($mimeType, 'audio/') === 0) {
+        log_message("File is audio ($mimeType). Proceeding to redirect to: $cacheFileUrl");
+    }
+    else {
+         log_message("File is other type ($mimeType). Proceeding to redirect to: $cacheFileUrl");
+    }
 }
 
 
