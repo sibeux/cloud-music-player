@@ -176,40 +176,40 @@ if (!$isCacheValid) {
     fclose($cacheFp);
 
 } else {
-    log_message("Cache HIT for fileId: $fileId. Redirect to local server.");
+    log_message("Cache HIT for fileId: $fileId.");
 }
 
 // Fungsi: Memeriksa tipe MIME file di cache untuk menentukan tindakan selanjutnya.
 // Ini penting agar request untuk pre-cache gambar tidak di-redirect.
-if (file_exists($cacheFilePath)) {
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mimeType = finfo_file($finfo, $cacheFilePath);
-    finfo_close($finfo);
+
+$finfo = finfo_open(FILEINFO_MIME_TYPE);
+$mimeType = finfo_file($finfo, $cacheFilePath);
+finfo_close($finfo);
 
     // Jika tipe file adalah gambar, hentikan eksekusi dan jangan redirect.
     // Klien akan mendapatkan respons kosong (200 OK), yang menandakan pre-cache berhasil.
-    if (strpos($mimeType, 'image/') === 0) {
-        log_message("File is an image ($mimeType). Pre-cache successful. No redirect needed.");
+if (strpos($mimeType, 'image/') === 0) {
+    log_message("File is an image ($mimeType). Pre-cache successful. No redirect needed.");
 
         // --- BAGIAN PENYAJIAN FILE (STREAMING DARI CACHE LOKAL) ---
         // Fungsi: Bagian ini sekarang selalu menyajikan file dari cache lokal, baik yang baru diunduh maupun yang sudah ada.
 
         // --- Ambil metadata dari file LOKAL ---
-        $fileSize = filesize($cacheFilePath);
-        $mimeType = mime_content_type($cacheFilePath) ?: 'application/octet-stream';
+    $fileSize = filesize($cacheFilePath);
+    $mimeType = mime_content_type($cacheFilePath) ?: 'application/octet-stream';
 
         // --- Ambil nama file asli dari Google Drive (opsional, tapi bagus untuk 'Content-Disposition') ---
         // Kita hanya perlu melakukan ini sekali jika cache baru dibuat, tapi untuk simplicitas kita query lagi.
         // Untuk performa lebih, nama file bisa disimpan di file terpisah misal `cache/fileId.meta`.
-        $tokenData = get_token($config);
-        $accessToken = $tokenData['access_token'];
-        $metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=name";
-        $chMeta = curl_init($metaUrl);
-        curl_setopt($chMeta, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . $accessToken]);
-        curl_setopt($chMeta, CURLOPT_RETURNTRANSFER, true);
-        $metaResp = curl_exec($chMeta);
-        curl_close($chMeta);
-        $metaData = json_decode($metaResp, true);
+    $tokenData = get_token($config);
+    $accessToken = $tokenData['access_token'];
+    $metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=name";
+    $chMeta = curl_init($metaUrl);
+    curl_setopt($chMeta, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . $accessToken]);
+    curl_setopt($chMeta, CURLOPT_RETURNTRANSFER, true);
+    $metaResp = curl_exec($chMeta);
+    curl_close($chMeta);
+    $metaData = json_decode($metaResp, true);
         $fileName = $metaData['name'] ?? $fileId; // Gunakan fileId sebagai fallback
 
         // --- PENANGANAN HEADER UNTUK SEEKING (BUG FIX) ---
@@ -264,13 +264,13 @@ if (file_exists($cacheFilePath)) {
         log_message("File is audio ($mimeType). Proceeding to redirect to: $cacheFileUrl");
     }
     else {
-         log_message("File is other type ($mimeType). Proceeding to redirect to: $cacheFileUrl");
-    }
-}
+       log_message("File is other type ($mimeType). Proceeding to redirect to: $cacheFileUrl");
+   }
+
 
 
 // --- SELALU REDIRECT PADA AKHIRNYA ---
 // Baik cache sudah ada sebelumnya atau baru saja dibuat,
 // klien akan diarahkan ke file statis di cache.
-header("Location: " . $cacheFileUrl, true, 302);
-exit();
+   header("Location: " . $cacheFileUrl, true, 302);
+   exit();
