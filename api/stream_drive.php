@@ -15,7 +15,7 @@ function log_message($message) {
 
 // --- BARU: Konfigurasi Cache Lokal ---
 // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
-$cacheDir = __DIR__ . '../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
+$cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
 // Fungsi $cacheDuration adalah untuk mendownload ulang file dari GDRIVE-
 // jika sudah expired. Kita set ke 1 tahun, karena file lagu statis banget.
 $cacheDuration = 31536000; // Durasi cache dalam detik (86400 = 24 jam)
