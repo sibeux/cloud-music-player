@@ -7,9 +7,15 @@
 session_start();
 $config = include './google-oauth-config.php';
 
+// Fungsi untuk membuat log manual
+function log_message($message) {
+    $logFile = 'custom.log';
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
+}
+
 // --- BARU: Konfigurasi Cache Lokal ---
 // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
-$cacheDir = __DIR__ . '../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
+$cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
 // Fungsi $cacheDuration adalah untuk mendownload ulang file dari GDRIVE-
 // jika sudah expired. Kita set ke 1 tahun, karena file lagu statis banget.
 $cacheDuration = 31536000; // Durasi cache dalam detik (86400 = 24 jam)
@@ -34,12 +40,6 @@ if (!is_dir($cacheDir)) {
 // Fungsi: Membuat path file unik untuk setiap fileId di dalam folder cache.
 // basename() digunakan untuk keamanan, mencegah directory traversal.
 $cacheFilePath = $cacheDir . '/' . basename($fileId);
-
-// Fungsi untuk membuat log manual
-function log_message($message) {
-    $logFile = 'custom.log';
-    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
-}
 
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
 function get_token($config) {
