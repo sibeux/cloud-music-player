@@ -1,9 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
 
-function cacheMusicToServer($fileId, $accessToken, $musicId){
-    global $db;
+
+function cacheMusicToServer($db, $fileId, $accessToken, $musicId){
     // --- Konfigurasi Cache Lokal ---
     // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
     $cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache

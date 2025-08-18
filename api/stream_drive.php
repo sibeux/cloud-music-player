@@ -6,6 +6,7 @@
 
 session_start();
 require_once './cache_to_server.php';
+require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
 $config = include './google-oauth-config.php';
 
 $params = isset($_GET['params']) ? $_GET['params'] : '';
@@ -116,7 +117,7 @@ $tokenData = get_token($config);
 $accessToken = $tokenData['access_token'];
 
 // --- Download dan simpan music di server
-cacheMusicToServer($fileId, $accessToken, $musicId);
+cacheMusicToServer($db, $fileId, $accessToken, $musicId);
 
 // --- Ambil metadata file ---
 $curlHeaders = ["Authorization: Bearer " . $accessToken];
