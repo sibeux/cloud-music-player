@@ -23,13 +23,20 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
     $type = $_GET['type'];
     $uid = $_GET['uid'];
 
+    // Fetch semua lagu.
     if ($type == 'category' && $uid == 481) {
-        $sql = "SELECT * FROM music ORDER BY title ASC";
+        $sql = "SELECT * FROM music 
+                LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
+                LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
+                ORDER BY title ASC;";
     }
 
+    // Fetch berdasarkan kategori.
     if ($type == 'category' && $uid != 481) {
         $sql = "SELECT * FROM music
                 JOIN playlist ON music.category = playlist.uid
+                LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
+                LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
                 WHERE music.category = '$uid'
                 ORDER BY music.title ASC;
                 ";
@@ -38,6 +45,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
     if ($type == 'album') {
         $sql = "SELECT * FROM music 
         JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%')
+        LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
+        LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
         WHERE playlist.uid = '$uid'
         ORDER BY title ASC";
     }
@@ -46,12 +55,17 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         $sql = "SELECT * FROM playlist_music 
         JOIN music on playlist_music.id_music = music.id_music 
         join playlist on playlist_music.id_playlist = playlist.uid 
+        LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
+        LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
         WHERE playlist.uid = '$uid' 
         ORDER BY date_add_music_playlist ASC";
     }
 
     if ($type == 'favorite') {
-        $sql = "SELECT * FROM music WHERE favorite = '1' ORDER BY title ASC";
+        $sql = "SELECT * FROM music 
+        LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
+        LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
+        WHERE favorite = '1' ORDER BY title ASC";
     }
 
 }
