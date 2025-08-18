@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
 
 function cacheMusicToServer($fileId, $accessToken, $musicId){
+    global $db;
     // --- Konfigurasi Cache Lokal ---
     // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
     $cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
@@ -81,7 +82,7 @@ function cacheMusicToServer($fileId, $accessToken, $musicId){
     fclose($cacheFp);
 
     // Masukkan ke sql bahwa file dengan ID ini telah di-cache.
-    $stmt = $conn->prepare("INSERT INTO cache_music (cache_music_id) VALUES (?)");
+    $stmt = $db->prepare("INSERT INTO cache_music (cache_music_id) VALUES (?)");
     $stmt->bind_param("i", $musicId);
     if (!$stmt->execute()) {
         die("Error inserting recents: " . $stmt->error);
