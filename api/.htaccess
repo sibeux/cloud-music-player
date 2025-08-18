@@ -1,5 +1,5 @@
 RewriteEngine On
 
-# Aturan: Ubah /api/stream/ID_APAPUN
-# menjadi /api/stream_drive.php?fileId=ID_APAPUN
-RewriteRule ^stream/([a-zA-Z0-9_-]+)$ stream_drive.php?fileId=$1 [L]
+# Tangkap semua parameter setelah /stream/
+# dan kirim ke stream_drive.php dengan query string dynamic
+RewriteRule ^stream/(.+)$ stream_drive.php?params=$1 [QSA,L]
