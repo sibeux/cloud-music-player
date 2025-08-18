@@ -1,6 +1,8 @@
 <?php
 
-function cacheMusicToServer($fileId, $accessToken){
+include __DIR__ . '/../database/mobile-music-player/api/connection.php';
+
+function cacheMusicToServer($fileId, $accessToken, $musicId){
 	// --- Unduh file dari Google Drive dan simpan ke cache ---
     $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
     $ch = curl_init($driveUrl);
@@ -33,5 +35,14 @@ function cacheMusicToServer($fileId, $accessToken){
     // Fungsi: Menyelesaikan proses penulisan ke file cache.
     flock($cacheFp, LOCK_UN);
     fclose($cacheFp);
+
+    // Masukkan ke sql bahwa file dengan ID ini telah di-cache.
+    $stmt = $db->prepare("INSERT INTO cache_music (cache_music_id	) VALUES (?)");
+    $stmt->bind_param("i", $musicId);
+    if (!$stmt->execute()) {
+        die("Error inserting recents: " . $stmt->error);
+    }
+    $stmt->close();
+    
     log_message("Caching process success for fileId: $fileId.");
 }
