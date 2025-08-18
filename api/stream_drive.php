@@ -5,7 +5,7 @@
 // ** PERBAIKAN: Menambahkan file locking (flock) untuk mencegah race condition saat token di-refresh.
 
 session_start();
-require_once 'cache_to_server.php';
+require_once './cache_to_server.php';
 $config = include './google-oauth-config.php';
 
 $params = isset($_GET['params']) ? $_GET['params'] : '';
