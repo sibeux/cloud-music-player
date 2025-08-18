@@ -117,7 +117,7 @@ $tokenData = get_token($config);
 $accessToken = $tokenData['access_token'];
 
 // --- Download dan simpan music di server
-// cacheMusicToServer($db, $fileId, $accessToken, $musicId);
+cacheMusicToServer($db, $fileId, $accessToken, $musicId);
 
 // --- Ambil metadata file ---
 $curlHeaders = ["Authorization: Bearer " . $accessToken];
