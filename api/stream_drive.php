@@ -5,6 +5,7 @@
 // ** PERBAIKAN: Menambahkan file locking (flock) untuk mencegah race condition saat token di-refresh.
 
 session_start();
+require_once 'cache_to_server.php';
 $config = include './google-oauth-config.php';
 
 $params = isset($_GET['params']) ? $_GET['params'] : '';
@@ -113,6 +114,9 @@ function get_token($config) {
 // --- Ambil Token ---
 $tokenData = get_token($config);
 $accessToken = $tokenData['access_token'];
+
+// --- Download dan simpan music di server
+cacheMusicToServer(fileId: $fileId, accessToken: $accessToken);
 
 // --- Ambil metadata file ---
 $curlHeaders = ["Authorization: Bearer " . $accessToken];
