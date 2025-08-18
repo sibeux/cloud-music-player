@@ -197,7 +197,7 @@ if (true) {
     flock($cacheFp, LOCK_UN);
     fclose($cacheFp);
 
-    sendToSqlCache($db, $fileId, $musicId);
+
 
 } else {
     log_message("Cache HIT for fileId: $fileId. Serving from local server.");
@@ -268,4 +268,5 @@ while (!feof($localFp) && ($bytesSent < ($end - $start + 1)) && !connection_abor
 }
 
 fclose($localFp);
+sendToSqlCache($db, $fileId, $musicId);
 exit();
