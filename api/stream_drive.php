@@ -42,6 +42,14 @@ if (!$isSuspicious) {
     die("isSuspicious is required");
 }
 
+// Ambil credentials sesuai email
+if ($uploader == 'cybeat'){
+    $uploader = "sibesibe86@gmail.com";
+}
+
+// --- Dapatkan kredentials google oauth ---
+$config = getGoogleDriveCredentials($uploader, $allApiData);
+
 // Fungsi untuk membuat log manual
 function log_message($message) {
     $logFile = 'custom.log';
@@ -96,13 +104,6 @@ function get_token($config) {
 
     // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
     if (time() >= $tokenData['expires_at'] || $isSuspicious = true) {
-        // Ambil credentials sesuai email
-        if ($uploader == 'cybeat'){
-            $uploader = "sibesibe86@gmail.com";
-        }
-        
-        // --- Dapatkan kredentials google oauth ---
-        $config = getGoogleDriveCredentials($uploader, $allApiData);
         
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
