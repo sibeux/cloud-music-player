@@ -6,7 +6,7 @@
 
 session_start();
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
-$config = include './google-oauth-config.php';
+include './google-oauth-config.php';
 
 $params = isset($_GET['params']) ? $_GET['params'] : '';
 
@@ -97,10 +97,17 @@ function get_token($config) {
     // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
     if (time() >= $tokenData['expires_at'] || $isSuspicious = true) {
         // Ambil credentials sesuai email
-        if ($email == 'cybeat'){
-            $email = "sibesibe86@gmail.com";
+        if ($uploader == 'cybeat'){
+            $uploader = "sibesibe86@gmail.com";
         }
-        getGoogleDriveCredentials($email);
+        
+        // --- Dapatkan kredentials google oauth ---
+        $config = getGoogleDriveCredentials($email, $allApiData);
+        
+        // Lakukan pengecekan jika config tidak ditemukan
+        if (!$config) {
+            die("Konfigurasi untuk email '{$email}' tidak ditemukan atau tidak lengkap.");
+        }
 
         $postData = http_build_query([
             'client_id' => $config['client_id'],
