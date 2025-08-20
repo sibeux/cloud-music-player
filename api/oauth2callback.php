@@ -6,14 +6,11 @@ $config = include './google-oauth-config.php';
 
 // Ambil code dari query parameter
 $code = $_GET['code'] ?? null;
-$email = $_GET['email'] ?? null;
+// GANTI EMAIL INI SETIAP MAU BUAT OAUTH KEY BARU.
+$email = "yuukisibeux@gmail.com";
 
 if (!$code) {
     die("No authorization code received.");
-}
-
-if (!$email){
-    die("No email received.");
 }
 
 // Tukar code menjadi access token & refresh token
