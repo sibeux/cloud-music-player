@@ -2,7 +2,7 @@
 // ** Script ini untuk mendapatkan access token dan refresh token dari Google OAuth2
 
 // config.php harus ada Client ID & Client Secret + redirect_uri
-$config = include './google-oauth-config.php'; 
+include './google-oauth-config.php'; 
 
 // Ambil code dari query parameter
 $code = $_GET['code'] ?? null;
@@ -16,7 +16,7 @@ if (!$code) {
 // Tukar code menjadi access token & refresh token
 $tokenUrl = "https://oauth2.googleapis.com/token";
 // ambil credentials sesuai akun email
-getGoogleDriveCredentials($email);
+$config = getGoogleDriveCredentials($email, $allApiData);
 
 $data = http_build_query([
     'code' => $code,
