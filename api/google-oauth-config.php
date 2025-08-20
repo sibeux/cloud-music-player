@@ -13,14 +13,23 @@ $clientId = null; // Initialize as null
 $clientSecret = null; // Initialize as null
 $refreshToken = null; // Initialize as null
 
-foreach ($data as $item) {
-    if (isset($item['email']) && $item['email'] === 'yuukisibeux_googleoauth_client_id') {
+function getGoogleDriveCredentials($email){
+    // 1. Ambil nama sebelum simbol '@' sebagai prefix
+    $emailPrefix = explode('@', $email)[0];
+    if (empty($emailPrefix)) {
+        // Handle jika format email tidak valid
+        return null;
+    }
+
+    foreach ($data as $item) {
+    if (isset($item['email']) && $item['email'] === $emailPrefix . '_googleoauth_client_id') {
         $clientId = $item['gdrive_api'];
-    } else if (isset($item['email']) && $item['email'] === 'yuukisibeux_googleoauth_client_secret') {
+    } else if (isset($item['email']) && $item['email'] === $emailPrefix . '_googleoauth_client_secret') {
         $clientSecret = $item['gdrive_api'];
-    } else if (isset($item['email']) && $item['email'] === 'sibesibe86_googleoauth_refresh_token') {
+    } else if (isset($item['email']) && $item['email'] === $emailPrefix . '_googleoauth_refresh_token') {
         $refreshToken = $item['gdrive_api'];
     }
+}
 }
 
 // Penggunaan return

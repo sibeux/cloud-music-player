@@ -6,13 +6,20 @@ $config = include './google-oauth-config.php';
 
 // Ambil code dari query parameter
 $code = $_GET['code'] ?? null;
+$email = $_GET['email'] ?? null;
 
 if (!$code) {
     die("No authorization code received.");
 }
 
+if (!$email){
+    die("No email received.");
+}
+
 // Tukar code menjadi access token & refresh token
 $tokenUrl = "https://oauth2.googleapis.com/token";
+// ambil credentials sesuai akun email
+getGoogleDriveCredentials($email);
 
 $data = http_build_query([
     'code' => $code,

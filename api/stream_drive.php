@@ -22,10 +22,24 @@ foreach ($parts as $index => $value) {
 // Contoh akses:
 $fileId = $query['param1'] ?? null;
 $musicId = $query['param2'] ?? null;
+$uploader = $query['param3'] ?? null;
+$isSuspicious = $query['param4'] ?? null;
 
 if (!$fileId) {
     http_response_code(400);
     die("fileId is required");
+} 
+if (!$musicId) {
+    http_response_code(400);
+    die("musicId is required");
+} 
+if (!$uploader) {
+    http_response_code(400);
+    die("uploader is required");
+}
+if (!$isSuspicious) {
+    http_response_code(400);
+    die("isSuspicious is required");
 }
 
 // Fungsi untuk membuat log manual
@@ -80,8 +94,11 @@ function get_token($config) {
 
     $tokenData = json_decode(fread($fp, filesize($tokenFile)), true);
 
-    // --- 3. Refresh token jika sudah expired ---
-    if (time() >= $tokenData['expires_at']) {
+    // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
+    if (time() >= $tokenData['expires_at'] || $isSuspicious = true) {
+        // Ambil credentials sesuai email
+        getGoogleDriveCredentials($email);
+
         $postData = http_build_query([
             'client_id' => $config['client_id'],
             'client_secret' => $config['client_secret'],
@@ -166,6 +183,10 @@ if (true) {
 
     // --- Unduh file dari Google Drive dan simpan ke cache ---
     $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
+    if ($isSuspicious){
+        // acknowledgeAbuse=true berlaku untuk file suspicious
+        $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media&acknowledgeAbuse=true";
+    }
     $ch = curl_init($driveUrl);
     
     $curlHeadersToGoogle = ["Authorization: Bearer " . $accessToken];
