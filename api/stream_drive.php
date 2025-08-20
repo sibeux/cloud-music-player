@@ -102,7 +102,7 @@ function get_token($config) {
         }
         
         // --- Dapatkan kredentials google oauth ---
-        $config = getGoogleDriveCredentials($email, $allApiData);
+        $config = getGoogleDriveCredentials($uploader, $allApiData);
         
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
