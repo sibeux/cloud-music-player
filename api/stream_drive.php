@@ -129,6 +129,7 @@ function get_token($config, $isSuspicious) {
             flock($fp, LOCK_UN); // Lepas kunci sebelum mati
             fclose($fp);
             http_response_code(500);
+            log_message($config . $respData);
             log_message("Failed to refresh access token: " . $resp);
             die("Failed to refresh access token: " . $resp);
         }
