@@ -78,7 +78,7 @@ if (!is_dir($cacheDir)) {
 $cacheFilePath = $cacheDir . '/' . basename($fileId);
 
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
-function get_token($config) {
+function get_token($config, $isSuspicious) {
     $tokenFile = __DIR__ . '/token.json';
     
     // --- 1. Coba ambil dari session (cache paling cepat) ---
@@ -103,7 +103,7 @@ function get_token($config) {
     $tokenData = json_decode(fread($fp, filesize($tokenFile)), true);
 
     // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
-    if (time() >= $tokenData['expires_at'] || $isSuspicious = true) {
+    if (time() >= $tokenData['expires_at'] || $isSuspicious == true) {
         
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
@@ -171,7 +171,7 @@ if (true) {
     log_message("Cache MISS for fileId: $fileId. Downloading from Google Drive.");
     
     // --- Ambil Token ---
-    $tokenData = get_token($config);
+    $tokenData = get_token($config, $isSuspicious);
     $accessToken = $tokenData['access_token'];
 
     // --- Buka file cache untuk ditulis ---
