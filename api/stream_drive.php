@@ -123,13 +123,12 @@ function get_token($config, $isSuspicious) {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $resp = curl_exec($ch);
         curl_close($ch);
-
         $respData = json_decode($resp, true);
         if (!isset($respData['access_token'])) {
             flock($fp, LOCK_UN); // Lepas kunci sebelum mati
             fclose($fp);
             http_response_code(500);
-            log_message($config . $respData);
+            log_message($config['client_id'] . $config['client_secret'] . $config['refresh_token']);
             log_message("Failed to refresh access token: " . $resp);
             die("Failed to refresh access token: " . $resp);
         }
