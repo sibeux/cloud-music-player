@@ -246,7 +246,7 @@ $mimeType = mime_content_type($cacheFilePath) ?: 'application/octet-stream';
 // --- Ambil nama file asli dari Google Drive (opsional, tapi bagus untuk 'Content-Disposition') ---
 // Kita hanya perlu melakukan ini sekali jika cache baru dibuat, tapi untuk simplicitas kita query lagi.
 // Untuk performa lebih, nama file bisa disimpan di file terpisah misal `cache/fileId.meta`.
-$tokenData = get_token($config);
+$tokenData = get_token($config, $isSuspicious);
 $accessToken = $tokenData['access_token'];
 $metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=name";
 $chMeta = curl_init($metaUrl);
