@@ -6,7 +6,7 @@ include './google-oauth-config.php';
 
 // Ambil code dari query parameter
 $code = $_GET['code'] ?? null;
-// GANTI EMAIL INI SETIAP MAU BUAT OAUTH KEY BARU.
+// GANTI EMAIL INI SETIAP MAU BUAT OAUTH KEY BARU
 $email = "sibesibe86@gmail.com";
 
 if (!$code) {
