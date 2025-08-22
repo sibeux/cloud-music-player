@@ -66,4 +66,3 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
         'bits_per_raw_sample' => $bitsPerRawSample,
     ];
 }
-?>

@@ -1,4 +1,5 @@
 <?php
+global $db;
 ob_start('ob_gzhandler'); // aktifkan gzip (opsional)
 header('Content-Type: application/json; charset=utf-8');
 // Sementara

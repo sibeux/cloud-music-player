@@ -172,7 +172,7 @@ function sendToSqlCache($db, $fileId, $musicId){
 if (true) {
     log_message("Cache MISS for fileId: $fileId. Downloading from Google Drive.");
     
-    // --- Ambil Token ---
+    // --- Get Token ---
     $tokenData = get_token($config, $isSuspicious);
     $accessToken = $tokenData['access_token'];
 
