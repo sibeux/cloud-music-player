@@ -2,6 +2,7 @@
 
 global $ffprobePath, $db;
 include './connection.php';
+require_once __DIR__ . '/read_codec.php';
 
 // --- Fungsi Helper ---
 function sendJsonResponse(array $data, int $responseCode = 200) {
