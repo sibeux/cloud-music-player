@@ -95,23 +95,26 @@ if (isset($_GET['recents_music'])) {
 }
 
 // Response json
+// ... $sql Anda didefinisikan di sini ...
 $result = $db->query($sql);
+
+// Langkah 1: Tangani kegagalan query dengan benar
 if (!$result) {
     http_response_code(500);
-    echo json_encode(["error" => "Query failed", "detail" => $db->error]);
-    $db->close();
-    exit;
+    // Matikan skrip dan kirim pesan error yang jelas dari database
+    die(json_encode(["error" => "Query failed", "detail" => $db->error]));
 }
 
-echo '[';
-$first = true;
+// Langkah 2: Kumpulkan semua baris hasil ke dalam sebuah array
+$data = [];
 while ($row = $result->fetch_assoc()) {
-    if (!$first)
-        echo ',';
-    echo json_encode($row, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    $first = false;
+    $data[] = $row;
 }
-echo ']';
 
+// Langkah 3: Ubah seluruh array menjadi JSON dalam satu kali proses
+header('Content-Type: application/json');
+echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+// Tutup koneksi setelah semua selesai
 $db->close();
 exit;
