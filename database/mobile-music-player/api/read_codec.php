@@ -3,7 +3,7 @@
 // --- Configuration FFprobe ---
 $ffprobePath = "/home/sibs6571/ffmpeg/ffprobe"; // Path FFprobe Anda
 
-function checkCodecAudio($musicId, $filePath, $db): ?array
+function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
 {
     // Jalankan FFprobe pada file local tersebut
     // WAJIB: Amankan path file untuk mencegah command injection

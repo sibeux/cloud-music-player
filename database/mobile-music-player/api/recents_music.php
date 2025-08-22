@@ -1,5 +1,6 @@
 <?php
 
+global $ffprobePath, $db;
 include './connection.php';
 
 // --- Fungsi Helper ---
@@ -24,7 +25,7 @@ if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['m
     // 2. Eksekusi query untuk 'metadata_music'
     // Cek dulu apakah perlu dilakukan read codec?
     if ($_POST['codec_exist'] == 'false'){
-        $codec = checkCodecAudio($_POST['music_id'], $_POST['music_url'], $db);
+        $codec = checkCodecAudio($_POST['music_id'], $_POST['music_url'], $db, $ffprobePath);
     }
     
     // 3. Execution query for 'delete'
