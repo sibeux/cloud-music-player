@@ -6,6 +6,7 @@
 
 session_start();
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
+require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
 include './google-oauth-config.php';
 
 $params = isset($_GET['params']) ? $_GET['params'] : '';
@@ -236,16 +237,16 @@ if (true) {
 }
 
 
-// --- BAGIAN PENYAJIAN FILE (STREAMING DARI CACHE LOKAL) ---
-// Fungsi: Bagian ini sekarang selalu menyajikan file dari cache lokal, baik yang baru diunduh maupun yang sudah ada.
+// --- BAGIAN PENYAJIAN FILE (STREAMING DARI CACHE LOCAL) ---
+// Fungsi: Bagian ini sekarang selalu menyajikan file dari cache local, baik yang baru diunduh maupun yang sudah ada.
 
 // --- Ambil metadata dari file LOKAL ---
 $fileSize = filesize($cacheFilePath);
 $mimeType = mime_content_type($cacheFilePath) ?: 'application/octet-stream';
 
-// --- Ambil nama file asli dari Google Drive (opsional, tapi bagus untuk 'Content-Disposition') ---
-// Kita hanya perlu melakukan ini sekali jika cache baru dibuat, tapi untuk simplicitas kita query lagi.
-// Untuk performa lebih, nama file bisa disimpan di file terpisah misal `cache/fileId.meta`.
+// --- get nama file asli dari Google Drive (optional, tapi good for 'Content-Disposition') ---
+// Kita hanya need melakukan ini sekali if cache baru dibuat, tapi untuk simplicitas kita query lagi.
+// Untuk performa lebih, nama file can saved di file terpisah ex: `cache/fileId.meta`.
 $tokenData = get_token($config, $isSuspicious);
 $accessToken = $tokenData['access_token'];
 $metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=name";
@@ -255,9 +256,9 @@ curl_setopt($chMeta, CURLOPT_RETURNTRANSFER, true);
 $metaResp = curl_exec($chMeta);
 curl_close($chMeta);
 $metaData = json_decode($metaResp, true);
-$fileName = $metaData['name'] ?? $fileId; // Gunakan fileId sebagai fallback
+$fileName = $metaData['name'] ?? $fileId; // Use fileId for fallback
 
-// --- PENANGANAN HEADER UNTUK SEEKING (BUG FIX) ---
+// --- PENANGANAN HEADER FOR SEEKING (BUG FIX) ---
 header("Content-Type: $mimeType");
 header("Accept-Ranges: bytes");
 header("Cache-Control: public, max-age=86400");
@@ -282,23 +283,24 @@ if (isset($_SERVER['HTTP_RANGE'])) {
     header("Content-Length: $fileSize");
 }
 
-// --- Stream file dari CACHE LOKAL dengan PHP ---
-// Fungsi: Membaca file dari disk server dan mengirimkannya ke browser dalam potongan (chunk) untuk efisiensi memori.
+// --- Stream file dari CACHE LOCAL with PHP ---
+// Function: Read file dari disk server dan send it ke browser via "potongan" (chunk) for memory efficiency.
 $localFp = fopen($cacheFilePath, 'rb');
 fseek($localFp, $start);
 $bytesSent = 0;
 $chunkSize = 8192; // 8KB per chunk
 
-// Nonaktifkan output buffering PHP
+// Deactivate output buffering PHP
 if (ob_get_level() > 0) ob_end_flush();
 
 while (!feof($localFp) && ($bytesSent < ($end - $start + 1)) && !connection_aborted()) {
     $bytesToRead = min($chunkSize, ($end - $start + 1) - $bytesSent);
     echo fread($localFp, $bytesToRead);
     $bytesSent += $bytesToRead;
-    flush(); // Kirim output ke browser segera
+    flush(); // Send output ke browser soon
 }
 
 fclose($localFp);
 sendToSqlCache($db, $fileId, $musicId);
+checkCodecAudio($musicId, $cacheFilePath, $db);
 exit();
