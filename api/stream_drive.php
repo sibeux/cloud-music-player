@@ -26,6 +26,7 @@ $fileId = $query['param1'] ?? null;
 $musicId = $query['param2'] ?? null;
 $uploader = $query['param3'] ?? null;
 $isSuspicious = $query['param4'] ?? null;
+$fileType = $query['param5'] ?? null;
 
 if (!$fileId) {
     http_response_code(400);
@@ -169,7 +170,8 @@ function sendToSqlCache($db, $fileId, $musicId){
 // Fungsi: Memeriksa apakah file ada di cache dan valid. Jika tidak, unduh dari GDrive.
 // $isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePath) < $cacheDuration);
 
-if (true) {
+// Cek apakah file audio atau image.
+if ($fileType == "audio") {
     log_message("Cache MISS for fileId: $fileId. Downloading from Google Drive.");
     
     // --- Get Token ---
@@ -230,8 +232,6 @@ if (true) {
     // Fungsi: Menyelesaikan proses penulisan ke file cache.
     flock($cacheFp, LOCK_UN);
     fclose($cacheFp);
-
-
 
 } else {
     log_message("Cache HIT for fileId: $fileId. Serving from local server.");
@@ -302,6 +302,8 @@ while (!feof($localFp) && ($bytesSent < ($end - $start + 1)) && !connection_abor
 }
 
 fclose($localFp);
-sendToSqlCache($db, $fileId, $musicId);
-checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
+if ($fileType == "audio") {
+    sendToSqlCache($db, $fileId, $musicId);
+    checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
+}
 exit();

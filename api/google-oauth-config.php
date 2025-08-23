@@ -21,6 +21,7 @@ function getGoogleDriveCredentials(string $email, array $apiData): ?array
 
     $emailPrefix = explode('@', $email)[0];
     if (empty($emailPrefix)) {
+        var_dump("No authorization code received.");
         return null;
     }
 
@@ -38,6 +39,8 @@ function getGoogleDriveCredentials(string $email, array $apiData): ?array
     }
 
     // Jika salah satu null, mungkin data tidak lengkap
+    // KHUSUS KONDISI INI JIKA DIGUNAKAN UNTUK GET REFRESH TOKEN,-
+    // MAKA BUAT DATA DUMMY REFRESH TOKEN DULU DI SQL, AGAR KONDISI INI TIDAK TRUE.
     if ($clientId === null || $clientSecret === null || $refreshToken === null) {
         return null;
     }
