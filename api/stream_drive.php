@@ -139,6 +139,8 @@ function get_token($config, $isSuspicious) {
         $tokenData['access_token'] = $respData['access_token'];
         $tokenData['expires_at'] = time() + $respData['expires_in'] - 60; // Kurangi 60 detik sebagai buffer
 
+        log_message("Token has refreshed");
+
         // Update file token.json dengan token baru
         ftruncate($fp, 0);
         rewind($fp);
