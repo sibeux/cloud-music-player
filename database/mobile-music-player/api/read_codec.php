@@ -23,7 +23,9 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
     $metadata = json_decode($output, true);
     
     if (json_last_error() !== JSON_ERROR_NONE || !isset($metadata['streams'][0])) {
-        sendJsonResponse(["error" => "Gagal mendapatkan metadata valid dari ffprobe.", "ffprobe_output" => $output], 500);
+        $logFile = 'custom.log';
+        $message = ["error" => "Gagal mendapatkan metadata valid dari ffprobe.", "ffprobe_output" => $output];
+        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
     }
     $audioStream = $metadata['streams'][0];
     
