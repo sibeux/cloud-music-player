@@ -4,14 +4,6 @@ global $ffprobePath, $db;
 include './connection.php';
 require_once __DIR__ . '/read_codec.php';
 
-// --- Fungsi Helper ---
-function sendJsonResponse(array $data, int $responseCode = 200) {
-    http_response_code($responseCode);
-    header('Content-Type: application/json');
-    echo json_encode($data);
-    die();
-}
-
 if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['music_url'])) {
     $codec = null;
 
