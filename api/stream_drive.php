@@ -168,10 +168,10 @@ function sendToSqlCache($db, $fileId, $musicId){
 
 // --- Logika Pengecekan dan Pembuatan Cache ---
 // Fungsi: Memeriksa apakah file ada di cache dan valid. Jika tidak, unduh dari GDrive.
-// $isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePath) < $cacheDuration);
+$isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePath) < $cacheDuration);
 
-// Cek apakah file audio atau image.
-if ($fileType == "audio") {
+// Cek apakah file exist?
+if ($isCacheValid) {
     log_message("Cache MISS for fileId: $fileId. Downloading from Google Drive.");
     
     // --- Get Token ---
