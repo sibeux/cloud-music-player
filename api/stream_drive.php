@@ -4,7 +4,6 @@
 // ** Kalau yang pakai aplikasi banyak, bisa jadi error.
 // ** PERBAIKAN: Menambahkan file locking (flock) untuk mencegah race condition saat token di-refresh.
 
-global $ffprobePath, $db;
 session_start();
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
