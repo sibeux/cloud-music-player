@@ -110,7 +110,7 @@ function get_token($config, $isSuspicious) {
         
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
-            die("Konfigurasi untuk email '{$email}' tidak ditemukan atau tidak lengkap.");
+            die("Konfigurasi tidak ditemukan atau tidak lengkap.");
         }
 
         $postData = http_build_query([
