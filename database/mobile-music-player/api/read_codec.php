@@ -3,6 +3,14 @@
 // --- Configuration FFprobe ---
 $ffprobePath = "/home/sibs6571/ffmpeg/ffprobe"; // Path FFprobe Anda
 
+// --- Fungsi Helper ---
+function sendJsonResponse(array $data, int $responseCode = 200) {
+    http_response_code($responseCode);
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    die();
+}
+
 function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
 {
     // Jalankan FFprobe pada file local tersebut
