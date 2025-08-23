@@ -171,7 +171,7 @@ function sendToSqlCache($db, $fileId, $musicId){
 $isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePath) < $cacheDuration);
 
 // Cek apakah file exist?
-if ($isCacheValid) {
+if (!$isCacheValid) {
     log_message("Cache MISS for fileId: $fileId. Downloading from Google Drive.");
     
     // --- Get Token ---
