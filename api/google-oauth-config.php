@@ -41,7 +41,7 @@ function getGoogleDriveCredentials(string $email, array $apiData): ?array
     // Jika salah satu null, mungkin data tidak lengkap
     // KHUSUS KONDISI INI JIKA DIGUNAKAN UNTUK GET REFRESH TOKEN,-
     // MAKA BUAT DATA DUMMY REFRESH TOKEN DULU DI SQL, AGAR KONDISI INI TIDAK TRUE.
-    if ($clientId === null || $clientSecret === null || $refreshToken === null) {
+    if ($clientId === null || $clientSecret === null) {
         return null;
     }
 
