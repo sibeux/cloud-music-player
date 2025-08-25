@@ -185,6 +185,25 @@ function render_music_list($db, $api_key, $page = 1) {
                     });
             });
         });
+        <!-- playlist wrapper end -->
+        <!--custom js files-->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/modernizr.js"></script>
+        <script src="js/plugin.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/jquery.inview.min.js"></script>
+        <script src="js/jquery.magnific-popup.js"></script>
+        <script src="js/swiper.min.js"></script>
+        <script src="js/comboTreePlugin.js"></script>
+        <script src="js/mp3/jquery.jplayer.min.js"></script>
+        <script src="js/mp3/jplayer.playlist.js"></script>
+        <script src="js/owl.carousel.js"></script>
+        <script src="js/mp3/player.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/alternative-bar.js"></script>
+        <script src="js/lazy.js"></script>
+        <!-- custom js-->
     </script>
 </body>
 </html>
