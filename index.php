@@ -1,125 +1,66 @@
 <?php
-// Bagian Setup dan API Key (sudah cukup baik, sedikit perbaikan)
 include "./database/db.php";
-include "./func.php"; // Diasumsikan berisi fungsi compressImage()
+include "./func.php";
 
-// Fungsi untuk mendapatkan API key (lebih baik menggunakan cURL untuk timeout)
-function getApiKey() {
-    $url = "https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php";
-    $response = @file_get_contents($url); // Gunakan @ untuk menekan warning jika gagal
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Ambil halaman saat ini
+$limit = 100; // Tentukan jumlah data per halaman
+$offset = ($page - 1) * $limit; // Hitung offset berdasarkan halaman
 
-    if ($response === false) {
-        // Sebaiknya tidak menggunakan die() di production, tapi log error
-        error_log("Gagal mengakses API gdrive_api.php");
-        return null; // Kembalikan null jika gagal
-    }
+// initiate variable
+$id_music = 0;
+$title = "";
+$artist = "";
+$album = "";
+$cover = "";
+$favorite = 0;
+$link_drive = "";
 
-    $data = json_decode($response, true);
-    // Gunakan fungsi anonim standar dan strpos()
-    $gmailData = array_filter($data, function($item) {
-        return strpos($item['email'], '@gmail.com') !== false;
-    });
+// URL API
+$url = "https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php";
 
-    if (empty($gmailData)) {
-        error_log("Tidak ada Gmail API key yang ditemukan.");
-        return null;
-    }
+// Ambil data API
+$response = file_get_contents($url);
 
-    $gmailData = array_values($gmailData);
-    return $gmailData[array_rand($gmailData)]['gdrive_api'];
+if ($response === FALSE) {
+    die('Error occurred while accessing the API.');
 }
 
-// Fungsi untuk konversi URL Google Drive
-function checkUrlFromDrive(string $url_db, string $gdrive_api_key) {
-    if (strpos($url_db, "drive.google.com") !== false && preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches)) {
+$data = json_decode($response, true);
+
+// Filter data untuk email yang mengandung '@gmail.com'
+$gmailData = array_filter($data, function($item) {
+    return strpos($item['email'], '@gmail.com') !== false;
+});
+
+if (empty($gmailData)) {
+    die('No Gmail API key found.');
+}
+
+// Reset indeks supaya bisa random dengan mt_rand
+$gmailData = array_values($gmailData);
+
+$length = count($gmailData);
+$randomIndex = mt_rand(0, $length - 1);
+
+$api_key = $gmailData[$randomIndex]['gdrive_api'];
+
+// Tampilkan hasil
+// print_r($data);
+
+function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
+{
+    if (strpos($url_db, "drive.google.com") !== false) {
+        preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches);
         return "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key}";
+    } else {
+        return $url_db;
     }
-    return $url_db;
-}
 
-$api_key = getApiKey();
-if (!$api_key) {
-    die('Tidak dapat mengambil API Key. Halaman tidak dapat dimuat.');
-}
-
-// ---- LOGIKA UNTUK MENAMPILKAN DAFTAR MUSIK ----
-// Fungsi ini akan kita gunakan juga di file `load_more.php`
-function render_music_list($db, $api_key, $page = 1) {
-    $limit = 100;
-    $offset = ($page - 1) * $limit;
-    
-    // [OPTIMASI KEAMANAN] Gunakan Prepared Statements untuk mencegah SQL Injection
-    $stmt = $db->prepare("SELECT * FROM music ORDER BY title ASC LIMIT ? OFFSET ?");
-    $stmt->bind_param("ii", $limit, $offset);
-    $stmt->execute();
-    $result_music = $stmt->get_result();
-
-    $number_music = $offset + 1; // Penomoran dimulai dari offset
-    
-    // Loop dan render setiap baris musik
-    while ($music = $result_music->fetch_assoc()) {
-        // [OPTIMASI PERFORMA] Pindahkan kompresi gambar ke proses background/cron job.
-        // Di sini, kita hanya akan mengubah URL-nya.
-        $image_url = checkUrlFromDrive($music['cover'], $api_key);
-        // $cover = compressImage($image_url); // HINDARI INI! Anggap saja URL sudah optimal.
-        $cover = $image_url; // Langsung gunakan URL asli atau URL thumbnail jika ada.
-
-        // [OPTIMASI TAMPILAN] Siapkan data untuk `data-*` attributes
-        $music_data_json = htmlspecialchars(json_encode([
-            'id_music'    => $music['id_music'],
-            'artist'      => $music['artist'],
-            'title'       => $music['title'],
-            'cover'       => $cover,
-            'link_gdrive' => checkUrlFromDrive($music['link_gdrive'], $api_key),
-            'favorite'    => $music['favorite'],
-            'time'        => $music['time']
-        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
-        
-        // [OPTIMASI KEAMANAN] Gunakan htmlspecialchars untuk mencegah XSS
-        $title = htmlspecialchars($music['title'], ENT_QUOTES, 'UTF-8');
-        $artist = htmlspecialchars($music['artist'], ENT_QUOTES, 'UTF-8');
-        $album = htmlspecialchars($music['album'], ENT_QUOTES, 'UTF-8');
-        $time = htmlspecialchars($music['time'], ENT_QUOTES, 'UTF-8');
-        
-        $is_favorite = (int)$music['favorite'] === 1;
-        $heart_class = $is_favorite ? 'fas fa-heart' : 'far fa-heart';
-        $heart_color = $is_favorite ? 'color: #1fd660;' : 'color: #fff;';
-
-        // Gunakan sintaks Heredoc untuk HTML yang lebih bersih
-        echo <<<HTML
-        <ul class="album_inner_list_padding music-item" data-music-json='{$music_data_json}'>
-            <li>
-                <a>
-                    <span class="play_no">{$number_music}</span>
-                    <span class="play_hover"><i class="flaticon-play-button"></i></span>
-                </a>
-            </li>
-            <li class="song_title_width">
-                <div class="top_song_artist_wrapper">
-                    <img data-src="{$cover}" src="images/placeholder.gif" alt="Cover for {$title}" class="cover_music lazy">
-                    <div class="top_song_artist_contnt">
-                        <h1><a class="title_music">{$title}</a></h1>
-                        <p class="various_artist_text"><a class="artist_music">{$artist}</a></p>
-                    </div>
-                </div>
-            </li>
-            <li class="song_title_width"><a class="album_music">{$album}</a></li>
-            <li class="text-center"><a class="time_music">{$time}</a></li>
-            <li class="text-center favorite-text-center">
-                <i class="{$heart_class} favorite-icon" style="{$heart_color}"></i>
-            </li>
-            <li class="text-center top_song_artist_playlist">
-                </li>
-        </ul>
-        HTML;
-
-        $number_music++;
-    }
-    $stmt->close();
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="id">
+
 <head>
     <meta charset="utf-8" />
     <!-- <title id="title_doc">iTunein Responsive HTML Template</title> -->
@@ -146,87 +87,288 @@ function render_music_list($db, $api_key, $page = 1) {
     <!-- <link id="title_icon" rel="shortcut icon" type="image/png" href="images/favicon.png" /> -->
     <link id="title_icon" rel="shortcut icon" type="image/x-icon" href="images/cybeat.png" />
 </head>
+
 <body class="index4_body_wrapper">
-    <div class="album_list_wrapper album_list_wrapper_shop">
-        <ul class="album_list_name ms_cover">
-            <li>#</li>
-            <li class="song_title_width">Title</li>
-            </ul>
-        
-        <div id="music-list-container">
-            <?php
-                // Tampilkan halaman pertama saat load awal
-                render_music_list($db, $api_key, 1);
-            ?>
+    <!-- top navi wrapper Start -->
+    <div class="m24_main_wrapper">
+
+        <div class="row">
+            <div class="col-2" style="background-color: #1fd660;">
+
+            </div>
+            <div class="col-10">
+                <!-- Main section Start -->
+                <div class="body_main_header">
+                    <!-- top songs wrapper start -->
+                    <div class="top_songs_wrapper">
+                        <div class="row">
+                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 fixed_top_songs">
+                                <div class="song_heading_wrapper ms_cover">
+                                    <div class="ms_heading_wrapper white_heading_wrapper">
+                                        <h1>日本の歌</h1>
+                                    </div>
+                                    <div>
+                                        <div class="album_list_wrapper album_list_wrapper_shop">
+                                            <ul class="album_list_name ms_cover">
+                                                <li>#</li>
+                                                <li class="song_title_width">Title</li>
+                                                <li class="song_title_width">Album</li>
+                                                <li class="text-center">time</li>
+                                                <li class="text-center">Favorite</li>
+                                                <li class="text-center">More</li>
+                                            </ul>
+                                            <?php
+                                            $sql_music = "SELECT * FROM music ORDER BY title ASC LIMIT $limit OFFSET $offset";
+                                            $sql_count_music = "SELECT COUNT(*) as jumlah_music FROM music";
+                                            
+                                            $result_music = $db->query($sql_music);
+                                            $result_count_music = $db->query($sql_count_music);
+
+                                            $count_music = mysqli_fetch_array($result_count_music)['jumlah_music'];
+
+                                            $number_music = 1;
+
+                                            while ($array_data_music = mysqli_fetch_array($result_music) and $number_music <= 100) {
+
+                                                $link_drive = checkUrlFromDrive($array_data_music['link_gdrive'], $api_key);
+                                                $current_number_music = $number_music;
+                                                $id_music = $array_data_music['id_music'];
+                                                $category = $array_data_music['category'];
+                                                $title = $array_data_music['title'];
+                                                $artist = $array_data_music['artist'];
+                                                $favorite = $array_data_music['favorite'];
+                                                $album = $array_data_music['album'];
+                                                $time = $array_data_music['time'];
+                                                $date_added = $array_data_music['date_added'];
+                                                $image_url = checkUrlFromDrive($array_data_music['cover'], $api_key);
+
+                                                $cover = compressImage($image_url);
+                                                // $cover = $image_url;
+
+                                                $data = [
+                                                    'artist' => addslashes($artist),
+                                                    'category' => $category,
+                                                    'cover' => $cover,
+                                                    'date_added' => $date_added,
+                                                    'favorite' => $favorite,
+                                                    'id_music' => $id_music,
+                                                    'link_gdrive' => $link_drive,
+                                                    'time' => $time,
+                                                    'title' => addslashes($title)
+                                                ];
+
+                                                $music_data = htmlspecialchars(
+                                                    json_encode(
+                                                        $data,
+                                                        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+                                                    ),
+                                                    ENT_QUOTES,
+                                                    'UTF-8'
+                                                );
+
+                                                ?>
+                                            <ul class="album_inner_list_padding">
+                                                <li style="cursor: pointer;"><a><span class="play_no">
+                                                            <?php echo $number_music; ?>
+                                                        </span>
+                                                        <span class="play_hover" onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,
+                                                            '<?php echo $link_drive ?>','<?php echo $count_music ?>', 
+                                                            '<?php echo $id_music ?>', '<?php echo $music_data ?>')"><i
+                                                                class="flaticon-play-button"></i></span></a>
+                                                </li>
+                                                <li class="song_title_width">
+                                                    <div class="top_song_artist_wrapper">
+
+                                                        <img src="<?php echo $cover ?>" alt="img" class="cover_music">
+
+                                                        <div class="top_song_artist_contnt">
+                                                            <h1><a style="cursor: pointer;" class="title_music">
+                                                                    <?php echo $title ?>
+                                                                </a></h1>
+                                                            <p class="various_artist_text"><a class="artist_music">
+                                                                    <?php echo $artist ?>
+                                                                </a>
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li class="song_title_width"><a class="album_music">
+                                                        <?php echo $album ?>
+                                                    </a>
+                                                </li>
+                                                <li class="text-center"><a class="time_music"><?php echo $time ?></a>
+                                                </li>
+                                                <li class="text-center favorite-text-center">
+                                                    <?php
+                                                        // initiate variable $favorite
+                                                        $is_favorite = $favorite;
+                                                        if ($is_favorite == 1) { ?>
+                                                    <i class="fas fa-heart"
+                                                        onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
+                                                        style="color: #1fd660;"></i>
+                                                    <?php } else { ?>
+                                                    <i class="far fa-heart"
+                                                        onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
+                                                        style="color: #fff;"></i>
+                                                    <?php } ?>
+                                                </li>
+                                                <li class="text-center top_song_artist_playlist">
+                                                    <div class="ms_tranding_more_icon">
+                                                        <i class="flaticon-menu" style="color: white;"></i>
+                                                    </div>
+                                                    <ul class="tranding_more_option">
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-playlist"></i></span>Add To
+                                                                playlist</a>
+                                                        </li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-star"></i></span>favourite</a>
+                                                        </li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-share"></i></span>share</a></li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-files-and-folders"></i></span>view
+                                                                lyrics</a></li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-trash"></i></span>delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <?php
+                                                $number_music++;
+                                            } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="load-more-btn">Load More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- top navi wrapper end -->
+    </div>
+    <!-- top songs wrapper end -->
+
+    <!-- footer Wrapper start -->
+    <div class="foter_top_wrapper footer_top_wrapper2 ms_cover">
+        <ul>
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a>
+            </li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a>
+            </li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a>
+            </li>
+            <li> <a href="#"><i class="fab fa-linkedin-in"></i></a> </li>
+
+            <li><a href="#"><i class="fab fa-google-plus-g"></i></a>
+            </li>
+            <li><a href="#"><i class="fab fa-pinterest-p"></i></a>
+            </li>
+            <li><a href="#"><i class="fab fa-tumblr"></i></a>
+            </li>
+            <li> <a href="#"><i class="fab fa-behance"></i></a> </li>
+            <li> <a href="#"><i class="fab fa-dribbble"></i></a> </li>
+            <li> <a href="#"><i class="fab fa-whatsapp"></i></a> </li>
+        </ul>
+    </div>
+    <div class="section2_bottom_wrapper index4_bottom_wrapper ms_cover">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="btm_foter_box">
+                    <p>Copyright © 2024 <a href="index.html" style="text-decoration: underline;"> SIBEUX </a>
+                        Template downloaded from <a href="#">
+                            Envato.</a></p>
+                </div>
+            </div>
         </div>
     </div>
-    <button id="load-more-btn" data-page="2">Load More</button>
-    <script>
-        // Logika untuk play music, load more, dll.
-        document.addEventListener('DOMContentLoaded', function() {
-            const musicListContainer = document.getElementById('music-list-container');
 
-            // Event listener untuk memutar musik (delegasi event)
-            musicListContainer.addEventListener('click', function(event) {
-                const target = event.target;
-                const playButton = target.closest('.play_hover');
-                
-                if (playButton) {
-                    const musicItem = target.closest('.music-item');
-                    const musicData = JSON.parse(musicItem.dataset.musicJson);
-                    
-                    // Panggil fungsi player Anda dengan data yang sudah bersih
-                    // contoh: playMusic(musicData);
-                    console.log("Playing:", musicData);
-                }
-            });
+    <!--footer wrapper end-->
 
-            // Logika untuk tombol "Load More"
-            const loadMoreBtn = document.getElementById('load-more-btn');
-            loadMoreBtn.addEventListener('click', function() {
-                const currentPage = parseInt(this.dataset.page, 10);
-                this.textContent = 'Loading...';
-                this.disabled = true;
+    <!-- playllist wrapper start -->
+    <div class="adonis-player-wrap index3_adoins_wrapper index4_playlist_wrap">
+        <div id="adonis_jp_container" class="master-container-holder" role="application" aria-label="media player">
+            <div id="adonis_jplayer_main" class="jp-jplayer"></div>
+            <div class="adonis-player-horizontal">
+                <div class="row adonis-player">
+                    <div class="jp_controls_wrapper">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="song-infos">
+                                            <div class="image-container">
+                                                <img src="https://d2y6mqrpjbqoe6.cloudfront.net/image/upload/f_auto,q_auto/media/library-400/216_636967437355378335Your_Lie_Small_hq.jpg"
+                                                    alt="" id="cover_now_play" />
+                                            </div>
+                                            <div class="song-description">
+                                                <p class="title" id="title">
+                                                    Watashitachi wa Sou Yatte Ikite Iku Jinshu na no
+                                                </p>
+                                                <p class="artist" id="artist">Masaru Yokoyama</p>
+                                            </div>
+                                            <i class="fa fa-heart" id="favorite-music-bar" style="color: #1fd660;"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                fetch(`load_more.php?page=${currentPage}`)
-                    .then(response => response.text())
-                    .then(html => {
-                        if (html.trim() !== '') {
-                            musicListContainer.insertAdjacentHTML('beforeend', html);
-                            this.dataset.page = currentPage + 1; // Siapkan untuk halaman berikutnya
-                            this.textContent = 'Load More';
-                            this.disabled = false;
-                        } else {
-                            this.textContent = 'End of List';
-                            this.style.display = 'none'; // Sembunyikan tombol jika sudah tidak ada data
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error loading more music:', error);
-                        this.textContent = 'Error. Try again.';
-                        this.disabled = false;
-                    });
-            });
-        });
-        <!-- playlist wrapper end -->
-        <!--custom js files-->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/modernizr.js"></script>
-        <script src="js/plugin.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery.inview.min.js"></script>
-        <script src="js/jquery.magnific-popup.js"></script>
-        <script src="js/swiper.min.js"></script>
-        <script src="js/comboTreePlugin.js"></script>
-        <script src="js/mp3/jquery.jplayer.min.js"></script>
-        <script src="js/mp3/jplayer.playlist.js"></script>
-        <script src="js/owl.carousel.js"></script>
-        <script src="js/mp3/player.js"></script>
-        <script src="js/custom.js"></script>
-        <script src="js/alternative-bar.js"></script>
-        <script src="js/lazy.js"></script>
-        <!-- custom js-->
-    </script>
+                            <!-- progress bar -->
+                            <div class="col-sm" style="text-align: center;">
+                                <div class="progress-controller">
+                                    <div class="control-buttons">
+                                        <i class="fas fa-random"></i>
+                                        <i class="fas fa-step-backward"></i>
+                                        <i class="play-pause fas fa-play" id="play-icon"></i>
+                                        <i class="fas fa-step-forward" id="next-music"></i>
+                                        <i class="fas fa-undo-alt"></i>
+                                    </div>
+
+                                    <div class="progress-container">
+                                        <span id="first-minute">0:00</span>
+                                        <div class=" progress-bar">
+                                            <input onmouseenter="green(this)" onmouseleave="white(this)" type="range"
+                                                value="0" id="range" />
+                                        </div>
+                                        <span id="last-minute">0:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm" style="text-align: right;">
+                                <audio controls id="player_music">
+                                    <source src="" type="audio/mp3">
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- playlist wrapper end -->
+    <!--custom js files-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.js"></script>
+    <script src="js/plugin.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.inview.min.js"></script>
+    <script src="js/jquery.magnific-popup.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/comboTreePlugin.js"></script>
+    <script src="js/mp3/jquery.jplayer.min.js"></script>
+    <script src="js/mp3/jplayer.playlist.js"></script>
+    <script src="js/owl.carousel.js"></script>
+    <script src="js/mp3/player.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/alternative-bar.js"></script>
+    <script src="js/lazy.js"></script>
+    <!-- custom js-->
+
 </body>
+
 </html>

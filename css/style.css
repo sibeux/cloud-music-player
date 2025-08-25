@@ -8822,3 +8822,7 @@ i:hover {
 	height: 108px;
 	width: 108px;
 }
+
+.m24_main_wrapper {
+    padding-bottom: 120px; /* Sesuaikan nilainya */
+}
