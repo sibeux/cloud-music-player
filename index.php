@@ -253,42 +253,6 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
     </div>
     <!-- top songs wrapper end -->
 
-    <!-- footer Wrapper start -->
-    <div class="foter_top_wrapper footer_top_wrapper2 ms_cover">
-        <ul>
-            <li><a href="#"><i class="fab fa-facebook-f"></i></a>
-            </li>
-            <li><a href="#"><i class="fab fa-twitter"></i></a>
-            </li>
-            <li><a href="#"><i class="fab fa-instagram"></i></a>
-            </li>
-            <li> <a href="#"><i class="fab fa-linkedin-in"></i></a> </li>
-
-            <li><a href="#"><i class="fab fa-google-plus-g"></i></a>
-            </li>
-            <li><a href="#"><i class="fab fa-pinterest-p"></i></a>
-            </li>
-            <li><a href="#"><i class="fab fa-tumblr"></i></a>
-            </li>
-            <li> <a href="#"><i class="fab fa-behance"></i></a> </li>
-            <li> <a href="#"><i class="fab fa-dribbble"></i></a> </li>
-            <li> <a href="#"><i class="fab fa-whatsapp"></i></a> </li>
-        </ul>
-    </div>
-    <div class="section2_bottom_wrapper index4_bottom_wrapper ms_cover">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                <div class="btm_foter_box">
-                    <p>Copyright © 2024 <a href="index.html" style="text-decoration: underline;"> SIBEUX </a>
-                        Template downloaded from <a href="#">
-                            Envato.</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--footer wrapper end-->
-
     <!-- playllist wrapper start -->
     <div class="adonis-player-wrap index3_adoins_wrapper index4_playlist_wrap">
         <div id="adonis_jp_container" class="master-container-holder" role="application" aria-label="media player">
@@ -350,6 +314,41 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
         </div>
     </div>
     <!-- playlist wrapper end -->
+    <!-- footer Wrapper start -->
+    <div class="foter_top_wrapper footer_top_wrapper2 ms_cover">
+        <ul>
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a>
+            </li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a>
+            </li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a>
+            </li>
+            <li> <a href="#"><i class="fab fa-linkedin-in"></i></a> </li>
+
+            <li><a href="#"><i class="fab fa-google-plus-g"></i></a>
+            </li>
+            <li><a href="#"><i class="fab fa-pinterest-p"></i></a>
+            </li>
+            <li><a href="#"><i class="fab fa-tumblr"></i></a>
+            </li>
+            <li> <a href="#"><i class="fab fa-behance"></i></a> </li>
+            <li> <a href="#"><i class="fab fa-dribbble"></i></a> </li>
+            <li> <a href="#"><i class="fab fa-whatsapp"></i></a> </li>
+        </ul>
+    </div>
+    <div class="section2_bottom_wrapper index4_bottom_wrapper ms_cover">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="btm_foter_box">
+                    <p>Copyright © 2024 <a href="index.html" style="text-decoration: underline;"> SIBEUX </a>
+                        Template downloaded from <a href="#">
+                            Envato.</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer wrapper end-->
     <!--custom js files-->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
