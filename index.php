@@ -89,7 +89,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
 </head>
 
 <body class="index4_body_wrapper">
-    <a href="/privacy/index.html" class="privacy-button">Privacy Policy</a>
+    <a href="privacy/index.html" class="privacy-button">Privacy Policy</a>
     <!-- top navi wrapper Start -->
     <div class="m24_main_wrapper">
 
