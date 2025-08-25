@@ -254,7 +254,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
     <!-- top songs wrapper end -->
 
     <!-- playllist wrapper start -->
-    <div class="adonis-player-wrap index3_adoins_wrapper index4_playlist_wrap">
+    <!-- <div class="adonis-player-wrap index3_adoins_wrapper index4_playlist_wrap">
         <div id="adonis_jp_container" class="master-container-holder" role="application" aria-label="media player">
             <div id="adonis_jplayer_main" class="jp-jplayer"></div>
             <div class="adonis-player-horizontal">
@@ -279,10 +279,10 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- progress bar -->
-                            <div class="col-sm" style="text-align: center;">
+                            <!-- <div class="col-sm" style="text-align: center;">
                                 <div class="progress-controller">
                                     <div class="control-buttons">
                                         <i class="fas fa-random"></i>
@@ -312,7 +312,7 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- playlist wrapper end -->
     <!-- footer Wrapper start -->
     <div class="foter_top_wrapper footer_top_wrapper2 ms_cover">
