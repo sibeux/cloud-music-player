@@ -15,7 +15,10 @@ function getApiKey() {
     }
 
     $data = json_decode($response, true);
-    $gmailData = array_filter($data, fn($item) => str_contains($item['email'], '@gmail.com'));
+    // Gunakan fungsi anonim standar dan strpos()
+    $gmailData = array_filter($data, function($item) {
+        return strpos($item['email'], '@gmail.com') !== false;
+    });
 
     if (empty($gmailData)) {
         error_log("Tidak ada Gmail API key yang ditemukan.");
@@ -28,7 +31,7 @@ function getApiKey() {
 
 // Fungsi untuk konversi URL Google Drive
 function checkUrlFromDrive(string $url_db, string $gdrive_api_key) {
-    if (str_contains($url_db, "drive.google.com") && preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches)) {
+    if (strpos($url_db, "drive.google.com") !== false && preg_match( ... )) {
         return "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key}";
     }
     return $url_db;
