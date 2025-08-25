@@ -121,7 +121,30 @@ function render_music_list($db, $api_key, $page = 1) {
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <title id="title_doc">Cybeat - Music Player</title>
+    <meta charset="utf-8" />
+    <!-- <title id="title_doc">iTunein Responsive HTML Template</title> -->
+    <title id="title_doc">Cybeat - Music Player </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Tunein,music,song" />
+    <meta name="keywords" content="Tunein,music,song" />
+    <meta name="author" content="" />
+    <meta name="MobileOptimized" content="320" />
+    <!--Template style -->
+    <link rel="stylesheet" type="text/css" href="css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="css/flaticon.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="css/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
+    <link rel="stylesheet" type="text/css" href="css/swiper.css" />
+    <link rel="stylesheet" type="text/css" href="css/magnific-popup.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+    <!--favicon-->
+    <!-- <link id="title_icon" rel="shortcut icon" type="image/png" href="images/favicon.png" /> -->
+    <link id="title_icon" rel="shortcut icon" type="image/x-icon" href="images/cybeat.png" />
 </head>
 <body class="index4_body_wrapper">
     <div class="album_list_wrapper album_list_wrapper_shop">
