@@ -31,7 +31,7 @@ function getApiKey() {
 
 // Fungsi untuk konversi URL Google Drive
 function checkUrlFromDrive(string $url_db, string $gdrive_api_key) {
-    if (strpos($url_db, "drive.google.com") !== false && preg_match( ... )) {
+    if (strpos($url_db, "drive.google.com") !== false && preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url_db, $matches)) {
         return "https://www.googleapis.com/drive/v3/files/{$matches[1]}?alt=media&key={$gdrive_api_key}";
     }
     return $url_db;
