@@ -43,10 +43,11 @@ if (!$uploader) {
 // Jika bukan file suspicious, pakai dari wahabinasrul
 if ($isSuspicious == 'false'){
     $uploader = "wahabinasrul@gmail.com";
-    log_message("File not suspicous.");
+    log_message("File not suspicious.");
 } else{
     log_message("File is suspicous, get refresh token from owner.");
 }
+log_message($isSuspicious);
 
 // --- Dapatkan kredentials google oauth ---
 $config = getGoogleDriveCredentials($uploader, $allApiData);
