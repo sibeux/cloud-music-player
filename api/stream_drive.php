@@ -41,8 +41,9 @@ if (!$uploader) {
 }
 
 // Jika bukan file suspicious, pakai dari wahabinasrul
-if ($isSuspicious == false){
+if ($isSuspicious == 'false'){
     $uploader = "wahabinasrul@gmail.com";
+    log_message("File not suspicous.");
 } else{
     log_message("File is suspicous, get refresh token from owner.");
 }
