@@ -39,14 +39,12 @@ if (!$uploader) {
     http_response_code(400);
     die("uploader is required");
 }
-if (!$isSuspicious) {
-    http_response_code(400);
-    die("isSuspicious is required");
-}
 
-// Ambil credentials sesuai email
-if ($uploader == 'cybeat'){
-    $uploader = "sibesibe86@gmail.com";
+// Jika bukan file suspicious, pakai dari wahabinasrul
+if ($isSuspicious == false){
+    $uploader = "wahabinasrul@gmail.com";
+} else{
+    log_message("File is suspicous, get refresh token from owner.");
 }
 
 // --- Dapatkan kredentials google oauth ---
@@ -197,7 +195,7 @@ if (!$isCacheValid) {
         die("Could not get lock on cache file. Server is busy.");
     }
 
-    // --- Unduh file dari Google Drive dan simpan ke cache ---
+    // --- Downlaod file from Google Drive and save to cache ---
     $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
     if ($isSuspicious){
         // acknowledgeAbuse=true berlaku untuk file suspicious
