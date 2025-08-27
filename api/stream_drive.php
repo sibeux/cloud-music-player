@@ -47,7 +47,6 @@ if ($isSuspicious == 'false'){
 } else{
     log_message("File is suspicous, get refresh token from owner.");
 }
-log_message($isSuspicious);
 
 // --- Dapatkan kredentials google oauth ---
 $config = getGoogleDriveCredentials($uploader, $allApiData);
@@ -105,7 +104,7 @@ function get_token($config, $isSuspicious) {
     $tokenData = json_decode(fread($fp, filesize($tokenFile)), true);
 
     // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
-    if (time() >= $tokenData['expires_at'] || $isSuspicious == true) {
+    if (time() >= $tokenData['expires_at'] || $isSuspicious == 'true') {
         
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
