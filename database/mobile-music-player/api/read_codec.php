@@ -26,7 +26,8 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
         $logFile = 'custom.log';
         $message = ["error" => "Gagal mendapatkan metadata valid dari ffprobe.", "ffprobe_output" => $output];
         file_put_contents($logFile, date('[Y-m-d H:i:s] ') . json_encode($message) . "\n", FILE_APPEND);
-        die();
+        // die(); // Menghentikan seluruh skrip php
+	return null; // hentikan fungsi ini, tapi script utama tetap jalan
     }
     $audioStream = $metadata['streams'][0];
     
