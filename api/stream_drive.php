@@ -46,7 +46,7 @@ if (!$uploader) {
 if ($isSuspicious == 'false'){
     $uploader = "wahabinasrul@gmail.com";
 } else{
-    log_message("File is suspicous, get refresh token from owner.");
+    log_message("[WARNING] File is suspicous, get refresh token from owner.");
 }
 
 // --- Dapatkan kredentials google oauth ---
@@ -85,14 +85,14 @@ function get_token($config, $isSuspicious) {
     // --- 2. Jika tidak ada di session atau sudah expired, baca dari file ---
     if (!file_exists($tokenFile)) {
         http_response_code(500);
-        log_message("Token file not found. Please run authentication flow first.");
+        log_message("[ERROR] Token file not found. Please run authentication flow first.");
         die("Token file not found. Please run authentication flow first.");
     }
 
     $fp = fopen($tokenFile, 'r+');
     if (!flock($fp, LOCK_EX)) { // Kunci file secara eksklusif untuk mencegah proses lain mengganggu
         http_response_code(503);
-        log_message("Could not get file lock. Server is busy.");
+        log_message("[ERROR] Could not get file lock. Server is busy.");
         die("Could not get file lock. Server is busy.");
     }
 
@@ -125,14 +125,14 @@ function get_token($config, $isSuspicious) {
             fclose($fp);
             http_response_code(500);
             log_message($config['client_id'] . $config['client_secret'] . $config['refresh_token']);
-            log_message("Failed to refresh access token: " . $resp);
+            log_message("[ERROR] Failed to refresh access token: " . $resp);
             die("Failed to refresh access token: " . $resp);
         }
 
         $tokenData['access_token'] = $respData['access_token'];
         $tokenData['expires_at'] = time() + $respData['expires_in'] - 60; // Kurangi 60 detik sebagai buffer
 
-        log_message("Token has refreshed");
+        log_message("[SUCCESS] Token has refreshed");
 
         // Update file token.json dengan token baru
         ftruncate($fp, 0);
@@ -158,7 +158,7 @@ function sendToSqlCache($db, $fileId, $musicId){
     }
     $stmt->close();
 
-    log_message("Caching process success for fileId: $fileId.");
+    log_message("[SUCCESS] Caching process success for fileId: $fileId.");
 }
 
 // --- Logika Pengecekan dan Pembuatan Cache ---
@@ -167,7 +167,7 @@ $isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePat
 
 // Cek apakah file exist?
 if (!$isCacheValid) {
-    log_message("Cache MISS for fileId: $fileId. Downloading from Google Drive.");
+    log_message("[INFO] Cache MISS for fileId: $fileId. Downloading from Google Drive.");
     
     // --- Get Token ---
     $tokenData = get_token($config, $isSuspicious);
@@ -178,7 +178,7 @@ if (!$isCacheValid) {
     $cacheFp = fopen($cacheFilePath, 'w');
     if (!$cacheFp) {
         http_response_code(500);
-        log_message("Could not open cache file for writing: $cacheFilePath");
+        log_message("[ERROR] Could not open cache file for writing: $cacheFilePath");
         die("Could not open cache file for writing.");
     }
 
@@ -187,7 +187,7 @@ if (!$isCacheValid) {
     if (!flock($cacheFp, LOCK_EX)) {
         fclose($cacheFp);
         http_response_code(503);
-        log_message("Could not get lock on cache file. Server is busy.");
+        log_message("[ERROR] Could not get lock on cache file. Server is busy.");
         die("Could not get lock on cache file. Server is busy.");
     }
 
@@ -211,7 +211,7 @@ if (!$isCacheValid) {
     curl_exec($ch);
 
     if (curl_errno($ch)) {
-        log_message("cURL Error on downloading to cache: " . curl_error($ch));
+        log_message("[INFO] cURL Error on downloading to cache: " . curl_error($ch));
         // --- Hapus file cache yang gagal/rusak ---
         // Fungsi: Membersihkan file yang tidak lengkap jika unduhan gagal.
         flock($cacheFp, LOCK_UN);
@@ -229,7 +229,7 @@ if (!$isCacheValid) {
     fclose($cacheFp);
 
 } else {
-    log_message("Cache HIT for fileId: $fileId. Serving from local server.");
+    log_message("[INFO] Cache HIT for fileId: $fileId. Serving from local server.");
 }
 
 
