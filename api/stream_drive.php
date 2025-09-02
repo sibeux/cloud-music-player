@@ -301,6 +301,7 @@ if ($fileType == "audio") {
     sendToSqlCache($db, $fileId, $musicId);
     checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
 }elseif ($fileType == "image") {
+    // Warning: karena filenya beda repo..
     getDominantColors($cacheFilePath, $db);
 }
 exit();

@@ -29,6 +29,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         $sql = "SELECT * FROM music 
                 LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
                 LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
+                LEFT JOIN dominant_color on music.cover = dominant_color.image_url
                 ORDER BY title ASC;";
     }
 
@@ -38,6 +39,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
                 JOIN playlist ON music.category = playlist.uid
                 LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
                 LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
+                LEFT JOIN dominant_color on music.cover = dominant_color.image_url
                 WHERE music.category = '$uid'
                 ORDER BY music.title ASC;
                 ";
@@ -48,6 +50,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%')
         LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
         LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
+        LEFT JOIN dominant_color on music.cover = dominant_color.image_url
         WHERE playlist.uid = '$uid'
         ORDER BY title ASC";
     }
@@ -58,6 +61,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         join playlist on playlist_music.id_playlist = playlist.uid 
         LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
         LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
+        LEFT JOIN dominant_color on music.cover = dominant_color.image_url
         WHERE playlist.uid = '$uid' 
         ORDER BY date_add_music_playlist ASC";
     }
@@ -66,6 +70,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         $sql = "SELECT * FROM music 
         LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
         LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
+        LEFT JOIN dominant_color on music.cover = dominant_color.image_url
         WHERE favorite = '1' ORDER BY title ASC";
     }
 
