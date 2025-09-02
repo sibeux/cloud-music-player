@@ -5,6 +5,8 @@
 // ** PERBAIKAN: Menambahkan file locking (flock) untuk mencegah race condition saat token di-refresh.
 
 session_start();
+require_once __DIR__ . '/../utils/utils.php';
+require_once __DIR__ . '/image-dominant-color/get_color.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
 include './google-oauth-config.php';
@@ -43,19 +45,12 @@ if (!$uploader) {
 // Jika bukan file suspicious, pakai dari wahabinasrul
 if ($isSuspicious == 'false'){
     $uploader = "wahabinasrul@gmail.com";
-    log_message("File not suspicious.");
 } else{
     log_message("File is suspicous, get refresh token from owner.");
 }
 
 // --- Dapatkan kredentials google oauth ---
 $config = getGoogleDriveCredentials($uploader, $allApiData);
-
-// Fungsi untuk membuat log manual
-function log_message($message) {
-    $logFile = 'custom.log';
-    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
-}
 
 // --- Konfigurasi Cache Lokal ---
 // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
@@ -305,5 +300,7 @@ fclose($localFp);
 if ($fileType == "audio") {
     sendToSqlCache($db, $fileId, $musicId);
     checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
+}elseif ($fileType == "image") {
+    getDominantColors($cacheFilePath, $db);
 }
 exit();

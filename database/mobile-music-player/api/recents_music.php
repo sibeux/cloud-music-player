@@ -3,9 +3,11 @@
 global $ffprobePath, $db;
 include './connection.php';
 require_once __DIR__ . '/read_codec.php';
+require_once __DIR__ . '/../../../api/image-dominant-color/get_color.php';
 
-if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['music_url'])) {
+if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['music_url']) && isset($_POST['dominant_color_exist']) && isset($_POST['image_url'])) {
     $codec = null;
+    $dominant_color = null;
 
     // 1. Eksekusi query untuk 'recents_music'
     $stmt_recents = $db->prepare("INSERT INTO recents_music (uid_music, played_at) VALUES (?, NOW())");
@@ -19,6 +21,11 @@ if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['m
     // Cek dulu apakah perlu dilakukan read codec?
     if ($_POST['codec_exist'] == 'false'){
         $codec = checkCodecAudio($_POST['music_id'], $_POST['music_url'], $db, $ffprobePath);
+    }
+
+    // Dapatkan dominant color dari cover
+    if ($_POST['dominant_color_exist'] == 'false'){
+        $dominant_color = getDominantColors($_POST['image_url'], $db);
     }
     
     // 3. Execution query for 'delete'
@@ -38,6 +45,7 @@ if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['m
         "metadata" => "Metadata success processed dan saved.",
         "recents" => "Recent music successfully added.",
         "codec" => $codec,
+        "dominant_color" => $dominant_color,
     ]);
 } else {
     // Add response if no ada POST data
