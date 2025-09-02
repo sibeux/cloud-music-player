@@ -21,13 +21,18 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
     // Jalankan perintah (ini butuh izin dari hosting)
     $output = shell_exec($command);
     $metadata = json_decode($output, true);
+
+    $codecName = null;
+    $musicQuality = null;
+    $bitRate = null;
+    $sampleRate = null;
+    $bitsPerRawSample = null;
     
     if (json_last_error() !== JSON_ERROR_NONE || !isset($metadata['streams'][0])) {
         $logFile = 'custom.log';
         $message = ["error" => "[ERROR] Gagal mendapatkan metadata valid dari ffprobe.", "ffprobe_output" => $output];
         file_put_contents($logFile, date('[Y-m-d H:i:s] ') . json_encode($message) . "\n", FILE_APPEND);
         // die(); // Menghentikan seluruh skrip php
-        return null;
     } else {
         $audioStream = $metadata['streams'][0];
     
@@ -68,7 +73,8 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
             die("Error inserting metadata: " . $stmt_metadata->error);
         }
         $stmt_metadata->close();
-
+    }
+    if (!empty($musicQuality) && !empty($codecName)){
         // return nilai
         return [
             'codec_name' => $codecName,
@@ -77,5 +83,7 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
             'bit_rate' => $bitRate,
             'bits_per_raw_sample' => $bitsPerRawSample,
         ];
+    } else{
+        return [];
     }
 }
