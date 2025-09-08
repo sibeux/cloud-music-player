@@ -4,7 +4,8 @@
 $ffprobePath = "/home/sibs6571/ffmpeg/ffprobe"; // Path FFprobe Anda
 
 // --- Fungsi Helper ---
-function sendJsonResponse(array $data, int $responseCode = 200) {
+function sendJsonResponse(array $data, int $responseCode = 200)
+{
     http_response_code($responseCode);
     header('Content-Type: application/json');
     echo json_encode($data);
@@ -15,7 +16,7 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
 {
     // Jalankan FFprobe pada file local tersebut
     // WAJIB: Amankan path file untuk mencegah command injection
-    $safeFilePath = escapeshellarg($filePath); 
+    $safeFilePath = escapeshellarg($filePath);
     // Bangun perintah yang akan dieksekusi
     $command = "$ffprobePath -v error -show_streams -show_format -print_format json $safeFilePath 2>&1";
     // Jalankan perintah (ini butuh izin dari hosting)
@@ -27,7 +28,7 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
     $bitRate = null;
     $sampleRate = null;
     $bitsPerRawSample = null;
-    
+
     if (json_last_error() !== JSON_ERROR_NONE || !isset($metadata['streams'][0])) {
         $logFile = 'custom.log';
         $message = ["error" => "[ERROR] Gagal mendapatkan metadata valid dari ffprobe.", "ffprobe_output" => $output];
@@ -35,13 +36,13 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
         // die(); // Menghentikan seluruh skrip php
     } else {
         $audioStream = $metadata['streams'][0];
-    
+
         // 3. Ekstrak data yang dibutuhkan
         $codecName = $audioStream['codec_name'] ?? null;
         $bitRate = $metadata['format']['bit_rate'] ?? $audioStream['bit_rate'] ?? "--";
-        $bitRate = $bitRate != "--" ? number_format((int)$bitRate / 1000, 0, '.', '') : "--";
+        $bitRate = $bitRate != "--" ? number_format((int) $bitRate / 1000, 0, '.', '') : "--";
         $sampleRate = $audioStream['sample_rate'] ?? '--';
-        $sampleRate = $sampleRate != "--" ? (string)((int)$sampleRate / 1000) : "--";
+        $sampleRate = $sampleRate != "--" ? (string) ((int) $sampleRate / 1000) : "--";
         $bitsPerRawSample = $audioStream['bits_per_raw_sample'] ?? "--";
         $lossyFormats = ['mp3', 'aac', 'ogg', 'vorbis', 'opus', 'wma'];
         $musicQuality = in_array(strtolower($codecName), $lossyFormats) ? "lossy" : "lossless";
@@ -74,7 +75,7 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
         }
         $stmt_metadata->close();
     }
-    if (!empty($musicQuality) && !empty($codecName)){
+    if (!empty($musicQuality) && !empty($codecName)) {
         // return nilai
         return [
             'codec_name' => $codecName,
@@ -83,7 +84,7 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
             'bit_rate' => $bitRate,
             'bits_per_raw_sample' => $bitsPerRawSample,
         ];
-    } else{
-        return [];
+    } else {
+        return null;
     }
 }
