@@ -29,7 +29,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         $sql = "SELECT 
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
-        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color
         FROM music m
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
@@ -43,7 +43,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         $sql = "SELECT 
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
-        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color
         FROM music m
         JOIN album_music on album_music.id_music = m.id_music
@@ -59,7 +59,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         $sql = "SELECT 
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
-        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color
         FROM music m
         -- JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%')
@@ -76,7 +76,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         $sql = "SELECT 
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
-        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color,
         playlist_music.date_add_music_playlist
         FROM playlist_music 
@@ -93,7 +93,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         $sql = "SELECT 
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
-        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color
         FROM music 
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
