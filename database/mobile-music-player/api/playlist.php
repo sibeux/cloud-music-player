@@ -30,7 +30,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
-        dc.bg_color, dc.text_color
+        dc.bg_color, dc.text_color,
+        cache_music.cache_music_id
         FROM music m
         JOIN album_music on album_music.id_music = m.id_music
         JOIN playlist p ON album_music.id_playlist = p.uid
@@ -46,7 +47,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
-        dc.bg_color, dc.text_color
+        dc.bg_color, dc.text_color,
+        cache_music.cache_music_id
         FROM music m
         JOIN album_music on album_music.id_music = m.id_music
         JOIN playlist p ON album_music.id_playlist = p.uid
@@ -62,7 +64,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
-        dc.bg_color, dc.text_color
+        dc.bg_color, dc.text_color,
+        cache_music.cache_music_id
         FROM music m
         /* 
         Ini bentuk komen multi-line dan lebih aman.
@@ -98,7 +101,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
         p.name as album,
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
-        dc.bg_color, dc.text_color
+        dc.bg_color, dc.text_color,
+        cache_music.cache_music_id
         FROM music 
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
         LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
