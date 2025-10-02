@@ -136,9 +136,9 @@ if (isset($_GET['recents_music'])) {
     m.id_music, m.title, m.artist, m.cover, p.name as album,
     recents_music.played_at
     FROM recents_music
+    join music m on m.id_music = recents_music.uid_music 
     JOIN album_music on album_music.id_music = m.id_music
     JOIN playlist p on album_music.id_playlist = p.uid 
-    join music m on m.id_music = recents_music.uid_music 
     ORDER BY played_at DESC";
 }
 
