@@ -32,6 +32,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color
         FROM music m
+        JOIN album_music on album_music.id_music = m.id_music
+        JOIN playlist p ON album_music.id_playlist = p.uid
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
         LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
         LEFT JOIN dominant_color dc on m.cover = dc.image_url
@@ -62,7 +64,9 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color
         FROM music m
-        -- JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%')
+        /* 
+        Ini bentuk komen multi-line dan lebih aman.
+        JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%') */
         JOIN album_music on album_music.id_music = m.id_music
         JOIN playlist p on album_music.id_playlist = p.uid
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
