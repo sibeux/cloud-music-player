@@ -132,9 +132,12 @@ if (isset($_GET['play_playlist'])) {
 }
 
 if (isset($_GET['recents_music'])) {
-    $sql = "SELECT * 
-    FROM recents_music 
-    join music on music.id_music = recents_music.uid_music 
+    $sql = "SELECT 
+    m.id_music, m.title, m.artist, m.cover, p.name as album
+    FROM recents_music
+    JOIN album_music on album_music.id_music = m.id_music
+    JOIN playlist p on album_music.id_playlist = p.uid 
+    join music m on m.id_music = recents_music.uid_music 
     ORDER BY played_at DESC";
 }
 

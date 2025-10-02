@@ -15,7 +15,11 @@ if (isset($_GET['_page']) && isset($_GET['_limit'])) {
         $_page = ($_page - 1) * $_limit;
     }
 
-    $sql = "SELECT * FROM music ORDER BY title ASC LIMIT $_limit OFFSET $_page";
+    $sql = "SELECT m.*, p.name as album
+    FROM music m
+    JOIN album_music on album_music.id_music = m.id_music
+    JOIN playlist p ON album_music.id_playlist = p.uid
+    ORDER BY m.title ASC LIMIT $_limit OFFSET $_page";
 
 }
 
