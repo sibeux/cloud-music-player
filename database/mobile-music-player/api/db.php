@@ -2,7 +2,11 @@
 
 include '.././../db.php';
 
-$sql = "SELECT * FROM music ORDER BY title ASC";
+$sql = "SELECT m.*, p.name as album
+    FROM music m
+    JOIN album_music on album_music.id_music = m.id_music
+    JOIN playlist p ON album_music.id_playlist = p.uid
+    ORDER BY m.title ASC LIMIT";
 
 if (isset($_GET['_page']) && isset($_GET['_limit'])) {
 
