@@ -103,7 +103,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color,
         cache_music.cache_music_id
-        FROM music 
+        FROM music m
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
         LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
         LEFT JOIN dominant_color dc on m.cover = dc.image_url
