@@ -26,52 +26,80 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
 
     // Fetch semua lagu.
     if ($type == 'category' && $uid == 481) {
-        $sql = "SELECT * FROM music 
-                LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
-                LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
-                LEFT JOIN dominant_color on music.cover = dominant_color.image_url
-                ORDER BY title ASC;";
+        $sql = "SELECT 
+        m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
+        p.name as album,
+        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        dc.bg_color, dc.text_color
+        FROM music m
+        LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
+        LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
+        LEFT JOIN dominant_color dc on m.cover = dc.image_url
+        ORDER BY m.title ASC;";
     }
 
     // Fetch berdasarkan kategori.
     if ($type == 'category' && $uid != 481) {
-        $sql = "SELECT * FROM music
-                JOIN playlist ON music.category = playlist.uid
-                LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
-                LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
-                LEFT JOIN dominant_color on music.cover = dominant_color.image_url
-                WHERE music.category = '$uid'
-                ORDER BY music.title ASC;
-                ";
+        $sql = "SELECT 
+        m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
+        p.name as album,
+        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        dc.bg_color, dc.text_color
+        FROM music m
+        JOIN album_music on album_music.id_music = m.id_music
+        JOIN playlist p ON album_music.id_playlist = p.uid
+        LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
+        LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
+        LEFT JOIN dominant_color dc on m.cover = dc.image_url
+        WHERE m.category = '$uid'
+        ORDER BY m.title ASC;";
     }
 
     if ($type == 'album') {
-        $sql = "SELECT * FROM music 
-        JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%')
-        LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
-        LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
-        LEFT JOIN dominant_color on music.cover = dominant_color.image_url
-        WHERE playlist.uid = '$uid'
-        ORDER BY title ASC";
+        $sql = "SELECT 
+        m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
+        p.name as album,
+        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        dc.bg_color, dc.text_color
+        FROM music m
+        -- JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%')
+        JOIN album_music on album_music.id_music = m.id_music
+        JOIN playlist p on album_music.id_playlist = p.uid
+        LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
+        LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
+        LEFT JOIN dominant_color dc on m.cover = dc.image_url
+        WHERE p.uid = '$uid'
+        ORDER BY m.title ASC";
     }
 
     if ($type == 'playlist') {
-        $sql = "SELECT * FROM playlist_music 
-        JOIN music on playlist_music.id_music = music.id_music 
-        join playlist on playlist_music.id_playlist = playlist.uid 
-        LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
-        LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
-        LEFT JOIN dominant_color on music.cover = dominant_color.image_url
-        WHERE playlist.uid = '$uid' 
+        $sql = "SELECT 
+        m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
+        p.name as album,
+        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        dc.bg_color, dc.text_color,
+        playlist_music.date_add_music_playlist
+        FROM playlist_music 
+        JOIN music m on playlist_music.id_music = m.id_music 
+        JOIN playlist p on playlist_music.id_playlist = p.uid 
+        LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
+        LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
+        LEFT JOIN dominant_color dc on m.cover = dc.image_url
+        WHERE p.uid = '$uid' 
         ORDER BY date_add_music_playlist ASC";
     }
 
     if ($type == 'favorite') {
-        $sql = "SELECT * FROM music 
-        LEFT JOIN metadata_music ON music.id_music = metadata_music.metadata_id_music
-        LEFT JOIN cache_music ON music.id_music = cache_music.cache_music_id
-        LEFT JOIN dominant_color on music.cover = dominant_color.image_url
-        WHERE favorite = '1' ORDER BY title ASC";
+        $sql = "SELECT 
+        m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
+        p.name as album,
+        mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        dc.bg_color, dc.text_color
+        FROM music 
+        LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
+        LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
+        LEFT JOIN dominant_color dc on m.cover = dc.image_url
+        WHERE m.favorite = '1' ORDER BY m.title ASC";
     }
 
 }
@@ -96,7 +124,10 @@ if (isset($_GET['play_playlist'])) {
 }
 
 if (isset($_GET['recents_music'])) {
-    $sql = "SELECT * FROM recents_music join music on music.id_music = recents_music.uid_music ORDER BY played_at DESC";
+    $sql = "SELECT * 
+    FROM recents_music 
+    join music on music.id_music = recents_music.uid_music 
+    ORDER BY played_at DESC";
 }
 
 // Response json

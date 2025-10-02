@@ -7,6 +7,7 @@ $sql = '';
 $data = [];
 
 $id_music = '';
+$all_id_music = [];
 $toAdd = [];
 $toRemove = [];
 $id_music_playlist = '';
@@ -28,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $method = $data['method'] ?? '';
     $id_music = $data['id_music'] ?? '';
+    $all_id_music = $data['all_id_music'] ?? [];
     $toAdd = $data['to_add'] ?? [];
     $toRemove = $data['to_remove'] ?? [];
     $id_playlist_music = $data['id_playlist_music'] ?? '';
