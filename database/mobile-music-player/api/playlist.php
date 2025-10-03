@@ -33,8 +33,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         dc.bg_color, dc.text_color,
         cache_music.cache_music_id
         FROM music m
-        JOIN album_music on album_music.id_music = m.id_music
-        JOIN playlist p ON album_music.id_playlist = p.uid
+        LEFT JOIN album_music on album_music.id_music = m.id_music
+        LEFT JOIN playlist p ON album_music.id_playlist = p.uid
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
         LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
         LEFT JOIN dominant_color dc on m.cover = dc.image_url
@@ -50,8 +50,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         dc.bg_color, dc.text_color,
         cache_music.cache_music_id
         FROM music m
-        JOIN album_music on album_music.id_music = m.id_music
-        JOIN playlist p ON album_music.id_playlist = p.uid
+        LEFT JOIN album_music on album_music.id_music = m.id_music
+        LEFT JOIN playlist p ON album_music.id_playlist = p.uid
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
         LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
         LEFT JOIN dominant_color dc on m.cover = dc.image_url
@@ -104,8 +104,8 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         dc.bg_color, dc.text_color,
         cache_music.cache_music_id
         FROM music m
-        JOIN album_music on album_music.id_music = m.id_music
-        JOIN playlist p ON album_music.id_playlist = p.uid
+        LEFT JOIN album_music on album_music.id_music = m.id_music
+        LEFT JOIN playlist p ON album_music.id_playlist = p.uid
         LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
         LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
         LEFT JOIN dominant_color dc on m.cover = dc.image_url
