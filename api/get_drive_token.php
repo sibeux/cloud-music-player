@@ -19,17 +19,10 @@ $config = getGoogleDriveCredentials($uploader, $allApiData);
 // --- Get Token ---
 $tokenData = get_token($config, $isSuspicious);
 $accessToken = $tokenData['access_token'];
-// --- Get Drive Link ---
-$driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
-if ($isSuspicious){
-    // acknowledgeAbuse=true berlaku untuk file suspicious
-    $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media&acknowledgeAbuse=true";
-}
 
 // echo json response
 sendJsonResponses([
     "success" => true,
-    "drive_url" => $driveUrl,
     "access_token" => $accessToken,
 ]);
 
