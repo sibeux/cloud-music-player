@@ -29,6 +29,7 @@ if ($isSuspicious){
 // echo json response
 sendJsonResponses([
     "success" => true,
+    "drive_url" => $driveUrl,
     "access_token" => $accessToken,
 ]);
 
