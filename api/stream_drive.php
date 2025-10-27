@@ -235,14 +235,15 @@ if (!$isCacheValid) {
     log_message("[INFO] Cache HIT for fileId: $fileId. Serving from local server.");
 }
 
-// --- SELALU REDIRECT PADA AKHIRNYA ---
-// Baik cache sudah ada sebelumnya atau baru saja dibuat,
-// klien akan diarahkan ke file statis di cache.
-header("Location: " . $cacheFileUrl, true, 302);
-
 if ($fileType == "audio") {
     sendToSqlCache($db, $fileId, $musicId);
     checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
 }
+
+// echo json response
+sendJsonResponses([
+    "success" => true,
+    "stream_url" => $cacheFileUrl,
+]);
 
 exit();
