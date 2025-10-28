@@ -110,7 +110,7 @@ ffunction deleteMusicOnPlaylist($db): void
     global $id_playlist_music;
 
     $sql = "DELETE FROM `playlist_music` WHERE `id_playlist_music` = ?";
-
+    $response = [];
     if ($stmt = $db->prepare($sql)) {
         $stmt->bind_param("i", $id_playlist_music); // "i" untuk integer
         if ($stmt->execute()) {
