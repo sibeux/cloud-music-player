@@ -239,10 +239,11 @@ if ($fileType == "audio") {
     sendToSqlCache($db, $fileId, $musicId);
     checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
     // echo json response
-    sendJsonResponses([
-        "success" => true,
-        "stream_url" => $cacheFileUrl,
-    ]);
+    // sendJsonResponses([
+    //     "success" => true,
+    //     "stream_url" => $cacheFileUrl,
+    // ]);
+    header("Location: " . $cacheFileUrl, true, 302);
 } else{
     header("Location: " . $cacheFileUrl, true, 302);
 }
