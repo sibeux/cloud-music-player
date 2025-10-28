@@ -105,31 +105,35 @@ function updateMusicOnPlaylist($db)
     }
 }
 
-ffunction deleteMusicOnPlaylist($db): void
+function deleteMusicOnPlaylist($db): void
 {
     global $id_playlist_music;
 
-    $sql = "DELETE FROM `playlist_music` WHERE `id_playlist_music` = ?";
-    $response = [];
+    $sql = "DELETE FROM `playlist_music` WHERE `id_playlist_music` = $id_playlist_music;";
+
+    // Eksekusi query
     if ($stmt = $db->prepare($sql)) {
-        $stmt->bind_param("i", $id_playlist_music); // "i" untuk integer
-        if ($stmt->execute()) {
+        if (
+            $stmt->execute()
+        ) {
             $response = ["status" => "success"];
         } else {
             $response = [
                 "status" => "error",
                 "message" => "Failed to execute the query.",
-                "error" => $stmt->error
+                "error" => $stmt->error // Pesan error untuk debugging
             ];
         }
         $stmt->close();
+        echo json_encode($response);
     } else {
         $response = [
-            "status" => "failed",
-            "error" => $db->error // Tambahin ini biar tau kenapa prepare gagal
+            "status" => "failed", 
+            "error" => $db->error
         ];
+        echo json_encode($response);
+        echo 'Could not prepare statement!';
     }
-    echo json_encode($response);
 }
 
 switch ($method) {
