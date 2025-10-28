@@ -235,8 +235,10 @@ if (!$isCacheValid) {
     log_message("[INFO] Cache HIT for fileId: $fileId. Serving from local server.");
 }
 
+header("Location: " . $cacheFileUrl, true, 302);
+
 if ($fileType == "audio") {
-    header("Location: " . $cacheFileUrl, true, 302);
+    
     sendToSqlCache($db, $fileId, $musicId);
     checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
     // echo json response
@@ -245,7 +247,7 @@ if ($fileType == "audio") {
     //     "stream_url" => $cacheFileUrl,
     // ]);
 } else{
-    header("Location: " . $cacheFileUrl, true, 302);
+    // header("Location: " . $cacheFileUrl, true, 302);
 }
 
 exit();
