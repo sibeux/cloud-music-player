@@ -85,7 +85,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         p.name as album,
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color,
-        playlist_music.date_add_music_playlist
+        playlist_music.date_add_music_playlist, playlist_music.id_playlist_music
         FROM playlist_music 
         JOIN music m on playlist_music.id_music = m.id_music 
         JOIN playlist p on playlist_music.id_playlist = p.uid 
