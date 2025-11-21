@@ -10,6 +10,11 @@ function sendJsonResponses(array $data, int $responseCode = 200)
 {
     http_response_code($responseCode);
     header('Content-Type: application/json');
+    // Header anti-cache
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    
     echo json_encode($data);
     die();
 }

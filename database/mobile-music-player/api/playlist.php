@@ -163,6 +163,11 @@ while ($row = $result->fetch_assoc()) {
 
 // Langkah 3: Ubah seluruh array menjadi JSON dalam satu kali proses
 header('Content-Type: application/json');
+// Header anti-cache
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
+
 echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 // Tutup koneksi setelah semua selesai
