@@ -61,22 +61,12 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
 
     if ($type == 'album') {
         $sql = "SELECT 
-        m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.favorite, m.uploader, m.is_suspicious,
-        p.name as album,
-        mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
-        dc.bg_color, dc.text_color,
-        CAST(cache_music.cache_music_id AS CHAR) AS cache_music_id
-        FROM music m
-        /* 
-        Ini bentuk komen multi-line dan lebih aman.
-        JOIN playlist ON music.album LIKE CONCAT('%', TRIM(BOTH '\r\n' FROM playlist.name), '%') */
-        JOIN album_music on album_music.id_music = m.id_music
-        JOIN playlist p on album_music.id_playlist = p.uid
-        LEFT JOIN metadata_music mm ON m.id_music = mm.metadata_id_music
-        LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
-        LEFT JOIN dominant_color dc on m.cover = dc.image_url
-        WHERE p.uid = '$uid'
-        ORDER BY m.title ASC";
+    m.id_music AS music_id,
+    CAST(cache_music.cache_music_id AS CHAR) AS cache_music_id
+FROM music m
+LEFT JOIN cache_music ON m.id_music = cache_music.cache_music_id
+WHERE m.id_music = 17963;
+";
     }
 
     if ($type == 'playlist') {
@@ -147,6 +137,9 @@ if (isset($_GET['recents_music'])) {
 // Response json
 // ... $sql Anda didefinisikan di sini ...
 $result = $db->query($sql);
+$row = $result->fetch_assoc();
+var_dump($row);
+
 
 // Langkah 1: Tangani kegagalan query dengan benar
 if (!$result) {
