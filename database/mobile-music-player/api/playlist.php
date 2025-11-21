@@ -65,7 +65,7 @@ if (isset($_GET['type']) && isset($_GET['uid'])) {
         p.name as album,
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color,
-        cache_music.cache_music_id
+        cache_music.cache_music_id AS cache_music_id
         FROM music m
         /* 
         Ini bentuk komen multi-line dan lebih aman.
