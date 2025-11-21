@@ -244,6 +244,7 @@ if ($fileType == "audio") {
     sendJsonResponses([
         "success" => true,
         "stream_url" => $cacheFileUrl,
+        "music_id" => $musicId,
     ]);
 } else{
     header("Location: " . $cacheFileUrl, true, 302);
