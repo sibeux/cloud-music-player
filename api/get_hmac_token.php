@@ -41,11 +41,13 @@ function getSecureCdnUrl($filePath, $secretKey, $expirySeconds = 3600) {
 // --- CONTOH PENGGUNAAN ---
 // $file = "/albums/nirvana/smellsliketeenspirit.mp3";
 $file = $_GET['path'] ?? null;
+$musicId = $_GET['music_id'] ?? null;
 
 // echo getSecureCdnUrl($file, $secret);
 // Output: https://cdn.../file.mp3?verify=a1b2c3...&expires=17000000
 sendJsonResponses([
         "success" => true,
+        "music_id" => $musicId,
         "stream_url" => getSecureCdnUrl($file, $secretKey),
     ]);
 ?>
