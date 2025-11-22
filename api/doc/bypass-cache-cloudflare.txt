@@ -1,0 +1,2 @@
+bypass cache cloudflare untuk file api dan responnya:
+original doc by Claude <https://claude.ai/chat/2d8f833f-f276-40c9-8816-8eb51e29729f>
