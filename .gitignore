@@ -8,3 +8,4 @@ d e s k t o p . i n i
  
 database/SQL-DB/*
 api/doc/secret/*
+.env
