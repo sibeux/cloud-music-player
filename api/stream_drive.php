@@ -241,7 +241,7 @@ if ($fileType == "audio") {
     if (!$isCacheValid) {
         sendToSqlCache($db, $fileId, $musicId);        
     }
-    // checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
+    checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
     // echo json response
     sendJsonResponses([
         "success" => true,
