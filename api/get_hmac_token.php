@@ -1,7 +1,7 @@
 <?php
 
 // 1. Load Composer Autoload (Sesuaikan path jika file ini ada di dalam subfolder)
-require __DIR__ . '/vendor/autoload.php'; 
+require __DIR__ . '../vendor/autoload.php'; 
 require_once __DIR__ . '/../utils/utils.php';
 
 use Dotenv\Dotenv;

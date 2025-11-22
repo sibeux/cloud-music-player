@@ -1,5 +1,9 @@
 RewriteEngine On
 
+## To internally redirect /dir/foo to /dir/foo.php
+RewriteCond %{REQUEST_FILENAME}.php -f [NC]
+RewriteRule ^ %{REQUEST_URI}.php [L]
+
 # Tangkap semua parameter setelah /stream/
 # dan kirim ke stream_drive.php dengan query string dynamic
 RewriteRule ^stream/(.+)$ stream_drive.php?params=$1 [QSA,L]
