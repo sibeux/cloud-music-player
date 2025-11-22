@@ -48,7 +48,7 @@ $musicId = $_GET['music_id'] ?? null;
 // echo getSecureCdnUrl($file, $secret);
 // Output: https://cdn.../file.mp3?verify=a1b2c3...&expires=17000000
 $streamUrl = getSecureCdnUrl($file, $secretKey);
-checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
+// checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
 sendJsonResponses([
         "success" => true,
         "music_id" => $musicId,
