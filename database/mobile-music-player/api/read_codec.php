@@ -37,6 +37,8 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
     } else {
         $audioStream = $metadata['streams'][0];
 
+        echo $audioStream;
+
         // 3. Ekstrak data yang dibutuhkan
         $codecName = $audioStream['codec_name'] ?? null;
         $bitRate = $metadata['format']['bit_rate'] ?? $audioStream['bit_rate'] ?? "--";
