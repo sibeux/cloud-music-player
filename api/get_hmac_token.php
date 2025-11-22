@@ -3,6 +3,8 @@
 // 1. Load Composer Autoload (Sesuaikan path jika file ini ada di dalam subfolder)
 require __DIR__ . '/../vendor/autoload.php'; 
 require_once __DIR__ . '/../utils/utils.php';
+require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
+require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
 
 use Dotenv\Dotenv;
 
@@ -45,9 +47,11 @@ $musicId = $_GET['music_id'] ?? null;
 
 // echo getSecureCdnUrl($file, $secret);
 // Output: https://cdn.../file.mp3?verify=a1b2c3...&expires=17000000
+$streamUrl = getSecureCdnUrl($file, $secretKey);
+checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
 sendJsonResponses([
         "success" => true,
         "music_id" => $musicId,
-        "stream_url" => getSecureCdnUrl($file, $secretKey),
+        "stream_url" => $streamUrl,
     ]);
 ?>
