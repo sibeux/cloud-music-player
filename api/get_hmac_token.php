@@ -83,7 +83,7 @@ if (function_exists('fastcgi_finish_request')) {
 // JALANKAN PROSES LATAR BELAKANG ---
 // Script PHP masih jalan di server, tapi user sudah tidak menunggu (loading icon di browser sudah hilang)
 // Fungsi berat ini sekarang aman dijalankan tanpa bikin user lemot
-checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
+checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
 
 exit();
 ?>
