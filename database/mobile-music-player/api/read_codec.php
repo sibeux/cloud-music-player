@@ -37,7 +37,8 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
     } else {
         $audioStream = $metadata['streams'][0];
 
-        echo $audioStream;
+        $logFile = 'custom.log';
+        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
 
         // 3. Ekstrak data yang dibutuhkan
         $codecName = $audioStream['codec_name'] ?? null;
