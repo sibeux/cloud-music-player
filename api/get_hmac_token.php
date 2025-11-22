@@ -33,7 +33,7 @@ function getSecureCdnUrl($filePath, $secretKey, $expirySeconds = 3600) {
     
     // 5. Kembalikan URL lengkap
     // Ganti dengan domain worker kamu
-    $cdnDomain = 'https://cdn.sibeux.my.id/'; 
+    $cdnDomain = 'https://cdn.sibeux.my.id'; 
     
     return "{$cdnDomain}{$path}?verify={$signature}&expires={$expires}";
 }
