@@ -2,7 +2,6 @@
 
 // 1. Load Composer Autoload (Sesuaikan path jika file ini ada di dalam subfolder)
 require __DIR__ . '/../vendor/autoload.php'; 
-require_once __DIR__ . '/../utils/utils.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
 
@@ -48,10 +47,43 @@ $musicId = $_GET['music_id'] ?? null;
 // echo getSecureCdnUrl($file, $secret);
 // Output: https://cdn.../file.mp3?verify=a1b2c3...&expires=17000000
 $streamUrl = getSecureCdnUrl($file, $secretKey);
-// checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
-sendJsonResponses([
+// BUAT PAYLOAD
+$responsePayload = [
         "success" => true,
         "music_id" => $musicId,
         "stream_url" => $streamUrl,
-    ]);
+];
+
+// KIRIM RESPON MANUAL (Tiru isi sendJsonResponses tapi tanpa die) ---
+http_response_code(200);
+header('Content-Type: application/json');
+// Header anti-cache (Sesuai fungsi helper)
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
+
+echo json_encode($responsePayload);
+
+// PUTUS KONEKSI KE USER (Magic terjadi di sini) ---
+// Browser user akan mengira loading sudah selesai 100%
+if (function_exists('fastcgi_finish_request')) {
+    fastcgi_finish_request(); // Khusus PHP-FPM (Nginx/Modern Apache)
+} else {
+    // Fallback jika server tidak pakai FPM (Jarang, tapi aman ditambahkan)
+    ob_start();
+    echo ""; 
+    $size = ob_get_length();
+    header("Content-Length: $size");
+    header("Connection: close");
+    ob_end_flush();
+    ob_flush();
+    flush();
+}
+
+// JALANKAN PROSES LATAR BELAKANG ---
+// Script PHP masih jalan di server, tapi user sudah tidak menunggu (loading icon di browser sudah hilang)
+// Fungsi berat ini sekarang aman dijalankan tanpa bikin user lemot
+checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
+
+exit();
 ?>
