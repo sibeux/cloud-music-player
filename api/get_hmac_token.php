@@ -7,8 +7,7 @@ require_once __DIR__ . '/../utils/utils.php';
 use Dotenv\Dotenv;
 
 // 2. Load file .env
-// Asumsi file .env ada di folder yang sama dengan script ini (root).
-// Jika script ini ada di folder 'public' tapi .env di root, gunakan: createImmutable(__DIR__ . '/../')
+// File .env taruh di tempat yang sama dengan composer.json/index.php (root)
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->safeLoad(); // Pakai safeLoad agar tidak error fatal jika file .env lupa dibuat
 
