@@ -246,14 +246,15 @@ if ($fileType == "audio") {
     ];
 
     // KIRIM RESPON MANUAL (Tiru isi sendJsonResponses tapi tanpa die) ---
-    http_response_code(200);
-    header('Content-Type: application/json');
-    // Header anti-cache (Sesuai fungsi helper)
-    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-    header('Pragma: no-cache');
-    header('Expires: 0');
+    // http_response_code(200);
+    // header('Content-Type: application/json');
+    // // Header anti-cache (Sesuai fungsi helper)
+    // header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    // header('Pragma: no-cache');
+    // header('Expires: 0');
 
-    echo json_encode($responsePayload);
+    // echo json_encode($responsePayload);
+    header("Location: " . $cacheFileUrl, true, 302);
 
     // PUTUS KONEKSI KE USER (Magic terjadi di sini) ---
     // Browser user akan mengira loading sudah selesai 100%
