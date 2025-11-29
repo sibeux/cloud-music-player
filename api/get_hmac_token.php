@@ -44,6 +44,7 @@ function getSecureCdnUrl($filePath, $secretKey, $expirySeconds = 3600) {
 $file = $_GET['path'] ?? null;
 $musicId = $_GET['music_id'] ?? null;
 
+// Dokumentasi url handled: https://chatgpt.com/c/692a7a4a-f358-8323-8d44-d770ab9f9b63
 $dir  = dirname($file);
 $base = basename($file);       // hanya "Elven Dreams.m4a"
 $encodedBase = rawurlencode($base);
