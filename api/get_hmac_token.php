@@ -44,9 +44,13 @@ function getSecureCdnUrl($filePath, $secretKey, $expirySeconds = 3600) {
 $file = $_GET['path'] ?? null;
 $musicId = $_GET['music_id'] ?? null;
 
+$encodedFile = rawurlencode($file);   // "Elven Dreams.m4a" -> "Elven%20Dreams.m4a"
+
 // echo getSecureCdnUrl($file, $secret);
 // Output: https://cdn.../file.mp3?verify=a1b2c3...&expires=17000000
-$streamUrl = getSecureCdnUrl($file, $secretKey);
+$rawUrl = getSecureCdnUrl($encodedFile, $secretKey); 
+$streamUrl = $rawUrl; // tidak perlu str_replace
+
 // BUAT PAYLOAD
 $responsePayload = [
         "success" => true,
