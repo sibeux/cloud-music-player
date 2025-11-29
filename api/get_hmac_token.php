@@ -62,7 +62,8 @@ header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
 header('Expires: 0');
 
-echo json_encode($responsePayload);
+// echo json_encode($responsePayload);
+header("Location: " . $streamUrl, true, 302);
 
 // PUTUS KONEKSI KE USER (Magic terjadi di sini) ---
 // Browser user akan mengira loading sudah selesai 100%
