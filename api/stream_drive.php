@@ -19,7 +19,7 @@ $parts = explode('/', $params);
 // Misal kita mau otomatis bikin query array: param1, param2, param3...
 $query = [];
 foreach ($parts as $index => $value) {
-    $query['param'.($index+1)] = $value;
+    $query['param' . ($index + 1)] = $value;
 }
 
 // Contoh akses:
@@ -32,20 +32,20 @@ $fileType = $query['param5'] ?? null;
 if (!$fileId) {
     http_response_code(400);
     die("fileId is required");
-} 
+}
 if (!$musicId) {
     http_response_code(400);
     die("musicId is required");
-} 
+}
 if (!$uploader) {
     http_response_code(400);
     die("uploader is required");
 }
 
 // Jika bukan file suspicious, pakai dari wahabinasrul
-if ($isSuspicious == 'false'){
+if ($isSuspicious == 'false') {
     $uploader = "wahabinasrul@gmail.com";
-} else{
+} else {
     log_message("[WARNING] File is suspicous, get refresh token from owner.");
 }
 
@@ -55,7 +55,6 @@ $config = getGoogleDriveCredentials($uploader, $allApiData);
 // --- Konfigurasi Cache Lokal ---
 // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
 $cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
-$cacheUrl = 'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/music-host';
 // Fungsi $cacheDuration adalah untuk mendownload ulang file dari GDRIVE-
 // jika sudah expired. Kita set ke 1 tahun, karena file lagu statis banget.
 $cacheDuration = 31536000; // Durasi cache dalam detik (86400 = 24 jam)
@@ -69,17 +68,16 @@ if (!is_dir($cacheDir)) {
     }
 }
 
-$cacheFileUrl = $cacheUrl . '/' . basename($fileId);
-
 // --- Tentukan path file cache ---
 // Fungsi: Membuat path file unik untuk setiap fileId di dalam folder cache.
 // basename() digunakan untuk keamanan, mencegah directory traversal.
 $cacheFilePath = $cacheDir . '/' . basename($fileId);
 
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
-function get_token($config, $isSuspicious) {
+function get_token($config, $isSuspicious)
+{
     $tokenFile = __DIR__ . '/token.json';
-    
+
     // --- 1. Coba ambil dari session (cache paling cepat) ---
     if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {
         return $_SESSION['gdrive_token'];
@@ -103,7 +101,7 @@ function get_token($config, $isSuspicious) {
 
     // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
     if (time() >= $tokenData['expires_at'] || $isSuspicious == 'true') {
-        
+
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
             die("Konfigurasi tidak ditemukan atau tidak lengkap.");
@@ -152,7 +150,8 @@ function get_token($config, $isSuspicious) {
 }
 
 // --- Logika untuk insert ke sql ---
-function sendToSqlCache($db, $fileId, $musicId){
+function sendToSqlCache($db, $fileId, $musicId)
+{
     // Masukkan ke sql bahwa file dengan ID ini telah di-cache.
     $stmt = $db->prepare("INSERT INTO cache_music (cache_music_id) VALUES (?)");
     $stmt->bind_param("i", $musicId);
@@ -171,7 +170,7 @@ $isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePat
 // Cek apakah file exist?
 if (!$isCacheValid) {
     log_message("[INFO] Cache MISS for fileId: $fileId. Downloading from Google Drive.");
-    
+
     // --- Get Token ---
     $tokenData = get_token($config, $isSuspicious);
     $accessToken = $tokenData['access_token'];
@@ -196,12 +195,12 @@ if (!$isCacheValid) {
 
     // --- Downlaod file from Google Drive and save to cache ---
     $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
-    if ($isSuspicious){
+    if ($isSuspicious) {
         // acknowledgeAbuse=true berlaku untuk file suspicious
         $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media&acknowledgeAbuse=true";
     }
     $ch = curl_init($driveUrl);
-    
+
     $curlHeadersToGoogle = ["Authorization: Bearer " . $accessToken];
     curl_setopt($ch, CURLOPT_HTTPHEADER, $curlHeadersToGoogle);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -210,7 +209,7 @@ if (!$isCacheValid) {
     // --- Alihkan output cURL ke file cache, bukan ke browser ---
     // Fungsi: Opsi ini mengarahkan semua data yang diterima cURL untuk ditulis ke file handle ($cacheFp).
     curl_setopt($ch, CURLOPT_FILE, $cacheFp);
-    
+
     curl_exec($ch);
 
     if (curl_errno($ch)) {
@@ -223,7 +222,7 @@ if (!$isCacheValid) {
         http_response_code(500);
         die("Failed to download file from Google Drive.");
     }
-    
+
     curl_close($ch);
 
     // --- Lepas kunci dan tutup file handle cache ---
@@ -235,54 +234,74 @@ if (!$isCacheValid) {
     log_message("[INFO] Cache HIT for fileId: $fileId. Serving from local server.");
 }
 
-// header("Location: " . $cacheFileUrl, true, 302);
 
-if ($fileType == "audio") {
-    // BUAT PAYLOAD
-    $responsePayload = [
-    "success" => true,
-    "music_id" => $musicId,
-    "stream_url" => $cacheFileUrl,
-    ];
+// --- BAGIAN PENYAJIAN FILE (STREAMING DARI CACHE LOCAL) ---
+// Fungsi: Bagian ini sekarang selalu menyajikan file dari cache local, baik yang baru diunduh maupun yang sudah ada.
 
-    // KIRIM RESPON MANUAL (Tiru isi sendJsonResponses tapi tanpa die) ---
-    // http_response_code(200);
-    // header('Content-Type: application/json');
-    // // Header anti-cache (Sesuai fungsi helper)
-    // header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-    // header('Pragma: no-cache');
-    // header('Expires: 0');
+// --- Ambil metadata dari file LOKAL ---
+$fileSize = filesize($cacheFilePath);
+$mimeType = mime_content_type($cacheFilePath) ?: 'application/octet-stream';
 
-    // echo json_encode($responsePayload);
-    header("Location: " . $cacheFileUrl, true, 302);
+// --- get nama file asli dari Google Drive (optional, tapi good for 'Content-Disposition') ---
+// Kita hanya need melakukan ini sekali if cache baru dibuat, tapi untuk simplicitas kita query lagi.
+// Untuk performa lebih, nama file can saved di file terpisah ex: `cache/fileId.meta`.
+$tokenData = get_token($config, $isSuspicious);
+$accessToken = $tokenData['access_token'];
+$metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=name";
+$chMeta = curl_init($metaUrl);
+curl_setopt($chMeta, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . $accessToken]);
+curl_setopt($chMeta, CURLOPT_RETURNTRANSFER, true);
+$metaResp = curl_exec($chMeta);
+curl_close($chMeta);
+$metaData = json_decode($metaResp, true);
+$fileName = $metaData['name'] ?? $fileId; // Use fileId for fallback
 
-    // PUTUS KONEKSI KE USER (Magic terjadi di sini) ---
-    // Browser user akan mengira loading sudah selesai 100%
-    if (function_exists('fastcgi_finish_request')) {
-        fastcgi_finish_request(); // Khusus PHP-FPM (Nginx/Modern Apache)
-    } else {
-        // Fallback jika server tidak pakai FPM (Jarang, tapi aman ditambahkan)
-        ob_start();
-        echo ""; 
-        $size = ob_get_length();
-        header("Content-Length: $size");
-        header("Connection: close");
-        ob_end_flush();
-        ob_flush();
-        flush();
+// --- PENANGANAN HEADER FOR SEEKING (BUG FIX) ---
+header("Content-Type: $mimeType");
+header("Accept-Ranges: bytes");
+header("Cache-Control: public, max-age=86400");
+$fileNameSafe = str_replace('"', '\"', $fileName);
+header("Content-Disposition: inline; filename=\"$fileNameSafe\"");
+
+$start = 0;
+$end = $fileSize - 1;
+
+if (isset($_SERVER['HTTP_RANGE'])) {
+    preg_match('/bytes=(\d+)-(\d*)/', $_SERVER['HTTP_RANGE'], $matches);
+    $start = intval($matches[1]);
+    if (!empty($matches[2])) {
+        $end = intval($matches[2]);
     }
 
-    // JALANKAN PROSES LATAR BELAKANG ---
-    // Script PHP masih jalan di server, tapi user sudah tidak menunggu (loading icon di browser sudah hilang)
-
-    if (!$isCacheValid) {
-        sendToSqlCache($db, $fileId, $musicId);        
-    }
-
-    // Fungsi berat ini sekarang aman dijalankan tanpa bikin user lemot
-    checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
-} else{
-    header("Location: " . $cacheFileUrl, true, 302);
+    header("HTTP/1.1 206 Partial Content");
+    header("Content-Range: bytes $start-$end/$fileSize");
+    header("Content-Length: " . ($end - $start + 1));
+} else {
+    header("HTTP/1.1 200 OK");
+    header("Content-Length: $fileSize");
 }
 
+// --- Stream file dari CACHE LOCAL with PHP ---
+// Function: Read file dari disk server dan send it ke browser via "potongan" (chunk) for memory efficiency.
+$localFp = fopen($cacheFilePath, 'rb');
+fseek($localFp, $start);
+$bytesSent = 0;
+$chunkSize = 8192; // 8KB per chunk
+
+// Deactivate output buffering PHP
+if (ob_get_level() > 0)
+    ob_end_flush();
+
+while (!feof($localFp) && ($bytesSent < ($end - $start + 1)) && !connection_aborted()) {
+    $bytesToRead = min($chunkSize, ($end - $start + 1) - $bytesSent);
+    echo fread($localFp, $bytesToRead);
+    $bytesSent += $bytesToRead;
+    flush(); // Send output ke browser soon
+}
+
+fclose($localFp);
+if ($fileType == "audio") {
+    sendToSqlCache($db, $fileId, $musicId);
+    checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
+}
 exit();
