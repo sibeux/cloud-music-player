@@ -1,7 +1,19 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php'; 
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->safeLoad(); // Pakai safeLoad agar tidak error fatal jika file .env lupa dibuat
+
+// 3. Ambil Secret Key
+$url = $_ENV['GDRIVE_API_URL'] ?? null;
+
+if (!$url) {
+    die("Error: Secret key belum disetting di .env");
+}
 
 // Ambil data API sekali saja saat file ini di-include
-$url = "https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api";
 $goauthResponse = @file_get_contents($url);
 $allApiData = ($goauthResponse) ? json_decode($goauthResponse, true) : [];
 
