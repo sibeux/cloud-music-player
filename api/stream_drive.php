@@ -105,9 +105,11 @@ function get_token($config, $isSuspicious)
 
     // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
     if (time() >= $tokenData['expires_at'] || $isSuspicious == 'true') {
+        log_message("File terindikasi suspicous / refresh token sudah expired. Mencoba mendapatkan refresh token yang baru...");
 
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
+            log_message("Konfigurasi tidak ditemukan atau tidak lengkap.");
             die("Konfigurasi tidak ditemukan atau tidak lengkap.");
         }
 
