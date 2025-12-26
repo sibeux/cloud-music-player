@@ -6,11 +6,17 @@
 // test
 
 session_start();
+require __DIR__ . '/../vendor/autoload.php'; 
 require_once __DIR__ . '/../utils/utils.php';
 require_once __DIR__ . '/image-dominant-color/get_color.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
 include './google-oauth-config.php';
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->safeLoad(); // Pakai safeLoad agar tidak error fatal jika file .env lupa dibuat
 
 $params = isset($_GET['params']) ? $_GET['params'] : '';
 
@@ -56,7 +62,13 @@ $config = getGoogleDriveCredentials($uploader, $allApiData);
 // --- Konfigurasi Cache Lokal ---
 // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
 $cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
-$cacheUrl = 'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/music-host';
+
+// Ambil value dari .env
+$cacheUrl = $_ENV['CACHE_FILE_URL'] ?? null;
+if (!$cacheUrl) {
+    die("Error: Secret key belum disetting di .env");
+}
+
 // Fungsi $cacheDuration adalah untuk mendownload ulang file dari GDRIVE-
 // jika sudah expired. Kita set ke 1 tahun, karena file lagu statis banget.
 $cacheDuration = 31536000; // Durasi cache dalam detik (86400 = 24 jam)
@@ -239,8 +251,6 @@ if (!$isCacheValid) {
 } else {
     log_message("[INFO] Cache HIT for fileId: $fileId. Serving from local server.");
 }
-
-// header("Location: " . $cacheFileUrl, true, 302);
 
 if ($fileType == "audio") {
     // BUAT PAYLOAD

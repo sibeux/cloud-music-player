@@ -6,7 +6,7 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->safeLoad(); // Pakai safeLoad agar tidak error fatal jika file .env lupa dibuat
 
-// 3. Ambil Secret Key
+// Ambil value dari .env
 $url = $_ENV['GDRIVE_API_URL'] ?? null;
 
 if (!$url) {
