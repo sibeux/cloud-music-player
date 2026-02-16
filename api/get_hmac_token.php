@@ -82,7 +82,7 @@ if (function_exists('fastcgi_finish_request')) {
 } else {
     // Fallback jika server tidak pakai FPM (Jarang, tapi aman ditambahkan)
     ob_start();
-    echo ""; 
+    echo "";
     $size = ob_get_length();
     header("Content-Length: $size");
     header("Connection: close");
@@ -97,4 +97,3 @@ if (function_exists('fastcgi_finish_request')) {
 checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
 
 exit();
-?>
