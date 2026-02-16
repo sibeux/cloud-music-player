@@ -1,6 +1,6 @@
 <?php
 
-// Pakai __DIR__ karena php saat di-include, 
+// Pakai __DIR__ karena php saat di-include,
 // file yang di-include jadi otomatis "berpindah"
 // ke file yang meng-include.
 require_once __DIR__ . '/../../db.php';

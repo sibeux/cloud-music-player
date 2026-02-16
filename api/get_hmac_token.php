@@ -1,18 +1,18 @@
 <?php
 
-// 1. Load Composer Autoload (Sesuaikan path jika file ini ada di dalam subfolder)
-require __DIR__ . '/../vendor/autoload.php'; 
+// Load Composer Autoload (Sesuaikan path jika file ini ada di dalam subfolder)
+require __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
 
 use Dotenv\Dotenv;
 
-// 2. Load file .env
+// Load file .env
 // File .env taruh di tempat yang sama dengan composer.json/index.php (root)
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->safeLoad(); // Pakai safeLoad agar tidak error fatal jika file .env lupa dibuat
 
-// 3. Ambil Secret Key
+// Ambil Secret Key
 $secretKey = $_ENV['CF_WORKER_SECRET'] ?? null;
 
 if (!$secretKey) {

@@ -1,11 +1,30 @@
 <?php
 
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->safeLoad();
+
+$username = $_ENV['USERNAME'] ?? null;
+$password = $_ENV['PASSWORD'] ?? null;
+$database = $_ENV['CYBEAT_DATABASE'] ?? null;
+
+if (!$username) {
+    die("Error: env USERNAME not found");
+}
+if (!$password) {
+    die("Error: env PASSWORD not found");
+}
+if (!$database) {
+    die("Error: env CYBEAT_DATABASE not found");
+}
+
 // Yang perlu diganti saat hosting baru: username, password, dan db.
 
 define('HOST', 'localhost');
-define('SIBEUX', 'sibs6571_cbux'); // Ganti dengan username database hosting
-define('pass', '1NvgEHFnwvDN96'); // Ganti dengan password database hosting
-define('DB', 'sibs6571_cloud_music'); // Ganti dengan nama database hosting
+define('SIBEUX', $username); // Ganti dengan username database hosting
+define('pass', $password); // Ganti dengan password database hosting
+define('DB', $database); // Ganti dengan nama database hosting
 
 // define('HOST', 'localhost');
 // define('SIBEUX', 'root');
