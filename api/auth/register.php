@@ -1,6 +1,19 @@
 <?php
+require __DIR__ . '/../../vendor/autoload.php';
 // require_once __DIR__ . '/../../database/mobile-music-player/api/connection.php';
 require_once __DIR__ . '/../../database/db.php';
+require_once __DIR__ . '/auth_jwt.php';
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$secretKey = $_ENV['JWT_AUTH_SECRET'] ?? null;
+
+if (!$secretKey) {
+    die("Error: Secret key belum disetting di .env");
+}
 
 // Header JSON: Agar frontend/Android tahu ini data JSON, bukan teks biasa.
 header('Content-Type: application/json');
@@ -16,7 +29,7 @@ function getEmailCheck($db)
     // KONFIGURASI RATE LIMIT
     $max_requests = 5;
     $time_window = 60;
-    
+
     if (!isset($_SESSION['last_request_time'])) {
         $_SESSION['last_request_time'] = time();
         $_SESSION['request_count'] = 0;
@@ -40,7 +53,6 @@ function getEmailCheck($db)
     $_SESSION['request_count']++;
     // AKHIR RATE LIMIT
 
-
     // Validasi input
     if (!isset($_POST['email'])) {
         echo json_encode(["error" => "Email kosong"]);
@@ -52,7 +64,7 @@ function getEmailCheck($db)
         $stmt->bind_param('s', $_POST['email']);
         $stmt->execute();
         $stmt->store_result();
-        
+
         if ($stmt->num_rows > 0) {
             // Email ditemukan (Terpakai)
             echo json_encode(["email_exists" => "true"]);
@@ -68,7 +80,7 @@ function getEmailCheck($db)
     }
 }
 
-function createUser($db)
+function createUser($db, $secretKey)
 {
     // Pastikan output selalu JSON
     header('Content-Type: application/json');
@@ -86,18 +98,26 @@ function createUser($db)
     $email = $_POST['email'];
     $name = $_POST['name'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $role = 'user';
 
     // Prepare Statement (Kolom NULL/Auto Increment dihapus agar lebih bersih)
     $query = 'INSERT INTO `users` (`email`, `name`, `password`) VALUES (?, ?, ?)';
 
     if ($stmt = $db->prepare($query)) {
-        
+
         $stmt->bind_param('sss', $email, $name, $password);
 
         // Cek apakah eksekusi berhasil atau gagal (misal: email duplikat)
         try {
             if ($stmt->execute()) {
-                echo json_encode(["status" => "success", "message" => "User berhasil ditambahkan"]);
+                // Ambil ID user yang baru saja digenerate oleh database
+                $userId = $stmt->insert_id;
+
+                // Generate token secara otomatis
+                $token = generateToken($userId, $email, $name, $role, $secretKey);
+
+                // Return response
+                echo json_encode(["status" => "success", "message" => "User berhasil ditambahkan", "token" => $token,]);
             } else {
                 // Tangani jika execute return false (jarang terjadi jika try-catch aktif, tapi untuk jaga-jaga)
                 throw new Exception($stmt->error);
@@ -116,7 +136,7 @@ function createUser($db)
                 ]);
             }
         }
-        
+
         $stmt->close();
 
     } else {
@@ -136,7 +156,7 @@ if (isset($_POST['method'])) {
             getEmailCheck($db);
             break;
         case 'create_user':
-            createUser($db);
+            createUser($db, $secretKey);
             break;
         default:
             echo json_encode(["error" => "Invalid method"]);
