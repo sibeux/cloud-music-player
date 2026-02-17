@@ -82,9 +82,6 @@ function getEmailCheck($db)
 
 function createUser($db, $secretKey)
 {
-    // Pastikan output selalu JSON
-    header('Content-Type: application/json');
-
     // Validasi Input Dasar
     if (empty($_POST['email']) || empty($_POST['name']) || empty($_POST['password'])) {
         echo json_encode([
