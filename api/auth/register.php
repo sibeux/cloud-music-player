@@ -6,7 +6,7 @@ require_once __DIR__ . '/auth_jwt.php';
 
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
 $secretKey = $_ENV['JWT_AUTH_SECRET'] ?? null;
