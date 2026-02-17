@@ -68,12 +68,75 @@ function getEmailCheck($db)
     }
 }
 
+function createUser($db)
+{
+    // Pastikan output selalu JSON
+    header('Content-Type: application/json');
+
+    // Validasi Input Dasar
+    if (empty($_POST['email']) || empty($_POST['name']) || empty($_POST['password'])) {
+        echo json_encode([
+            "status" => "failed",
+            "message" => "Data tidak lengkap (Email, Nama, atau Password kosong)"
+        ]);
+        return;
+    }
+
+    // Siapkan Data
+    $email = $_POST['email'];
+    $name = $_POST['name'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    // Prepare Statement (Kolom NULL/Auto Increment dihapus agar lebih bersih)
+    $query = 'INSERT INTO `users` (`email`, `name`, `password`) VALUES (?, ?, ?)';
+
+    if ($stmt = $db->prepare($query)) {
+        
+        $stmt->bind_param('sss', $email, $name, $password);
+
+        // Cek apakah eksekusi berhasil atau gagal (misal: email duplikat)
+        try {
+            if ($stmt->execute()) {
+                echo json_encode(["status" => "success", "message" => "User berhasil ditambahkan"]);
+            } else {
+                // Tangani jika execute return false (jarang terjadi jika try-catch aktif, tapi untuk jaga-jaga)
+                throw new Exception($stmt->error);
+            }
+        } catch (Exception $e) {
+            // Cek kode error untuk duplikat entry (biasanya 1062 di MySQL)
+            if ($db->errno === 1062) {
+                echo json_encode([
+                    "status" => "failed",
+                    "message" => "Email sudah terdaftar"
+                ]);
+            } else {
+                echo json_encode([
+                    "status" => "failed",
+                    "message" => "Gagal menyimpan data: " . $e->getMessage()
+                ]);
+            }
+        }
+        
+        $stmt->close();
+
+    } else {
+        // Gagal prepare
+        echo json_encode([
+            "status" => "failed",
+            "message" => "Terjadi kesalahan sistem (Prepare Statement Failed)"
+        ]);
+    }
+}
+
 // Cek keberadaan 'method' sebelum switch
 // Tanpa isset, jika user akses langsung tanpa param method, akan muncul warning "Undefined index"
 if (isset($_POST['method'])) {
     switch ($_POST['method']) {
         case 'email_check':
             getEmailCheck($db);
+            break;
+        case 'create_user':
+            createUser($db);
             break;
         default:
             echo json_encode(["error" => "Invalid method"]);
