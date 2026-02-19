@@ -5,8 +5,6 @@ require_once __DIR__ . '/../../database/db.php';
 require_once __DIR__ . '/auth_jwt.php';
 
 use Dotenv\Dotenv;
-use \Firebase\JWT\JWT;
-use \Firebase\JWT\Key;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
@@ -120,21 +118,9 @@ function createUser($db, $secretKey)
                     'role' => $role,
                 ];
 
-                // Generate token secara otomatis
-                $token = generateToken($user, $secretKey, $db);
-                
-                // Hash refresh token
-                $hashed_token = hash('sha256', $token['refresh_token']);
+                $token = helperRefreshMethod($user, $secretKey, $db);
 
-                // Ambil JTI dan EXP dari payload untuk sinkronisasi DB
-                $refreshPayload = JWT::decode($token['refresh_token'], new Key($secretKey, 'HS256'));
-                $jti = $refreshPayload->jti;
-                $exp = $refreshPayload->exp;
-
-                // Simpan Hash ke Database (Jangan simpan plain text!)
-                $success = saveToDatabase($db, $userId, $hashed_token, $jti, $exp);
-
-                if ($success) {
+                if ($token['status'] == 'success') {
                     // Return response
                     echo json_encode([
                         "status" => "success",

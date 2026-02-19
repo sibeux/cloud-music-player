@@ -1,5 +1,37 @@
 <?php
+
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
+
+function helperRefreshMethod($user, $secretKey, $db) 
+{
+    // Generate token secara otomatis
+    $token = generateToken($user, $secretKey, $db);
+    
+    // Hash refresh token
+    $hashed_token = hash('sha256', $token['refresh_token']);
+
+    // Ambil JTI dan EXP dari payload untuk sinkronisasi DB
+    $refreshPayload = JWT::decode($token['refresh_token'], new Key($secretKey, 'HS256'));
+    $jti = $refreshPayload->jti;
+    $exp = $refreshPayload->exp;
+
+    // Simpan Hash ke Database (Jangan simpan plain text!)
+    $success = saveToDatabase($db, $user['id'], $hashed_token, $jti, $exp);
+
+    if (!$success) {
+        return [
+            'status' => 'error',
+            'message' => 'Gagal menyimpan token ke database.'
+        ];
+    }
+
+    return [
+        'status' => 'success',
+        'access_token' => $token['access_token'],
+        'refresh_token' => $token['refresh_token']
+    ];
+}
 
 function generateToken($user, $secretKey, $db)
 {
