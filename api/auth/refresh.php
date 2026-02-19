@@ -41,7 +41,7 @@ try {
     $userId = $decoded->sub;
 
     $hashedOldToken = hash('sha256', $oldRefreshToken);
-    $stmt = $db->prepare("SELECT id FROM refresh_tokens WHERE jti = ? AND token_hash = ? AND is_revoked = 0 LIMIT 1");
+    $stmt = $db->prepare("SELECT user_id FROM refresh_tokens WHERE jti = ? AND token_hash = ? AND is_revoked = 0 LIMIT 1");
     $stmt->bind_param("ss", $jti, $hashedOldToken);
     $stmt->execute();
     $res = $stmt->get_result();
@@ -51,7 +51,7 @@ try {
         throw new Exception("Token tidak valid atau sudah digunakan.");
     }
 
-    $userStmt = $db->prepare("SELECT id, email, role FROM users WHERE id = ? LIMIT 1");
+    $userStmt = $db->prepare("SELECT user_id, name, email, role FROM users WHERE user_id = ? LIMIT 1");
     $userStmt->bind_param("i", $userId);
     $userStmt->execute();
     $user = $userStmt->get_result()->fetch_assoc();
