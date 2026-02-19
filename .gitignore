@@ -1,11 +1,7 @@
 desktop.ini
 *.ini
 desktop.ini
-d e s k t o p . i n i 
- 
- d a t a b a s e / s i b e 5 5 7 9 _ c l o u d _ m u s i c . s q l 
- 
- 
+d e s k t o p . i n i
 database/SQL-DB/*
 api/doc/secret/*
 .env
