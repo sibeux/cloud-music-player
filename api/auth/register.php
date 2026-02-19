@@ -110,11 +110,24 @@ function createUser($db, $secretKey)
                 // Ambil ID user yang baru saja digenerate oleh database
                 $userId = $stmt->insert_id;
 
+                // Buat object user
+                $user = [
+                    'id' => $userId,
+                    'email' => $email,
+                    'name' => $name,
+                    'role' => $role,
+                ];
+
                 // Generate token secara otomatis
-                $token = generateToken($userId, $email, $name, $role, $secretKey);
+                $token = generateToken($user, $secretKey);
 
                 // Return response
-                echo json_encode(["status" => "success", "message" => "User berhasil ditambahkan", "token" => $token,]);
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "User berhasil ditambahkan",
+                    "access_token" => $token['access_token'],
+                    "refresh_token" => $token['refresh_token'],
+                ]);
             } else {
                 // Tangani jika execute return false (jarang terjadi jika try-catch aktif, tapi untuk jaga-jaga)
                 throw new Exception($stmt->error);
