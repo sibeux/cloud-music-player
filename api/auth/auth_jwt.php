@@ -1,7 +1,7 @@
 <?php
 use \Firebase\JWT\JWT;
 
-function generateToken($user, $secretKey)
+function generateToken($user, $secretKey, $db)
 {
     $issuedAt = time();
     $expirationTime = $issuedAt + (60 * 15); // 15 minutes
@@ -34,11 +34,35 @@ function generateToken($user, $secretKey)
     ];
     $refreshToken = JWT::encode($refreshPayload, $secretKey, 'HS256');
 
-    // Simpan Hash ke Database (Jangan simpan plain text!)
-    // saveToDatabase($user['id'], hash('sha256', $refreshToken), $jti);
-
     return [
         'access_token' => $accessToken,
         'refresh_token' => $refreshToken
     ];
+}
+
+function saveToDatabase($db, $userId, $tokenHash, $jti, $exp){
+    try{
+        // Konversi timestamp 'exp' dari JWT ke format DATETIME MySQL
+        $expiresAt = date('Y-m-d H:i:s', $exp);
+
+        $sql = "INSERT INTO refresh_tokens
+                (user_id, token_hash, jti, expires_at, is_revoked)
+                VALUES
+                (:user_id, :token_hash, :jti, :expires_at, 0)";
+        
+        $stmt = $db->prepare($sql);
+
+        $result = $stmt->execute([
+            ':user_id'    => $userId,
+            ':token_hash' => $tokenHash,
+            ':jti'        => $jti,
+            ':expires_at' => $expiresAt
+        ]);
+
+        return $result;
+
+    } catch (PDOException $e) {
+        error_log("DB Prep Error: " . $e->getMessage());
+        return false;
+    }
 }

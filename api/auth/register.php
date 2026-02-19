@@ -5,6 +5,8 @@ require_once __DIR__ . '/../../database/db.php';
 require_once __DIR__ . '/auth_jwt.php';
 
 use Dotenv\Dotenv;
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
@@ -119,15 +121,33 @@ function createUser($db, $secretKey)
                 ];
 
                 // Generate token secara otomatis
-                $token = generateToken($user, $secretKey);
+                $token = generateToken($user, $secretKey, $db);
+                
+                // Hash refresh token
+                $hashed_token = hash('sha256', $token['refresh_token']);
 
-                // Return response
-                echo json_encode([
-                    "status" => "success",
-                    "message" => "User berhasil ditambahkan",
-                    "access_token" => $token['access_token'],
-                    "refresh_token" => $token['refresh_token'],
-                ]);
+                // Ambil JTI dan EXP dari payload untuk sinkronisasi DB
+                $refreshPayload = JWT::decode($token['refresh_token'], new Key($secretKey, 'HS256'));
+                $jti = $refreshPayload->jti;
+                $exp = $refreshPayload->exp;
+
+                // Simpan Hash ke Database (Jangan simpan plain text!)
+                $success = saveToDatabase($db, $userId, $hashed_token, $jti, $exp);
+
+                if ($success) {
+                    // Return response
+                    echo json_encode([
+                        "status" => "success",
+                        "message" => "User berhasil ditambahkan",
+                        "access_token" => $token['access_token'],
+                        "refresh_token" => $token['refresh_token'],
+                    ]);
+                } else {
+                    echo json_encode([
+                        "status" => "failed",
+                        "message" => "Gagal menyimpan token ke database"
+                    ]);
+                }
             } else {
                 // Tangani jika execute return false (jarang terjadi jika try-catch aktif, tapi untuk jaga-jaga)
                 throw new Exception($stmt->error);
@@ -146,9 +166,7 @@ function createUser($db, $secretKey)
                 ]);
             }
         }
-
         $stmt->close();
-
     } else {
         // Gagal prepare
         echo json_encode([
