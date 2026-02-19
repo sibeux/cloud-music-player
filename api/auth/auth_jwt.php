@@ -40,29 +40,36 @@ function generateToken($user, $secretKey, $db)
     ];
 }
 
-function saveToDatabase($db, $userId, $tokenHash, $jti, $exp){
-    try{
+function saveToDatabase($db, $userId, $tokenHash, $jti, $exp) {
+    try {
         // Konversi timestamp 'exp' dari JWT ke format DATETIME MySQL
         $expiresAt = date('Y-m-d H:i:s', $exp);
 
         $sql = "INSERT INTO refresh_tokens
                 (user_id, token_hash, jti, expires_at, is_revoked)
                 VALUES
-                (:user_id, :token_hash, :jti, :expires_at, 0)";
+                (?, ?, ?, ?, 0)";
         
         $stmt = $db->prepare($sql);
 
-        $result = $stmt->execute([
-            ':user_id'    => $userId,
-            ':token_hash' => $tokenHash,
-            ':jti'        => $jti,
-            ':expires_at' => $expiresAt
-        ]);
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $db->error);
+        }
+
+        /**
+         * bind_param menjelaskan tipe data:
+         * i = integer (untuk userId)
+         * s = string (untuk tokenHash, jti, dan expiresAt)
+         */
+        $stmt->bind_param("isss", $userId, $tokenHash, $jti, $expiresAt);
+
+        $result = $stmt->execute();
+        $stmt->close();
 
         return $result;
 
-    } catch (PDOException $e) {
-        error_log("DB Prep Error: " . $e->getMessage());
+    } catch (Exception $e) {
+        error_log("DB Error: " . $e->getMessage());
         return false;
     }
 }
