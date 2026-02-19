@@ -112,7 +112,7 @@ function createUser($db, $secretKey)
 
                 // Buat object user
                 $user = [
-                    'id' => $userId,
+                    'user_id' => $userId,
                     'email' => $email,
                     'name' => $name,
                     'role' => $role,

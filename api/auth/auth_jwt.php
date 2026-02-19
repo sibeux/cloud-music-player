@@ -17,7 +17,7 @@ function helperRefreshMethod($user, $secretKey, $db)
     $exp = $refreshPayload->exp;
 
     // Simpan Hash ke Database (Jangan simpan plain text!)
-    $success = saveToDatabase($db, $user['id'], $hashed_token, $jti, $exp);
+    $success = saveToDatabase($db, $user['user_id'], $hashed_token, $jti, $exp);
 
     if (!$success) {
         return [
@@ -44,7 +44,7 @@ function generateToken($user, $secretKey, $db)
         'iat' => $issuedAt,
         'exp' => $expirationTime,
         'iss' => $issuer,
-        'sub' => $user['id'], // 'sub' adalah standar klaim untuk User ID
+        'sub' => $user['user_id'], // 'sub' adalah standar klaim untuk User ID
         'data' => [
             'role' => $user['role'],
             'email' => $user['email'],
@@ -62,7 +62,7 @@ function generateToken($user, $secretKey, $db)
         'exp' => $issuedAt + (60 * 60 * 1), // (1 Jam)
         'iss' => $issuer,
         'jti' => $jti, // ID unik token ini
-        'sub' => $user['id'],
+        'sub' => $user['user_id'],
     ];
     $refreshToken = JWT::encode($refreshPayload, $secretKey, 'HS256');
 
