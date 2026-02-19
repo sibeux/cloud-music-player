@@ -84,6 +84,7 @@ try {
     }
 
     error_log("Refresh Error: " . $e->getMessage());
+    http_response_code(401);
     echo json_encode([
         'status' => 'error',
         'message' => 'Sesi berakhir, silakan login kembali.'
