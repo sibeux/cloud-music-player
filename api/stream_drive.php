@@ -6,7 +6,7 @@
 // test
 
 session_start();
-require __DIR__ . '/../vendor/autoload.php'; 
+require __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../utils/utils.php';
 require_once __DIR__ . '/image-dominant-color/get_color.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/connection.php';
