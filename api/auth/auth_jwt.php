@@ -3,7 +3,7 @@
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
 
-function helperRefreshMethod($user, $secretKey, $db) 
+function helperRefreshMethod($user, $secretKey, $db)
 {
     // Generate token secara otomatis
     $token = generateToken($user, $secretKey, $db);

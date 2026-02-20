@@ -65,7 +65,7 @@ try {
     $delStmt->bind_param("s", $jti);
     $delStmt->execute();
 
-    // GENERATE & SAVE NEW TOKENS (Pastikan helperRefreshMethod di auth_jwt.php sudah memanggil saveToDatabase)
+    // Generate & Save New Tokens
     $token = helperRefreshMethod($user, $secretKey, $db);
 
     echo json_encode([
