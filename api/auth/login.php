@@ -2,6 +2,7 @@
 header("Content-Type: application/json");
 require __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../database/db.php';
+require_once __DIR__ . '/auth_jwt.php';
 
 use Dotenv\Dotenv;
 
