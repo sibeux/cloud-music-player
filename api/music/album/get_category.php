@@ -19,12 +19,14 @@ function get_category($db, $userId)
     ORDER BY
         pin_at IS NULL ASC,
         pin_at ASC,
-        played_at DESC;";
+        played_at DESC
+        c.created_at DESC;";
 
     $stmt = $db->prepare($query);
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
+    // Pakai while agar semua data bisa masuk ke array
     $data = [];
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;

@@ -17,7 +17,7 @@ function get_album($db, $userId, $role = 'user')
             SELECT MAX(am3.date_created) 
             FROM album_musics am3
             WHERE am3.id_playlist = a.uid
-        ) AS date_created
+        ) AS created_at
     FROM `albums` a
     -- Ambil data pin album (jika ada), tidak wajib ada (LEFT JOIN)
     LEFT JOIN `album_pins` ap ON ap.pinnable_album_id = a.uid 
@@ -31,13 +31,14 @@ function get_album($db, $userId, $role = 'user')
         pin_at ASC,
         -- Lagu terakhir diputar, terbaru di atas
         played_at DESC,
-        -- Lagu terbaru ditambahkan, terbaru di atas
-        date_created DESC;";
+        -- Album terbaru ditambahkan, terbaru di atas
+        created_at DESC;";
 
     $stmt = $db->prepare($query);
     $stmt->bind_param("is", $userId, $role);
     $stmt->execute();
     $result = $stmt->get_result();
+    // Pakai while agar semua data bisa masuk ke array
     $data = [];
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;

@@ -28,6 +28,7 @@ function get_playlist($db, $userId)
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
+    // Pakai while agar semua data bisa masuk ke array
     $data = [];
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;
