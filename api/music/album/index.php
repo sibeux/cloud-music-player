@@ -16,34 +16,51 @@ ini_set('memory_limit', '256M'); // atau '512M' kalau perlu
 
 require_once __DIR__ . '/../../init.php';
 
-$auth = new BearerAuth($secretKey);
-$user = $auth->validate();
-$userId = $user['sub'];
-$role = $user['data']['role'];
+try {
 
-require_once __DIR__ . '/get_album.php';
-require_once __DIR__ . '/get_category.php';
-require_once __DIR__ . '/get_playlist.php';
+    $auth = new BearerAuth($secretKey);
+    $user = $auth->validate();
+    $userId = $user['sub'];
+    $role = $user['data']['role'];
 
-// id, type, name, author/jumlah_lagu, cover, have_disc, played_at";
+    require_once __DIR__ . '/get_album.php';
+    require_once __DIR__ . '/get_category.php';
+    require_once __DIR__ . '/get_playlist.php';
 
-$list_album = get_album($db, $userId, $role);
-$list_category = get_category($db, $userId);
-$list_playlist = get_playlist($db, $userId);
+    // id, type, name, author/jumlah_lagu, cover, have_disc, played_at";
 
-$data = [
-    'album' => $list_album,
-    'category' => $list_category,
-    'playlist' => $list_playlist
-];
+    $list_album = get_album($db, $userId, $role);
+    $list_category = get_category($db, $userId);
+    $list_playlist = get_playlist($db, $userId);
 
-// Header anti-cache
-header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-header('Pragma: no-cache');
-header('Expires: 0');
+    $data = [
+        'album' => $list_album,
+        'category' => $list_category,
+        'playlist' => $list_playlist
+    ];
 
-echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    // Header anti-cache
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
 
-// Tutup koneksi setelah semua selesai
-$db->close();
+    echo json_encode([
+        "status" => "success",
+        "data" => $data
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Internal server error",
+        "error" => $e->getMessage()
+    ]);
+} finally {
+    // Tutup koneksi setelah semua selesai
+    if (isset($db)) {
+        // Sesuaikan dengan driver: $db->close() untuk MySQLi, $db = null untuk PDO
+        $db->close();
+    }
+}
 exit;
