@@ -24,29 +24,40 @@ class BearerAuth
         $this->secretKey = $key;
     }
 
-    public function validate()
+    public function validate($strict = true)
     {
         $headers = getallheaders();
 
+        // Cek Header
         if (!isset($headers['Authorization'])) {
-            $this->responseError("Unauthorized: Token missing");
+            if ($strict) {
+                $this->responseError("Unauthorized: Token missing");
+            }
+            return null; // Guest user
         }
 
         $authHeader = $headers['Authorization'];
         $token = str_replace('Bearer ', '', $authHeader);
 
+        // Cek Token
         try {
             $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
-            return json_decode(json_encode($decoded), true);
+            return (array) $decoded; // Langsung cast ke array lebih simpel
         } catch (Exception $e) {
-            $this->responseError("Unauthorized: " . $e->getMessage());
+            if ($strict) {
+                $this->responseError("Unauthorized: " . $e->getMessage());
+            }
+            return null; // Token expired/salah tapi tetap lanjut (untuk free user)
         }
     }
 
     private function responseError($msg)
     {
         http_response_code(401);
-        echo json_encode(["message" => $msg]);
+        echo json_encode([
+            "status" => "error",
+            "message" => $msg
+        ]);
         exit();
     }
 }

@@ -19,7 +19,7 @@ require_once __DIR__ . '/../../init.php';
 try {
 
     $auth = new BearerAuth($secretKey);
-    $user = $auth->validate();
+    $user = $auth->validate(false);
     $userId = $user['sub'];
     $role = $user['data']['role'];
 
