@@ -45,11 +45,11 @@ if (!empty($data->email) && !empty($data->password)) {
 
     } else {
         http_response_code(401);
-        echo json_encode(["status" => "error", "message" => "Email atau Password salah."]);
+        echo json_encode(["status" => "error", "error" => "credentials_mismatch", "message" => "Email atau Password salah."]);
     }
 } else {
     http_response_code(400);
-    echo json_encode(["status" => "error", "message" => "Bad Request: Email dan Password harus diisi."]);
+    echo json_encode(["status" => "error", "error" => "bad_request", "message" => "Email dan Password harus diisi."]);
 }
 
 $db->close();
