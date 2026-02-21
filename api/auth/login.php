@@ -12,7 +12,7 @@ $secretKey = $_ENV['JWT_AUTH_SECRET'] ?? null;
 
 if (!$secretKey) {
     http_response_code(500);
-    echo json_encode(["status" => "error", "message" => "Internal Server Error: Secret key missing"]);
+    echo json_encode(["status" => "error", "error" => "secret_key_missing", "message" => "Internal Server Error: Secret key missing"]);
     exit;
 }
 
