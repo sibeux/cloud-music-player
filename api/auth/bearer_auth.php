@@ -15,14 +15,17 @@ if (!$secretKey) {
     exit;
 }
 
-class BearerAuth {
+class BearerAuth
+{
     private $secretKey;
 
-    public function __construct($key) {
+    public function __construct($key)
+    {
         $this->secretKey = $key;
     }
 
-    public function validate() {
+    public function validate()
+    {
         $headers = getallheaders();
 
         if (!isset($headers['Authorization'])) {
@@ -34,13 +37,14 @@ class BearerAuth {
 
         try {
             $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
-            return (array) $decoded;
+            return json_decode(json_encode($decoded), true);
         } catch (Exception $e) {
             $this->responseError("Unauthorized: " . $e->getMessage());
         }
     }
 
-    private function responseError($msg) {
+    private function responseError($msg)
+    {
         http_response_code(401);
         echo json_encode(["message" => $msg]);
         exit();

@@ -1,6 +1,7 @@
 <?php
 
-function get_playlist($db, $userId) {
+function get_playlist($db, $userId)
+{
     $query = "SELECT 
         p.playlist_id, p.title, p.cover,
         u.name as author,
@@ -27,5 +28,9 @@ function get_playlist($db, $userId) {
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_assoc();
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+    return $data;
 }

@@ -38,5 +38,9 @@ function get_album($db, $userId, $role = 'user')
     $stmt->bind_param("is", $userId, $role);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_assoc();
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+    return $data;
 }

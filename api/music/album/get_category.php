@@ -1,6 +1,7 @@
 <?php
 
-function get_category($db, $userId) {
+function get_category($db, $userId)
+{
     $query = "SELECT 
         c.category_id, c.name, c.cover,
         (
@@ -24,5 +25,9 @@ function get_category($db, $userId) {
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_assoc();
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+    return $data;
 }
