@@ -24,7 +24,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 if (!empty($data->email) && !empty($data->password)) {
     // Cari user di database
-    $query = "SELECT user_id, password FROM users WHERE email = ?";
+    $query = "SELECT user_id, password, name, role, email FROM users WHERE email = ?";
     $stmt = $db->prepare($query);
     $stmt->bind_param("s", $data->email);
     $stmt->execute();
