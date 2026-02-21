@@ -41,7 +41,17 @@ function get_album($db, $userId, $role = 'user')
     // Pakai while agar semua data bisa masuk ke array
     $data = [];
     while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+        $data[] = [
+            'id' => $row['uid'],
+            'type' => 'album',
+            'title' => $row['name'],
+            'cover' => $row['image'],
+            'author' => $row['author'],
+            'played_at' => $row['played_at'],
+            'pin_at' => $row['pin_at'],
+            'have_disc' => $row['have_disc'],
+            'created_at' => $row['created_at'],
+        ];
     }
     return $data;
 }

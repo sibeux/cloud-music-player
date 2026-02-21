@@ -3,7 +3,7 @@
 function get_category($db, $userId)
 {
     $query = "SELECT 
-        c.category_id, c.name, c.cover,
+        c.category_id, c.name, c.cover, c.created_at,
         (
             -- Ambil waktu terakhir kali salah satu lagu dari kategori ini diputar
             SELECT MAX(rm.played_at) 
@@ -29,7 +29,17 @@ function get_category($db, $userId)
     // Pakai while agar semua data bisa masuk ke array
     $data = [];
     while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+        $data[] = [
+            'id' => $row['category_id'],
+            'type' => 'category',
+            'title' => $row['name'],
+            'cover' => $row['cover'],
+            'author' => null,
+            'played_at' => $row['played_at'],
+            'pin_at' => $row['pin_at'],
+            'have_disc' => 0,
+            'created_at' => $row['created_at'],
+        ];
     }
     return $data;
 }
