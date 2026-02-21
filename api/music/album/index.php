@@ -16,7 +16,8 @@ ini_set('memory_limit', '256M'); // atau '512M' kalau perlu
 
 require_once __DIR__ . '/../../init.php';
 
-$user = BearerAuth::validate();
+$auth = new BearerAuth($secretKey);
+$user = $auth->validate();
 $userId = $user['sub'];
 $role = $user['data']['role'];
 

@@ -16,33 +16,33 @@ if (!$secretKey) {
 }
 
 class BearerAuth {
-    private static $secretKey;
+    private $secretKey;
 
-    // Fungsi Validasi (Dipakai di setiap request API)
-    public static function validate() {
+    public function __construct($key) {
+        $this->secretKey = $key;
+    }
+
+    public function validate() {
         $headers = getallheaders();
-        
+
         if (!isset($headers['Authorization'])) {
-            self::responseError("Unauthorized: Token missing");
+            $this->responseError("Unauthorized: Token missing");
         }
 
-        // Ambil token dari format "Bearer <token>"
         $authHeader = $headers['Authorization'];
         $token = str_replace('Bearer ', '', $authHeader);
 
         try {
-            // Verifikasi Signature dan Expiration
-            $decoded = JWT::decode($token, new Key(self::$secretKey, 'HS256'));
-            return (array) $decoded; // Balikkan data user (id, role, dll)
+            $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
+            return (array) $decoded;
         } catch (Exception $e) {
-            self::responseError("Unauthorized: " . $e->getMessage());
+            $this->responseError("Unauthorized: " . $e->getMessage());
         }
     }
 
-    private static function responseError($msg) {
+    private function responseError($msg) {
         http_response_code(401);
         echo json_encode(["message" => $msg]);
-        // Langsung hentikan proses hit API.
         exit();
     }
 }
