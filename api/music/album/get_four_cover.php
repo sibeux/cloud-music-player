@@ -39,7 +39,7 @@ function getFourCoverCategory($db, $categoryId, $role){
         MAX(CASE WHEN rc.rank = 2 THEN rc.cover END) AS cover_2,
         MAX(CASE WHEN rc.rank = 3 THEN rc.cover END) AS cover_3,
         MAX(CASE WHEN rc.rank = 4 THEN rc.cover END) AS cover_4,
-        COUNT(rc.cover) AS total_albums_found
+        COUNT(rc.cover) AS total_non_null_cover
     FROM categories c
     LEFT JOIN (
         SELECT 
