@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../init.php';
+require_once __DIR__ . '/get_song_by_album.php';
 
 try {
     $auth = new BearerAuth($secretKey);
@@ -14,11 +15,21 @@ try {
             getSongByAlbum($db, $_GET['album_id'], $role);
             break;
         default:
-            echo json_encode(["error" => "Invalid method"]);
+            http_response_code(400);
+            echo json_encode([
+                "status" => "error",
+                "error" => "invalid_method",
+                "message" => "Method tidak valid"
+            ]);
             break;
     }
     } else {
-        echo json_encode(["error" => "Method not provided"]);
+        http_response_code(400);
+        echo json_encode([
+            "status" => "error",
+            "error" => "method_not_provided",
+            "message" => "Method tidak disediakan"
+        ]);
     }
 
     
