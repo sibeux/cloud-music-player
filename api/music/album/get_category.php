@@ -1,6 +1,6 @@
 <?php
 
-function get_category($db, $userId)
+function get_category($db, $userId, $role)
 {
     $query = "SELECT 
         c.category_id, c.name, c.cover, c.created_at,
@@ -29,11 +29,16 @@ function get_category($db, $userId)
     // Pakai while agar semua data bisa masuk ke array
     $data = [];
     while ($row = $result->fetch_assoc()) {
+        $cover = $row['cover'];
+        if (empty($cover)) {
+            $fourCover = getFourCoverCategory($db, $row['category_id'], $role);
+            $cover = $fourCover;
+        }
         $data[] = [
             'id' => $row['category_id'],
             'type' => 'category',
             'title' => $row['name'],
-            'cover' => $row['cover'],
+            'cover' => $cover,
             'author' => null,
             'played_at' => $row['played_at'],
             'pin_at' => $row['pin_at'],
