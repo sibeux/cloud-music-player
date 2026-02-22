@@ -9,10 +9,13 @@ try {
     $userId = isset($user['sub']) ? $user['sub'] : 0;
     $role = isset($user['data']['role']) ? $user['data']['role'] : 'user';
 
-    if (isset($_GET['type'])) {
-    switch ($_GET['type']) {
+    $type = isset($_GET['type']) ? $_GET['type'] : null;
+    $uid = isset($_GET['uid']) ? $_GET['uid'] : null;
+
+    if (isset($type)) {
+    switch ($type) {
         case 'album':
-            getSongByAlbum($db, $_GET['album_id'], $role);
+            getSongByAlbum($db, $uid, $role);
             break;
         default:
             http_response_code(400);
