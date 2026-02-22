@@ -23,7 +23,7 @@ function get_album($db, $userId, $role = 'user')
     LEFT JOIN `album_pins` ap ON ap.pinnable_album_id = a.uid 
         AND ap.pinnable_album_type = 'album' 
         AND ap.user_id = ? -- Filter by user
-    WHERE (? = 'admin' OR a.is_private = 1) -- Jika admin, lewati filter is_private
+    WHERE (? = 'admin' OR a.is_private = 0) -- Jika admin, lewati filter is_private
     ORDER BY 
         -- Album yang dipin muncul duluan (NULL ke bawah)
         pin_at IS NULL ASC,
