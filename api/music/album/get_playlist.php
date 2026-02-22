@@ -31,11 +31,12 @@ function get_playlist($db, $userId)
     // Pakai while agar semua data bisa masuk ke array
     $data = [];
     while ($row = $result->fetch_assoc()) {
+        $fourCover = getFourCoverPlaylist($db, $row['playlist_id']);
         $data[] = [
             'id' => $row['playlist_id'],
             'type' => 'playlist',
             'title' => $row['title'],
-            'cover' => $row['cover'],
+            'cover' => $fourCover,
             'author' => $row['author'],
             'played_at' => $row['played_at'],
             'pin_at' => $row['pin_at'],
