@@ -20,6 +20,7 @@ function get_playlist($db, $userId)
     LEFT JOIN `album_pins` ap ON ap.pinnable_album_id = p.playlist_id
         AND ap.pinnable_album_type = 'playlist'
         AND ap.user_id = ? -- Filter by user
+    WHERE p.user_id = ?
     ORDER BY
         pin_at IS NULL ASC,
         pin_at ASC,
@@ -27,7 +28,7 @@ function get_playlist($db, $userId)
         p.created_at DESC;";
 
     $stmt = $db->prepare($query);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param("ii", $userId, $userId);
     $stmt->execute();
     $result = $stmt->get_result();
     // Pakai while agar semua data bisa masuk ke array
