@@ -2,6 +2,10 @@
 
 function get_album($db, $userId, $role = 'user')
 {
+    // Tentukan kondisi berdasarkan role
+    // Admin melihat semua, User hanya melihat yang is_private = 0
+    $privacyCondition = ($role === 'admin') ? '1=1' : 'a.is_private = 0';
+
     $query = "SELECT 
         a.uid, a.name, a.image, a.author, a.have_disc,
         (
@@ -23,7 +27,7 @@ function get_album($db, $userId, $role = 'user')
     LEFT JOIN `album_pins` ap ON ap.pinnable_album_id = a.uid 
         AND ap.pinnable_album_type = 'album' 
         AND ap.user_id = ? -- Filter by user
-    WHERE (? = 'admin' OR a.is_private = 0) -- Jika admin, lewati filter is_private
+    WHERE $privacyCondition
     ORDER BY 
         -- Album yang dipin muncul duluan (NULL ke bawah)
         pin_at IS NULL ASC,
@@ -35,7 +39,7 @@ function get_album($db, $userId, $role = 'user')
         created_at DESC;";
 
     $stmt = $db->prepare($query);
-    $stmt->bind_param("is", $userId, $role);
+    $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
     // Pakai while agar semua data bisa masuk ke array
