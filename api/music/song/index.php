@@ -6,6 +6,7 @@ ini_set('memory_limit', '256M');
 require_once __DIR__ . '/../../init.php';
 require_once __DIR__ . '/get_song_by_album.php';
 require_once __DIR__ . '/get_song_by_category.php';
+require_once __DIR__ . '/get_song_by_playlist.php';
 
 try {
     $auth = new BearerAuth($secretKey);
@@ -23,6 +24,9 @@ try {
             break;
         case 'category':
             getSongByCategory($db, $uid, $role);
+            break;
+        case 'playlist':
+            getSongByPlaylist($db, $uid, $userId);
             break;
         default:
             http_response_code(400);

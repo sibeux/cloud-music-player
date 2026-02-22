@@ -5,6 +5,8 @@ function getSongByCategory($db, $categoryId, $role){
     $joinCondition = "";
     $whereCategory = "1=1"; // Default jika kategori 6 (tampilkan semua)
 
+    // Harap hati-hati. Jika dari frontend dikirim string, maka di sini juga cek harus string.
+    // Mungkin karena !== tidak bisa membandingkan string dan integer. Exactly matching.
     if ($categoryId !== "6") {
         $joinCondition = "
             JOIN category_albums ca on ca.album_id = a.uid
