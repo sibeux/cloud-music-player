@@ -77,6 +77,14 @@ function saveToDatabase($db, $userId, $tokenHash, $jti, $exp) {
         // Konversi timestamp 'exp' dari JWT ke format DATETIME MySQL
         $expiresAt = date('Y-m-d H:i:s', $exp);
 
+        // Bersihkan token lama milik user ini yang sudah expired
+        // Agar DB tidak penuh sampah tanpa mengganggu session aktif di device lain
+        $cleanupSql = "DELETE FROM refresh_tokens WHERE user_id = ? AND expires_at < NOW()";
+        $cleanStmt = $db->prepare($cleanupSql);
+        $cleanStmt->bind_param("i", $userId);
+        $cleanStmt->execute();
+        $cleanStmt->close();
+
         $sql = "INSERT INTO refresh_tokens
                 (user_id, token_hash, jti, expires_at, is_revoked)
                 VALUES
