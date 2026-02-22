@@ -2,7 +2,7 @@
 
 include './connection.php';
 
-$sql = "SELECT * FROM API";
+$sql = "SELECT * FROM APIs";
 
 // Query to retrieve data from MySQL
 $result = $db->query($sql);
