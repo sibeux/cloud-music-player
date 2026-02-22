@@ -20,7 +20,7 @@ function get_category($db, $userId)
         pin_at IS NULL ASC,
         pin_at ASC,
         played_at DESC,
-        c.created_at DESC;";
+        c.created_at DESC";
 
     $stmt = $db->prepare($query);
     $stmt->bind_param("i", $userId);
