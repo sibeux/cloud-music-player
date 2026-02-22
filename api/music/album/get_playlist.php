@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/get_four_cover.php';
+
 function get_playlist($db, $userId)
 {
     $query = "SELECT 
