@@ -5,7 +5,7 @@ function getSongByCategory($db, $categoryId, $role){
     $joinCondition = "";
     $whereCategory = "1=1"; // Default jika kategori 6 (tampilkan semua)
 
-    if ($categoryId !== 6) {
+    if ($categoryId !== "6") {
         $joinCondition = "
             JOIN category_albums ca on ca.album_id = a.uid
             JOIN categories c on c.category_id = ca.category_id
@@ -34,7 +34,7 @@ function getSongByCategory($db, $categoryId, $role){
     $stmtSong = $db->prepare($query);
 
     // Bind parameter hanya jika bukan kategori 6
-    if ($categoryId !== 6) {
+    if ($categoryId !== "6") {
         $stmtSong->bind_param("i", $categoryId);
     }
 
