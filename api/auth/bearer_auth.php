@@ -42,7 +42,7 @@ class BearerAuth
         // Cek Token
         try {
             $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
-            return (array) $decoded; // Langsung cast ke array lebih simpel
+            return json_decode(json_encode($decoded), true);
         } catch (Exception $e) {
             if ($strict) {
                 $this->responseError("Unauthorized: " . $e->getMessage());
