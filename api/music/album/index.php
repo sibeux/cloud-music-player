@@ -20,8 +20,8 @@ try {
 
     $auth = new BearerAuth($secretKey);
     $user = $auth->validate(false);
-    $userId = $user['sub'];
-    $role = $user['data']['role'];
+    $userId = $user['sub'] ?? 0;
+    $role = $user['data']['role'] ?? 'user';
 
     require_once __DIR__ . '/get_album.php';
     require_once __DIR__ . '/get_category.php';
