@@ -1,7 +1,18 @@
 <?php
 
 function getSongByCategory($db, $categoryId, $role){
-    $isAllBeat = $categoryId === 6 ? '(c.category_id = ? OR 1=1)' : 'c.category_id = ?';
+    // Pastikan join hanya terjadi jika kategori spesifik (!= 6)
+    $joinCondition = "";
+    $whereCategory = "1=1"; // Default jika kategori 6 (tampilkan semua)
+
+    if ($categoryId !== 6) {
+        $joinCondition = "
+            JOIN category_albums ca on ca.album_id = a.uid
+            JOIN categories c on c.category_id = ca.category_id
+        ";
+        $whereCategory = "c.category_id = ?";
+    }
+
     $privacyCondition = ($role === 'admin') ? '1=1' : 'a.is_private = 0';
 
     $query = "SELECT 
@@ -13,18 +24,23 @@ function getSongByCategory($db, $categoryId, $role){
         FROM musics m
         JOIN album_musics am on am.id_music = m.id_music
         JOIN albums a on am.id_playlist = a.uid
-        JOIN category_albums ca on ca.album_id = a.uid
-        JOIN categories c on c.category_id = ca.category_id
+        $joinCondition
         LEFT JOIN metadata_musics mm ON m.id_music = mm.metadata_id_music
         LEFT JOIN cache_musics ON m.id_music = cache_musics.cache_music_id
         LEFT JOIN dominant_colors dc on m.cover = dc.image_url
-        WHERE $isAllBeat AND $privacyCondition
+        WHERE $whereCategory AND $privacyCondition
         ORDER BY m.title ASC;";
 
     $stmtSong = $db->prepare($query);
-    $stmtSong->bind_param("i", $categoryId);
+
+    // Bind parameter hanya jika bukan kategori 6
+    if ($categoryId !== 6) {
+        $stmtSong->bind_param("i", $categoryId);
+    }
+
     $stmtSong->execute();
-    $songs = $stmtSong->get_result()->fetch_all(MYSQLI_ASSOC);
+    $result = $stmtSong->get_result();
+    $songs = $result->fetch_all(MYSQLI_ASSOC);
 
     echo json_encode([
         "status" => "success",
