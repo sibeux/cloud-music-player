@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../init.php';
 require_once __DIR__ . '/get_song_by_album.php';
+require_once __DIR__ . '/get_song_by_category.php';
 
 try {
     $auth = new BearerAuth($secretKey);
@@ -16,6 +17,9 @@ try {
     switch ($type) {
         case 'album':
             getSongByAlbum($db, $uid, $role);
+            break;
+        case 'category':
+            getSongByCategory($db, $uid, $role);
             break;
         default:
             http_response_code(400);
