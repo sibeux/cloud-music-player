@@ -2,11 +2,11 @@
 
 function get_category($db, $userId, $role)
 {
-    $query = "SELECT 
+    $query = "SELECT
         c.category_id, c.name, c.cover, c.created_at,
         (
             -- Ambil waktu terakhir kali salah satu lagu dari kategori ini diputar
-            SELECT MAX(rm.played_at) 
+            SELECT MAX(rm.played_at)
             FROM recent_musics rm
             WHERE rm.recentable_album_id = c.category_id
                 AND rm.recentable_album_type = 'category'

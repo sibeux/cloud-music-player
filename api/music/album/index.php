@@ -1,12 +1,12 @@
 <?php
 /**
  * Menambahkan unique index pada tabel `category_albums`.
- * 
+ *
  * Constraint ini memastikan tidak ada duplikat data antara FK ID `categories` dan `albums`.
  *
  * @table category_albums
  * @constraint idx_unique_categoryalbum_id
- * 
+ *
  * ALTER TABLE category_albums
  * ADD UNIQUE INDEX idx_unique_categoryalbum_id (category_id, album_id);
  */

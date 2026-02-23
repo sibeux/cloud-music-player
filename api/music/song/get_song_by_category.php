@@ -17,7 +17,7 @@ function getSongByCategory($db, $categoryId, $role){
 
     $privacyCondition = ($role === 'admin') ? '1=1' : 'a.is_private = 0';
 
-    $query = "SELECT 
+    $query = "SELECT
         m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.uploader, m.is_suspicious,
         a.name as album,
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,

@@ -11,14 +11,14 @@ function getFourCoverPlaylist($db, $playlistId){
         COUNT(rc.cover) AS total_non_null_cover
     FROM playlists p
     LEFT JOIN (
-        SELECT 
-            pm.id_playlist, 
+        SELECT
+            pm.id_playlist,
             m.cover,
             ROW_NUMBER() OVER (PARTITION BY pm.id_playlist ORDER BY MIN(pm.created_at) ASC) as rank
         FROM playlist_musics pm
         JOIN musics m ON pm.id_music = m.id_music
         WHERE pm.id_playlist = ?
-        GROUP BY pm.id_playlist, m.cover 
+        GROUP BY pm.id_playlist, m.cover
     ) AS rc ON p.playlist_id = rc.id_playlist AND rc.rank <= 4
     WHERE p.playlist_id = ? AND p.cover IS NULL
     GROUP BY p.playlist_id;";
