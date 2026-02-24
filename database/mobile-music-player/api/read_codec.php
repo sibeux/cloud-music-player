@@ -51,10 +51,10 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
         $musicQuality = in_array(strtolower($codecName), $lossyFormats) ? "lossy" : "lossless";
 
         $stmt_metadata = $db->prepare(
-            "INSERT INTO metadata_music (metadata_id_music, codec_name, music_quality, sample_rate, bit_rate, bits_per_raw_sample) VALUES (?, ?, ?, ?, ?, ?) 
+            "INSERT INTO metadata_musics (metadata_id_music, codec_name, music_quality, sample_rate, bit_rate, bits_per_raw_sample) VALUES (?, ?, ?, ?, ?, ?)
             -- Gunakan perintah INSERT ... ON DUPLICATE KEY UPDATE. Perintah ini secara cerdas akan melakukan INSERT jika datanya baru, atau UPDATE jika datanya sudah ada. Ini sering disebut operasi \"UPSERT\" (Update or Insert)
-            ON DUPLICATE KEY UPDATE 
-                    codec_name = VALUES(codec_name), 
+            ON DUPLICATE KEY UPDATE
+                    codec_name = VALUES(codec_name),
                     music_quality = VALUES(music_quality),
                     sample_rate = VALUES(sample_rate),
                     bit_rate = VALUES(bit_rate),

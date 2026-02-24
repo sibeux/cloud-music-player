@@ -94,12 +94,12 @@ function get_token($config, $isSuspicious)
 {
     $tokenFile = __DIR__ . '/token.json';
 
-    // --- 1. Coba ambil dari session (cache paling cepat) ---
+    // Coba ambil dari session (cache paling cepat)
     if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {
         return $_SESSION['gdrive_token'];
     }
 
-    // --- 2. Jika tidak ada di session atau sudah expired, baca dari file ---
+    // Jika tidak ada di session atau sudah expired, baca dari file
     if (!file_exists($tokenFile)) {
         http_response_code(500);
         log_message("[ERROR] Token file not found. Please run authentication flow first.");
@@ -115,7 +115,7 @@ function get_token($config, $isSuspicious)
 
     $tokenData = json_decode(fread($fp, filesize($tokenFile)), true);
 
-    // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
+    // Refresh token jika sudah expired atau file ditandai suspicous
     if (time() >= $tokenData['expires_at'] || $isSuspicious == 'true') {
         log_message("File terindikasi suspicous / refresh token sudah expired. Mencoba mendapatkan refresh token yang baru...");
 
@@ -162,7 +162,7 @@ function get_token($config, $isSuspicious)
     flock($fp, LOCK_UN); // Lepas kunci
     fclose($fp);
 
-    // --- 4. Simpan di session untuk request berikutnya ---
+    // Simpan di session untuk request berikutnya ---
     $_SESSION['gdrive_token'] = $tokenData;
     return $tokenData;
 }

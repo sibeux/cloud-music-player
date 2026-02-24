@@ -4,12 +4,12 @@ require_once __DIR__ . '/get_four_cover.php';
 
 function get_playlist($db, $userId)
 {
-    $query = "SELECT 
+    $query = "SELECT
         p.playlist_id, p.title, p.cover, p.created_at,
         u.name as author,
         (
             -- Ambil waktu terakhir kali salah satu lagu dari playlist ini diputar
-            SELECT MAX(rm.played_at) 
+            SELECT MAX(rm.played_at)
             FROM recent_musics rm
             WHERE rm.recentable_album_id = p.playlist_id
                 AND rm.recentable_album_type = 'playlist'

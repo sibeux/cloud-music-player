@@ -1,3 +1,4 @@
 {
-    "workbench.colorTheme": "Dracula"
+    "workbench.colorTheme": "Dracula",
+    "editor.wordWrap": "on"
 }
