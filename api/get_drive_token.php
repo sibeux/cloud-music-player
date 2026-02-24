@@ -8,7 +8,7 @@ include './google-oauth-config.php';
 $uploader = $_GET['uploader'];
 $isSuspicious = $_GET['issuspicious'];
 
-if ($isSuspicious == 'false'){
+if ($isSuspicious == 'false') {
     $uploader = "wahabinasrul@gmail.com";
 } else {
     log_message("[WARNING] File is suspicous, get refresh token from owner.");
@@ -27,9 +27,10 @@ sendJsonResponses([
 ]);
 
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
-function get_token($config, $isSuspicious) {
+function get_token($config, $isSuspicious)
+{
     $tokenFile = __DIR__ . '/token.json';
-    
+
     // --- 1. Coba ambil dari session (cache paling cepat) ---
     if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {
         return $_SESSION['gdrive_token'];
@@ -53,7 +54,7 @@ function get_token($config, $isSuspicious) {
 
     // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
     if (time() >= $tokenData['expires_at'] || $isSuspicious == 'true') {
-        
+
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
             die("Konfigurasi tidak ditemukan atau tidak lengkap.");
@@ -71,7 +72,6 @@ function get_token($config, $isSuspicious) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $resp = curl_exec($ch);
-        curl_close($ch);
         $respData = json_decode($resp, true);
         if (!isset($respData['access_token'])) {
             flock($fp, LOCK_UN); // Lepas kunci sebelum mati

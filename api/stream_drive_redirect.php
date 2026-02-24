@@ -122,7 +122,6 @@ function get_token($config, $isSuspicious)
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $resp = curl_exec($ch);
-        curl_close($ch);
         $respData = json_decode($resp, true);
         if (!isset($respData['access_token'])) {
             flock($fp, LOCK_UN); // Lepas kunci sebelum mati
@@ -225,8 +224,6 @@ if (!$isCacheValid) {
         http_response_code(500);
         die("Failed to download file from Google Drive.");
     }
-
-    curl_close($ch);
 
     // --- Lepas kunci dan tutup file handle cache ---
     // Fungsi: Menyelesaikan proses penulisan ke file cache.

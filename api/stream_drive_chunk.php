@@ -32,20 +32,20 @@ $fileType = $query['param5'] ?? null;
 if (!$fileId) {
     http_response_code(400);
     die("fileId is required");
-} 
+}
 if (!$musicId) {
     http_response_code(400);
     die("musicId is required");
-} 
+}
 if (!$uploader) {
     http_response_code(400);
     die("uploader is required");
 }
 
 // Jika bukan file suspicious, pakai dari wahabinasrul
-if ($isSuspicious == 'false'){
+if ($isSuspicious == 'false') {
     $uploader = "wahabinasrul@gmail.com";
-} else{
+} else {
     log_message("[WARNING] File is suspicous, get refresh token from owner.");
 }
 
@@ -74,9 +74,10 @@ if (!is_dir($cacheDir)) {
 $cacheFilePath = $cacheDir . '/' . basename($fileId);
 
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
-function get_token($config, $isSuspicious) {
+function get_token($config, $isSuspicious)
+{
     $tokenFile = __DIR__ . '/token.json';
-    
+
     // --- 1. Coba ambil dari session (cache paling cepat) ---
     if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {
         return $_SESSION['gdrive_token'];
@@ -100,7 +101,7 @@ function get_token($config, $isSuspicious) {
 
     // --- 3. Refresh token jika sudah expired atau file ditandai suspicous ---
     if (time() >= $tokenData['expires_at'] || $isSuspicious == 'true') {
-        
+
         // Lakukan pengecekan jika config tidak ditemukan
         if (!$config) {
             die("Konfigurasi tidak ditemukan atau tidak lengkap.");
@@ -118,7 +119,6 @@ function get_token($config, $isSuspicious) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $resp = curl_exec($ch);
-        curl_close($ch);
         $respData = json_decode($resp, true);
         if (!isset($respData['access_token'])) {
             flock($fp, LOCK_UN); // Lepas kunci sebelum mati
@@ -149,7 +149,8 @@ function get_token($config, $isSuspicious) {
 }
 
 // --- Logika untuk insert ke sql ---
-function sendToSqlCache($db, $fileId, $musicId){
+function sendToSqlCache($db, $fileId, $musicId)
+{
     // Masukkan ke sql bahwa file dengan ID ini telah di-cache.
     $stmt = $db->prepare("INSERT INTO cache_music (cache_music_id) VALUES (?)");
     $stmt->bind_param("i", $musicId);
@@ -168,7 +169,7 @@ $isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePat
 // Cek apakah file exist?
 if (!$isCacheValid) {
     log_message("[INFO] Cache MISS for fileId: $fileId. Downloading from Google Drive.");
-    
+
     // --- Get Token ---
     $tokenData = get_token($config, $isSuspicious);
     $accessToken = $tokenData['access_token'];
@@ -193,12 +194,12 @@ if (!$isCacheValid) {
 
     // --- Downlaod file from Google Drive and save to cache ---
     $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
-    if ($isSuspicious){
+    if ($isSuspicious) {
         // acknowledgeAbuse=true berlaku untuk file suspicious
         $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media&acknowledgeAbuse=true";
     }
     $ch = curl_init($driveUrl);
-    
+
     $curlHeadersToGoogle = ["Authorization: Bearer " . $accessToken];
     curl_setopt($ch, CURLOPT_HTTPHEADER, $curlHeadersToGoogle);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -207,7 +208,7 @@ if (!$isCacheValid) {
     // --- Alihkan output cURL ke file cache, bukan ke browser ---
     // Fungsi: Opsi ini mengarahkan semua data yang diterima cURL untuk ditulis ke file handle ($cacheFp).
     curl_setopt($ch, CURLOPT_FILE, $cacheFp);
-    
+
     curl_exec($ch);
 
     if (curl_errno($ch)) {
@@ -220,8 +221,6 @@ if (!$isCacheValid) {
         http_response_code(500);
         die("Failed to download file from Google Drive.");
     }
-    
-    curl_close($ch);
 
     // --- Lepas kunci dan tutup file handle cache ---
     // Fungsi: Menyelesaikan proses penulisan ke file cache.
@@ -250,7 +249,6 @@ $chMeta = curl_init($metaUrl);
 curl_setopt($chMeta, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . $accessToken]);
 curl_setopt($chMeta, CURLOPT_RETURNTRANSFER, true);
 $metaResp = curl_exec($chMeta);
-curl_close($chMeta);
 $metaData = json_decode($metaResp, true);
 $fileName = $metaData['name'] ?? $fileId; // Use fileId for fallback
 
@@ -270,7 +268,7 @@ if (isset($_SERVER['HTTP_RANGE'])) {
     if (!empty($matches[2])) {
         $end = intval($matches[2]);
     }
-    
+
     header("HTTP/1.1 206 Partial Content");
     header("Content-Range: bytes $start-$end/$fileSize");
     header("Content-Length: " . ($end - $start + 1));
@@ -287,7 +285,8 @@ $bytesSent = 0;
 $chunkSize = 8192; // 8KB per chunk
 
 // Deactivate output buffering PHP
-if (ob_get_level() > 0) ob_end_flush();
+if (ob_get_level() > 0)
+    ob_end_flush();
 
 while (!feof($localFp) && ($bytesSent < ($end - $start + 1)) && !connection_aborted()) {
     $bytesToRead = min($chunkSize, ($end - $start + 1) - $bytesSent);

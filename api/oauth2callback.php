@@ -2,7 +2,7 @@
 // ** Script ini untuk mendapatkan access token dan refresh token dari Google OAuth2
 
 // config.php harus ada Client ID & Client Secret + redirect_uri
-include __DIR__ . '/google-oauth-config.php'; 
+include __DIR__ . '/google-oauth-config.php';
 
 // Ambil code dari query parameter
 $code = $_GET['code'] ?? null;
@@ -35,7 +35,6 @@ $response = curl_exec($ch);
 if (curl_errno($ch)) {
     die("Curl error: " . curl_error($ch));
 }
-curl_close($ch);
 
 // Parse hasil JSON
 $tokenData = json_decode($response, true);

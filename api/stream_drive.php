@@ -137,7 +137,6 @@ function get_token($config, $isSuspicious)
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $resp = curl_exec($ch);
-        curl_close($ch);
         $respData = json_decode($resp, true);
         if (!isset($respData['access_token'])) {
             flock($fp, LOCK_UN); // Lepas kunci sebelum mati
@@ -241,8 +240,6 @@ if (!$isCacheValid) {
         die("Failed to download file from Google Drive.");
     }
 
-    curl_close($ch);
-
     // --- Lepas kunci dan tutup file handle cache ---
     // Fungsi: Menyelesaikan proses penulisan ke file cache.
     flock($cacheFp, LOCK_UN);
@@ -289,7 +286,6 @@ if ($fileType == "audio") {
 
     // JALANKAN PROSES LATAR BELAKANG ---
     // Script PHP masih jalan di server, tapi user sudah tidak menunggu (loading icon di browser sudah hilang)
-
     if (!$isCacheValid) {
         sendToSqlCache($db, $fileId, $musicId);
     }
