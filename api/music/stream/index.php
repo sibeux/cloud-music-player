@@ -39,7 +39,7 @@ try {
         }
         else if (stripos($coverUrl, 'cdncloudflare') !== false)
         {
-            $cloudflareUrl = cloduflareStreamFormatter($coverUrl, $musicId);
+            $cloudflareUrl = cloduflareStreamFormatter($coverUrl, "111");
             header("Location: " . $cloudflareUrl, true, 302);
         }
         else 
