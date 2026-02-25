@@ -39,61 +39,63 @@ function getSecureCdnUrl($filePath, $secretKey, $expirySeconds = 3600) {
     return "{$cdnDomain}{$path}?verify={$signature}&expires={$expires}";
 }
 
-// --- CONTOH PENGGUNAAN ---
-// $file = "/albums/nirvana/smellsliketeenspirit.mp3";
-$file = $_GET['path'] ?? null;
-$musicId = $_GET['music_id'] ?? null;
+function streamMusicFromCF($secretKey, $db, $ffprobePath, $file, $musicId){
+    // --- CONTOH PENGGUNAAN ---
+    // $file = "/albums/nirvana/smellsliketeenspirit.mp3";
+    // $file = $_GET['path'] ?? null;
+    // $musicId = $_GET['music_id'] ?? null;
 
-// Dokumentasi url handled: https://chatgpt.com/c/692a7a4a-f358-8323-8d44-d770ab9f9b63
-$dir  = dirname($file);
-$base = basename($file);       // hanya "Elven Dreams.m4a"
-$encodedBase = rawurlencode($base);
+    // Dokumentasi url handled: https://chatgpt.com/c/692a7a4a-f358-8323-8d44-d770ab9f9b63
+    $dir  = dirname($file);
+    $base = basename($file);       // hanya "Elven Dreams.m4a"
+    $encodedBase = rawurlencode($base);
 
-// contoh: /music/flac/Elven%20Dreams.m4a
-$finalPath = $dir . '/' . $encodedBase;
+    // contoh: /music/flac/Elven%20Dreams.m4a
+    $finalPath = $dir . '/' . $encodedBase;
 
-// echo getSecureCdnUrl($file, $secret);
-// Output: https://cdn.../file.mp3?verify=a1b2c3...&expires=17000000
-$rawUrl = getSecureCdnUrl($finalPath, $secretKey);
-$streamUrl = $rawUrl;
+    // echo getSecureCdnUrl($file, $secret);
+    // Output: https://cdn.../file.mp3?verify=a1b2c3...&expires=17000000
+    $rawUrl = getSecureCdnUrl($finalPath, $secretKey);
+    $streamUrl = $rawUrl;
 
-// BUAT PAYLOAD
-$responsePayload = [
-        "success" => true,
-        "music_id" => $musicId,
-        "stream_url" => $streamUrl,
-];
+    // BUAT PAYLOAD
+    $responsePayload = [
+            "success" => true,
+            "music_id" => $musicId,
+            "stream_url" => $streamUrl,
+    ];
 
-// KIRIM RESPON MANUAL (Tiru isi sendJsonResponses tapi tanpa die) ---
-http_response_code(200);
-header('Content-Type: application/json');
-// Header anti-cache (Sesuai fungsi helper)
-header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-header('Pragma: no-cache');
-header('Expires: 0');
+    // KIRIM RESPON MANUAL (Tiru isi sendJsonResponses tapi tanpa die) ---
+    http_response_code(200);
+    header('Content-Type: application/json');
+    // Header anti-cache (Sesuai fungsi helper)
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
 
-// echo json_encode($responsePayload);
-header("Location: " . $streamUrl, true, 302);
+    // echo json_encode($responsePayload);
+    header("Location: " . $streamUrl, true, 302);
 
-// PUTUS KONEKSI KE USER (Magic terjadi di sini) ---
-// Browser user akan mengira loading sudah selesai 100%
-if (function_exists('fastcgi_finish_request')) {
-    fastcgi_finish_request(); // Khusus PHP-FPM (Nginx/Modern Apache)
-} else {
-    // Fallback jika server tidak pakai FPM (Jarang, tapi aman ditambahkan)
-    ob_start();
-    echo "";
-    $size = ob_get_length();
-    header("Content-Length: $size");
-    header("Connection: close");
-    ob_end_flush();
-    ob_flush();
-    flush();
+    // PUTUS KONEKSI KE USER (Magic terjadi di sini) ---
+    // Browser user akan mengira loading sudah selesai 100%
+    if (function_exists('fastcgi_finish_request')) {
+        fastcgi_finish_request(); // Khusus PHP-FPM (Nginx/Modern Apache)
+    } else {
+        // Fallback jika server tidak pakai FPM (Jarang, tapi aman ditambahkan)
+        ob_start();
+        echo "";
+        $size = ob_get_length();
+        header("Content-Length: $size");
+        header("Connection: close");
+        ob_end_flush();
+        ob_flush();
+        flush();
+    }
+
+    // JALANKAN PROSES LATAR BELAKANG ---
+    // Script PHP masih jalan di server, tapi user sudah tidak menunggu (loading icon di browser sudah hilang)
+    // Fungsi berat ini sekarang aman dijalankan tanpa bikin user lemot
+    checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
+
+    exit();
 }
-
-// JALANKAN PROSES LATAR BELAKANG ---
-// Script PHP masih jalan di server, tapi user sudah tidak menunggu (loading icon di browser sudah hilang)
-// Fungsi berat ini sekarang aman dijalankan tanpa bikin user lemot
-checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
-
-exit();
