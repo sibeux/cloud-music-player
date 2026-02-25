@@ -224,3 +224,7 @@ function sendToSqlCache($db, $fileId, $musicId)
 
     log_message("[SUCCESS] Caching process success for fileId: $fileId.");
 }
+// Hati-hati sama exit di sini.
+// Jika file ini di-include ke file lain, exit() akan menghentikan eksekusi file tersebut.
+// Karena exit di sini tidak di dalam function, maka exit() akan menghentikan eksekusi file yang meng-include file ini.
+// exit();
