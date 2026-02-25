@@ -224,5 +224,3 @@ function sendToSqlCache($db, $fileId, $musicId)
 
     log_message("[SUCCESS] Caching process success for fileId: $fileId.");
 }
-
-exit();
