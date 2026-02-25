@@ -34,9 +34,7 @@ try {
             } 
         else if (stripos($coverUrl, 'github') !== false)
         {
-            $githubUrl = str_replace("https://github.com/", "https://raw.githubusercontent.com/", $coverUrl);
-            $githubUrl = str_replace("/blob/", "/refs/heads/", $githubUrl);
-            $githubUrl = explode("?", $githubUrl)[0];
+            $githubUrl = githubUrlFormatter($coverUrl);
             header("Location: " . $githubUrl, true, 302);
         }
         else 
@@ -87,8 +85,11 @@ try {
         streamingMusicFromGdrive($db, $musicId, $musicUrl, $fileType, $allApiData, $ffprobePath);
     } else if (stripos($musicUrl, 'cdncloudflare/') !== false) {
         
+    } else if (stripos($musicUrl, 'github') !== false) {
+        $githubUrl = githubUrlFormatter($musicUrl);
+        header("Location: " . $githubUrl, true, 302);
     } else {
-
+        header("Location: " . $musicUrl, true, 302);
     }
 
 } catch (Exception $e) {
@@ -98,4 +99,11 @@ try {
         "message" => "Internal server error",
         "error" => $e->getMessage()
     ]);
+}
+
+function githubUrlFormatter($url){
+    $githubUrl = str_replace("https://github.com/", "https://raw.githubusercontent.com/", $url);
+    $githubUrl = str_replace("/blob/", "/refs/heads/", $githubUrl);
+    $githubUrl = explode("?", $githubUrl)[0];
+    return $githubUrl;
 }
