@@ -30,17 +30,6 @@ function streamingMusicFromGdrive($db, $musicId, $musicUrl, $fileType, $allApiDa
     $music = $result->fetch_assoc();
     $stmt->close();
 
-    $params = isset($_GET['params']) ? $_GET['params'] : '';
-
-    // Pisahkan URL menjadi array
-    $parts = explode('/', $params);
-
-    // Misal kita mau otomatis bikin query array: param1, param2, param3...
-    $query = [];
-    foreach ($parts as $index => $value) {
-        $query['param' . ($index + 1)] = $value;
-    }
-
     // Regex tunggal untuk menangkap ID dari kedua format URL Google Drive
     // Regex '/\/d\/([a-zA-Z0-9_-]+)|files\/([a-zA-Z0-9_-]+)/' akan mencari
     // ID file baik yang diawali /d/ maupun files/
