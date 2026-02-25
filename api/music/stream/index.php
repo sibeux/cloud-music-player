@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 session_start();
 require_once __DIR__ . '/../../../vendor/autoload.php';
 require_once __DIR__ . '/../../../database/db.php';
-require_once __DIR__ . '/../../../auth/bearer_auth.php';
+require_once __DIR__ . '/../../auth/bearer_auth.php';
 require_once __DIR__ . '/../../stream_drive.php';
 
 try {
