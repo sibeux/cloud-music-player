@@ -28,7 +28,14 @@ try {
 
     if ($fileType === "image"){
         $coverUrl = $_GET['cover_url'];
-        streamingMusicFromGdrive($db, "111", $coverUrl, "image", $allApiData, $ffprobePath);
+        if (stripos($coverUrl, 'drive.google.com') !== false) 
+            {
+                streamingMusicFromGdrive($db, "111", $coverUrl, "image", $allApiData, $ffprobePath);
+            } 
+        else 
+            {
+                header("Location: " . $coverUrl, true, 302);
+            }
         die();
     }
 
