@@ -37,6 +37,11 @@ try {
             $githubUrl = githubUrlFormatter($coverUrl);
             header("Location: " . $githubUrl, true, 302);
         }
+        else if (stripos($coverUrl, 'cdncloudflare') !== false)
+        {
+            $cloudflareUrl = cloduflareStreamFormatter($coverUrl, $musicId);
+            header("Location: " . $cloudflareUrl, true, 302);
+        }
         else 
             {
                 header("Location: " . $coverUrl, true, 302);
@@ -106,4 +111,11 @@ function githubUrlFormatter($url){
     $githubUrl = str_replace("/blob/", "/refs/heads/", $githubUrl);
     $githubUrl = explode("?", $githubUrl)[0];
     return $githubUrl;
+}
+
+function cloduflareStreamFormatter($url, $musicId){
+    $path = str_replace("cdncloudflare", '', $url);
+    $endpoint = __DIR__ . '/../../get_hmac_token.php';
+    $url = "$endpoint?path=$path&music_id=$musicId";
+    return $url;
 }
