@@ -10,7 +10,8 @@ try {
     $userId = isset($user['sub']) ? $user['sub'] : 0;
     $userRole = isset($user['data']['role']) ? $user['data']['role'] : 'user';
 
-    $musicId = isset($_GET['musicId']) ? $_GET['musicId'] : null;
+    $musicId = isset($_GET['music_id']) ? $_GET['music_id'] : null;
+    $fileType = isset($_GET['file_type']) ? $_GET['file_type'] : "audio";
 
     $sql = "SELECT m.link_gdrive, a.is_private 
             FROM musics m
@@ -50,7 +51,7 @@ try {
     // Cek source of stream
     $musicUrl = $music['link_gdrive'];
     if (stripos($musicUrl, 'drive.google.com') !== false) {
-        streamingMusicFromGdrive($db, $musicId, $musicUrl, "audio", $allApiData, $ffprobePath);
+        streamingMusicFromGdrive($db, $musicId, $musicUrl, $fileType, $allApiData, $ffprobePath);
     } else if (stripos($musicUrl, 'cdncloudflare/') !== false) {
         
     } else {
