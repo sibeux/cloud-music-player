@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../../init.php';
 require_once __DIR__ . '/../../stream_drive.php';
-use BearerAuth;
 
 try {
     $auth = new BearerAuth($secretKey);
