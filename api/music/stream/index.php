@@ -49,10 +49,11 @@ try {
         die();
     }
 
-    $sql = "SELECT m.link_gdrive, a.is_private 
+    // $sql = "SELECT m.link_gdrive, a.is_private 
+    $sql = "SELECT m.link_gdrive 
             FROM musics m
-            JOIN album_musics am ON m.id_music = am.id_music
-            JOIN albums a ON am.id_playlist = a.uid
+            -- JOIN album_musics am ON m.id_music = am.id_music
+            -- JOIN albums a ON am.id_playlist = a.uid
             WHERE m.id_music = ? 
             LIMIT 1;";
 
@@ -93,6 +94,9 @@ try {
     } else if (stripos($musicUrl, 'github') !== false) {
         $githubUrl = githubUrlFormatter($musicUrl);
         header("Location: " . $githubUrl, true, 302);
+    } else if (stripos($musicUrl, 'cloudflare') !== false) {
+        $cloudflareUrl = cloduflareStreamFormatter($musicUrl, $musicId);
+        header("Location: " . $cloudflareUrl, true, 302);
     } else {
         header("Location: " . $musicUrl, true, 302);
     }
