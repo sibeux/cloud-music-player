@@ -7,7 +7,7 @@
 require_once __DIR__ . '/../utils/utils.php';
 require_once __DIR__ . '/image-dominant-color/get_color.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
-require_once __DIR__ . '/music/test-stream/get_gdrive_oauth_token.php';
+require_once __DIR__ . '/music/stream/get_gdrive_oauth_token.php';
 require_once __DIR__ . '/google-oauth-config.php';
 
 use Dotenv\Dotenv;
