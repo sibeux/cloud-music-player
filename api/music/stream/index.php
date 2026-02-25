@@ -32,6 +32,13 @@ try {
             {
                 streamingMusicFromGdrive($db, "111", $coverUrl, "image", $allApiData, $ffprobePath);
             } 
+        else if (stripos($coverUrl, 'github') !== false)
+        {
+            $githubUrl = str_replace("https://github.com/", "https://raw.githubusercontent.com/", $coverUrl);
+            $githubUrl = str_replace("/blob/", "/refs/heads/", $githubUrl);
+            $githubUrl = explode("?", $githubUrl)[0];
+            header("Location: " . $githubUrl, true, 302);
+        }
         else 
             {
                 header("Location: " . $coverUrl, true, 302);
