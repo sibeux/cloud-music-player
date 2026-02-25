@@ -1,6 +1,21 @@
 <?php
+// Izinkan semua origin atau sesuaikan dengan kebutuhan
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+// PENTING: Tambahkan 'Range' di Allow-Headers
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Range");
+// PENTING: Beritahu player bahwa server mendukung range request
+header("Access-Control-Expose-Headers: Content-Range, Content-Length, Accept-Ranges");
+
+// Tangani request OPTIONS (Preflight)
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 session_start();
-require_once __DIR__ . '/../../init.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../database/db.php';
+require_once __DIR__ . '/../../../auth/bearer_auth.php';
 require_once __DIR__ . '/../../stream_drive.php';
 
 try {
