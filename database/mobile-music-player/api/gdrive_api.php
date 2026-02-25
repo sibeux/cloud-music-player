@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include './connection.php';
 
 $sql = "SELECT * FROM APIs";
