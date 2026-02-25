@@ -15,14 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 session_start();
 require_once __DIR__ . '/../../../vendor/autoload.php';
 require_once __DIR__ . '/../../../database/db.php';
-require_once __DIR__ . '/../../auth/bearer_auth.php';
 require_once __DIR__ . '/../../stream_drive.php';
 
 try {
-    $auth = new BearerAuth($secretKey);
-    $user = $auth->validate(false);
-    $userId = isset($user['sub']) ? $user['sub'] : 0;
-    $userRole = isset($user['data']['role']) ? $user['data']['role'] : 'user';
+    // $auth = new BearerAuth($secretKey);
+    // $user = $auth->validate(false);
+    // $userId = isset($user['sub']) ? $user['sub'] : 0;
+    // $userRole = isset($user['data']['role']) ? $user['data']['role'] : 'user';
 
     $musicId = isset($_GET['music_id']) ? $_GET['music_id'] : null;
     $fileType = isset($_GET['file_type']) ? $_GET['file_type'] : "audio";
@@ -47,26 +46,26 @@ try {
     $music = $result->fetch_assoc();
     $stmt->close();
 
-    if (!$music) {
-        http_response_code(404);
-        echo json_encode([
-            "status" => "error",
-            "error" => "music_not_found",
-            "message" => "Music not found",
-        ]);
-        die();
-    }
+    // if (!$music) {
+    //     http_response_code(404);
+    //     echo json_encode([
+    //         "status" => "error",
+    //         "error" => "music_not_found",
+    //         "message" => "Music not found",
+    //     ]);
+    //     die();
+    // }
 
-    // Cek Akses
-    if ($music['is_private'] == 1 && $userRole === 'user') {
-        http_response_code(403);
-        echo json_encode([
-            "status" => "error",
-            "error" => "access_denied",
-            "message" => "Akses ditolak: Konten Premium",
-        ]);
-        die();
-    }
+    // // Cek Akses
+    // if ($music['is_private'] == 1 && $userRole === 'user') {
+    //     http_response_code(403);
+    //     echo json_encode([
+    //         "status" => "error",
+    //         "error" => "access_denied",
+    //         "message" => "Akses ditolak: Konten Premium",
+    //     ]);
+    //     die();
+    // }
 
     // Cek source of stream
     $musicUrl = $music['link_gdrive'];
