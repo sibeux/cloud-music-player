@@ -39,7 +39,7 @@ try {
         }
         else if (stripos($coverUrl, 'cdncloudflare') !== false)
         {
-            $cloudflareUrl = cloduflareStreamFormatter($coverUrl, "111");
+            $cloudflareUrl = "https://cdn.sibeux.my.id/" . str_replace("cdncloudflare/", '', $coverUrl);
             header("Location: " . $cloudflareUrl, true, 302);
         }
         else 
