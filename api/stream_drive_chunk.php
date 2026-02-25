@@ -19,7 +19,7 @@ $parts = explode('/', $params);
 // Misal kita mau otomatis bikin query array: param1, param2, param3...
 $query = [];
 foreach ($parts as $index => $value) {
-    $query['param'.($index+1)] = $value;
+    $query['param' . ($index + 1)] = $value;
 }
 
 // Contoh akses:
@@ -74,7 +74,7 @@ if (!is_dir($cacheDir)) {
 $cacheFilePath = $cacheDir . '/' . basename($fileId);
 
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
-function get_token($config, $isSuspicious)
+function getGdriveOauthToken($config, $isSuspicious)
 {
     $tokenFile = __DIR__ . '/token.json';
 
@@ -171,7 +171,7 @@ if (!$isCacheValid) {
     log_message("[INFO] Cache MISS for fileId: $fileId. Downloading from Google Drive.");
 
     // --- Get Token ---
-    $tokenData = get_token($config, $isSuspicious);
+    $tokenData = getGdriveOauthToken($config, $isSuspicious);
     $accessToken = $tokenData['access_token'];
 
     // --- Buka file cache untuk ditulis ---
@@ -242,7 +242,7 @@ $mimeType = mime_content_type($cacheFilePath) ?: 'application/octet-stream';
 // --- get nama file asli dari Google Drive (optional, tapi good for 'Content-Disposition') ---
 // Kita hanya need melakukan ini sekali if cache baru dibuat, tapi untuk simplicitas kita query lagi.
 // Untuk performa lebih, nama file can saved di file terpisah ex: `cache/fileId.meta`.
-$tokenData = get_token($config, $isSuspicious);
+$tokenData = getGdriveOauthToken($config, $isSuspicious);
 $accessToken = $tokenData['access_token'];
 $metaUrl = "https://www.googleapis.com/drive/v3/files/$fileId?fields=name";
 $chMeta = curl_init($metaUrl);
