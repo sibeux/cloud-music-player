@@ -12,6 +12,12 @@ try {
     $musicId = isset($_GET['music_id']) ? $_GET['music_id'] : null;
     $fileType = isset($_GET['file_type']) ? $_GET['file_type'] : "audio";
 
+    if ($fileType === "image"){
+        $coverUrl = $_GET['cover_url'];
+        streamingMusicFromGdrive($db, "", $coverUrl, "image", $allApiData, $ffprobePath);
+        die();
+    }
+
     $sql = "SELECT m.link_gdrive, a.is_private 
             FROM musics m
             JOIN album_musics am ON m.id_music = am.id_music

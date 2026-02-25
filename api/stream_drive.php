@@ -15,30 +15,34 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->safeLoad(); // Pakai safeLoad agar tidak error fatal jika file .env lupa dibuat
 
-function streamingMusicFromGdrive($db, $musicId, $musicUrl, $fileType, $allApiData, $ffprobePath)
+function streamingMusicFromGdrive($db, $musicId, $mediaUrl, $fileType, $allApiData, $ffprobePath)
 {
     $query = "SELECT
         m.uploader, m.is_suspicious
         FROM musics m
         WHERE m.id_music = ?;";
 
-    $stmt = $db->prepare($query);
-    $stmt->bind_param("i", $musicId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $music = $result->fetch_assoc();
-    $stmt->close();
+    $music = [];
+
+    if ($fileType !== "image") {
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("i", $musicId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $music = $result->fetch_assoc();
+        $stmt->close();
+    }
 
     // Regex tunggal untuk menangkap ID dari kedua format URL Google Drive
     // Regex '/\/d\/([a-zA-Z0-9_-]+)|files\/([a-zA-Z0-9_-]+)/' akan mencari
     // ID file baik yang diawali /d/ maupun files/
     $regexFileIdGdrive = '/\/d\/([a-zA-Z0-9_-]+)|files\/([a-zA-Z0-9_-]+)/';
-    preg_match($regexFileIdGdrive, $musicUrl, $matches);
+    preg_match($regexFileIdGdrive, $mediaUrl, $matches);
     $fileIdFromUrl = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : null);
 
     $fileId = $fileIdFromUrl ?? null;
     $uploader = $music['uploader'] ?? null;
-    $isSuspicious = $music['is_suspicious'] ?? null;
+    $isSuspicious = $music['is_suspicious'] ?? 'false';
 
     if (!$fileId) {
         http_response_code(400);
@@ -55,15 +59,6 @@ function streamingMusicFromGdrive($db, $musicId, $musicUrl, $fileType, $allApiDa
             "status" => "error",
             "error" => "musicId_not_found",
             "message" => "Music ID not found",
-        ]);
-        die();
-    }
-    if (!$uploader) {
-        http_response_code(400);
-        echo json_encode([
-            "status" => "error",
-            "error" => "uploader_not_found",
-            "message" => "Uploader not found",
         ]);
         die();
     }

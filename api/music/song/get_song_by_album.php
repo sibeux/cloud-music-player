@@ -29,7 +29,7 @@ function getSongByAlbum($db, $albumId, $role){
     }
 
     $query = "SELECT
-        m.id_music, m.link_gdrive, m.title, m.artist, m.cover, m.disc_number, m.uploader, m.is_suspicious,
+        m.id_music, m.title, m.artist, m.cover, m.disc_number,
         a.name as album,
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color,
