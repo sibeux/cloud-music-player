@@ -49,6 +49,7 @@ try {
 
     // Cek source of stream
     $musicUrl = $music['link_gdrive'];
+    var_dump($musicUrl);
     if (stripos($musicUrl, 'drive.google.com') !== false) {
         streamingMusicFromGdrive($db, $musicId, $musicUrl, $fileType, $allApiData, $ffprobePath);
     } else if (stripos($musicUrl, 'cdncloudflare/') !== false) {
