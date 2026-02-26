@@ -92,6 +92,7 @@ try {
         streamingMusicFromGdrive($db, $musicId, $musicUrl, $fileType, $allApiData, $ffprobePath);
     } else if (stripos($musicUrl, 'cdncloudflare/') !== false) {
         $path = str_replace("cdncloudflare", '', $musicUrl);
+        $path = str_replace('%20', ' ', $path);
         streamMusicFromCF($secretKey, $db, $ffprobePath, $path, $musicId);
     } else if (stripos($musicUrl, 'github') !== false) {
         $githubUrl = githubUrlFormatter($musicUrl);
