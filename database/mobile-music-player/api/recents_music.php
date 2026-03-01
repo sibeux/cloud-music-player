@@ -23,7 +23,7 @@ try {
 
         // Eksekusi query untuk 'recents_music'
         if ($userId != 0){
-            $stmt_recents = $db->prepare("INSERT INTO recents_musics (uid_music, user_id, recentable_album_id, recentable_album_type) VALUES (?, ?, ?, ?)");
+            $stmt_recents = $db->prepare("INSERT INTO recent_musics (uid_music, user_id, recentable_album_id, recentable_album_type) VALUES (?, ?, ?, ?)");
             $stmt_recents->bind_param("iiis", $music_id, $userId, $albumId, $albumType);
             if (!$stmt_recents->execute()) {
                 die("Error inserting recents: " . $stmt_recents->error);
@@ -45,11 +45,11 @@ try {
         
         // Execution query for 'delete'
         if ($userId != 0) {
-            $delete_sql = "DELETE FROM recents_musics
+            $delete_sql = "DELETE FROM recent_musics
                         WHERE user_id = ?
                         AND uid_recents NOT IN (
                             SELECT uid_recents FROM (
-                                SELECT uid_recents FROM recents_musics
+                                SELECT uid_recents FROM recent_musics
                                 WHERE user_id = ?
                                 ORDER BY played_at DESC
                                 LIMIT 500
