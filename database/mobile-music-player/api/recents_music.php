@@ -62,8 +62,8 @@ try {
             "status" => "success",
             "message" => "Recent music successfully added.",
             "metadata" => "Metadata success processed dan saved.",
-            "codec" => $codec,
-            "dominant_color" => $dominant_color,
+            "codec" => $codec ?? null,
+            "dominant_color" => $dominant_color ?? null,
         ]);
     } else {
         // Add response if no ada POST data
