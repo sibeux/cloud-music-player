@@ -68,7 +68,10 @@ try {
     } else {
         // Add response if no ada POST data
         http_response_code(400);
-        echo "Error: music_id is not set.";
+        echo json_encode([
+            "status" => "error",
+            "message" => "Error: music_id is not set."
+        ]);
     }
 } catch (Exception $e) {
     http_response_code(500);
