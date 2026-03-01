@@ -31,6 +31,30 @@ try {
             $stmt_recents->close();
         }
 
+        // Flush response immediately to the client
+        http_response_code(202);
+        sendJsonResponse([
+            "status" => "success",
+            "message" => "Recent music queued.",
+            "codec" => null,
+            "dominant_color" => null,
+        ]);
+
+        // Close connection so client doesn't wait
+        if (function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request(); // Khusus PHP-FPM (Nginx/Modern Apache)
+        } else {
+            // Fallback jika server tidak pakai FPM (Jarang, tapi aman ditambahkan)
+            ob_start();
+            echo "";
+            $size = ob_get_length();
+            header("Content-Length: $size");
+            header("Connection: close");
+            ob_end_flush();
+            ob_flush();
+            flush();
+        }
+
         // Eksekusi query untuk 'metadata_music'
         // Cek dulu apakah perlu dilakukan read codec?
         if ($codec_exist == 'false'){
