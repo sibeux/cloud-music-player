@@ -56,7 +56,7 @@ try {
                             ) AS last_500
                         )";
             $stmt_delete = $db->prepare($delete_sql);
-            $stmt_delete->bind_param("i", $userId);
+            $stmt_delete->bind_param("ii", $userId, $userId);
             if (!$stmt_delete->execute()) {
                 die("Error deleting old recents: " . $stmt_delete->error);
             }
