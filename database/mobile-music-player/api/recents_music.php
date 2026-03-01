@@ -31,30 +31,6 @@ try {
             $stmt_recents->close();
         }
 
-        // Flush response immediately to the client
-        http_response_code(202);
-        sendJsonResponse([
-            "status" => "success",
-            "message" => "Recent music queued.",
-            "codec" => null,
-            "dominant_color" => null,
-        ]);
-
-        // Close connection so client doesn't wait
-        if (function_exists('fastcgi_finish_request')) {
-            fastcgi_finish_request(); // Khusus PHP-FPM (Nginx/Modern Apache)
-        } else {
-            // Fallback jika server tidak pakai FPM (Jarang, tapi aman ditambahkan)
-            ob_start();
-            echo "";
-            $size = ob_get_length();
-            header("Content-Length: $size");
-            header("Connection: close");
-            ob_end_flush();
-            ob_flush();
-            flush();
-        }
-
         // Eksekusi query untuk 'metadata_music'
         // Cek dulu apakah perlu dilakukan read codec?
         if ($codec_exist == 'false'){
@@ -68,18 +44,24 @@ try {
         }
         
         // Execution query for 'delete'
-        $delete_sql = "DELETE FROM recents_musics
-                    WHERE uid_recents NOT IN (
-                        SELECT uid_recents FROM (
-                            SELECT uid_recents FROM recents_musics WHERE user_id = ? ORDER BY played_at DESC LIMIT 500
-                        ) AS last_500
-                    )";
-        $stmt_delete = $db->prepare($delete_sql);
-        $stmt_delete->bind_param("i", $userId);
-        if (!$stmt_delete->execute()) {
-            die("Error deleting old recents: " . $stmt_delete->error);
+        if ($userId != 0) {
+            $delete_sql = "DELETE FROM recents_musics
+                        WHERE user_id = ?
+                        AND uid_recents NOT IN (
+                            SELECT uid_recents FROM (
+                                SELECT uid_recents FROM recents_musics
+                                WHERE user_id = ?
+                                ORDER BY played_at DESC
+                                LIMIT 500
+                            ) AS last_500
+                        )";
+            $stmt_delete = $db->prepare($delete_sql);
+            $stmt_delete->bind_param("i", $userId);
+            if (!$stmt_delete->execute()) {
+                die("Error deleting old recents: " . $stmt_delete->error);
+            }
+            $stmt_delete->close();
         }
-        $stmt_delete->close();
 
         // echo json response
         sendJsonResponse([

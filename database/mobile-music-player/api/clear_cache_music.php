@@ -1,7 +1,7 @@
 <?php
 include './connection.php';
 
-$sql = "TRUNCATE TABLE cache_music";
+$sql = "TRUNCATE TABLE cache_musics";
 
 if ($db->query($sql) === TRUE) {
     echo "[" . date("Y-m-d H:i:s") . "] cache_music berhasil dikosongkan dan ID reset ke 1.\n";
