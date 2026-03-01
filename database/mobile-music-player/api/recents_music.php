@@ -59,9 +59,9 @@ try {
 
         // echo json response
         sendJsonResponse([
-            "success" => true,
+            "status" => "success",
+            "message" => "Recent music successfully added.",
             "metadata" => "Metadata success processed dan saved.",
-            "recents" => "Recent music successfully added.",
             "codec" => $codec,
             "dominant_color" => $dominant_color,
         ]);
