@@ -1,57 +1,85 @@
 <?php
 
-global $ffprobePath, $db;
-include './connection.php';
+global $ffprobePath;
+require_once __DIR__ . '/../../init.php';
 require_once __DIR__ . '/read_codec.php';
 require_once __DIR__ . '/../../../api/image-dominant-color/get_color.php';
 
-if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['music_url']) && isset($_POST['dominant_color_exist']) && isset($_POST['image_url'])) {
-    $codec = null;
-    $dominant_color = null;
+try {
+    $auth = new BearerAuth($secretKey);
+    $user = $auth->validate(false);
+    $userId = isset($user['sub']) ? $user['sub'] : 0;
 
-    // 1. Eksekusi query untuk 'recents_music'
-    $stmt_recents = $db->prepare("INSERT INTO recents_music (uid_music, played_at) VALUES (?, NOW())");
-    $stmt_recents->bind_param("i", $_POST['music_id']); // i = integer
-    if (!$stmt_recents->execute()) {
-        die("Error inserting recents: " . $stmt_recents->error);
-    }
-    $stmt_recents->close();
+    if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['music_url']) && isset($_POST['dominant_color_exist']) && isset($_POST['image_url'])) {
+        $codec = null;
+        $dominant_color = null;
+        $image_url = $_POST['image_url'];
+        $music_id = $_POST['music_id'];
+        $music_url = $_POST['music_url'];
+        $codec_exist = $_POST['codec_exist'];
+        $dominant_color_exist = $_POST['dominant_color_exist'];
+        $albumId = $_POST['album_id'];
+        $albumType = $_POST['album_type'];
 
-    // 2. Eksekusi query untuk 'metadata_music'
-    // Cek dulu apakah perlu dilakukan read codec?
-    if ($_POST['codec_exist'] == 'false'){
-        $codec = checkCodecAudio($_POST['music_id'], $_POST['music_url'], $db, $ffprobePath);
-    }
+        // Eksekusi query untuk 'recents_music'
+        if ($userId != 0){
+            $stmt_recents = $db->prepare("INSERT INTO recents_musics (uid_music, user_id, recentable_album_id, recentable_album_type) VALUES (?, ?, ?, ?)");
+            $stmt_recents->bind_param("iiis", $music_id, $userId, $albumId, $albumType);
+            if (!$stmt_recents->execute()) {
+                die("Error inserting recents: " . $stmt_recents->error);
+            }
+            $stmt_recents->close();
+        }
 
-    // Dapatkan dominant color dari cover
-    if ($_POST['dominant_color_exist'] == 'false'){
-        $dominant_color = getDominantColors($_POST['image_url'], $db);
-    }
-    
-    // 3. Execution query for 'delete'
-    $delete_sql = "DELETE FROM recents_music
-                   WHERE uid_recents NOT IN (
-                       SELECT uid_recents FROM (
-                           SELECT uid_recents FROM recents_music ORDER BY played_at DESC LIMIT 500
-                       ) AS last_500
-                   )";
-    if (!$db->query($delete_sql)) {
-        die("Error deleting old recents: " . $db->error);
-    }
+        // Eksekusi query untuk 'metadata_music'
+        // Cek dulu apakah perlu dilakukan read codec?
+        if ($codec_exist == 'false'){
+            $codec = checkCodecAudio($music_id, $music_url, $db, $ffprobePath);
+        }
 
-    // echo json response
-    sendJsonResponse([
-        "success" => true,
-        "metadata" => "Metadata success processed dan saved.",
-        "recents" => "Recent music successfully added.",
-        "codec" => $codec,
-        "dominant_color" => $dominant_color,
+        // Dapatkan dominant color dari cover
+        if ($dominant_color_exist == 'false'){
+            // ini warning karena diambil dari repo lain.
+            $dominant_color = getDominantColors($image_url, $db);
+        }
+        
+        // Execution query for 'delete'
+        $delete_sql = "DELETE FROM recents_musics
+                    WHERE uid_recents NOT IN (
+                        SELECT uid_recents FROM (
+                            SELECT uid_recents FROM recents_musics WHERE user_id = ? ORDER BY played_at DESC LIMIT 500
+                        ) AS last_500
+                    )";
+        $stmt_delete = $db->prepare($delete_sql);
+        $stmt_delete->bind_param("i", $userId);
+        if (!$stmt_delete->execute()) {
+            die("Error deleting old recents: " . $stmt_delete->error);
+        }
+        $stmt_delete->close();
+
+        // echo json response
+        sendJsonResponse([
+            "success" => true,
+            "metadata" => "Metadata success processed dan saved.",
+            "recents" => "Recent music successfully added.",
+            "codec" => $codec,
+            "dominant_color" => $dominant_color,
+        ]);
+    } else {
+        // Add response if no ada POST data
+        http_response_code(400);
+        echo "Error: music_id is not set.";
+    }
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Internal server error",
+        "error" => $e->getMessage()
     ]);
-} else {
-    // Add response if no ada POST data
-    http_response_code(400);
-    echo "Error: music_id is not set.";
+} finally{
+    if (isset($db)) {
+        $db->close();
+    }
 }
-
-// Close connection in the end
-$db->close();
+exit;
