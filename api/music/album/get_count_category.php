@@ -5,6 +5,8 @@ function get_count_category($db, $categoryId, $role)
     $joinCondition = "";
     $whereCategory = "1=1";
 
+    // Sudah kubilang, hati-hati sama operator `!==` - karena dia tidak bisa membandingkan string dan integer.
+    // Harus exact match.
     if ($categoryId !== 6) {
         $joinCondition = "
             JOIN category_albums ca on ca.album_id = a.uid
