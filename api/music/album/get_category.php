@@ -10,6 +10,7 @@ function get_category($db, $userId, $role)
             FROM recent_musics rm
             WHERE rm.recentable_album_id = c.category_id
                 AND rm.recentable_album_type = 'category'
+                AND rm.user_id = ?
         ) AS played_at,
         ap.created_at AS pin_at -- Waktu album di-pin
     FROM `categories` c
@@ -23,7 +24,7 @@ function get_category($db, $userId, $role)
         c.created_at DESC";
 
     $stmt = $db->prepare($query);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param("ii", $userId, $userId);
     $stmt->execute();
     $result = $stmt->get_result();
     // Pakai while agar semua data bisa masuk ke array

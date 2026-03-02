@@ -14,6 +14,7 @@ function get_album($db, $userId, $role = 'user')
             FROM recent_musics rm
             WHERE rm.recentable_album_id = a.uid
                 AND rm.recentable_album_type = 'album'
+                AND rm.user_id = ?
         ) AS played_at,
         ap.created_at AS pin_at, -- Waktu album di-pin
         (
@@ -39,7 +40,7 @@ function get_album($db, $userId, $role = 'user')
         created_at DESC;";
 
     $stmt = $db->prepare($query);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param("ii", $userId, $userId);
     $stmt->execute();
     $result = $stmt->get_result();
     // Pakai while agar semua data bisa masuk ke array
