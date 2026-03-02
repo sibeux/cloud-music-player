@@ -5,7 +5,7 @@ function get_count_category($db, $categoryId, $role)
     $joinCondition = "";
     $whereCategory = "1=1";
 
-    if ($categoryId !== "6") {
+    if ($categoryId !== 6) {
         $joinCondition = "
             JOIN category_albums ca on ca.album_id = a.uid
             JOIN categories c on c.category_id = ca.category_id
@@ -26,7 +26,7 @@ function get_count_category($db, $categoryId, $role)
 
     $stmt = $db->prepare($query);
 
-    if ($categoryId !== "6") {
+    if ($categoryId !== 6) {
         $stmt->bind_param("i", $categoryId);
     }
 
