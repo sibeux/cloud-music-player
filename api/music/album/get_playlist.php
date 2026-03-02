@@ -13,6 +13,7 @@ function get_playlist($db, $userId)
             FROM recent_musics rm
             WHERE rm.recentable_album_id = p.playlist_id
                 AND rm.recentable_album_type = 'playlist'
+                AND rm.user_id = ?
         ) AS played_at,
         ap.created_at AS pin_at -- Waktu album di-pin
     FROM `playlists` p
@@ -28,7 +29,7 @@ function get_playlist($db, $userId)
         p.created_at DESC;";
 
     $stmt = $db->prepare($query);
-    $stmt->bind_param("ii", $userId, $userId);
+    $stmt->bind_param("iii", $userId, $userId, $userId);
     $stmt->execute();
     $result = $stmt->get_result();
     // Pakai while agar semua data bisa masuk ke array
