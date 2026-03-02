@@ -19,7 +19,8 @@ try {
         $codec_exist = $_POST['codec_exist'];
         $dominant_color_exist = $_POST['dominant_color_exist'];
         $albumId = $_POST['album_id'];
-        $albumType = $_POST['album_type'];
+        // toLower
+        $albumType = strtolower($_POST['album_type']);
 
         // Eksekusi query untuk 'recents_music'
         if ($userId != 0){
