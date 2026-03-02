@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__ . '/get_count_category.php';
+require_once __DIR__ . '/get_four_cover_category.php';
+
 function get_category($db, $userId, $role)
 {
     $query = "SELECT
