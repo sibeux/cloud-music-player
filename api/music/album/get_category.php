@@ -34,12 +34,13 @@ function get_category($db, $userId, $role)
             $fourCover = getFourCoverCategory($db, $row['category_id'], $role);
             $cover = $fourCover;
         }
+        $count = get_count_category($db, $row['category_id'], $role);
         $data[] = [
             'id' => $row['category_id'],
             'type' => 'category',
             'title' => $row['name'],
             'cover' => $cover,
-            'author' => null,
+            'author' => $count,
             'played_at' => $row['played_at'],
             'pin_at' => $row['pin_at'],
             'have_disc' => 0,
