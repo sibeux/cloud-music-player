@@ -134,13 +134,15 @@ if (isset($_GET['play_playlist'])) {
 }
 
 if (isset($_GET['recents_music'])) {
+    $userId = $_GET['recents_music'];
     $sql = "SELECT 
     m.id_music, m.title, m.artist, m.cover, p.name as album,
-    recents_music.played_at
-    FROM recents_music
-    join music m on m.id_music = recents_music.uid_music 
-    JOIN album_music on album_music.id_music = m.id_music
-    JOIN playlist p on album_music.id_playlist = p.uid 
+    recent_musics.played_at
+    FROM recent_musics
+    join musics m on m.id_music = recent_musics.uid_music 
+    JOIN album_musics on album_musics.id_music = m.id_music
+    JOIN albums p on album_musics.id_playlist = p.uid 
+    WHERE recent_musics.user_id = '$userId'
     ORDER BY played_at DESC";
 }
 

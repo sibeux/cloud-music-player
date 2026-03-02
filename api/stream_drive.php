@@ -196,10 +196,10 @@ function streamingMusicFromGdrive($db, $musicId, $mediaUrl, $fileType, $allApiDa
         // Script PHP masih jalan di server, tapi user sudah tidak menunggu (loading icon di browser sudah hilang)
         if (!$isCacheValid) {
             sendToSqlCache($db, $fileId, $musicId);
-    }
+        }
 
-    // Fungsi berat ini sekarang aman dijalankan tanpa bikin user lemot
-    checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
+        // Fungsi berat ini sekarang aman dijalankan tanpa bikin user lemot
+        checkCodecAudio($musicId, $cacheFilePath, $db, $ffprobePath);
     } else {
         header("Location: " . $cacheFileUrl, true, 302);
     }
