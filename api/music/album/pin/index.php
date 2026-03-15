@@ -12,13 +12,13 @@ try {
 
     $method = $_SERVER['REQUEST_METHOD'];
 
-    if ($method === 'POST') {
+    if ($method == 'POST') {
         $albumId = isset($_POST['albumId']) ? $_POST['albumId'] : 0;
-        $albumType = isset($_POST['albumType']) ? $_POST['albumType'] : 'album';
+        $albumType = isset($_POST['albumType']) ? strtolower($_POST['albumType']) : 'album';
         pin($db, $userId, $albumId, $albumType);
-    } else if ($method === 'DELETE') {
+    } else if ($method == 'DELETE') {
         $albumId = isset($_GET['albumId']) ? $_GET['albumId'] : 0;
-        $albumType = isset($_GET['albumType']) ? $_GET['albumType'] : 'album';
+        $albumType = isset($_GET['albumType']) ? strtolower($_GET['albumType']) : 'album';
         unpin($db, $userId, $albumId, $albumType);
     } else {
         http_response_code(405);
