@@ -17,7 +17,7 @@ function setPin($db, $uid)
     }
 }
 
-function unPin($db, $uid)
+function unPinData($db, $uid)
 {
     $sql = "UPDATE playlist SET pin = 'false', date_pin = NULL WHERE uid = '$uid'";
 
@@ -37,7 +37,7 @@ switch ($_GET['action']) {
         setPin($db, $_GET['uid']);
         break;
     case 'unpin':
-        unPin($db, $_GET['uid']);
+        unPinData($db, $_GET['uid']);
         break;
     default:
         break;
