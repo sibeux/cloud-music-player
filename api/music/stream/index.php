@@ -32,7 +32,7 @@ try {
         if ($coverUrl['type'] == 'gdrive') {
             streamingMusicFromGdrive($db, "111", $coverUrl['url'], "image", $allApiData, $ffprobePath);
         } else if ($coverUrl['type'] == 'cdncloudflare') {
-            $url = "https://cdn.sibeux.my.id/" . $coverUrl['url'];
+            $url = "https://cdn.sibeux.my.id" . $coverUrl['url'];
             header("Location: " . $url, true, 302);
         } else {
             header("Location: " . $coverUrl['url'], true, 302);
