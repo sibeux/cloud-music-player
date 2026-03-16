@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 session_start();
 require_once __DIR__ . '/../../../vendor/autoload.php';
 require_once __DIR__ . '/../../../database/db.php';
-require_once __DIR__ . '/../../stream_drive.php';
+require_once __DIR__ . '/../../stream_drive.php'; // utils dipanggil via stream_drive.php
 require_once __DIR__ . '/../../get_hmac_token.php';
 
 try {
@@ -27,26 +27,13 @@ try {
     $musicId = isset($_GET['music_id']) ? $_GET['music_id'] : null;
     $fileType = isset($_GET['file_type']) ? $_GET['file_type'] : "audio";
 
-    if ($fileType === "image"){
-        $coverUrl = $_GET['cover_url'];
-        if (stripos($coverUrl, 'drive.google.com') !== false) 
-            {
-                streamingMusicFromGdrive($db, "111", $coverUrl, "image", $allApiData, $ffprobePath);
-            } 
-        else if (stripos($coverUrl, 'github') !== false)
-        {
-            $githubUrl = githubUrlFormatter($coverUrl);
-            header("Location: " . $githubUrl, true, 302);
+    if ($fileType === "image") {
+        $coverUrl = urlFormatter($_GET['cover_url']);
+        if ($coverUrl['type'] == 'gdrive') {
+            streamingMusicFromGdrive($db, "111", $coverUrl['url'], "image", $allApiData, $ffprobePath);
+        } else {
+            header("Location: " . $coverUrl['url'], true, 302);
         }
-        else if (stripos($coverUrl, 'cdncloudflare') !== false)
-        {
-            $cloudflareUrl = "https://cdn.sibeux.my.id/" . str_replace("cdncloudflare/", '', $coverUrl);
-            header("Location: " . $cloudflareUrl, true, 302);
-        }
-        else 
-            {
-                header("Location: " . $coverUrl, true, 302);
-            }
         die();
     }
 
@@ -86,19 +73,14 @@ try {
     //     die();
     // }
 
-    // Cek source of stream
-    $musicUrl = $music['link_gdrive'];
-    if (stripos($musicUrl, 'drive.google.com') !== false) {
-        streamingMusicFromGdrive($db, $musicId, $musicUrl, $fileType, $allApiData, $ffprobePath);
-    } else if (stripos($musicUrl, 'cdncloudflare/') !== false) {
-        $path = str_replace("cdncloudflare", '', $musicUrl);
-        $path = str_replace('%20', ' ', $path);
+    $musicUrl = urlFormatter($music['link_gdrive']);
+    if ($musicUrl['type'] == 'gdrive') {
+        streamingMusicFromGdrive($db, $musicId, $musicUrl['url'], $fileType, $allApiData, $ffprobePath);
+    } else if ($musicUrl['type'] == 'cdncloudflare') {
+        $path = str_replace("cdncloudflare", '', $musicUrl['url']);
         streamMusicFromCF($secretKey, $db, $ffprobePath, $path, $musicId);
-    } else if (stripos($musicUrl, 'github') !== false) {
-        $githubUrl = githubUrlFormatter($musicUrl);
-        header("Location: " . $githubUrl, true, 302);
     } else {
-        header("Location: " . $musicUrl, true, 302);
+        header("Location: " . $musicUrl['url'], true, 302);
     }
 
 } catch (Exception $e) {
@@ -108,11 +90,4 @@ try {
         "message" => "Internal server error",
         "error" => $e->getMessage()
     ]);
-}
-
-function githubUrlFormatter($url){
-    $githubUrl = str_replace("https://github.com/", "https://raw.githubusercontent.com/", $url);
-    $githubUrl = str_replace("/blob/", "/refs/heads/", $githubUrl);
-    $githubUrl = explode("?", $githubUrl)[0];
-    return $githubUrl;
 }
