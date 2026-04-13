@@ -6,6 +6,7 @@ function get_category($db, $userId, $role)
 {
     $query = "SELECT
         c.category_id, c.name, c.cover, c.created_at,
+        dc.bg_color,
         (
             -- Ambil waktu terakhir kali salah satu lagu dari kategori ini diputar
             SELECT MAX(rm.played_at)
@@ -16,6 +17,7 @@ function get_category($db, $userId, $role)
         ) AS played_at,
         ap.created_at AS pin_at -- Waktu album di-pin
     FROM `categories` c
+    LEFT JOIN dominant_colors dc on c.cover = dc.image_url
     LEFT JOIN `album_pins` ap ON ap.pinnable_album_id = c.category_id
         AND ap.pinnable_album_type = 'category'
         AND ap.user_id = ? -- Filter by user

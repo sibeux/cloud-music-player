@@ -7,6 +7,7 @@ function get_playlist($db, $userId)
     $query = "SELECT
         p.playlist_id, p.title, p.cover, p.created_at,
         u.name as author,
+        dc.bg_color,
         (
             -- Ambil waktu terakhir kali salah satu lagu dari playlist ini diputar
             SELECT MAX(rm.played_at)
@@ -18,6 +19,7 @@ function get_playlist($db, $userId)
         ap.created_at AS pin_at -- Waktu album di-pin
     FROM `playlists` p
     JOIN users u on u.user_id = p.user_id
+    LEFT JOIN dominant_colors dc on p.cover = dc.image_url
     LEFT JOIN `album_pins` ap ON ap.pinnable_album_id = p.playlist_id
         AND ap.pinnable_album_type = 'playlist'
         AND ap.user_id = ? -- Filter by user

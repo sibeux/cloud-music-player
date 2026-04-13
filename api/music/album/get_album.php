@@ -8,6 +8,7 @@ function get_album($db, $userId, $role = 'user')
 
     $query = "SELECT
         a.uid, a.name, a.image, a.author, a.have_disc,
+        dc.bg_color,
         (
             -- Ambil waktu terakhir kali salah satu lagu dari album ini diputar
             SELECT MAX(rm.played_at)
@@ -24,6 +25,7 @@ function get_album($db, $userId, $role = 'user')
             WHERE am3.id_playlist = a.uid
         ) AS created_at
     FROM `albums` a
+    LEFT JOIN dominant_colors dc on a.image = dc.image_url
     -- Ambil data pin album (jika ada), tidak wajib ada (LEFT JOIN)
     LEFT JOIN `album_pins` ap ON ap.pinnable_album_id = a.uid
         AND ap.pinnable_album_type = 'album'
