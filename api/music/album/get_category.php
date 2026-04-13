@@ -45,6 +45,7 @@ function get_category($db, $userId, $role)
             'type' => 'category',
             'title' => $row['name'],
             'cover' => $cover,
+            'bg_color' => $row['bg_color'],
             'author' => $count,
             'played_at' => $row['played_at'],
             'pin_at' => $row['pin_at'],

@@ -53,6 +53,7 @@ function get_album($db, $userId, $role = 'user')
             'type' => 'album',
             'title' => $row['name'],
             'cover' => $row['image'],
+            'bg_color' => $row['bg_color'],
             'author' => $row['author'],
             'played_at' => $row['played_at'],
             'pin_at' => $row['pin_at'],

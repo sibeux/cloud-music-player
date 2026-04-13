@@ -47,6 +47,7 @@ function get_playlist($db, $userId)
             'type' => 'playlist',
             'title' => $row['title'],
             'cover' => $cover,
+            'bg_color' => $row['bg_color'],
             'author' => $row['author'],
             'played_at' => $row['played_at'],
             'pin_at' => $row['pin_at'],
