@@ -34,7 +34,7 @@ function urlFormatter($url)
             'type' => 'cdncloudflare',
             'url' => $path
         ];
-    } else if (stripos($url, 'github') !== false) {
+    } else if (stripos($url, 'github') !== false && stripos($url, 'raw=true') !== false) {
         $githubUrl = githubUrlFormatter($url);
         return [
             'type' => 'github',
