@@ -19,11 +19,6 @@ require_once __DIR__ . '/../../stream_drive.php'; // utils dipanggil via stream_
 require_once __DIR__ . '/../../get_hmac_token.php';
 
 try {
-    // $auth = new BearerAuth($secretKey);
-    // $user = $auth->validate(false);
-    // $userId = isset($user['sub']) ? $user['sub'] : 0;
-    // $userRole = isset($user['data']['role']) ? $user['data']['role'] : 'user';
-
     $musicId = isset($_GET['music_id']) ? $_GET['music_id'] : null;
     $fileType = isset($_GET['file_type']) ? $_GET['file_type'] : "audio";
 
@@ -55,27 +50,6 @@ try {
     $music = $result->fetch_assoc();
     $stmt->close();
 
-    // if (!$music) {
-    //     http_response_code(404);
-    //     echo json_encode([
-    //         "status" => "error",
-    //         "error" => "music_not_found",
-    //         "message" => "Music not found",
-    //     ]);
-    //     die();
-    // }
-
-    // // Cek Akses
-    // if ($music['is_private'] == 1 && $userRole === 'user') {
-    //     http_response_code(403);
-    //     echo json_encode([
-    //         "status" => "error",
-    //         "error" => "access_denied",
-    //         "message" => "Akses ditolak: Konten Premium",
-    //     ]);
-    //     die();
-    // }
-
     $musicUrl = urlFormatter($music['link_gdrive']);
     if ($musicUrl['type'] == 'gdrive') {
         streamingMusicFromGdrive($db, $musicId, $musicUrl['url'], $fileType, $allApiData, $ffprobePath);
@@ -83,7 +57,10 @@ try {
         $path = str_replace("cdncloudflare", '', $musicUrl['url']);
         streamMusicFromCF($secretKey, $db, $ffprobePath, $path, $musicId);
     } else {
-        header("Location: " . $musicUrl['url'], true, 302);
+        sendJsonResponse([
+            'status' => true,
+            'url' => $musicUrl['url']
+        ]);
     }
 
 } catch (Exception $e) {
