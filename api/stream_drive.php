@@ -212,6 +212,12 @@ function streamingMusicFromGdrive($db, $musicId, $mediaUrl, $fileType, $allApiDa
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $curlError = curl_error($ch);
 
+            log_message(
+                "[GDRIVE DEBUG] result=" . var_export($result, true)
+                . " HTTP=" . $httpCode
+                . " error=" . $curlError
+            );
+
             unset($ch);
             fclose($tempFp);
 
