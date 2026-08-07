@@ -286,7 +286,8 @@ function triggerCacheWorkerBackground($musicId, $fileId, $fileType, $ffprobePath
             'fileType' => $fileType,
             'ffprobePath' => $ffprobePath
         ]));
-        curl_setopt($ch, CURLOPT_TIMEOUT_MS, 200); // Timeout cepat agar tidak ngeblock
+        // Gunakan timeout 1 detik. 200ms mungkin terlalu cepat untuk SSL handshake di cPanel
+        curl_setopt($ch, CURLOPT_TIMEOUT, 1); 
         curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         
@@ -294,10 +295,12 @@ function triggerCacheWorkerBackground($musicId, $fileId, $fileType, $ffprobePath
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         
-        curl_exec($ch);
+        $curlResult = curl_exec($ch);
+        $curlErr = curl_error($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         
-        log_message("[BG] Triggered worker via cURL to: " . $workerUrl);
+        log_message("[BG] Triggered worker via cURL to: " . $workerUrl . " | HTTP: " . $httpCode . " | Err: " . $curlErr);
     } else {
         // Fallback jika bukan request via web (misal CLI) - menggunakan exec 
         $cmd = "php " . escapeshellarg(__DIR__ . "/cacheMusicWorker.php") . " " 
