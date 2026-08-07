@@ -6,6 +6,10 @@
 ignore_user_abort(true);
 set_time_limit(0);
 
+// Gunakan sementara fallback log dasar kalau utils.php belum ter-load
+$tempLog = __DIR__ . '/cache_worker_debug.log';
+file_put_contents($tempLog, "[" . date('Y-m-d H:i:s') . "] WORKER HIT! POST Data: " . json_encode($_POST) . "\n", FILE_APPEND);
+
 require_once __DIR__ . '/../utils/utils.php';
 require_once __DIR__ . '/../database/db.php';
 require_once __DIR__ . '/../database/mobile-music-player/api/read_codec.php';
@@ -24,6 +28,8 @@ $musicId = $_POST['musicId'] ?? ($argv[1] ?? null);
 $fileId = $_POST['fileId'] ?? ($argv[2] ?? null);
 $fileType = $_POST['fileType'] ?? ($argv[3] ?? null);
 $ffprobePath = $_POST['ffprobePath'] ?? ($argv[4] ?? null);
+
+log_message("[CACHE WORKER INCOMING] POST Data: " . json_encode($_POST));
 
 if (!$musicId || !$fileId) {
     log_message("[ERROR] cacheMusicWorker started without musicId or fileId");
