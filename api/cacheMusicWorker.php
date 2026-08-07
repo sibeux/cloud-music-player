@@ -188,7 +188,14 @@ log_message("[BG DEBUG] CURL FINISHED for musicId=$musicId HTTP=$httpCode");
 // 6. VALIDASI DOWNLOAD
 // =========================================================
 if ($result === false || $httpCode < 200 || $httpCode >= 300) {
-    log_message("[CACHE DOWNLOAD FAILED] HTTP=$httpCode errno=$curlErrno error=$curlError");
+    $errorBody = "";
+    if (file_exists($tempFilePath) && filesize($tempFilePath) > 0) {
+        $errorBody = file_get_contents($tempFilePath);
+        // Truncate jika terlalu panjang
+        if (strlen($errorBody) > 500) $errorBody = substr($errorBody, 0, 500) . '...';
+    }
+    log_message("[CACHE DOWNLOAD FAILED] HTTP=$httpCode errno=$curlErrno error=$curlError | Body: $errorBody");
+    
     if (file_exists($tempFilePath)) {
         unlink($tempFilePath);
     }
