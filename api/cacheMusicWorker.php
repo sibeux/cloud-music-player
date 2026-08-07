@@ -6,6 +6,24 @@
 ignore_user_abort(true);
 set_time_limit(0);
 
+// WORKAROUND UNTUK LITESPEED / CPANEL TANPA FASTCGI_FINISH_REQUEST:
+// Kita paksa server mengirim header Connection: close lalu flush,
+// agar koneksi cURL dari stream_drive terputus dengan sukses,
+// sementara script ini tetap berjalan di background!
+if (php_sapi_name() !== 'cli') {
+    header("Connection: close");
+    header("Content-Length: 0");
+    while (ob_get_level() > 0) {
+        ob_end_flush();
+    }
+    flush();
+    if (session_id()) session_write_close();
+}
+
+// PENTING: Samakan working directory dengan stream_drive.php 
+// agar file 'custom.log' ditulis ke folder yang SAMA persis.
+chdir(__DIR__ . '/music/stream');
+
 // Gunakan sementara fallback log dasar kalau utils.php belum ter-load
 $tempLog = __DIR__ . '/cache_worker_debug.log';
 file_put_contents($tempLog, "[" . date('Y-m-d H:i:s') . "] WORKER HIT! POST Data: " . json_encode($_POST) . "\n", FILE_APPEND);
