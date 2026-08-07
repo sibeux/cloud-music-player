@@ -42,7 +42,10 @@ function streamingMusicFromGdrive($db, $musicId, $mediaUrl, $fileType, $allApiDa
 
     $fileId = $fileIdFromUrl ?? null;
     $uploader = $music['uploader'] ?? null;
-    $isSuspicious = $music['is_suspicious'] ?? 'false';
+    $isSuspicious = filter_var(
+        $music['is_suspicious'] ?? false,
+        FILTER_VALIDATE_BOOLEAN
+    );
 
     if (!$fileId) {
         http_response_code(400);
@@ -64,10 +67,10 @@ function streamingMusicFromGdrive($db, $musicId, $mediaUrl, $fileType, $allApiDa
     }
 
     // Jika bukan file suspicious, pakai dari wahabinasrul
-    if ($isSuspicious == 'false') {
+    if (!$isSuspicious) {
         $uploader = "wahabinasrul@gmail.com";
     } else {
-        log_message("[WARNING] File is suspicous, get refresh token from owner.");
+        log_message("[WARNING] File is suspicious, get refresh token from owner.");
     }
 
     // --- Dapatkan kredentials google oauth ---
@@ -104,97 +107,191 @@ function streamingMusicFromGdrive($db, $musicId, $mediaUrl, $fileType, $allApiDa
     $cacheFilePath = $cacheDir . '/' . basename($fileId);
 
     // --- Logika Pengecekan dan Pembuatan Cache ---
-    // Fungsi: Memeriksa apakah file ada di cache dan valid. Jika tidak, unduh dari GDrive.
-    $isCacheValid = file_exists($cacheFilePath) && (time() - filemtime($cacheFilePath) < $cacheDuration);
 
-    // Cek apakah file exist?
+    $isCacheValid = file_exists($cacheFilePath)
+        && (time() - filemtime($cacheFilePath) < $cacheDuration);
+
+    $cacheCreated = false;
+
     if (!$isCacheValid) {
-        log_message("[INFO] Cache MISS for fileId: $fileId. Downloading from Google Drive.");
 
-    // --- Get Token ---
-    $tokenData = getGdriveOauthToken($config, $isSuspicious);
-    $accessToken = $tokenData['access_token'];
+        log_message("[INFO] Cache MISS for fileId: $fileId.");
 
-    // --- Buka file cache untuk ditulis ---
-    // Fungsi: Membuka file di server lokal untuk menampung data dari Google Drive.
-    $cacheFp = fopen($cacheFilePath, 'w');
-    if (!$cacheFp) {
-        http_response_code(500);
-        log_message("[ERROR] Could not open cache file for writing: $cacheFilePath");
-        die("Could not open cache file for writing.");
-    }
+        // Gunakan file lock terpisah.
+        // Jangan lock langsung ke cacheFilePath karena file tersebut
+        // nantinya akan diganti menggunakan rename().
+        $lockFilePath = $cacheFilePath . '.lock';
 
-    // --- Kunci file cache untuk mencegah penulisan ganda ---
-    // Fungsi: Mencegah proses lain menulis ke file yang sama saat sedang diunduh.
-    if (!flock($cacheFp, LOCK_EX)) {
-        fclose($cacheFp);
-        http_response_code(503);
-        log_message("[ERROR] Could not get lock on cache file. Server is busy.");
-        die("Could not get lock on cache file. Server is busy.");
-    }
+        $lockFp = fopen($lockFilePath, 'c');
 
-    // --- Downlaod file from Google Drive and save to cache ---
-    $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media";
-    if ($isSuspicious) {
-        // acknowledgeAbuse=true berlaku untuk file suspicious
-        $driveUrl = "https://www.googleapis.com/drive/v3/files/$fileId?alt=media&acknowledgeAbuse=true";
-    }
-    $ch = curl_init($driveUrl);
+        if (!$lockFp) {
+            http_response_code(500);
+            log_message("[ERROR] Could not open lock file: $lockFilePath");
+            die("Could not open lock file.");
+        }
 
-    $curlHeadersToGoogle = ["Authorization: Bearer " . $accessToken];
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $curlHeadersToGoogle);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_HEADER, false);
+        if (!flock($lockFp, LOCK_EX)) {
+            fclose($lockFp);
 
-    // --- Alihkan output cURL ke file cache, bukan ke browser ---
-    // Fungsi: Opsi ini mengarahkan semua data yang diterima cURL untuk ditulis ke file handle ($cacheFp).
-    curl_setopt($ch, CURLOPT_FILE, $cacheFp);
+            http_response_code(503);
+            log_message("[ERROR] Could not get cache lock.");
+            die("Could not get cache lock.");
+        }
 
-    curl_exec($ch);
+        // =========================================================
+        // PENTING:
+        // Cek ulang setelah mendapatkan lock.
+        // Request lain mungkin sudah selesai membuat cache.
+        // =========================================================
 
-    if (curl_errno($ch)) {
-        log_message("[INFO] cURL Error on downloading to cache: " . curl_error($ch));
-        // --- Hapus file cache yang gagal/rusak ---
-        // Fungsi: Membersihkan file yang tidak lengkap jika unduhan gagal.
-        flock($cacheFp, LOCK_UN);
-        fclose($cacheFp);
-        unlink($cacheFilePath); // Hapus file yang gagal
-        http_response_code(500);
-        die("Failed to download file from Google Drive.");
-    }
+        $isCacheValid = file_exists($cacheFilePath)
+            && (time() - filemtime($cacheFilePath) < $cacheDuration);
 
-    // --- Lepas kunci dan tutup file handle cache ---
-    // Fungsi: Menyelesaikan proses penulisan ke file cache.
-    flock($cacheFp, LOCK_UN);
-    fclose($cacheFp);
+        if ($isCacheValid) {
+
+            log_message(
+                "[INFO] Cache was created by another process. "
+                . "Skip download for fileId: $fileId."
+            );
+
+        } else {
+
+            log_message(
+                "[INFO] Downloading fileId: $fileId from Google Drive."
+            );
+
+            $tokenData = getGdriveOauthToken($config, $isSuspicious);
+            $accessToken = $tokenData['access_token'];
+
+            $driveUrl =
+                "https://www.googleapis.com/drive/v3/files/"
+                . $fileId
+                . "?alt=media";
+
+            if ($isSuspicious) {
+                $driveUrl .= "&acknowledgeAbuse=true";
+            }
+
+            $tempFilePath =
+                $cacheFilePath
+                . '.tmp.'
+                . getmypid();
+
+            $tempFp = fopen($tempFilePath, 'wb');
+
+            if (!$tempFp) {
+
+                flock($lockFp, LOCK_UN);
+                fclose($lockFp);
+
+                http_response_code(500);
+                log_message(
+                    "[ERROR] Could not create temporary cache file: "
+                    . $tempFilePath
+                );
+
+                die("Could not create temporary cache file.");
+            }
+
+            // ---------------------------------------------------------
+            // Download Google Drive -> temporary file
+            // ---------------------------------------------------------
+
+            $ch = curl_init($driveUrl);
+
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                "Authorization: Bearer " . $accessToken
+            ]);
+
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_FILE, $tempFp);
+
+            $result = curl_exec($ch);
+
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlError = curl_error($ch);
+
+            unset($ch);
+            fclose($tempFp);
+
+            // ---------------------------------------------------------
+            // Validasi download
+            // ---------------------------------------------------------
+
+            if (
+                $result === false ||
+                $httpCode < 200 ||
+                $httpCode >= 300
+            ) {
+
+                log_message(
+                    "[ERROR] GDrive download failed. "
+                    . "HTTP: $httpCode Error: $curlError"
+                );
+
+                if (file_exists($tempFilePath)) {
+                    unlink($tempFilePath);
+                }
+
+                flock($lockFp, LOCK_UN);
+                fclose($lockFp);
+
+                http_response_code(500);
+                die("Failed to download file from Google Drive.");
+            }
+
+            // ---------------------------------------------------------
+            // Download sudah lengkap.
+            // Atomic replace:
+            // temp -> cache resmi
+            // ---------------------------------------------------------
+
+            if (!rename($tempFilePath, $cacheFilePath)) {
+
+                if (file_exists($tempFilePath)) {
+                    unlink($tempFilePath);
+                }
+
+                flock($lockFp, LOCK_UN);
+                fclose($lockFp);
+
+                http_response_code(500);
+                die("Failed to finalize cache file.");
+            }
+
+            $cacheCreated = true;
+
+            log_message(
+                "[SUCCESS] Cache created for fileId: $fileId."
+            );
+        }
+
+        // Lepaskan lock
+        flock($lockFp, LOCK_UN);
+        fclose($lockFp);
 
     } else {
-        log_message("[INFO] Cache HIT for fileId: $fileId. Serving from local server.");
+
+        log_message(
+            "[INFO] Cache HIT for fileId: $fileId. "
+            . "Serving from local server."
+        );
     }
 
     if ($fileType == "audio") {
         // echo json_encode($responsePayload);
-        header("Location: " . $cacheFileUrl, true, 302);
+        outputJson([
+            "success" => true,
+            "music_id" => $musicId,
+            "stream_url" => $cacheFileUrl,
+        ]);
 
-        // PUTUS KONEKSI KE USER (Magic terjadi di sini) ---
-        // Browser user akan mengira loading sudah selesai 100%
-        if (function_exists('fastcgi_finish_request')) {
-            fastcgi_finish_request(); // Khusus PHP-FPM (Nginx/Modern Apache)
-        } else {
-            // Fallback jika server tidak pakai FPM (Jarang, tapi aman ditambahkan)
-            ob_start();
-            echo "";
-            $size = ob_get_length();
-            header("Content-Length: $size");
-            header("Connection: close");
-            ob_end_flush();
-            ob_flush();
-            flush();
-        }
+        finishResponse();
 
         // JALANKAN PROSES LATAR BELAKANG ---
         // Script PHP masih jalan di server, tapi user sudah tidak menunggu (loading icon di browser sudah hilang)
-        if (!$isCacheValid) {
+        if ($cacheCreated) {
             sendToSqlCache($db, $fileId, $musicId);
         }
 

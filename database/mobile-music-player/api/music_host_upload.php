@@ -51,7 +51,7 @@ if (!curl_exec($ch)) {
     die(json_encode(["error" => "Download gagal: " . curl_error($ch)]));
 }
 
-curl_close($ch);
+unset($ch);
 fclose($fp);
 
 // === Insert ke database ===
