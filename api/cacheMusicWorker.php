@@ -163,6 +163,44 @@ log_message("[CACHE DOWNLOAD IN PROGRESS] Starting Google Drive download for mus
 $ch = curl_init($driveUrl);
 curl_setopt_array($ch, [
     CURLOPT_HTTPHEADER => ["Authorization: Bearer " . $accessToken],
+    CURLOPT_FOLLOWLOCATION => false, // KITA HANDLE REDIRECT MANUAL!
+    CURLOPT_HEADER => true,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_NOBODY => true, // Cukup header saja untuk cek redirect
+    CURLOPT_CONNECTTIMEOUT => 15,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_SSL_VERIFYPEER => true,
+    CURLOPT_SSL_VERIFYHOST => 2,
+]);
+
+$headerResponse = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$redirectUrl = curl_getinfo($ch, CURLINFO_REDIRECT_URL);
+curl_close($ch);
+
+log_message("[BG DEBUG] GDrive API initial HTTP=$httpCode Redirect=" . ($redirectUrl ?: "NONE"));
+
+$finalDownloadUrl = $driveUrl;
+
+// Jika Google Drive membalas dengan 301, 302, 303, 307, 308 (Redirect)
+if ($httpCode >= 300 && $httpCode < 400 && !empty($redirectUrl)) {
+    $finalDownloadUrl = $redirectUrl;
+} else if ($httpCode >= 400) {
+    // Jika API langsung mengembalikan error (sebelum redirect)
+    $errorBody = substr($headerResponse, 0, 500);
+    log_message("[CACHE DOWNLOAD FAILED] Google Drive API returned HTTP=$httpCode before redirect. Body: $errorBody");
+    flock($lockFp, LOCK_UN);
+    fclose($lockFp);
+    exit;
+}
+
+// SEKARANG MULAI DOWNLOAD SESUNGGUHNYA
+log_message("[BG DEBUG] Starting final download from: " . explode('?', $finalDownloadUrl)[0] . "...");
+
+$chDown = curl_init($finalDownloadUrl);
+curl_setopt_array($chDown, [
+    // PENTING: Jangan kirim header Authorization jika diarahkan ke googleusercontent.com
+    // karena URL redirect sudah mengandung token otorisasi di query string-nya!
     CURLOPT_FOLLOWLOCATION => true,
     CURLOPT_HEADER => false,
     CURLOPT_FILE => $tempFp,
@@ -174,12 +212,17 @@ curl_setopt_array($ch, [
     CURLOPT_SSL_VERIFYHOST => 2,
 ]);
 
-$result = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$curlError = curl_error($ch);
-$curlErrno = curl_errno($ch);
+// Jika TIDAK redirect, berarti kita masih di URL awal dan butuh header Authorization
+if ($finalDownloadUrl === $driveUrl) {
+    curl_setopt($chDown, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . $accessToken]);
+}
 
-curl_close($ch);
+$result = curl_exec($chDown);
+$httpCode = curl_getinfo($chDown, CURLINFO_HTTP_CODE);
+$curlError = curl_error($chDown);
+$curlErrno = curl_errno($chDown);
+
+curl_close($chDown);
 fclose($tempFp);
 
 log_message("[BG DEBUG] CURL FINISHED for musicId=$musicId HTTP=$httpCode");
