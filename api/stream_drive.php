@@ -270,11 +270,13 @@ function triggerCacheWorkerBackground($musicId, $fileId, $fileType, $ffprobePath
     // Ini sangat handal di cPanel karena tidak bergantung pada eksekusi command line.
     $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
     
-    if (isset($_SERVER['HTTP_HOST']) && isset($_SERVER['REQUEST_URI'])) {
-        $baseDir = dirname($_SERVER['REQUEST_URI']);
-        $baseDir = explode('?', $baseDir)[0]; // bersihkan query string jika ada
+    if (isset($_SERVER['HTTP_HOST'])) {
+        // Resolve absolute URL to cacheMusicWorker.php dynamically
+        $docRoot = rtrim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '/');
+        $currentDir = str_replace('\\', '/', __DIR__);
         
-        $workerUrl = rtrim($protocol . "://" . $_SERVER['HTTP_HOST'] . $baseDir, '/') . '/cacheMusicWorker.php';
+        $basePath = str_replace($docRoot, '', $currentDir);
+        $workerUrl = rtrim($protocol . "://" . $_SERVER['HTTP_HOST'] . $basePath, '/') . '/cacheMusicWorker.php';
         
         $ch = curl_init($workerUrl);
         curl_setopt($ch, CURLOPT_POST, 1);
