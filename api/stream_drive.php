@@ -41,24 +41,48 @@ function streamingMusicFromGdrive(
     // AMBIL DATA MUSIC
     // =========================================================
 
-    $query = "
-        SELECT
-            m.uploader,
-            m.is_suspicious
-        FROM musics m
-        WHERE m.id_music = ?
-    ";
-
     $music = [];
 
     if ($fileType !== "image") {
 
-        $stmt = $db->prepare($query);
+        $stmt = $db->prepare("
+            SELECT
+                m.uploader,
+                m.is_suspicious
+            FROM musics m
+            WHERE m.id_music = ?
+            LIMIT 1
+        ");
+
+        if (!$stmt) {
+            http_response_code(500);
+
+            outputJson([
+                "status" => "error",
+                "message" => "Failed to prepare music query."
+            ]);
+
+            return;
+        }
+
         $stmt->bind_param("i", $musicId);
-        $stmt->execute();
+
+        if (!$stmt->execute()) {
+            $stmt->close();
+
+            http_response_code(500);
+
+            outputJson([
+                "status" => "error",
+                "message" => "Failed to execute music query."
+            ]);
+
+            return;
+        }
 
         $result = $stmt->get_result();
-        $music = $result->fetch_assoc();
+
+        $music = $result->fetch_assoc() ?: [];
 
         $stmt->close();
     }
@@ -77,7 +101,7 @@ function streamingMusicFromGdrive(
         $matches
     );
 
-    $fileIdFromUrl =
+    $fileId =
         !empty($matches[1])
         ? $matches[1]
         : (
@@ -85,8 +109,6 @@ function streamingMusicFromGdrive(
             ? $matches[2]
             : null
         );
-
-    $fileId = $fileIdFromUrl;
 
 
     if (!$fileId) {
@@ -96,7 +118,7 @@ function streamingMusicFromGdrive(
         outputJson([
             "status" => "error",
             "error" => "fileId_not_found",
-            "message" => "File ID not found",
+            "message" => "Google Drive File ID not found",
         ]);
 
         return;
@@ -115,7 +137,7 @@ function streamingMusicFromGdrive(
     );
 
 
-    // Kalau bukan suspicious, gunakan account utama
+    // File normal menggunakan account utama
     if (!$isSuspicious) {
 
         $uploader = "wahabinasrul@gmail.com";
@@ -123,7 +145,8 @@ function streamingMusicFromGdrive(
     } else {
 
         log_message(
-            "[WARNING] File is suspicious, get refresh token from owner."
+            "[WARNING] File is suspicious. "
+            . "Using owner's Google Drive credentials."
         );
     }
 
@@ -139,6 +162,7 @@ function streamingMusicFromGdrive(
     $cacheUrl =
         $_ENV['CACHE_FILE_URL'] ?? null;
 
+
     if (!$cacheUrl) {
 
         http_response_code(500);
@@ -152,10 +176,14 @@ function streamingMusicFromGdrive(
     }
 
 
-    $cacheDuration = 31536000; // 1 tahun
+    // Cache 1 tahun
+    $cacheDuration = 31536000;
 
 
-    // Pastikan directory ada
+    // =========================================================
+    // PASTIKAN CACHE DIRECTORY ADA
+    // =========================================================
+
     if (!is_dir($cacheDir)) {
 
         if (!mkdir($cacheDir, 0755, true)) {
@@ -172,16 +200,21 @@ function streamingMusicFromGdrive(
     }
 
 
+    // =========================================================
+    // CACHE PATH
+    // =========================================================
+
+    $safeFileId = basename($fileId);
+
     $cacheFilePath =
         $cacheDir .
         '/' .
-        basename($fileId);
-
+        $safeFileId;
 
     $cacheFileUrl =
         rtrim($cacheUrl, '/') .
         '/' .
-        basename($fileId);
+        $safeFileId;
 
 
     // =========================================================
@@ -197,14 +230,23 @@ function streamingMusicFromGdrive(
         LIMIT 1
     ");
 
-    $stmt->bind_param("i", $musicId);
-    $stmt->execute();
+    if ($stmt) {
 
-    $result = $stmt->get_result();
+        $stmt->bind_param(
+            "i",
+            $musicId
+        );
 
-    $isCachedInDb = $result->num_rows > 0;
+        if ($stmt->execute()) {
 
-    $stmt->close();
+            $result = $stmt->get_result();
+
+            $isCachedInDb =
+                $result->num_rows > 0;
+        }
+
+        $stmt->close();
+    }
 
 
     // =========================================================
@@ -214,18 +256,42 @@ function streamingMusicFromGdrive(
     $isCacheFileValid =
         file_exists($cacheFilePath)
         &&
-        (time() - filemtime($cacheFilePath) < $cacheDuration);
+        is_file($cacheFilePath)
+        &&
+        filesize($cacheFilePath) > 0
+        &&
+        (
+            time() - filemtime($cacheFilePath)
+            <
+            $cacheDuration
+        );
+
+
+    log_message(
+        "[CACHE CHECK] "
+        . "musicId=$musicId "
+        . "fileId=$fileId "
+        . "db=" . ($isCachedInDb ? "YES" : "NO")
+        . " file=" . ($isCacheFileValid ? "YES" : "NO")
+    );
 
 
     // =========================================================
-    // CACHE SUDAH ADA
+    // CACHE HIT
     // =========================================================
 
-    if ($isCachedInDb && $isCacheFileValid) {
+    if (
+        $isCachedInDb
+        &&
+        $isCacheFileValid
+    ) {
 
         log_message(
-            "[CACHE HIT] musicId=$musicId fileId=$fileId"
+            "[CACHE HIT] "
+            . "musicId=$musicId "
+            . "fileId=$fileId"
         );
+
 
         if ($fileType === "audio") {
 
@@ -251,16 +317,18 @@ function streamingMusicFromGdrive(
 
 
     // =========================================================
-    // CACHE BELUM ADA
+    // CACHE MISS
     // =========================================================
 
     log_message(
-        "[CACHE MISS] musicId=$musicId fileId=$fileId"
+        "[CACHE MISS] "
+        . "musicId=$musicId "
+        . "fileId=$fileId"
     );
 
 
     // =========================================================
-    // DAPATKAN GOOGLE OAUTH TOKEN
+    // GOOGLE OAUTH
     // =========================================================
 
     $config =
@@ -285,7 +353,8 @@ function streamingMusicFromGdrive(
 
         outputJson([
             "status" => "error",
-            "message" => "Failed to get Google Drive access token."
+            "message" =>
+                "Failed to get Google Drive access token."
         ]);
 
         return;
@@ -303,9 +372,7 @@ function streamingMusicFromGdrive(
     $driveUrl =
         "https://www.googleapis.com/drive/v3/files/"
         . rawurlencode($fileId)
-        . "?alt=media"
-        . "&access_token="
-        . rawurlencode($accessToken);
+        . "?alt=media";
 
 
     if ($isSuspicious) {
@@ -316,38 +383,45 @@ function streamingMusicFromGdrive(
 
 
     // =========================================================
-    // LOCK
-    //
-    // Tujuannya:
-    // User A -> mulai download
-    // User B -> tidak download ulang
-    // User C -> tidak download ulang
+    // LOCK FILE
     // =========================================================
 
     $lockFilePath =
         $cacheFilePath . '.lock';
 
+
     $lockFp =
-        fopen($lockFilePath, 'c');
+        fopen(
+            $lockFilePath,
+            'c'
+        );
 
 
     if (!$lockFp) {
 
-        http_response_code(500);
+        log_message(
+            "[ERROR] Cannot create lock file: "
+            . $lockFilePath
+        );
 
-        outputJson([
-            "status" => "error",
-            "message" => "Could not create cache lock."
-        ]);
+        // Tetap berikan GDrive URL ke user
+        returnGoogleDriveUrl(
+            $musicId,
+            $fileType,
+            $driveUrl
+        );
 
         return;
     }
 
 
+    // =========================================================
     // NON-BLOCKING LOCK
     //
-    // Kalau ada proses lain yang sedang download,
-    // kita tidak perlu menunggu.
+    // Kalau ada proses lain sedang download,
+    // jangan menunggu.
+    // =========================================================
+
     $lockAcquired =
         flock(
             $lockFp,
@@ -355,233 +429,155 @@ function streamingMusicFromGdrive(
         );
 
 
-    if ($lockAcquired) {
+    // =========================================================
+    // REQUEST LAIN SEDANG DOWNLOAD
+    // =========================================================
+
+    if (!$lockAcquired) {
 
         log_message(
-            "[CACHE DOWNLOAD] Starting background download "
-            . "musicId=$musicId fileId=$fileId"
+            "[CACHE IN PROGRESS] "
+            . "Another process is downloading "
+            . "musicId=$musicId"
+        );
+
+        fclose($lockFp);
+
+
+        // User tetap langsung stream dari GDrive
+        returnGoogleDriveUrl(
+            $musicId,
+            $fileType,
+            $driveUrl
+        );
+
+        return;
+    }
+
+
+    // =========================================================
+    // DOUBLE CHECK SETELAH DAPAT LOCK
+    //
+    // Bisa saja request lain selesai tepat sebelum kita
+    // mendapatkan lock.
+    // =========================================================
+
+    $isCacheFileValid =
+        file_exists($cacheFilePath)
+        &&
+        is_file($cacheFilePath)
+        &&
+        filesize($cacheFilePath) > 0
+        &&
+        (
+            time() - filemtime($cacheFilePath)
+            <
+            $cacheDuration
         );
 
 
-        // =====================================================
-        // START BACKGROUND DOWNLOAD
-        //
-        // fastcgi_finish_request() membuat response dikirim
-        // ke client terlebih dahulu.
-        // =====================================================
+    if ($isCacheFileValid) {
 
-        if (
-            function_exists('fastcgi_finish_request')
-        ) {
+        log_message(
+            "[CACHE CREATED BY OTHER PROCESS] "
+            . "musicId=$musicId"
+        );
 
-            if ($fileType === "audio") {
+        flock(
+            $lockFp,
+            LOCK_UN
+        );
 
-                outputJson([
-                    "success" => true,
-                    "music_id" => $musicId,
-                    "cached" => false,
-                    "stream_url" => $driveUrl,
-                ]);
+        fclose($lockFp);
 
-            } else {
 
-                header(
-                    "Location: " . $driveUrl,
-                    true,
-                    302
-                );
-            }
+        if ($fileType === "audio") {
 
-
-            fastcgi_finish_request();
-
-
-            // =================================================
-            // DOWNLOAD GOOGLE DRIVE -> TEMP FILE
-            // =================================================
-
-            $tempFilePath =
-                $cacheFilePath .
-                '.tmp.' .
-                getmypid();
-
-
-            $tempFp =
-                fopen(
-                    $tempFilePath,
-                    'wb'
-                );
-
-
-            if (!$tempFp) {
-
-                log_message(
-                    "[ERROR] Could not create temp file: "
-                    . $tempFilePath
-                );
-
-                flock($lockFp, LOCK_UN);
-                fclose($lockFp);
-
-                return;
-            }
-
-
-            $ch =
-                curl_init($driveUrl);
-
-
-            curl_setopt_array(
-                $ch,
-                [
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HEADER => false,
-                    CURLOPT_FILE => $tempFp,
-
-                    CURLOPT_CONNECTTIMEOUT => 15,
-                    CURLOPT_TIMEOUT => 0,
-
-                    CURLOPT_FAILONERROR => false,
-                ]
-            );
-
-
-            $result =
-                curl_exec($ch);
-
-
-            $httpCode =
-                curl_getinfo(
-                    $ch,
-                    CURLINFO_HTTP_CODE
-                );
-
-
-            $curlError =
-                curl_error($ch);
-
-
-            curl_close($ch);
-
-            fclose($tempFp);
-
-
-            // =================================================
-            // VALIDASI DOWNLOAD
-            // =================================================
-
-            if (
-                $result === false
-                ||
-                $httpCode < 200
-                ||
-                $httpCode >= 300
-            ) {
-
-                log_message(
-                    "[ERROR] GDrive background download failed. "
-                    . "HTTP=$httpCode "
-                    . "Error=$curlError"
-                );
-
-
-                if (
-                    file_exists($tempFilePath)
-                ) {
-
-                    unlink($tempFilePath);
-                }
-
-
-                flock($lockFp, LOCK_UN);
-                fclose($lockFp);
-
-                return;
-            }
-
-
-            // =================================================
-            // ATOMIC REPLACE
-            // =================================================
-
-            if (
-                !rename(
-                    $tempFilePath,
-                    $cacheFilePath
-                )
-            ) {
-
-                log_message(
-                    "[ERROR] Failed to rename temp cache file."
-                );
-
-
-                if (
-                    file_exists($tempFilePath)
-                ) {
-
-                    unlink($tempFilePath);
-                }
-
-
-                flock($lockFp, LOCK_UN);
-                fclose($lockFp);
-
-                return;
-            }
-
-
-            // =================================================
-            // INSERT DATABASE CACHE
-            // =================================================
-
-            sendToSqlCache(
-                $db,
-                $fileId,
-                $musicId
-            );
-
-
-            log_message(
-                "[CACHE SUCCESS] "
-                . "musicId=$musicId "
-                . "fileId=$fileId"
-            );
-
-
-            // =================================================
-            // CHECK CODEC
-            // =================================================
-
-            if ($fileType === "audio") {
-
-                checkCodecAudio(
-                    $musicId,
-                    $cacheFilePath,
-                    $db,
-                    $ffprobePath
-                );
-            }
-
-
-            flock(
-                $lockFp,
-                LOCK_UN
-            );
-
-            fclose($lockFp);
+            outputJson([
+                "success" => true,
+                "music_id" => $musicId,
+                "cached" => true,
+                "stream_url" => $cacheFileUrl,
+            ]);
 
             return;
         }
 
 
+        header(
+            "Location: " . $cacheFileUrl,
+            true,
+            302
+        );
+
+        return;
+    }
+
+
+    // =========================================================
+    // USER RESPONSE DULU
+    //
+    // User langsung mendapatkan Google Drive URL.
+    // Setelah response selesai, kita coba lanjutkan
+    // proses download di background.
+    // =========================================================
+
+    if (
+        function_exists(
+            'fastcgi_finish_request'
+        )
+    ) {
+
+        log_message(
+            "[BG] Sending Google Drive URL to user. "
+            . "musicId=$musicId"
+        );
+
+
+        if ($fileType === "audio") {
+
+            outputJson([
+                "success" => true,
+                "music_id" => $musicId,
+                "cached" => false,
+                "stream_url" => $driveUrl,
+            ]);
+
+        } else {
+
+            header(
+                "Location: " . $driveUrl,
+                true,
+                302
+            );
+        }
+
+
+        log_message(
+            "[BG] BEFORE fastcgi_finish_request"
+        );
+
+
+        fastcgi_finish_request();
+
+
+        log_message(
+            "[BG] AFTER fastcgi_finish_request"
+        );
+
+    } else {
+
         // =====================================================
         // FASTCGI TIDAK TERSEDIA
+        //
+        // Jangan download dalam request user.
+        // Berikan GDrive URL saja.
         // =====================================================
 
         log_message(
             "[WARNING] fastcgi_finish_request() "
-            . "not available."
+            . "is not available. "
+            . "Skipping background download."
         );
 
 
@@ -593,27 +589,412 @@ function streamingMusicFromGdrive(
         fclose($lockFp);
 
 
-    } else {
-
-        // =====================================================
-        // ADA REQUEST LAIN YANG SEDANG DOWNLOAD
-        // =====================================================
-
-        log_message(
-            "[CACHE DOWNLOAD IN PROGRESS] "
-            . "musicId=$musicId"
+        returnGoogleDriveUrl(
+            $musicId,
+            $fileType,
+            $driveUrl
         );
 
-
-        fclose($lockFp);
+        return;
     }
 
 
     // =========================================================
-    // KARENA CACHE BELUM READY,
-    // USER LANGSUNG STREAM DARI GOOGLE DRIVE
+    // DOWNLOAD GOOGLE DRIVE -> TEMP FILE
     // =========================================================
 
+    $tempFilePath =
+        $cacheFilePath
+        . '.tmp.'
+        . getmypid();
+
+
+    log_message(
+        "[BG] Creating temp file: "
+        . $tempFilePath
+    );
+
+
+    $tempFp =
+        fopen(
+            $tempFilePath,
+            'wb'
+        );
+
+
+    if (!$tempFp) {
+
+        log_message(
+            "[ERROR] Cannot create temp file: "
+            . $tempFilePath
+        );
+
+
+        flock(
+            $lockFp,
+            LOCK_UN
+        );
+
+        fclose($lockFp);
+
+        return;
+    }
+
+
+    // =========================================================
+    // CURL DOWNLOAD
+    // =========================================================
+
+    log_message(
+        "[BG] Starting Google Drive download. "
+        . "musicId=$musicId "
+        . "fileId=$fileId"
+    );
+
+
+    $ch =
+        curl_init(
+            $driveUrl
+        );
+
+
+    curl_setopt_array(
+        $ch,
+        [
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer " . $accessToken
+            ],
+
+            CURLOPT_FOLLOWLOCATION => true,
+
+            CURLOPT_HEADER => false,
+
+            CURLOPT_FILE => $tempFp,
+
+            CURLOPT_CONNECTTIMEOUT => 15,
+
+            // Tidak dibatasi waktu
+            CURLOPT_TIMEOUT => 0,
+
+            CURLOPT_FAILONERROR => false,
+
+            CURLOPT_RETURNTRANSFER => false,
+
+            CURLOPT_SSL_VERIFYPEER => true,
+
+            CURLOPT_SSL_VERIFYHOST => 2,
+        ]
+    );
+
+
+    $result =
+        curl_exec($ch);
+
+
+    $httpCode =
+        curl_getinfo(
+            $ch,
+            CURLINFO_HTTP_CODE
+        );
+
+
+    $downloadSize =
+        curl_getinfo(
+            $ch,
+            CURLINFO_SIZE_DOWNLOAD
+        );
+
+
+    $curlError =
+        curl_error($ch);
+
+
+    $curlErrno =
+        curl_errno($ch);
+
+
+    curl_close($ch);
+
+    fclose($tempFp);
+
+
+    // =========================================================
+    // CURL DEBUG
+    // =========================================================
+
+    log_message(
+        "[BG DEBUG] CURL FINISHED. "
+        . "result="
+        . var_export($result, true)
+        . " HTTP=$httpCode"
+        . " errno=$curlErrno"
+        . " error=$curlError"
+        . " downloaded=$downloadSize bytes"
+    );
+
+
+    // =========================================================
+    // VALIDASI DOWNLOAD
+    // =========================================================
+
+    if (
+        $result === false
+        ||
+        $httpCode < 200
+        ||
+        $httpCode >= 300
+    ) {
+
+        log_message(
+            "[ERROR] GDrive background download failed. "
+            . "HTTP=$httpCode "
+            . "errno=$curlErrno "
+            . "error=$curlError"
+        );
+
+
+        if (
+            file_exists($tempFilePath)
+        ) {
+
+            unlink(
+                $tempFilePath
+            );
+        }
+
+
+        flock(
+            $lockFp,
+            LOCK_UN
+        );
+
+        fclose($lockFp);
+
+        return;
+    }
+
+
+    // =========================================================
+    // VALIDASI FILE TEMP
+    // =========================================================
+
+    clearstatcache(
+        true,
+        $tempFilePath
+    );
+
+
+    $tempFileSize =
+        file_exists($tempFilePath)
+        ? filesize($tempFilePath)
+        : 0;
+
+
+    log_message(
+        "[BG] Temp file size: "
+        . $tempFileSize
+        . " bytes"
+    );
+
+
+    if (
+        !file_exists($tempFilePath)
+        ||
+        $tempFileSize <= 0
+    ) {
+
+        log_message(
+            "[ERROR] Download returned success "
+            . "but temp file is empty."
+        );
+
+
+        if (
+            file_exists($tempFilePath)
+        ) {
+
+            unlink(
+                $tempFilePath
+            );
+        }
+
+
+        flock(
+            $lockFp,
+            LOCK_UN
+        );
+
+        fclose($lockFp);
+
+        return;
+    }
+
+
+    // =========================================================
+    // ATOMIC RENAME
+    // =========================================================
+
+    log_message(
+        "[BG] Attempting atomic rename: "
+        . $tempFilePath
+        . " -> "
+        . $cacheFilePath
+    );
+
+
+    if (
+        !rename(
+            $tempFilePath,
+            $cacheFilePath
+        )
+    ) {
+
+        log_message(
+            "[ERROR] Failed to rename temp cache file."
+        );
+
+
+        if (
+            file_exists($tempFilePath)
+        ) {
+
+            unlink(
+                $tempFilePath
+            );
+        }
+
+
+        flock(
+            $lockFp,
+            LOCK_UN
+        );
+
+        fclose($lockFp);
+
+        return;
+    }
+
+
+    log_message(
+        "[BG] Rename SUCCESS."
+    );
+
+
+    // =========================================================
+    // VALIDASI CACHE FINAL
+    // =========================================================
+
+    clearstatcache(
+        true,
+        $cacheFilePath
+    );
+
+
+    if (
+        !file_exists($cacheFilePath)
+        ||
+        filesize($cacheFilePath) <= 0
+    ) {
+
+        log_message(
+            "[ERROR] Cache file does not exist "
+            . "after rename."
+        );
+
+
+        flock(
+            $lockFp,
+            LOCK_UN
+        );
+
+        fclose($lockFp);
+
+        return;
+    }
+
+
+    // =========================================================
+    // INSERT DB CACHE
+    // =========================================================
+
+    log_message(
+        "[BG] BEFORE DB CACHE INSERT"
+    );
+
+
+    sendToSqlCache(
+        $db,
+        $fileId,
+        $musicId
+    );
+
+
+    log_message(
+        "[BG] AFTER DB CACHE INSERT"
+    );
+
+
+    // =========================================================
+    // CHECK CODEC
+    // =========================================================
+
+    if ($fileType === "audio") {
+
+        log_message(
+            "[BG] Starting codec check. "
+            . "musicId=$musicId"
+        );
+
+
+        checkCodecAudio(
+            $musicId,
+            $cacheFilePath,
+            $db,
+            $ffprobePath
+        );
+
+
+        log_message(
+            "[BG] Codec check finished. "
+            . "musicId=$musicId"
+        );
+    }
+
+
+    // =========================================================
+    // SELESAI
+    // =========================================================
+
+    log_message(
+        "[CACHE SUCCESS] "
+        . "musicId=$musicId "
+        . "fileId=$fileId "
+        . "size="
+        . filesize($cacheFilePath)
+        . " bytes"
+    );
+
+
+    flock(
+        $lockFp,
+        LOCK_UN
+    );
+
+    fclose($lockFp);
+
+    return;
+}
+
+
+// =============================================================
+// RETURN GOOGLE DRIVE URL
+// =============================================================
+
+function returnGoogleDriveUrl(
+    $musicId,
+    $fileType,
+    $driveUrl
+) {
     if ($fileType === "audio") {
 
         outputJson([
@@ -644,10 +1025,10 @@ function sendToSqlCache(
     $fileId,
     $musicId
 ) {
-
-    // Hindari duplicate insert
     $stmt = $db->prepare("
-        INSERT INTO cache_musics (cache_music_id)
+        INSERT INTO cache_musics (
+            cache_music_id
+        )
         SELECT ?
         WHERE NOT EXISTS (
             SELECT 1
@@ -655,6 +1036,17 @@ function sendToSqlCache(
             WHERE cache_music_id = ?
         )
     ");
+
+
+    if (!$stmt) {
+
+        log_message(
+            "[ERROR] Failed to prepare cache DB query: "
+            . $db->error
+        );
+
+        return;
+    }
 
 
     $stmt->bind_param(
@@ -675,7 +1067,8 @@ function sendToSqlCache(
 
         log_message(
             "[SUCCESS] Cache DB updated. "
-            . "fileId=$fileId musicId=$musicId"
+            . "fileId=$fileId "
+            . "musicId=$musicId"
         );
     }
 
