@@ -241,19 +241,39 @@ if ($shouldCache && $fpTemp) {
             if (rename($tempFilePath, $cacheFilePath)) {
                 // Insert to cache_musics
                 global $db;
-                if (!$db || $db->connect_errno) {
-                    @$db->close();
-                    $db = new mysqli(HOST, SIBEUX, pass, DB);
-                    $db->set_charset('utf8mb4');
-                }
-                $stmt = $db->prepare("INSERT IGNORE INTO cache_musics (cache_music_id) VALUES (?)");
-                if ($stmt) {
-                    $stmt->bind_param("i", $musicId);
-                    $stmt->execute();
-                    $stmt->close();
-                    log_message("[STREAM CACHE SUCCESS] musicId=$musicId fileId=$fileId");
-                } else {
-                    log_message("[STREAM CACHE DB ERROR] Failed to prepare statement: " . $db->error);
+                try {
+                    // Cek koneksi dengan dummy query karena mysqli_ping() deprecated di PHP 8.2+
+                    if (!$db || !@$db->query("SELECT 1")) {
+                        @$db->close();
+                        $db = new mysqli(HOST, SIBEUX, pass, DB);
+                        $db->set_charset('utf8mb4');
+                    }
+                    
+                    $stmt = $db->prepare("INSERT IGNORE INTO cache_musics (cache_music_id) VALUES (?)");
+                    if ($stmt) {
+                        $stmt->bind_param("i", $musicId);
+                        $stmt->execute();
+                        $stmt->close();
+                        log_message("[STREAM CACHE SUCCESS] musicId=$musicId fileId=$fileId");
+                    } else {
+                        log_message("[STREAM CACHE DB ERROR] Failed to prepare statement: " . $db->error);
+                    }
+                } catch (Exception $e) {
+                    log_message("[STREAM CACHE DB EXCEPTION] " . $e->getMessage());
+                    // Coba reconnect 1x lagi jika errornya karena server gone away
+                    try {
+                        $db = new mysqli(HOST, SIBEUX, pass, DB);
+                        $db->set_charset('utf8mb4');
+                        $stmt = $db->prepare("INSERT IGNORE INTO cache_musics (cache_music_id) VALUES (?)");
+                        if ($stmt) {
+                            $stmt->bind_param("i", $musicId);
+                            $stmt->execute();
+                            $stmt->close();
+                            log_message("[STREAM CACHE SUCCESS (RETRY)] musicId=$musicId fileId=$fileId");
+                        }
+                    } catch (Exception $ex) {
+                        log_message("[STREAM CACHE DB EXCEPTION RETRY FAILED] " . $ex->getMessage());
+                    }
                 }
             } else {
                 log_message("[STREAM CACHE ERROR] Failed to rename temp file to $cacheFilePath");
