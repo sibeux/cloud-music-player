@@ -107,15 +107,26 @@ function streamingMusicFromGdrive(
     }
 
     // Fallback if not audio (e.g. image)
-    // Langsung redirect ke Google Drive tanpa proxy
-    // Karena ini gambar (cover), biasanya tidak butuh acknowledgeAbuse
-    
+    // Langsung proxy file gambar ke klien (menghindari Captcha dari Google Drive)
     $uploader = "wahabinasrul@gmail.com";
     $config = getGoogleDriveCredentials($uploader, $allApiData);
     $tokenData = getGdriveOauthToken($config, false);
     $accessToken = $tokenData['access_token'] ?? '';
     
-    $driveUrl = "https://www.googleapis.com/drive/v3/files/" . rawurlencode($fileId) . "?alt=media&access_token=" . $accessToken;
+    $driveUrl = "https://www.googleapis.com/drive/v3/files/" . rawurlencode($fileId) . "?alt=media";
     
-    header("Location: " . $driveUrl, true, 302);
+    $ch = curl_init($driveUrl);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . $accessToken]);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    
+    curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($curl, $header) {
+        $lower = strtolower(trim($header));
+        if (strpos($lower, 'content-type:') === 0 || strpos($lower, 'content-length:') === 0) {
+            header(trim($header));
+        }
+        return strlen($header);
+    });
+    
+    curl_exec($ch);
+    unset($ch);
 }
