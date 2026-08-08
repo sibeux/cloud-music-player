@@ -109,7 +109,13 @@ function streamingMusicFromGdrive(
     // Fallback if not audio (e.g. image)
     // Langsung redirect ke Google Drive tanpa proxy
     // Karena ini gambar (cover), biasanya tidak butuh acknowledgeAbuse
-    $driveUrl = "https://www.googleapis.com/drive/v3/files/" . rawurlencode($fileId) . "?alt=media";
+    
+    $uploader = "wahabinasrul@gmail.com";
+    $config = getGoogleDriveCredentials($uploader, $allApiData);
+    $tokenData = getGdriveOauthToken($config, false);
+    $accessToken = $tokenData['access_token'] ?? '';
+    
+    $driveUrl = "https://www.googleapis.com/drive/v3/files/" . rawurlencode($fileId) . "?alt=media&access_token=" . $accessToken;
     
     header("Location: " . $driveUrl, true, 302);
 }
