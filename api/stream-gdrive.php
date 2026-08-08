@@ -163,19 +163,19 @@ $headersToForward = [];
 $currentHttpCode = 0;
 $isHeadersSent = false;
 
-curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($curl, $header) use (&$expectedLength, &$headersToForward, &$currentHttpCode, &$isHeadersSent) {
+curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($curl, $header) use (&$expectedLength, &$headersToForward, &$currentHttpCode, &$isHeadersSent) {
     $len = strlen($header);
     $headerClean = trim($header);
-    
+
     // Jika kita menerima baris status HTTP baru (misal redirect 302, lalu 200)
     if (preg_match('#^HTTP/(1\.[01]|2) (\d+)#', $headerClean, $matches)) {
-        $currentHttpCode = (int)$matches[2];
+        $currentHttpCode = (int) $matches[2];
         if ($currentHttpCode == 200 || $currentHttpCode == 206) {
             $headersToForward = []; // Reset header untuk response final
         }
         return $len;
     }
-    
+
     if (empty($headerClean)) {
         // Akhir dari blok header
         if (($currentHttpCode == 200 || $currentHttpCode == 206) && !$isHeadersSent) {
@@ -187,30 +187,32 @@ curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($curl, $header) use (&$expecte
         }
         return $len;
     }
-    
+
     if ($currentHttpCode == 200 || $currentHttpCode == 206) {
         $lower = strtolower($headerClean);
-        if (strpos($lower, 'content-type:') === 0 || 
-            strpos($lower, 'content-length:') === 0 || 
+        if (
+            strpos($lower, 'content-type:') === 0 ||
+            strpos($lower, 'content-length:') === 0 ||
             strpos($lower, 'content-range:') === 0 ||
-            strpos($lower, 'accept-ranges:') === 0) {
+            strpos($lower, 'accept-ranges:') === 0
+        ) {
             $headersToForward[] = $headerClean;
         }
-        
+
         if (strpos($lower, 'content-length:') === 0) {
             $expectedLength = (int) trim(substr($headerClean, 15));
         }
     }
-    
+
     return $len;
 });
 
 // Streaming Chunk - Langsung tulis ke output buffer dan file temporary
-curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($curl, $data) use ($fpTemp, &$shouldCache, &$currentHttpCode) {
+curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($curl, $data) use ($fpTemp, &$shouldCache, &$currentHttpCode) {
     if ($currentHttpCode == 200 || $currentHttpCode == 206) {
         echo $data;
         flush();
-        
+
         if ($shouldCache && $fpTemp) {
             fwrite($fpTemp, $data);
         }
@@ -225,12 +227,12 @@ curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $curlErrno = curl_errno($ch);
 $curlError = curl_error($ch);
-curl_close($ch);
+unset($ch);
 
 if ($shouldCache && $fpTemp) {
     fclose($fpTemp);
     $actualLength = filesize($tempFilePath);
-    
+
     if (($httpCode == 200 || $httpCode == 206) && !$curlErrno) {
         if ($expectedLength !== null && $actualLength !== $expectedLength) {
             log_message("[STREAM CACHE ERROR] Incomplete download. Expected $expectedLength, got $actualLength");
@@ -239,7 +241,7 @@ if ($shouldCache && $fpTemp) {
             if (rename($tempFilePath, $cacheFilePath)) {
                 // Insert to cache_musics
                 global $db;
-                if (!@mysqli_ping($db)) {
+                if (!$db || $db->connect_errno) {
                     @$db->close();
                     $db = new mysqli(HOST, SIBEUX, pass, DB);
                     $db->set_charset('utf8mb4');
@@ -271,7 +273,8 @@ if ($lockFp) {
 }
 
 // Helper untuk serve local file dengan support Range
-function serveLocalFileWithRange($filePath, $mimeType = 'audio/mpeg') {
+function serveLocalFileWithRange($filePath, $mimeType = 'audio/mpeg')
+{
     $size = filesize($filePath);
     $start = 0;
     $end = $size - 1;
@@ -313,7 +316,7 @@ function serveLocalFileWithRange($filePath, $mimeType = 'audio/mpeg') {
         http_response_code(500);
         exit;
     }
-    
+
     fseek($fp, $start);
     $bufferSize = 8192;
     $bytesLeft = $length;
