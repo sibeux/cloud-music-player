@@ -107,5 +107,9 @@ function streamingMusicFromGdrive(
     }
 
     // Fallback if not audio (e.g. image)
-    header("Location: " . $streamEndpointUrl, true, 302);
+    // Langsung redirect ke Google Drive tanpa proxy
+    // Karena ini gambar (cover), biasanya tidak butuh acknowledgeAbuse
+    $driveUrl = "https://www.googleapis.com/drive/v3/files/" . rawurlencode($fileId) . "?alt=media";
+    
+    header("Location: " . $driveUrl, true, 302);
 }
