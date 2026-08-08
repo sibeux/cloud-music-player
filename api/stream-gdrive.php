@@ -239,11 +239,20 @@ if ($shouldCache && $fpTemp) {
             if (rename($tempFilePath, $cacheFilePath)) {
                 // Insert to cache_musics
                 global $db;
+                if (!@mysqli_ping($db)) {
+                    @$db->close();
+                    $db = new mysqli(HOST, SIBEUX, pass, DB);
+                    $db->set_charset('utf8mb4');
+                }
                 $stmt = $db->prepare("INSERT IGNORE INTO cache_musics (cache_music_id) VALUES (?)");
-                $stmt->bind_param("i", $musicId);
-                $stmt->execute();
-                $stmt->close();
-                log_message("[STREAM CACHE SUCCESS] musicId=$musicId fileId=$fileId");
+                if ($stmt) {
+                    $stmt->bind_param("i", $musicId);
+                    $stmt->execute();
+                    $stmt->close();
+                    log_message("[STREAM CACHE SUCCESS] musicId=$musicId fileId=$fileId");
+                } else {
+                    log_message("[STREAM CACHE DB ERROR] Failed to prepare statement: " . $db->error);
+                }
             } else {
                 log_message("[STREAM CACHE ERROR] Failed to rename temp file to $cacheFilePath");
                 @unlink($tempFilePath);
