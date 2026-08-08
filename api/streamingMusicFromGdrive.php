@@ -88,7 +88,13 @@ function streamingMusicFromGdrive(
     
     $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
     $host = $_SERVER['HTTP_HOST'];
-    $streamEndpointUrl = $protocol . "://" . $host . "/api/stream-gdrive.php?music_id=" . urlencode($musicId);
+    
+    // Dynamic Base Path
+    $docRoot = rtrim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '/');
+    $currentDir = str_replace('\\', '/', __DIR__);
+    $basePath = str_replace($docRoot, '', $currentDir);
+    
+    $streamEndpointUrl = rtrim($protocol . "://" . $host . $basePath, '/') . "/stream-gdrive.php?music_id=" . urlencode($musicId);
     
     if ($fileType === "audio") {
         outputJson([
