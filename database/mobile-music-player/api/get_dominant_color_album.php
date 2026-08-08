@@ -4,14 +4,6 @@ global $ffprobePath, $db;
 include './connection.php';
 require_once __DIR__ . '/../../../api/image-dominant-color/get_color.php';
 
-function sendJsonResponse(array $data, int $responseCode = 200)
-{
-	http_response_code($responseCode);
-	header('Content-Type: application/json');
-	echo json_encode($data);
-	die();
-}
-
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
