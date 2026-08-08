@@ -10,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit;
 }
 
+session_start();
+
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../database/db.php';
 require_once __DIR__ . '/../utils/utils.php';
@@ -157,39 +159,59 @@ if ($isPartialRequest && $rangeHeader) {
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $expectedLength = null;
+$headersToForward = [];
+$currentHttpCode = 0;
+$isHeadersSent = false;
 
-curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($curl, $header) use (&$expectedLength) {
+curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($curl, $header) use (&$expectedLength, &$headersToForward, &$currentHttpCode, &$isHeadersSent) {
     $len = strlen($header);
     $headerClean = trim($header);
-    if (empty($headerClean)) return $len;
     
-    $lower = strtolower($headerClean);
-    // Forward relevant headers
-    if (strpos($lower, 'content-type:') === 0 || 
-        strpos($lower, 'content-length:') === 0 || 
-        strpos($lower, 'content-range:') === 0 ||
-        strpos($lower, 'accept-ranges:') === 0) {
-        header($headerClean);
-    }
-    
-    if (strpos($lower, 'content-length:') === 0) {
-        $expectedLength = (int) trim(substr($headerClean, 15));
-    }
-    
+    // Jika kita menerima baris status HTTP baru (misal redirect 302, lalu 200)
     if (preg_match('#^HTTP/(1\.[01]|2) (\d+)#', $headerClean, $matches)) {
-        http_response_code((int)$matches[2]);
+        $currentHttpCode = (int)$matches[2];
+        if ($currentHttpCode == 200 || $currentHttpCode == 206) {
+            $headersToForward = []; // Reset header untuk response final
+        }
+        return $len;
     }
+    
+    if (empty($headerClean)) {
+        // Akhir dari blok header
+        if (($currentHttpCode == 200 || $currentHttpCode == 206) && !$isHeadersSent) {
+            http_response_code($currentHttpCode);
+            foreach ($headersToForward as $h) {
+                header($h);
+            }
+            $isHeadersSent = true;
+        }
+        return $len;
+    }
+    
+    if ($currentHttpCode == 200 || $currentHttpCode == 206) {
+        $lower = strtolower($headerClean);
+        if (strpos($lower, 'content-type:') === 0 || 
+            strpos($lower, 'content-length:') === 0 || 
+            strpos($lower, 'content-range:') === 0 ||
+            strpos($lower, 'accept-ranges:') === 0) {
+            $headersToForward[] = $headerClean;
+        }
+        
+        if (strpos($lower, 'content-length:') === 0) {
+            $expectedLength = (int) trim(substr($headerClean, 15));
+        }
+    }
+    
     return $len;
 });
 
-curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($curl, $data) use ($fpTemp, &$shouldCache) {
-    echo $data;
-    flush();
-    
-    if ($shouldCache && $fpTemp) {
-        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        // Only save if it's 200 OK or 206 Partial Content (since we only cache if Range is bytes=0-)
-        if ($status == 200 || $status == 206) {
+// Streaming Chunk - Langsung tulis ke output buffer dan file temporary
+curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($curl, $data) use ($fpTemp, &$shouldCache, &$currentHttpCode) {
+    if ($currentHttpCode == 200 || $currentHttpCode == 206) {
+        echo $data;
+        flush();
+        
+        if ($shouldCache && $fpTemp) {
             fwrite($fpTemp, $data);
         }
     }
