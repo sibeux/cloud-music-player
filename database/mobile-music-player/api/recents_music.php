@@ -6,6 +6,11 @@ require_once __DIR__ . '/read_codec.php';
 require_once __DIR__ . '/../../../api/image-dominant-color/get_color.php';
 
 try {
+    file_put_contents(
+        __DIR__ . '/custom.log',
+        date('[Y-m-d H:i:s] ') . "ENDPOINT RECENT MUSIC START\n",
+        FILE_APPEND
+    );
     $auth = new BearerAuth($secretKey);
     $user = $auth->validate(false);
     $userId = isset($user['sub']) ? $user['sub'] : 0;
@@ -23,7 +28,7 @@ try {
         $albumType = strtolower($_POST['album_type']);
 
         // Eksekusi query untuk 'recents_music'
-        if ($userId != 0){
+        if ($userId != 0) {
             $stmt_recents = $db->prepare("INSERT INTO recent_musics (uid_music, user_id, recentable_album_id, recentable_album_type) VALUES (?, ?, ?, ?)");
             $stmt_recents->bind_param("iiis", $music_id, $userId, $albumId, $albumType);
             if (!$stmt_recents->execute()) {
@@ -32,18 +37,29 @@ try {
             $stmt_recents->close();
         }
 
+        file_put_contents(
+            __DIR__ . '/custom.log',
+            date('[Y-m-d H:i:s] ') .
+            "codec_exist = " . var_export($codec_exist, true) . "\n",
+            FILE_APPEND
+        );
         // Eksekusi query untuk 'metadata_music'
         // Cek dulu apakah perlu dilakukan read codec?
-        if ($codec_exist == 'false'){
+        if ($codec_exist == 'false') {
+            file_put_contents(
+                __DIR__ . '/custom.log',
+                date('[Y-m-d H:i:s] ') . "CALLING checkCodecAudio\n",
+                FILE_APPEND
+            );
             $codec = checkCodecAudio($music_id, $music_url, $db, $ffprobePath);
         }
 
         // Dapatkan dominant color dari cover
-        if ($dominant_color_exist == 'false'){
+        if ($dominant_color_exist == 'false') {
             // ini warning karena diambil dari repo lain.
             $dominant_color = getDominantColors($image_url, $db);
         }
-        
+
         // Execution query for 'delete'
         if ($userId != 0) {
             $delete_sql = "DELETE FROM recent_musics
@@ -87,7 +103,7 @@ try {
         "message" => "Internal server error",
         "error" => $e->getMessage()
     ]);
-} finally{
+} finally {
     if (isset($db)) {
         $db->close();
     }
