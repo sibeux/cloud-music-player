@@ -1,7 +1,9 @@
 desktop.ini
 *.ini
+*.log
 desktop.ini
 d e s k t o p . i n i
 database/SQL-DB/*
 api/doc/secret/*
 .env
+api/image-dominant-color
