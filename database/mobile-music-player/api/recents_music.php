@@ -6,11 +6,6 @@ require_once __DIR__ . '/read_codec.php';
 require_once __DIR__ . '/../../../api/image-dominant-color/get_color.php';
 
 try {
-    file_put_contents(
-        __DIR__ . '/custom.log',
-        date('[Y-m-d H:i:s] ') . "ENDPOINT RECENT MUSIC START\n",
-        FILE_APPEND
-    );
     $auth = new BearerAuth($secretKey);
     $user = $auth->validate(false);
     $userId = isset($user['sub']) ? $user['sub'] : 0;
@@ -37,20 +32,9 @@ try {
             $stmt_recents->close();
         }
 
-        file_put_contents(
-            __DIR__ . '/custom.log',
-            date('[Y-m-d H:i:s] ') .
-            "codec_exist = " . var_export($codec_exist, true) . "\n",
-            FILE_APPEND
-        );
         // Eksekusi query untuk 'metadata_music'
         // Cek dulu apakah perlu dilakukan read codec?
         if ($codec_exist == 'false') {
-            file_put_contents(
-                __DIR__ . '/custom.log',
-                date('[Y-m-d H:i:s] ') . "CALLING checkCodecAudio\n",
-                FILE_APPEND
-            );
             $codec = checkCodecAudio($music_id, $music_url, $db, $ffprobePath);
         }
 

@@ -5,16 +5,23 @@ $ffprobePath = "/home/sibs6571/ffmpeg/ffprobe"; // Path FFprobe Anda
 
 function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
 {
-    file_put_contents(
-        __DIR__ . '/custom.log',
-        date('[Y-m-d H:i:s] ') . "CHECK CODEC ENTERED\n",
-        FILE_APPEND
-    );
     // Jalankan FFprobe pada file local tersebut
     // WAJIB: Amankan path file untuk mencegah command injection
     $safeFilePath = escapeshellarg($filePath);
     // Bangun perintah yang akan dieksekusi
     $command = "$ffprobePath -v error -show_streams -show_format -print_format json $safeFilePath 2>&1";
+    $disabledFunctions = ini_get('disable_functions');
+
+    if (stripos($disabledFunctions, 'shell_exec') !== false) {
+        file_put_contents(
+            __DIR__ . '/custom.log',
+            date('[Y-m-d H:i:s] ') .
+            "[ERROR] shell_exec is disabled by hosting.\n",
+            FILE_APPEND
+        );
+
+        return null;
+    }
     // Jalankan perintah (ini butuh izin dari hosting)
     $output = shell_exec($command);
     $metadata = json_decode($output, true);
