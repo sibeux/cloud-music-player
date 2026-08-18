@@ -5,26 +5,6 @@ $ffprobePath = "/home/sibs6571/ffmpeg/ffprobe"; // Path FFprobe Anda
 
 function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
 {
-    $logFile = __DIR__ . '/custom.log';
-
-    file_put_contents($logFile, "A\n", FILE_APPEND);
-
-    file_put_contents($logFile, "B\n", FILE_APPEND);
-
-    $test = function_exists('escapeshellarg');
-
-    file_put_contents($logFile, "C\n", FILE_APPEND);
-
-    file_put_contents(
-        $logFile,
-        "escapeshellarg exists = " .
-        var_export($test, true) . "\n",
-        FILE_APPEND
-    );
-
-    file_put_contents($logFile, "D\n", FILE_APPEND);
-
-    return null;
     // Jalankan FFprobe pada file local tersebut
     // WAJIB: Amankan path file untuk mencegah command injection
     $safeFilePath = escapeshellarg($filePath);
