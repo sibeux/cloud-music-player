@@ -22,7 +22,7 @@ if (!$database) {
 
 // Yang perlu diganti saat hosting baru: username, password, dan db.
 
-define('HOST', 'localhost');
+define('HOST', 'jembayan.iixcp.rumahweb.net');
 define('SIBEUX', $username); // Ganti dengan username database hosting
 define('pass', $password); // Ganti dengan password database hosting
 define('DB', $database); // Ganti dengan nama database hosting
