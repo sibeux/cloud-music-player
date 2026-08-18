@@ -16,7 +16,7 @@ $favorite = 0;
 $link_drive = "";
 
 // URL API
-$url = "https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php";
+$url = "https://cybeat.sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php";
 
 // Ambil data API
 $response = file_get_contents($url);
@@ -117,8 +117,8 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 <li class="text-center">More</li>
                                             </ul>
                                             <?php
-                                            $sql_music = "SELECT * FROM music ORDER BY title ASC LIMIT $limit OFFSET $offset";
-                                            $sql_count_music = "SELECT COUNT(*) as jumlah_music FROM music";
+                                            $sql_music = "SELECT * FROM musics ORDER BY title ASC LIMIT $limit OFFSET $offset";
+                                            $sql_count_music = "SELECT COUNT(*) as jumlah_music FROM musics";
 
                                             $result_music = $db->query($sql_music);
                                             $result_count_music = $db->query($sql_count_music);
@@ -166,76 +166,76 @@ function checkUrlFromDrive(string $url_db, string $gdrive_api_key)
                                                 );
 
                                                 ?>
-                                                <ul class="album_inner_list_padding">
-                                                    <li style="cursor: pointer;"><a><span class="play_no">
-                                                                <?php echo $number_music; ?>
-                                                            </span>
-                                                            <span class="play_hover" onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,
+                                            <ul class="album_inner_list_padding">
+                                                <li style="cursor: pointer;"><a><span class="play_no">
+                                                            <?php echo $number_music; ?>
+                                                        </span>
+                                                        <span class="play_hover" onclick="animatedPlayMusic(<?php echo $number_music - 1 ?>,
                                                             '<?php echo $link_drive ?>','<?php echo $count_music ?>', 
                                                             '<?php echo $id_music ?>', '<?php echo $music_data ?>')"><i
-                                                                    class="flaticon-play-button"></i></span></a>
-                                                    </li>
-                                                    <li class="song_title_width">
-                                                        <div class="top_song_artist_wrapper">
+                                                                class="flaticon-play-button"></i></span></a>
+                                                </li>
+                                                <li class="song_title_width">
+                                                    <div class="top_song_artist_wrapper">
 
-                                                            <img src="<?php echo $cover ?>" alt="img" class="cover_music">
+                                                        <img src="<?php echo $cover ?>" alt="img" class="cover_music">
 
-                                                            <div class="top_song_artist_contnt">
-                                                                <h1><a style="cursor: pointer;" class="title_music">
-                                                                        <?php echo $title ?>
-                                                                    </a></h1>
-                                                                <p class="various_artist_text"><a class="artist_music">
-                                                                        <?php echo $artist ?>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-
+                                                        <div class="top_song_artist_contnt">
+                                                            <h1><a style="cursor: pointer;" class="title_music">
+                                                                    <?php echo $title ?>
+                                                                </a></h1>
+                                                            <p class="various_artist_text"><a class="artist_music">
+                                                                    <?php echo $artist ?>
+                                                                </a>
+                                                            </p>
                                                         </div>
-                                                    </li>
-                                                    <li class="song_title_width"><a class="album_music">
-                                                            <?php echo $album ?>
-                                                        </a>
-                                                    </li>
-                                                    <li class="text-center"><a class="time_music"><?php echo $time ?></a>
-                                                    </li>
-                                                    <li class="text-center favorite-text-center">
-                                                        <?php
+
+                                                    </div>
+                                                </li>
+                                                <li class="song_title_width"><a class="album_music">
+                                                        <?php echo $album ?>
+                                                    </a>
+                                                </li>
+                                                <li class="text-center"><a class="time_music"><?php echo $time ?></a>
+                                                </li>
+                                                <li class="text-center favorite-text-center">
+                                                    <?php
                                                         // initiate variable $favorite
                                                         $is_favorite = $favorite;
                                                         if ($is_favorite == 1) { ?>
-                                                            <i class="fas fa-heart"
-                                                                onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
-                                                                style="color: #1fd660;"></i>
-                                                        <?php } else { ?>
-                                                            <i class="far fa-heart"
-                                                                onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
-                                                                style="color: #fff;"></i>
-                                                        <?php } ?>
-                                                    </li>
-                                                    <li class="text-center top_song_artist_playlist">
-                                                        <div class="ms_tranding_more_icon">
-                                                            <i class="flaticon-menu" style="color: white;"></i>
-                                                        </div>
-                                                        <ul class="tranding_more_option">
-                                                            <li><a href="#"><span class="opt_icon"><i
-                                                                            class="flaticon-playlist"></i></span>Add To
-                                                                    playlist</a>
-                                                            </li>
-                                                            <li><a href="#"><span class="opt_icon"><i
-                                                                            class="flaticon-star"></i></span>favourite</a>
-                                                            </li>
-                                                            <li><a href="#"><span class="opt_icon"><i
-                                                                            class="flaticon-share"></i></span>share</a></li>
-                                                            <li><a href="#"><span class="opt_icon"><i
-                                                                            class="flaticon-files-and-folders"></i></span>view
-                                                                    lyrics</a></li>
-                                                            <li><a href="#"><span class="opt_icon"><i
-                                                                            class="flaticon-trash"></i></span>delete</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                                <?php
+                                                    <i class="fas fa-heart"
+                                                        onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
+                                                        style="color: #1fd660;"></i>
+                                                    <?php } else { ?>
+                                                    <i class="far fa-heart"
+                                                        onclick="changeFavoriteButton(<?php echo $current_number_music - 1 ?>)"
+                                                        style="color: #fff;"></i>
+                                                    <?php } ?>
+                                                </li>
+                                                <li class="text-center top_song_artist_playlist">
+                                                    <div class="ms_tranding_more_icon">
+                                                        <i class="flaticon-menu" style="color: white;"></i>
+                                                    </div>
+                                                    <ul class="tranding_more_option">
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-playlist"></i></span>Add To
+                                                                playlist</a>
+                                                        </li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-star"></i></span>favourite</a>
+                                                        </li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-share"></i></span>share</a></li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-files-and-folders"></i></span>view
+                                                                lyrics</a></li>
+                                                        <li><a href="#"><span class="opt_icon"><i
+                                                                        class="flaticon-trash"></i></span>delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <?php
                                                 $number_music++;
                                             } ?>
                                         </div>
