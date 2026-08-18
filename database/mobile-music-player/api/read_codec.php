@@ -12,11 +12,11 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
     $command = "$ffprobePath -v error -show_streams -show_format -print_format json $safeFilePath 2>&1";
     $disabledFunctions = ini_get('disable_functions');
 
-    if (stripos($disabledFunctions, 'shell_exec') !== false) {
+    if (!function_exists('shell_exec')) {
         file_put_contents(
             __DIR__ . '/custom.log',
             date('[Y-m-d H:i:s] ') .
-            "[ERROR] shell_exec is disabled by hosting.\n",
+            "[ERROR] shell_exec is unavailable/disabled.\n",
             FILE_APPEND
         );
 
