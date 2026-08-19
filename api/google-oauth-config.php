@@ -6,16 +6,18 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->safeLoad(); // Pakai safeLoad agar tidak error fatal jika file .env lupa dibuat
 
-// Ambil value dari .env
-$url = $_ENV['GDRIVE_API_URL'] ?? null;
+require_once __DIR__ . '/../database/db.php';
+global $db;
 
-if (!$url) {
-    die("Error: Secret key belum disetting di .env");
+$sql = "SELECT * FROM APIs";
+$result = $db->query($sql);
+$allApiData = [];
+
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $allApiData[] = $row;
+    }
 }
-
-// Ambil data API sekali saja saat file ini di-include
-$goauthResponse = @file_get_contents($url);
-$allApiData = ($goauthResponse) ? json_decode($goauthResponse, true) : [];
 
 /**
  * Fungsi ini sekarang MENGEMBALIKAN kredensial, bukan mengubah variabel luar.
