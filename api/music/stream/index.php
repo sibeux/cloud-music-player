@@ -57,7 +57,11 @@ try {
         $path = str_replace("cdncloudflare", '', $musicUrl['url']);
         streamMusicFromCF($secretKey, $db, $ffprobePath, $path, $musicId);
     } else {
-        header("Location: " . $musicUrl['url'], true, 302);
+        outputJson([
+            "success" => true,
+            "music_id" => $musicId,
+            "stream_url" => $musicUrl['url']
+        ]);
     }
 
 } catch (Exception $e) {
