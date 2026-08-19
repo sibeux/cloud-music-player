@@ -1,8 +1,8 @@
 <?php
 
 global $ffprobePath, $db;
-include './connection.php';
-require_once __DIR__ . '/../../../api/image-dominant-color/get_color.php';
+include '../../../database/mobile-music-player/api/connection.php';
+require_once __DIR__ . '/../../image-dominant-color/get_color.php';
 
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);

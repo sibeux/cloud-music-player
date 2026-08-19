@@ -54,7 +54,7 @@ if (!$fileId) {
 }
 
 // 2. Cache Config
-$cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host';
+$cacheDir = __DIR__ . '/music-host';
 $safeFileId = basename($fileId);
 $cacheFilePath = $cacheDir . '/' . $safeFileId;
 

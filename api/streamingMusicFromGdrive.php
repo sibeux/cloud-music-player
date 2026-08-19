@@ -54,7 +54,7 @@ function streamingMusicFromGdrive(
     // CACHE CONFIG
     // =========================================================
 
-    $cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host';
+    $cacheDir = __DIR__ . '/music-host';
     $safeFileId = basename($fileId);
     $cacheFilePath = $cacheDir . '/' . $safeFileId;
 

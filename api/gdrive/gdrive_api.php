@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-include './connection.php';
+include '../../database/mobile-music-player/api/connection.php';
 
 $sql = "SELECT * FROM APIs";
 

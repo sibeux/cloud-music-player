@@ -1,5 +1,15 @@
 RewriteEngine On
 
+# Mobile API routes
+RewriteRule ^playlist/?$ music/playlist/playlist.php [L,QSA]
+RewriteRule ^pin_playlist/?$ music/playlist/pin_playlist.php [L,QSA]
+RewriteRule ^gdrive_api/?$ gdrive/gdrive_api.php [L,QSA]
+RewriteRule ^crud_new_playlist/?$ music/playlist/crud.php [L,QSA]
+RewriteRule ^music_playlist/?$ music/playlist/music.php [L,QSA]
+RewriteRule ^recents_music/?$ music/recent.php [L,QSA]
+RewriteRule ^favorite/?$ music/favorite.php [L,QSA]
+RewriteRule ^get_dominant_color_album/?$ music/album/dominant-color.php [L,QSA]
+
 ## To internally redirect /dir/foo to /dir/foo.php
 RewriteCond %{REQUEST_FILENAME}.php -f [NC]
 RewriteRule ^ %{REQUEST_URI}.php [L]

@@ -12,7 +12,7 @@ if (!isset($_POST['file_url']) || !isset($_POST['file_name']) || !isset($_POST['
 $fileUrl = $_POST['file_url'];
 $fileName = basename($_POST['file_name']);
 $fileExt = $_POST['file_ext'];
-$targetDir = 'music-host/'; // sesuaikan path
+$targetDir = __DIR__ . '/../../../api/music-host/'; // sesuaikan path
 $targetFile = $targetDir . $fileName . '.' . $fileExt;
 // $jsonFile = $targetDir . 'music_host_list.json';
 

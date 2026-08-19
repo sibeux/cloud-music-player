@@ -1,6 +1,6 @@
 <?php
 
-include './connection.php';
+include '../../../database/mobile-music-player/api/connection.php';
 
 $method = '';
 $sql = '';

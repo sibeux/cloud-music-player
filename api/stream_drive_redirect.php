@@ -54,8 +54,8 @@ $config = getGoogleDriveCredentials($uploader, $allApiData);
 
 // --- Konfigurasi Cache Lokal ---
 // Fungsi: Menentukan lokasi dan durasi penyimpanan file cache.
-$cacheDir = __DIR__ . '/../database/mobile-music-player/api/music-host'; // Nama folder untuk menyimpan cache
-$cacheUrl = 'https://sibeux.my.id/cloud-music-player/database/mobile-music-player/api/music-host';
+$cacheDir = __DIR__ . '/music-host'; // Nama folder untuk menyimpan cache
+$cacheUrl = getApiUrl('music-host');
 // Fungsi $cacheDuration adalah untuk mendownload ulang file dari GDRIVE-
 // jika sudah expired. Kita set ke 1 tahun, karena file lagu statis banget.
 $cacheDuration = 31536000; // Durasi cache dalam detik (86400 = 24 jam)
@@ -79,7 +79,7 @@ $cacheFilePath = $cacheDir . '/' . basename($fileId);
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
 function getGdriveOauthToken($config, $isSuspicious)
 {
-    $tokenFile = __DIR__ . '/token.json';
+    $tokenFile = __DIR__ . '/../storage/token.json';
 
     // --- 1. Coba ambil dari session (cache paling cepat) ---
     if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {
