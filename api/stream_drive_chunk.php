@@ -76,7 +76,7 @@ $cacheFilePath = $cacheDir . '/' . basename($fileId);
 // --- FUNGSI UNTUK MENGELOLA TOKEN DENGAN AMAN (FILE LOCKING) ---
 function getGdriveOauthToken($config, $isSuspicious)
 {
-    $tokenFile = __DIR__ . '/token.json';
+    $tokenFile = __DIR__ . '/../storage/token.json';
 
     // --- 1. Coba ambil dari session (cache paling cepat) ---
     if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {

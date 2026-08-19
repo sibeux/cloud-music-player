@@ -2,7 +2,7 @@
 
 function getGdriveOauthToken($config, $isSuspicious)
 {
-    $tokenFile = __DIR__ . '/../../token.json';
+    $tokenFile = __DIR__ . '/../../../storage/token.json';
 
     // Coba ambil dari session (cache paling cepat)
     if (isset($_SESSION['gdrive_token']) && time() < $_SESSION['gdrive_token']['expires_at']) {

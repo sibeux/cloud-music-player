@@ -37,7 +37,7 @@ function generateToken($user, $secretKey, $db)
 {
     $issuedAt = time();
     $expirationTime = $issuedAt + (60 * 15); // 15 minutes
-    $issuer = "https://sibeux.my.id";
+    $issuer = isset($_ENV['APP_URL']) ? rtrim($_ENV['APP_URL'], '/') : "https://sibeux.my.id";
 
     // Generate Access Token
     $accessPayload = [

@@ -85,3 +85,25 @@ function githubUrlFormatter($url)
     $githubUrl = explode("?", $githubUrl)[0];
     return $githubUrl;
 }
+
+/**
+ * Centralized helper for generating API URLs.
+ * Uses APP_URL and API_BASE_PATH from environment configuration.
+ *
+ * @param string $path The path relative to the API base, e.g., "stream-gdrive.php?music_id=123"
+ * @return string The absolute public URL.
+ */
+function getApiUrl(string $path = ''): string
+{
+    $appUrl = isset($_ENV['APP_URL']) ? rtrim($_ENV['APP_URL'], '/') : 'http://localhost';
+    $apiBasePath = isset($_ENV['API_BASE_PATH']) ? '/' . trim($_ENV['API_BASE_PATH'], '/') : '/api';
+    
+    // Normalize path to avoid double slashes
+    $cleanPath = ltrim($path, '/');
+    
+    if (empty($cleanPath)) {
+        return $appUrl . $apiBasePath;
+    }
+    
+    return $appUrl . $apiBasePath . '/' . $cleanPath;
+}

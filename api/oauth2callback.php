@@ -3,6 +3,7 @@
 
 // config.php harus ada Client ID & Client Secret + redirect_uri
 include __DIR__ . '/google-oauth-config.php';
+require_once __DIR__ . '/../utils/utils.php';
 
 // Ambil code dari query parameter
 $code = $_GET['code'] ?? null;
@@ -22,7 +23,7 @@ $data = http_build_query([
     'code' => $code,
     'client_id' => $config['client_id'],
     'client_secret' => $config['client_secret'],
-    'redirect_uri' => 'https://sibeux.my.id/cloud-music-player/api/oauth2callback.php', // harus sama dengan yang didaftarkan
+    'redirect_uri' => getApiUrl('oauth2callback.php'), // harus sama dengan yang didaftarkan
     'grant_type' => 'authorization_code',
 ]);
 
@@ -44,7 +45,7 @@ if (isset($tokenData['refresh_token'])) {
     echo "Refresh Token: " . $tokenData['refresh_token'] . "<br>";
 
     // Opsional: simpan ke file
-    file_put_contents('token.json', json_encode($tokenData, JSON_PRETTY_PRINT));
+    file_put_contents(__DIR__ . '/../storage/token.json', json_encode($tokenData, JSON_PRETTY_PRINT));
 } else {
     echo "Failed to get tokens. Response: <pre>" . print_r($tokenData, true) . "</pre>";
 }
