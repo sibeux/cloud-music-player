@@ -16,7 +16,7 @@ $favorite = 0;
 $link_drive = "";
 
 // URL API
-$url = "https://cybeat.sibeux.my.id/cloud-music-player/database/mobile-music-player/api/gdrive_api.php";
+$url = "https://cybeat.sibeux.my.id/api/gdrive_api";
 
 // Ambil data API
 $response = file_get_contents($url);
