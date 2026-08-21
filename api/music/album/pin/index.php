@@ -36,7 +36,8 @@ try {
     echo json_encode([
         "status" => "error",
         "message" => "Internal server error",
-        "error" => $e->getMessage()
+        "error" => $e->getMessage(),
+        "trace" => $e->getTraceAsString()
     ]);
 } finally {
     if (isset($db)) {
