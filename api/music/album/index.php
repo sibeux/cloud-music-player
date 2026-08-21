@@ -14,6 +14,7 @@
 ob_start('ob_gzhandler'); // aktifkan gzip (opsional)
 ini_set('memory_limit', '256M'); // atau '512M' kalau perlu
 
+require_once __DIR__ . '/../../../utils/utils.php';
 require_once __DIR__ . '/../../init.php';
 
 try {
@@ -54,7 +55,8 @@ try {
     echo json_encode([
         "status" => "error",
         "message" => "Internal server error",
-        "error" => $e->getMessage(),
+        "error" => $e->getMessage()
+,
         "trace" => $e->getTraceAsString()
     ]);
 } finally {
