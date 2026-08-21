@@ -35,9 +35,12 @@ function getSongByAlbum($db, $albumId, $role){
     $stmtSong->bind_param("i", $albumId);
     $stmtSong->execute();
     $songs = $stmtSong->get_result()->fetch_all(MYSQLI_ASSOC);
+    $songDTOs = array_map(function($song) {
+        return new SongDTO($song);
+    }, $songs);
 
     echo json_encode([
         "status" => "success",
-        "data" => $songs
+        "data" => $songDTOs
     ]);
 }

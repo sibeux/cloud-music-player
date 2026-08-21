@@ -43,9 +43,12 @@ function getSongByCategory($db, $categoryId, $role){
     $stmtSong->execute();
     $result = $stmtSong->get_result();
     $songs = $result->fetch_all(MYSQLI_ASSOC);
+    $songDTOs = array_map(function($song) {
+        return new SongDTO($song);
+    }, $songs);
 
     echo json_encode([
         "status" => "success",
-        "data" => $songs
+        "data" => $songDTOs
     ]);
 }
