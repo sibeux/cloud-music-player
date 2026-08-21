@@ -4,6 +4,7 @@
 
 function api_global_exception_handler($exception) {
     http_response_code(500);
+    header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
     echo json_encode([
         'status' => 'error',
@@ -27,6 +28,7 @@ function api_global_fatal_handler() {
     $error = error_get_last();
     if ($error !== NULL && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR])) {
         http_response_code(500);
+        header('Access-Control-Allow-Origin: *');
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 'error',
