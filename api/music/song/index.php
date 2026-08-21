@@ -4,6 +4,7 @@ ob_start('ob_gzhandler');
 ini_set('memory_limit', '256M');
 
 require_once __DIR__ . '/../../init.php';
+require_once __DIR__ . '/../../../utils/utils.php';
 require_once __DIR__ . '/SongDTO.php';
 require_once __DIR__ . '/get_song_by_album.php';
 require_once __DIR__ . '/get_song_by_category.php';
