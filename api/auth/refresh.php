@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../cors.php';
 require __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../database/db.php';
 require_once __DIR__ . '/auth_jwt.php';
@@ -19,7 +19,7 @@ if (!$secretKey) {
     exit;
 }
 
-header('Content-Type: application/json');
+
 
 // --- AMBIL TOKEN DARI HEADER BEARER ---
 $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? null;

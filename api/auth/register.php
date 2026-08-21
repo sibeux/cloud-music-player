@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../cors.php';
 require __DIR__ . '/../../vendor/autoload.php';
 // require_once __DIR__ . '/../../database/mobile-music-player/api/connection.php';
 require_once __DIR__ . '/../../database/db.php';
@@ -15,8 +16,7 @@ if (!$secretKey) {
     die("Error: Secret key belum disetting di .env");
 }
 
-// Header JSON: Agar frontend/Android tahu ini data JSON, bukan teks biasa.
-header('Content-Type: application/json');
+// Header JSON diurus oleh cors.php
 
 // Pindahkan Session Start ke paling atas
 // Hal ini mencegah error "Headers already sent" jika file ini di-include di tempat lain.
