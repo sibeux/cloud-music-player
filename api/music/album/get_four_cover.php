@@ -28,6 +28,15 @@ function getFourCoverPlaylist($db, $playlistId){
     $stmt->execute();
     $result = $stmt->get_result();
     $data = $result->fetch_assoc();
+    
+    if ($data) {
+        for ($i = 1; $i <= 4; $i++) {
+            if (!empty($data["cover_$i"])) {
+                $data["cover_$i"] = coverUrlFormatter($data["cover_$i"]);
+            }
+        }
+    }
+    
     return $data;
 }
 
@@ -65,5 +74,14 @@ function getFourCoverCategory($db, $categoryId, $role){
     $stmt->execute();
     $result = $stmt->get_result();
     $data = $result->fetch_assoc();
+
+    if ($data) {
+        for ($i = 1; $i <= 4; $i++) {
+            if (!empty($data["cover_$i"])) {
+                $data["cover_$i"] = coverUrlFormatter($data["cover_$i"]);
+            }
+        }
+    }
+    
     return $data;
 }

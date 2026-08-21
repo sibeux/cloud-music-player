@@ -107,3 +107,8 @@ function getApiUrl(string $path = ''): string
     
     return $appUrl . $apiBasePath . '/' . $cleanPath;
 }
+
+function coverUrlFormatter($path): string
+{
+    return getApiUrl('music/stream?file_type=image&cover_url=' . rawurlencode($path));
+}
