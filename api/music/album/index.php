@@ -23,6 +23,7 @@ try {
     $user = $auth->validate(false);
     $userId = isset($user['sub']) ? $user['sub'] : 0;
     $role = isset($user['data']['role']) ? $user['data']['role'] : 'user';
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
     require_once __DIR__ . '/get_album.php';
     require_once __DIR__ . '/get_category.php';
@@ -30,7 +31,7 @@ try {
 
     // id, type, name, author/jumlah_lagu, cover, have_disc, played_at";
 
-    $list_album = get_album($db, $userId, $role);
+    $list_album = get_album($db, $userId, $role, $search);
     $list_category = get_category($db, $userId, $role);
     $list_playlist = get_playlist($db, $userId);
 

@@ -1,6 +1,6 @@
 <?php
 
-function get_album($db, $userId, $role = 'user')
+function get_album($db, $userId, $role = 'user', $search = '')
 {
     // Tentukan kondisi berdasarkan role
     // Admin melihat semua, User hanya melihat yang is_private = 0
@@ -31,6 +31,11 @@ function get_album($db, $userId, $role = 'user')
         AND ap.pinnable_album_type = 'album'
         AND ap.user_id = ? -- Filter by user
     WHERE $privacyCondition
+        AND (
+            ? = ''
+            OR a.name LIKE CONCAT('%', ?, '%')
+            OR a.author LIKE CONCAT('%', ?, '%')
+        )
     ORDER BY
         -- Album yang dipin muncul duluan (NULL ke bawah)
         pin_at IS NULL ASC,
@@ -42,7 +47,7 @@ function get_album($db, $userId, $role = 'user')
         created_at DESC;";
 
     $stmt = $db->prepare($query);
-    $stmt->bind_param("ii", $userId, $userId);
+    $stmt->bind_param("iisss", $userId, $userId, $search, $search, $search);
     $stmt->execute();
     $result = $stmt->get_result();
     // Pakai while agar semua data bisa masuk ke array
