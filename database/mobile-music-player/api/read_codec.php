@@ -16,6 +16,18 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
     ]);
     
     $ch = curl_init($apiUrl);
+    
+    // Trik untuk membypass Cloudflare: Memaksa cURL agar langsung tembak ke IP server lokal
+    // (Biar tidak muter-muter ke internet dulu yang bikin kena blokir 525 Cloudflare)
+    $parsedUrl = parse_url($apiUrl);
+    $apiHost = $parsedUrl['host'] ?? '';
+    $apiPort = $parsedUrl['scheme'] === 'https' ? 443 : 80;
+    $serverIp = isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '127.0.0.1';
+    
+    curl_setopt($ch, CURLOPT_RESOLVE, ["{$apiHost}:{$apiPort}:{$serverIp}"]);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
