@@ -4,6 +4,12 @@ import json
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    # Route ini ditambahkan khusus agar fitur cPanel "Check availability" 
+    # mendeteksi respon 200 OK dan tidak memunculkan pesan error 404.
+    return "Python API is running!", 200
+
 @app.route('/api/check_codec', methods=['POST'])
 def check_codec():
     data = request.get_json()
