@@ -112,3 +112,45 @@ function coverUrlFormatter($path): string
 {
     return getApiUrl('music/stream?file_type=image&cover_url=' . rawurlencode($path));
 }
+
+/**
+ * Generate secure CDN URL with HMAC signature
+ */
+function getSecureCdnUrl($filePath, $secretKey, $expirySeconds = 3600)
+{
+    $path = '/' . ltrim($filePath, '/');
+    $expires = time() + $expirySeconds;
+    $stringToSign = $path . $expires;
+    $signature = hash_hmac('sha256', $stringToSign, $secretKey);
+    $cdnDomain = 'https://cdn.sibeux.my.id';
+
+    return "{$cdnDomain}{$path}?verify={$signature}&expires={$expires}";
+}
+
+/**
+ * Resolve raw database music link into a valid streamable URL
+ */
+function resolveMusicStreamUrl($musicId, $linkGdrive, $secretKey = null)
+{
+    $musicUrlFormatted = urlFormatter($linkGdrive);
+    
+    if ($musicUrlFormatted['type'] == 'gdrive') {
+        return getApiUrl('stream-gdrive.php?music_id=' . urlencode($musicId));
+    } else if ($musicUrlFormatted['type'] == 'cdncloudflare') {
+        if (!$secretKey) {
+            $secretKey = $_ENV['CF_WORKER_SECRET'] ?? null;
+        }
+        if (!$secretKey) {
+            return null;
+        }
+        $path = str_replace("cdncloudflare", '', $musicUrlFormatted['url']);
+        $dir = dirname($path);
+        $base = basename($path);
+        $encodedBase = rawurlencode($base);
+        $finalPath = $dir . '/' . $encodedBase;
+        
+        return getSecureCdnUrl($finalPath, $secretKey);
+    } else {
+        return $musicUrlFormatted['url'];
+    }
+}

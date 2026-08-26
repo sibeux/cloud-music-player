@@ -10,14 +10,10 @@ try {
     $user = $auth->validate(false);
     $userId = isset($user['sub']) ? $user['sub'] : 0;
 
-    if (isset($_POST['music_id']) && isset($_POST['codec_exist']) && isset($_POST['music_url']) && isset($_POST['dominant_color_exist']) && isset($_POST['image_url'])) {
+    if (isset($_POST['music_id']) && isset($_POST['album_id']) && isset($_POST['album_type'])) {
         $codec = null;
         $dominant_color = null;
-        $image_url = $_POST['image_url'];
         $music_id = $_POST['music_id'];
-        $music_url = $_POST['music_url'];
-        $codec_exist = $_POST['codec_exist'];
-        $dominant_color_exist = $_POST['dominant_color_exist'];
         $albumId = $_POST['album_id'];
         // toLower
         $albumType = strtolower($_POST['album_type']);
@@ -32,20 +28,64 @@ try {
             $stmt_recents->close();
         }
 
-        // Eksekusi query untuk 'metadata_music'
-        // Cek dulu apakah perlu dilakukan read codec?
-        if ($codec_exist == 'false') {
-            $codec = checkCodecAudio($music_id, $music_url, $db, $ffprobePath);
-        }
+        // Ambil URL music dan cover dari database (menghindari SSRF)
+        $stmt_music = $db->prepare("SELECT link_gdrive, cover FROM musics WHERE id_music = ?");
+        $stmt_music->bind_param("i", $music_id);
+        $stmt_music->execute();
+        $result_music = $stmt_music->get_result();
+        
+        if ($row = $result_music->fetch_assoc()) {
+            // Gunakan helper functions untuk mengubah raw data menjadi URL stream yang valid
+            // agar ffprobe dan ColorThief bisa memprosesnya
+            
+            $music_url = resolveMusicStreamUrl($music_id, $row['link_gdrive'], $secretKey);
 
-        // Dapatkan dominant color dari cover
-        if ($dominant_color_exist == 'false') {
-            // ini warning karena diambil dari repo lain.
-            $dominant_color = getDominantColors($image_url, $db);
+            $image_url = coverUrlFormatter($row['cover']);
+            
+            // Cek apakah codec sudah ada di database
+            $stmt_codec = $db->prepare("SELECT 1 FROM metadata_musics WHERE metadata_id_music = ?");
+            $stmt_codec->bind_param("i", $music_id);
+            $stmt_codec->execute();
+            $stmt_codec->store_result();
+            $codec_exist = $stmt_codec->num_rows > 0;
+            $stmt_codec->close();
+
+            // Eksekusi query untuk 'metadata_music' jika belum ada
+            if (!$codec_exist && !empty($music_url)) {
+                $codec = checkCodecAudio($music_id, $music_url, $db, $ffprobePath);
+            }
+
+            // Normalisasi URL image untuk cek dominant color
+            $originalImageUrl = $image_url;
+            if (strpos($image_url, '555/cybeat/false/image') !== false) {
+                if (preg_match("#/stream/([^/]+)/#", $image_url, $matches)) {
+                    $originalImageUrl = "https://drive.google.com/file/d/" . $matches[1] . "/view?usp=drive_link";
+                }
+            } else if (strpos($image_url, 'cdn.sibeux.my.id') !== false) {
+                $rawUrl = parse_url($image_url, PHP_URL_PATH);
+                $originalImageUrl = "cdncloudflare" . $rawUrl;
+            } else if (strpos($image_url, 'cover_url') !== false) {
+                parse_str(parse_url($image_url, PHP_URL_QUERY), $query);
+                $originalImageUrl = isset($query['cover_url']) ? $query['cover_url'] : $image_url;
+            }
+
+            // Cek apakah dominant color sudah ada di database
+            $stmt_color = $db->prepare("SELECT 1 FROM dominant_colors WHERE image_url = ?");
+            $stmt_color->bind_param("s", $originalImageUrl);
+            $stmt_color->execute();
+            $stmt_color->store_result();
+            $color_exist = $stmt_color->num_rows > 0;
+            $stmt_color->close();
+
+            // Dapatkan dominant color dari cover jika belum ada
+            if (!$color_exist && !empty($image_url)) {
+                $dominant_color = getDominantColors($image_url, $db);
+            }
         }
+        $stmt_music->close();
 
         // Execution query for 'delete'
-        if ($userId != 0) {
+        if ($userId != 0 && mt_rand(1, 100) === 1) {
             $delete_sql = "DELETE FROM recent_musics
                         WHERE user_id = ?
                         AND uid_recents NOT IN (
@@ -85,7 +125,7 @@ try {
     echo json_encode([
         "status" => "error",
         "message" => "Internal server error",
-        "error" => $e->getMessage(),
+        "error" => $e->getMessage(),
         "trace" => $e->getTraceAsString()
     ]);
 } finally {

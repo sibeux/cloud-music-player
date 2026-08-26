@@ -19,26 +19,7 @@ if (!$secretKey) {
     die("Error: Secret key belum disetting di .env");
 }
 
-function getSecureCdnUrl($filePath, $secretKey, $expirySeconds = 3600)
-{
-    // 1. Bersihkan path (pastikan diawali /)
-    $path = '/' . ltrim($filePath, '/');
-
-    // 2. Tentukan waktu expired (Unix timestamp)
-    $expires = time() + $expirySeconds;
-
-    // 3. Buat string yang akan ditandatangani: "path + expires"
-    $stringToSign = $path . $expires;
-
-    // 4. Buat hash SHA256
-    $signature = hash_hmac('sha256', $stringToSign, $secretKey);
-
-    // 5. Kembalikan URL lengkap
-    // Ganti dengan domain worker kamu
-    $cdnDomain = 'https://cdn.sibeux.my.id';
-
-    return "{$cdnDomain}{$path}?verify={$signature}&expires={$expires}";
-}
+require_once __DIR__ . '/../utils/utils.php';
 
 function streamMusicFromCF($secretKey, $db, $ffprobePath, $file, $musicId)
 {
