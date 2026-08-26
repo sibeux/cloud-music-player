@@ -1,18 +1,34 @@
 <?php
 
 // --- Configuration FFprobe ---
-$ffprobePath = "/home/sibs6571/ffmpeg/ffprobe"; // Path FFprobe Anda
+$ffprobePath = getenv('FFPROBE_PATH') ?: (isset($_ENV['FFPROBE_PATH']) ? $_ENV['FFPROBE_PATH'] : "/home/sibs6571/ffmpeg/ffprobe"); // Path FFprobe Anda
 
 function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
 {
     // Jalankan FFprobe pada file local tersebut
-    // WAJIB: Amankan path file untuk mencegah command injection
-    $safeFilePath = escapeshellarg($filePath);
-    // Bangun perintah yang akan dieksekusi
-    $command = "$ffprobePath -v error -show_streams -show_format -print_format json $safeFilePath 2>&1";
+    // Menggunakan cURL untuk memanggil API Python (Flask/FastAPI)
+    // yang akan mengeksekusi ffprobe.
+    // Ambil URL API dari Environment Variable, fallback ke localhost jika tidak ada
+    $apiUrl = getenv('PYTHON_API_URL') ?: (isset($_ENV['PYTHON_API_URL']) ? $_ENV['PYTHON_API_URL'] : "http://127.0.0.1:5000/api/check_codec");
+    $postData = json_encode([
+        'file_url' => $filePath,
+        'ffprobe_path' => $ffprobePath
+    ]);
     
-    // Jalankan perintah (ini butuh izin dari hosting)
-    $output = shell_exec($command);
+    $ch = curl_init($apiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($postData)
+    ]);
+    // Timeout sedikit lebih besar dari script python
+    curl_setopt($ch, CURLOPT_TIMEOUT, 65);
+    
+    $output = curl_exec($ch);
+    curl_close($ch);
+    
     $metadata = json_decode($output, true);
 
     $codecName = null;
