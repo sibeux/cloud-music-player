@@ -16,11 +16,6 @@ function get_album($db, $userId, $role = 'user', $search = '')
             a.have_disc,
             dc.bg_color,
             (
-                SELECT COUNT(*)
-                FROM album_musics am4
-                WHERE am4.id_playlist = a.uid
-            ) AS total,
-            (
                 SELECT MAX(rm.played_at)
                 FROM recent_musics rm
                 WHERE rm.recentable_album_id = a.uid
@@ -73,7 +68,6 @@ function get_album($db, $userId, $role = 'user', $search = '')
             'pin_at' => $row['pin_at'],
             'have_disc' => $row['have_disc'],
             'created_at' => $row['created_at'],
-            'total' => $row['total'],
         ];
     }
     return $data;
