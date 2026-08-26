@@ -6,42 +6,45 @@ function get_album($db, $userId, $role = 'user', $search = '')
     // Admin melihat semua, User hanya melihat yang is_private = 0
     $privacyCondition = ($role === 'admin') ? '1=1' : 'a.is_private = 0';
 
-    $query = "SELECT
-        a.uid, a.name, a.image, a.author, a.have_disc,
-        dc.bg_color,
-        (
-            -- Ambil waktu terakhir kali salah satu lagu dari album ini diputar
-            SELECT MAX(rm.played_at)
-            FROM recent_musics rm
-            WHERE rm.recentable_album_id = a.uid
-                AND rm.recentable_album_type = 'album'
-                AND rm.user_id = ?
-        ) AS played_at,
-        ap.created_at AS pin_at, -- Waktu album di-pin
-        (
-            -- Ambil waktu album dibuat
-            SELECT MIN(am3.date_created)
-            FROM album_musics am3
-            WHERE am3.id_playlist = a.uid
-        ) AS created_at
-    FROM `albums` a
-    LEFT JOIN dominant_colors dc on a.image = dc.image_url
-    -- Ambil data pin album (jika ada), tidak wajib ada (LEFT JOIN)
-    LEFT JOIN `album_pins` ap ON ap.pinnable_album_id = a.uid
-        AND ap.pinnable_album_type = 'album'
-        AND ap.user_id = ? -- Filter by user
-    WHERE $privacyCondition
-        AND (
-            ? = ''
-            OR a.name LIKE CONCAT('%', ?, '%')
-            OR a.author LIKE CONCAT('%', ?, '%')
-        )
+    $query = "SELECT *
+    FROM (
+        SELECT
+            a.uid,
+            a.name,
+            a.image,
+            a.author,
+            a.have_disc,
+            dc.bg_color,
+            (
+                SELECT MAX(rm.played_at)
+                FROM recent_musics rm
+                WHERE rm.recentable_album_id = a.uid
+                    AND rm.recentable_album_type = 'album'
+                    AND rm.user_id = ?
+            ) AS played_at,
+            ap.created_at AS pin_at,
+            (
+                SELECT MIN(am3.date_created)
+                FROM album_musics am3
+                WHERE am3.id_playlist = a.uid
+            ) AS created_at
+        FROM albums a
+        LEFT JOIN dominant_colors dc
+            ON a.image = dc.image_url
+        LEFT JOIN album_pins ap
+            ON ap.pinnable_album_id = a.uid
+            AND ap.pinnable_album_type = 'album'
+            AND ap.user_id = ?
+        WHERE $privacyCondition
+            AND (
+                ? = ''
+                OR a.name LIKE CONCAT('%', ?, '%')
+                OR a.author LIKE CONCAT('%', ?, '%')
+            )
+    ) AS albums_sorted
     ORDER BY
-        -- Album yang dipin tetap paling atas
         pin_at IS NULL ASC,
-        -- Pin terlama di atas
         pin_at ASC,
-        -- Aktivitas terbaru: dimainkan ATAU dibuat
         GREATEST(
             COALESCE(played_at, '1000-01-01'),
             COALESCE(created_at, '1000-01-01')
