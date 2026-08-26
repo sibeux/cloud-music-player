@@ -37,14 +37,15 @@ function get_album($db, $userId, $role = 'user', $search = '')
             OR a.author LIKE CONCAT('%', ?, '%')
         )
     ORDER BY
-        -- Album yang dipin muncul duluan (NULL ke bawah)
+        -- Album yang dipin tetap paling atas
         pin_at IS NULL ASC,
         -- Pin terlama di atas
         pin_at ASC,
-        -- Lagu terakhir diputar, terbaru di atas
-        played_at DESC,
-        -- Album terbaru ditambahkan, terbaru di atas
-        created_at DESC;";
+        -- Aktivitas terbaru: dimainkan ATAU dibuat
+        GREATEST(
+            COALESCE(played_at, '1000-01-01'),
+            COALESCE(created_at, '1000-01-01')
+        ) DESC;";
 
     $stmt = $db->prepare($query);
     $stmt->bind_param("iisss", $userId, $userId, $search, $search, $search);
