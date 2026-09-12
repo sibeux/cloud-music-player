@@ -29,26 +29,38 @@ function outputJson(array $data, int $status = 200): void
 {
     http_response_code($status);
 
+    $json = json_encode(
+        $data,
+        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+    );
+
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
     header('Pragma: no-cache');
     header('Expires: 0');
+    header('Content-Length: ' . strlen($json));
 
-    echo json_encode(
-        $data,
-        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-    );
+    echo $json;
 }
+
 
 function finishResponse(): void
 {
+    // Kirim header penutup koneksi
+    header('Connection: close');
+
+    // Kosongkan semua layer output buffer jika ada
+    while (ob_get_level() > 0) {
+        @ob_end_flush();
+    }
+    @flush();
+
+    // Jika menggunakan PHP-FPM, akhiri request FPM
     if (function_exists('fastcgi_finish_request')) {
         fastcgi_finish_request();
-    } else {
-        @ob_end_flush();
-        @flush();
     }
 }
+
 
 function urlFormatter($url)
 {
