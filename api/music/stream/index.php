@@ -41,10 +41,10 @@ try {
 
     $musicUrl = urlFormatter($music['link_gdrive']);
     if ($musicUrl['type'] == 'gdrive') {
-        streamingMusicFromGdrive($db, $musicId, $musicUrl['url'], $fileType, $allApiData, $ffprobePath);
+        streamingMusicFromGdrive($db, $musicId, $musicUrl['url'], $fileType, $allApiData);
     } else if ($musicUrl['type'] == 'cdncloudflare') {
         $path = str_replace("cdncloudflare", '', $musicUrl['url']);
-        streamMusicFromCF($secretKey, $db, $ffprobePath, $path, $musicId);
+        streamMusicFromCF($secretKey, $path, $musicId);
     } else {
         outputJson([
             "success" => true,
@@ -58,8 +58,7 @@ try {
     echo json_encode([
         "status" => "error",
         "message" => "Internal server error",
-        "error" => $e->getMessage()
-,
+        "error" => $e->getMessage(),
         "trace" => $e->getTraceAsString()
     ]);
 }

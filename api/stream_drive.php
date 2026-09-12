@@ -14,8 +14,7 @@ function streamingMusicFromGdrive(
     $musicId,
     $mediaUrl,
     $fileType,
-    $allApiData,
-    $ffprobePath
+    $allApiData
 ) {
     // =========================================================
     // VALIDASI

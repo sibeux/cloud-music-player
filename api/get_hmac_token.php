@@ -21,7 +21,7 @@ if (!$secretKey) {
 
 require_once __DIR__ . '/../utils/utils.php';
 
-function streamMusicFromCF($secretKey, $db, $ffprobePath, $file, $musicId)
+function streamMusicFromCF($secretKey, $file, $musicId)
 {
     // --- CONTOH PENGGUNAAN ---
     // $file = "/albums/nirvana/smellsliketeenspirit.mp3";
