@@ -57,8 +57,5 @@ function streamMusicFromCF($secretKey, $db, $ffprobePath, $file, $musicId)
 
     finishResponse();
 
-    // Tetap berjalan setelah client menerima response
-    checkCodecAudio($musicId, $streamUrl, $db, $ffprobePath);
-
     exit();
 }
