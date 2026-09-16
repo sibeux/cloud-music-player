@@ -32,8 +32,8 @@ try {
     // id, type, name, author/jumlah_lagu, cover, have_disc, played_at";
 
     $list_album = get_album($db, $userId, $role, $search);
-    $list_category = get_category($db, $userId, $role);
-    $list_playlist = get_playlist($db, $userId);
+    $list_category = empty($search) ? get_category($db, $userId, $role) : [];
+    $list_playlist = empty($search) ? get_playlist($db, $userId) : [];
 
     $data = [
         'album' => $list_album,
