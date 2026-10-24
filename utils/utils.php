@@ -122,7 +122,19 @@ function getApiUrl(string $path = ''): string
 
 function coverUrlFormatter($path): string
 {
-    return getApiUrl('music/stream?file_type=image&cover_url=' . rawurlencode($path));
+    if (empty($path)) {
+        return '';
+    }
+
+    $coverUrl = urlFormatter($path);
+    if ($coverUrl['type'] == 'gdrive') {
+        return getApiUrl('music/stream?file_type=image&cover_url=' . rawurlencode($path));
+    } else if ($coverUrl['type'] == 'cdncloudflare') {
+        $cleanPath = str_replace(' ', '%20', $coverUrl['url']);
+        return "https://cdn.sibeux.my.id" . $cleanPath;
+    } else {
+        return $coverUrl['url'] ?? '';
+    }
 }
 
 /**

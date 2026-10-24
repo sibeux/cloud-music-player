@@ -12,12 +12,13 @@ try {
     $fileType = isset($_GET['file_type']) ? $_GET['file_type'] : "audio";
 
     if ($fileType === "image") {
-        $coverUrl = urlFormatter($_GET['cover_url']);
+        $coverUrl = urlFormatter($_GET['cover_url'] ?? '');
+        // Untuk fallback Backward Compatibility
         if ($coverUrl['type'] == 'gdrive') {
             streamingMusicFromGdrive($db, "111", $coverUrl['url'], "image", $allApiData, $ffprobePath);
         } else if ($coverUrl['type'] == 'cdncloudflare') {
-            $url = "https://cdn.sibeux.my.id" . $coverUrl['url'];
-            header("Location: " . $url, true, 302);
+            $cleanPath = str_replace(' ', '%20', $coverUrl['url']);
+            header("Location: https://cdn.sibeux.my.id" . $cleanPath, true, 302);
         } else {
             header("Location: " . $coverUrl['url'], true, 302);
         }
