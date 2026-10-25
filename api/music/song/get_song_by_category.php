@@ -31,7 +31,7 @@ function getSongByCategory($db, $categoryId, $role){
         LEFT JOIN cache_musics ON m.id_music = cache_musics.cache_music_id
         LEFT JOIN dominant_colors dc on m.cover = dc.image_url
         WHERE $whereCategory AND $privacyCondition
-        ORDER BY m.title ASC;";
+        ORDER BY m.id_music ASC;";
 
     $stmtSong = $db->prepare($query);
 
