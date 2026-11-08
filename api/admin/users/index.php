@@ -8,7 +8,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
 
 try {
-    requireAdminUser($db, $secretKey);
+    $adminUserId = requireAdminUser($db, $secretKey);
 
     $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
     if ($method === 'GET') {
@@ -20,6 +20,7 @@ try {
         $body = json_decode(file_get_contents('php://input'), true);
         $result = changeUserRole(
             $db,
+            $adminUserId,
             (int) ($body['user_id'] ?? 0),
             (string) ($body['role'] ?? '')
         );

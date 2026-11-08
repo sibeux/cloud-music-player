@@ -1,6 +1,6 @@
 <?php
 
-function changeUserRole($db, $userId, $newRole)
+function changeUserRole($db, $adminUserId, $userId, $newRole)
 {
     $allowedRoles = ['free', 'premium', 'admin'];
     if (!in_array($newRole, $allowedRoles, true)) {
@@ -9,6 +9,10 @@ function changeUserRole($db, $userId, $newRole)
 
     if ($userId < 1) {
         sendAdminJsonError(422, 'invalid_user', 'ID user tidak valid.');
+    }
+
+    if ($userId === $adminUserId && $newRole !== 'admin') {
+        sendAdminJsonError(409, 'cannot_remove_own_admin', 'Admin tidak bisa mengubah role admin dirinya sendiri.');
     }
 
     $db->begin_transaction();
