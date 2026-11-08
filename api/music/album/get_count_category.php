@@ -16,7 +16,7 @@ function get_count_category($db, $categoryId, $role)
     }
 
     // Filter privasi berdasarkan role
-    $privacyCondition = ($role === 'admin') ? '1=1' : 'a.is_private = 0';
+    $privacyCondition = in_array($role, ['premium', 'admin'], true) ? '1=1' : 'a.is_private = 0';
 
     // Query hanya mengambil satu kolom COUNT
     $query = "SELECT COUNT(m.id_music) AS total

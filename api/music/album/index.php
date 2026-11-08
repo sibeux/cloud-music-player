@@ -22,7 +22,7 @@ try {
     $auth = new BearerAuth($secretKey);
     $user = $auth->validate(false);
     $userId = isset($user['sub']) ? $user['sub'] : 0;
-    $role = isset($user['data']['role']) ? $user['data']['role'] : 'user';
+    $role = isset($user['data']['role']) ? $user['data']['role'] : 'free';
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
     require_once __DIR__ . '/get_album.php';

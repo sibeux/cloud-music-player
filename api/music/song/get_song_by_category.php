@@ -15,7 +15,7 @@ function getSongByCategory($db, $categoryId, $role){
         $whereCategory = "c.category_id = ?";
     }
 
-    $privacyCondition = ($role === 'admin') ? '1=1' : 'a.is_private = 0';
+    $privacyCondition = in_array($role, ['premium', 'admin'], true) ? '1=1' : 'a.is_private = 0';
 
     $query = "SELECT
         m.id_music, m.title, m.artist, m.cover, m.disc_number,

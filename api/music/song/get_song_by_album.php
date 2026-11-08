@@ -18,7 +18,7 @@ function getSongByAlbum($db, $albumId, $role){
         return;
     }
 
-    if ($album['is_private'] == 1 && $role == 'user') {
+    if ($album['is_private'] == 1 && !in_array($role, ['premium', 'admin'], true)) {
         http_response_code(403);
         echo json_encode([
             "status" => "error",

@@ -1,10 +1,9 @@
 <?php
 
-function get_album($db, $userId, $role = 'user', $search = '')
+function get_album($db, $userId, $role = 'free', $search = '')
 {
-    // Tentukan kondisi berdasarkan role
-    // Admin melihat semua, User hanya melihat yang is_private = 0
-    $privacyCondition = ($role === 'admin') ? '1=1' : 'a.is_private = 0';
+    // Premium dan admin melihat semua album; free hanya melihat album publik.
+    $privacyCondition = in_array($role, ['premium', 'admin'], true) ? '1=1' : 'a.is_private = 0';
 
     $query = "SELECT *
     FROM (

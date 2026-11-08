@@ -41,7 +41,7 @@ function getFourCoverPlaylist($db, $playlistId){
 }
 
 function getFourCoverCategory($db, $categoryId, $role){
-    $privacyCondition = ($role === 'admin') ? '1=1' : 'a.is_private = 0';
+    $privacyCondition = in_array($role, ['premium', 'admin'], true) ? '1=1' : 'a.is_private = 0';
     $query = "SELECT 
         c.category_id,
         MAX(CASE WHEN rc.rank = 1 THEN rc.cover END) AS cover_1,

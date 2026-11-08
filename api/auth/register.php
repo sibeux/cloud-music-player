@@ -95,14 +95,14 @@ function createUser($db, $secretKey)
     $email = $_POST['email'];
     $name = $_POST['name'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $role = 'user';
+    $role = 'free';
 
     // Prepare Statement (Kolom NULL/Auto Increment dihapus agar lebih bersih)
-    $query = 'INSERT INTO `users` (`email`, `name`, `password`) VALUES (?, ?, ?)';
+    $query = 'INSERT INTO `users` (`email`, `name`, `password`, `role`) VALUES (?, ?, ?, ?)';
 
     if ($stmt = $db->prepare($query)) {
 
-        $stmt->bind_param('sss', $email, $name, $password);
+        $stmt->bind_param('ssss', $email, $name, $password, $role);
 
         // Cek apakah eksekusi berhasil atau gagal (misal: email duplikat)
         try {

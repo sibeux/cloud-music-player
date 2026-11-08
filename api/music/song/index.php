@@ -14,7 +14,7 @@ try {
     $auth = new BearerAuth($secretKey);
     $user = $auth->validate(false);
     $userId = isset($user['sub']) ? $user['sub'] : 0;
-    $role = isset($user['data']['role']) ? $user['data']['role'] : 'user';
+    $role = isset($user['data']['role']) ? $user['data']['role'] : 'free';
 
     $type = isset($_GET['type']) ? $_GET['type'] : null;
     $uid = isset($_GET['uid']) ? $_GET['uid'] : null;
