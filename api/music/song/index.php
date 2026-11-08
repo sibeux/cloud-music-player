@@ -1,70 +1,65 @@
 <?php
 
-ob_start('ob_gzhandler');
-ini_set('memory_limit', '256M');
+require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/queries/get_song_by_album.php';
+require_once __DIR__ . '/queries/get_song_by_category.php';
+require_once __DIR__ . '/queries/get_song_by_playlist.php';
 
-require_once __DIR__ . '/../../init.php';
-require_once __DIR__ . '/../../../utils/utils.php';
-require_once __DIR__ . '/SongDTO.php';
-require_once __DIR__ . '/get_song_by_album.php';
-require_once __DIR__ . '/get_song_by_category.php';
-require_once __DIR__ . '/get_song_by_playlist.php';
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
 
 try {
-    $auth = new BearerAuth($secretKey);
-    $user = $auth->validate(false);
-    $userId = isset($user['sub']) ? $user['sub'] : 0;
-    $role = isset($user['data']['role']) ? $user['data']['role'] : 'free';
-
-    $type = isset($_GET['type']) ? $_GET['type'] : null;
-    $uid = isset($_GET['uid']) ? $_GET['uid'] : null;
-
-    if (isset($type)) {
-    switch ($type) {
-        case 'album':
-            getSongByAlbum($db, $uid, $role);
-            break;
-        case 'category':
-            getSongByCategory($db, $uid, $role);
-            break;
-        case 'playlist':
-            getSongByPlaylist($db, $uid, $userId);
-            break;
-        default:
-            http_response_code(400);
-            echo json_encode([
-                "status" => "error",
-                "error" => "invalid_method",
-                "message" => "Method tidak valid"
-            ]);
-            break;
+    $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+    if ($method !== 'GET') {
+        header('Allow: GET');
+        sendSongJsonError(405, 'method_not_allowed', 'Gunakan method GET.');
     }
+
+    [$userId, $role] = authenticateSongUser($secretKey);
+
+    $type = isset($_GET['type']) ? trim((string) $_GET['type']) : '';
+    $uid = isset($_GET['uid']) ? trim((string) $_GET['uid']) : '';
+    $search = isset($_GET['search']) ? trim((string) $_GET['search']) : (isset($_GET['q']) ? trim((string) $_GET['q']) : '');
+    $sort = isset($_GET['sort']) ? trim((string) $_GET['sort']) : (isset($_GET['sort_by']) ? trim((string) $_GET['sort_by']) : (isset($_GET['order_by']) ? trim((string) $_GET['order_by']) : ''));
+    $order = isset($_GET['order']) ? trim((string) $_GET['order']) : (isset($_GET['sort_order']) ? trim((string) $_GET['sort_order']) : (isset($_GET['direction']) ? trim((string) $_GET['direction']) : 'asc'));
+
+    if ($type === '') {
+        sendSongJsonError(400, 'type_not_provided', "Parameter 'type' wajib disediakan ('category' atau 'playlist').");
+    }
+
+    if ($uid === '') {
+        sendSongJsonError(400, 'uid_not_provided', "Parameter 'uid' wajib disediakan.");
+    }
+
+    $isSearchOrSortRequested = ($search !== '' || $sort !== '');
+
+    if ($type === 'album') {
+        if ($isSearchOrSortRequested) {
+            sendSongJsonError(400, 'unsupported_album_type', "Fitur search dan sort lagu hanya berlaku khusus untuk album bertipe 'category' atau 'playlist'.");
+        }
+        $songs = getSongsByAlbum($db, (int) $uid, $role);
+    } elseif ($type === 'category') {
+        $songs = getSongsByCategory($db, $uid, $role, $search, $sort, $order);
+    } elseif ($type === 'playlist') {
+        if ($userId <= 0) {
+            sendSongJsonError(401, 'unauthorized', 'Autentikasi diperlukan untuk mengakses playlist.');
+        }
+        $songs = getSongsByPlaylist($db, (int) $uid, $userId, $search, $sort, $order);
     } else {
-        http_response_code(400);
-        echo json_encode([
-            "status" => "error",
-            "error" => "method_not_provided",
-            "message" => "Method tidak disediakan"
-        ]);
+        sendSongJsonError(400, 'invalid_type', "Tipe tidak valid. Tipe yang didukung: 'category' atau 'playlist'.");
     }
 
-    // Header anti-cache
-    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-    header('Pragma: no-cache');
-    header('Expires: 0');
-
-} catch (Exception $e) {
-    http_response_code(500);
     echo json_encode([
-        "status" => "error",
-        "message" => "Internal server error",
-        "error" => $e->getMessage(),
-        "trace" => $e->getTraceAsString()
-    ]);
-} finally{
-     // Tutup koneksi setelah semua selesai
+        'status' => 'success',
+        'data' => $songs
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+} catch (Throwable $e) {
+    error_log('Song API error: ' . $e->getMessage());
+    sendSongJsonError(500, 'server_error', 'Terjadi kesalahan server: ' . $e->getMessage());
+} finally {
     if (isset($db)) {
-        // Sesuaikan dengan driver: $db->close() untuk MySQLi, $db = null untuk PDO
         $db->close();
     }
 }

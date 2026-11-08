@@ -1,20 +1,12 @@
 <?php
 
-function getSongByPlaylist($db, $playlistId, $userId)
+require_once __DIR__ . '/queries/get_song_by_playlist.php';
+
+function getSongByPlaylist($db, $playlistId, $userId, $search = '', $sortBy = 'default', $sortOrder = 'asc')
 {
-
-    $query = "CALL GetSongByPlaylist(?,?);";
-
-    $stmtSong = $db->prepare($query);
-    $stmtSong->bind_param("ii", $playlistId, $userId);
-    $stmtSong->execute();
-    $songs = $stmtSong->get_result()->fetch_all(MYSQLI_ASSOC);
-    $songDTOs = array_map(function($song) {
-        return new SongDTO($song);
-    }, $songs);
-
+    $songs = getSongsByPlaylist($db, (int) $playlistId, (int) $userId, $search, $sortBy, $sortOrder);
     echo json_encode([
         "status" => "success",
-        "data" => $songDTOs
+        "data" => $songs
     ]);
 }

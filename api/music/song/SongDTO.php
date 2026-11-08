@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../../../utils/utils.php';
+
 class SongDTO implements JsonSerializable {
     public $id_music;
     public $title;
