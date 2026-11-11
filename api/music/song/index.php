@@ -4,6 +4,7 @@ require_once __DIR__ . '/bootstrap.php';
 require_once __DIR__ . '/queries/get_song_by_album.php';
 require_once __DIR__ . '/queries/get_song_by_category.php';
 require_once __DIR__ . '/queries/get_song_by_playlist.php';
+require_once __DIR__ . '/queries/get_song_by_recent.php';
 
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
@@ -25,7 +26,11 @@ try {
     $order = isset($_GET['order']) ? trim((string) $_GET['order']) : (isset($_GET['sort_order']) ? trim((string) $_GET['sort_order']) : (isset($_GET['direction']) ? trim((string) $_GET['direction']) : 'asc'));
 
     if ($type === '') {
-        sendSongJsonError(400, 'type_not_provided', "Parameter 'type' wajib disediakan ('category' atau 'playlist').");
+        sendSongJsonError(400, 'type_not_provided', "Parameter 'type' wajib disediakan ('category', 'playlist', atau 'recent').");
+    }
+
+    if ($uid === '' && in_array($type, ['recent', 'history'], true)) {
+        $uid = (string) $userId;
     }
 
     if ($uid === '') {
@@ -46,8 +51,14 @@ try {
             sendSongJsonError(401, 'unauthorized', 'Autentikasi diperlukan untuk mengakses playlist.');
         }
         $songs = getSongsByPlaylist($db, (int) $uid, $userId, $search, $sort, $order);
+    } elseif ($type === 'recent' || $type === 'history') {
+        $targetUserId = $userId > 0 ? $userId : (int) $uid;
+        if ($targetUserId <= 0) {
+            sendSongJsonError(401, 'unauthorized', 'Autentikasi diperlukan untuk mengakses recent music.');
+        }
+        $songs = getSongsByRecent($db, $targetUserId, $search, $sort, $order);
     } else {
-        sendSongJsonError(400, 'invalid_type', "Tipe tidak valid. Tipe yang didukung: 'category' atau 'playlist'.");
+        sendSongJsonError(400, 'invalid_type', "Tipe tidak valid. Tipe yang didukung: 'category', 'playlist', atau 'recent'.");
     }
 
     echo json_encode([

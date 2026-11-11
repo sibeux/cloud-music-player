@@ -18,6 +18,7 @@ class SongDTO implements JsonSerializable {
     public $bg_color;
     public $text_color;
     public $cache_music_id;
+    public $played_at;
 
     public function __construct($data) {
         $this->id_music = isset($data['id_music']) ? (int)$data['id_music'] : 0;
@@ -35,11 +36,12 @@ class SongDTO implements JsonSerializable {
         $this->bg_color = isset($data['bg_color']) ? $data['bg_color'] : null;
         $this->text_color = isset($data['text_color']) ? $data['text_color'] : null;
         $this->cache_music_id = isset($data['cache_music_id']) ? (int)$data['cache_music_id'] : null;
+        $this->played_at = isset($data['played_at']) ? $data['played_at'] : null;
     }
 
     #[\ReturnTypeWillChange]
     public function jsonSerialize() {
-        return [
+        $data = [
             'id_music' => $this->id_music,
             'title' => $this->title,
             'artist' => $this->artist,
@@ -56,5 +58,9 @@ class SongDTO implements JsonSerializable {
             'text_color' => $this->text_color,
             'cache_music_id' => $this->cache_music_id,
         ];
+        if ($this->played_at !== null) {
+            $data['played_at'] = $this->played_at;
+        }
+        return $data;
     }
 }

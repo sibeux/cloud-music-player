@@ -137,16 +137,48 @@ if (isset($_GET['play_playlist'])) {
 }
 
 if (isset($_GET['recents_music'])) {
-    $userId = $_GET['recents_music'];
+    require_once __DIR__ . '/../song/SongDTO.php';
+    $userId = (int) $_GET['recents_music'];
     $sql = "SELECT 
-    m.id_music, m.title, m.artist, m.cover, p.name as album,
-    recent_musics.played_at
+        m.id_music, m.title, m.artist, m.cover, m.disc_number,
+        p.name as album,
+        mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
+        dc.bg_color, dc.text_color,
+        cache_musics.cache_music_id,
+        recent_musics.played_at
     FROM recent_musics
-    join musics m on m.id_music = recent_musics.uid_music 
-    JOIN album_musics on album_musics.id_music = m.id_music
-    JOIN albums p on album_musics.id_playlist = p.uid 
+    JOIN musics m ON m.id_music = recent_musics.uid_music 
+    LEFT JOIN album_musics am ON am.id_music = m.id_music
+    LEFT JOIN albums p ON am.id_playlist = p.uid 
+    LEFT JOIN metadata_musics mm ON m.id_music = mm.metadata_id_music
+    LEFT JOIN cache_musics ON m.id_music = cache_musics.cache_music_id
+    LEFT JOIN dominant_colors dc ON m.cover = dc.image_url
     WHERE recent_musics.user_id = '$userId'
-    ORDER BY played_at DESC";
+    ORDER BY recent_musics.played_at DESC";
+
+    $result = $db->query($sql);
+    if (!$result) {
+        http_response_code(500);
+        die(json_encode(["status" => "error", "error" => "Query failed", "detail" => $db->error]));
+    }
+
+    $songs = [];
+    while ($row = $result->fetch_assoc()) {
+        $songs[] = new SongDTO($row);
+    }
+
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+
+    echo json_encode([
+        'status' => 'success',
+        'data' => $songs
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+    $db->close();
+    exit;
 }
 
 // Response json
