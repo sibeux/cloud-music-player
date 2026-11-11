@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../cors.php';
 
 include '../../../database/mobile-music-player/api/connection.php';
 
