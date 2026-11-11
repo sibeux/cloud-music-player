@@ -177,10 +177,7 @@ if (isset($_GET['recents_music'])) {
         die(json_encode(["status" => "error", "error" => "Query failed", "detail" => $db->error]));
     }
 
-    $songs = [];
-    while ($row = $result->fetch_assoc()) {
-        $songs[] = new SongDTO($row);
-    }
+    $songs = hydrateSongsWithArtists($db, $result->fetch_all(MYSQLI_ASSOC));
 
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');

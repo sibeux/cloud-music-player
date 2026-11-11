@@ -117,7 +117,5 @@ function getSongsByCategory($db, $categoryId, $role = 'free', $search = '', $sor
     $songs = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
 
-    return array_map(function ($song) {
-        return new SongDTO($song);
-    }, $songs);
+    return hydrateSongsWithArtists($db, $songs);
 }

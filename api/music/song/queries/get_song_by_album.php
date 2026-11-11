@@ -49,7 +49,5 @@ function getSongsByAlbum($db, $albumId, $role = 'free')
     $songs = $stmtSong->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmtSong->close();
 
-    return array_map(function ($song) {
-        return new SongDTO($song);
-    }, $songs);
+    return hydrateSongsWithArtists($db, $songs);
 }

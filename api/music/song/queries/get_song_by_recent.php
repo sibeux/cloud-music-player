@@ -98,7 +98,5 @@ function getSongsByRecent($db, $userId, $search = '', $sortBy = 'default', $sort
     $songs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
 
-    return array_map(function ($song) {
-        return new SongDTO($song);
-    }, $songs);
+    return hydrateSongsWithArtists($db, $songs);
 }

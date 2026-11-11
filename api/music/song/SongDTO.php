@@ -6,6 +6,7 @@ class SongDTO implements JsonSerializable {
     public $id_music;
     public $title;
     public $artist;
+    public $artists;
     public $cover;
     public $disc_number;
     public $album;
@@ -24,6 +25,7 @@ class SongDTO implements JsonSerializable {
         $this->id_music = isset($data['id_music']) ? (int)$data['id_music'] : 0;
         $this->title = isset($data['title']) ? $data['title'] : '';
         $this->artist = isset($data['artist']) ? $data['artist'] : '';
+        $this->artists = isset($data['artists']) && is_array($data['artists']) ? $data['artists'] : [];
         $this->cover = isset($data['cover']) ? coverUrlFormatter($data['cover']) : '';
         $this->disc_number = isset($data['disc_number']) ? (int)$data['disc_number'] : 1;
         $this->album = isset($data['album']) ? $data['album'] : '';
@@ -45,6 +47,7 @@ class SongDTO implements JsonSerializable {
             'id_music' => $this->id_music,
             'title' => $this->title,
             'artist' => $this->artist,
+            'artists' => $this->artists,
             'cover' => $this->cover,
             'disc_number' => $this->disc_number,
             'album' => $this->album,
@@ -63,4 +66,58 @@ class SongDTO implements JsonSerializable {
         }
         return $data;
     }
+}
+
+/**
+ * Attach normalized Artist entities to song rows without multiplying songs
+ * when a future credit maps to more than one Artist ID.
+ *
+ * @param mysqli $db
+ * @param array $songs Raw rows keyed by database column names.
+ * @return SongDTO[]
+ */
+function hydrateSongsWithArtists($db, array $songs)
+{
+    if (empty($songs)) {
+        return [];
+    }
+
+    $musicIds = array_values(array_unique(array_filter(array_map(function ($song) {
+        return isset($song['id_music']) ? (int) $song['id_music'] : 0;
+    }, $songs))));
+    $artistsByMusic = [];
+
+    foreach (array_chunk($musicIds, 500) as $idChunk) {
+        if (empty($idChunk)) {
+            continue;
+        }
+
+        $placeholders = implode(',', array_fill(0, count($idChunk), '?'));
+        $types = str_repeat('i', count($idChunk));
+        $query = "SELECT ma.id_music, a.id_artist, a.name
+            FROM cybeat_music_artists ma
+            JOIN cybeat_artists a ON a.id_artist = ma.id_artist
+            WHERE ma.id_music IN ($placeholders)
+            ORDER BY ma.id_music ASC, ma.id_artist ASC";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param($types, ...$idChunk);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        while ($artist = $result->fetch_assoc()) {
+            $musicId = (int) $artist['id_music'];
+            $artistsByMusic[$musicId][] = [
+                'id_artist' => (int) $artist['id_artist'],
+                'name' => $artist['name'],
+            ];
+        }
+
+        $stmt->close();
+    }
+
+    return array_map(function ($song) use ($artistsByMusic) {
+        $musicId = isset($song['id_music']) ? (int) $song['id_music'] : 0;
+        $song['artists'] = $artistsByMusic[$musicId] ?? [];
+        return new SongDTO($song);
+    }, $songs);
 }
