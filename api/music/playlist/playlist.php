@@ -138,7 +138,22 @@ if (isset($_GET['play_playlist'])) {
 
 if (isset($_GET['recents_music'])) {
     require_once __DIR__ . '/../song/SongDTO.php';
-    $userId = (int) $_GET['recents_music'];
+    require_once __DIR__ . '/../../init.php';
+
+    $auth = new BearerAuth($secretKey);
+    $authUser = $auth->validate(false);
+    $currentUserId = isset($authUser['sub']) ? (int) $authUser['sub'] : 0;
+    $role = isset($authUser['data']['role']) ? (string) $authUser['data']['role'] : 'free';
+
+    $requestedUserId = (int) $_GET['recents_music'];
+
+    // Khusus role admin diizinkan melihat history user lain
+    if ($role === 'admin' && $requestedUserId > 0) {
+        $userId = $requestedUserId;
+    } else {
+        $userId = $currentUserId > 0 ? $currentUserId : $requestedUserId;
+    }
+
     $sql = "SELECT 
         m.id_music, m.title, m.artist, m.cover, m.disc_number,
         p.name as album,

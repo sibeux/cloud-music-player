@@ -52,9 +52,13 @@ try {
         }
         $songs = getSongsByPlaylist($db, (int) $uid, $userId, $search, $sort, $order);
     } elseif ($type === 'recent' || $type === 'history') {
-        $targetUserId = $userId > 0 ? $userId : (int) $uid;
-        if ($targetUserId <= 0) {
+        if ($userId <= 0) {
             sendSongJsonError(401, 'unauthorized', 'Autentikasi diperlukan untuk mengakses recent music.');
+        }
+        // Khusus role admin diizinkan melihat history user lain via uid
+        $targetUserId = $userId;
+        if ($role === 'admin' && (int) $uid > 0) {
+            $targetUserId = (int) $uid;
         }
         $songs = getSongsByRecent($db, $targetUserId, $search, $sort, $order);
     } else {
