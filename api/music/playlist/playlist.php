@@ -160,7 +160,10 @@ if (isset($_GET['recents_music'])) {
         mm.metadata_id_music, mm.codec_name, mm.music_quality, mm.sample_rate, mm.bit_rate, mm.bits_per_raw_sample,
         dc.bg_color, dc.text_color,
         cache_musics.cache_music_id,
-        recent_musics.played_at
+        recent_musics.played_at,
+        recent_musics.recentable_album_id AS source_album_id,
+        recent_musics.recentable_album_type AS source_album_type,
+        p.uid AS linked_album_id
     FROM recent_musics
     JOIN musics m ON m.id_music = recent_musics.uid_music 
     LEFT JOIN album_musics am ON am.id_music = m.id_music

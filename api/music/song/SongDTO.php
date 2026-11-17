@@ -20,6 +20,9 @@ class SongDTO implements JsonSerializable {
     public $text_color;
     public $cache_music_id;
     public $played_at;
+    public $source_album_id;
+    public $source_album_type;
+    public $linked_album_id;
 
     public function __construct($data) {
         $this->id_music = isset($data['id_music']) ? (int)$data['id_music'] : 0;
@@ -39,6 +42,9 @@ class SongDTO implements JsonSerializable {
         $this->text_color = isset($data['text_color']) ? $data['text_color'] : null;
         $this->cache_music_id = isset($data['cache_music_id']) ? (int)$data['cache_music_id'] : null;
         $this->played_at = isset($data['played_at']) ? $data['played_at'] : null;
+        $this->source_album_id = isset($data['source_album_id']) ? (int)$data['source_album_id'] : null;
+        $this->source_album_type = isset($data['source_album_type']) ? $data['source_album_type'] : null;
+        $this->linked_album_id = isset($data['linked_album_id']) ? (int)$data['linked_album_id'] : null;
     }
 
     #[\ReturnTypeWillChange]
@@ -63,6 +69,11 @@ class SongDTO implements JsonSerializable {
         ];
         if ($this->played_at !== null) {
             $data['played_at'] = $this->played_at;
+        }
+        if ($this->source_album_id !== null) {
+            $data['source_album_id'] = $this->source_album_id;
+            $data['source_album_type'] = $this->source_album_type;
+            $data['linked_album_id'] = $this->linked_album_id;
         }
         return $data;
     }
