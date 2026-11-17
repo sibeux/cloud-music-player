@@ -38,7 +38,10 @@ try {
             // Gunakan helper functions untuk mengubah raw data menjadi URL stream yang valid
             // agar ffprobe dan ColorThief bisa memprosesnya
             
-            $music_url = resolveMusicStreamUrl($music_id, $row['link_gdrive'], $secretKey);
+            // $secretKey dari bearer_auth.php adalah JWT_AUTH_SECRET, bukan
+            // secret yang dipakai untuk menandatangani URL CDN.
+            $cdnSecretKey = $_ENV['CF_WORKER_SECRET'] ?? null;
+            $music_url = resolveMusicStreamUrl($music_id, $row['link_gdrive'], $cdnSecretKey);
 
             $image_url = coverUrlFormatter($row['cover']);
             
@@ -108,7 +111,9 @@ try {
         sendJsonResponse([
             "status" => "success",
             "message" => "Recent music successfully added.",
-            "metadata" => "Metadata success processed dan saved.",
+            "metadata" => $codec !== null
+                ? "Metadata codec berhasil diproses dan disimpan."
+                : "Metadata codec tidak diproses pada request ini.",
             "codec" => $codec ?? null,
             "dominant_color" => $dominant_color ?? null,
         ]);

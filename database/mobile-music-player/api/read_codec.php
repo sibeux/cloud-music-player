@@ -49,14 +49,22 @@ function checkCodecAudio($musicId, $filePath, $db, $ffprobePath): ?array
     $sampleRate = null;
     $bitsPerRawSample = null;
 
-    if (json_last_error() !== JSON_ERROR_NONE || !isset($metadata['streams'][0])) {
+    $audioStream = null;
+    if (json_last_error() === JSON_ERROR_NONE && !empty($metadata['streams']) && is_array($metadata['streams'])) {
+        foreach ($metadata['streams'] as $stream) {
+            if (($stream['codec_type'] ?? null) === 'audio') {
+                $audioStream = $stream;
+                break;
+            }
+        }
+    }
+
+    if (json_last_error() !== JSON_ERROR_NONE || $audioStream === null) {
         $logFile = __DIR__ . '/custom.log';
-        $message = ["error" => "[ERROR] Gagal mendapatkan metadata valid dari ffprobe.", "ffprobe_output" => $output];
+        $message = ["error" => "[ERROR] Gagal mendapatkan stream audio valid dari ffprobe.", "ffprobe_output" => $output];
         file_put_contents($logFile, date('[Y-m-d H:i:s] ') . json_encode($message) . "\n", FILE_APPEND);
         // die(); // Menghentikan seluruh skrip php
     } else {
-        $audioStream = $metadata['streams'][0];
-
         // 3. Ekstrak data yang dibutuhkan
         $codecName = $audioStream['codec_name'] ?? null;
         $bitRate = $metadata['format']['bit_rate'] ?? $audioStream['bit_rate'] ?? "--";
