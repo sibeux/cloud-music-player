@@ -82,6 +82,9 @@ try {
 
         if ($type === 'album') {
             $author = trim((string) ($body['author'] ?? ''));
+            if ($author === '') {
+                sendAdminJsonError(422, 'album_artist_required', 'Select at least one artist for the album.');
+            }
             $haveDisc = (int) !empty($body['have_disc']);
             $isPrivate = (int) !empty($body['is_private']);
             $stmt = $db->prepare('UPDATE albums SET name = ?, author = ?, image = ?, have_disc = ?, is_private = ? WHERE uid = ?');
