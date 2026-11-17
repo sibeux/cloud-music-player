@@ -20,8 +20,8 @@ class ArtistSplitException extends RuntimeException
 
 function splitInput($sourceId, $names)
 {
-    if ($sourceId < 1 || !is_array($names) || count($names) !== 2) {
-        throw new ArtistSplitException(422, 'invalid_split', 'Pilih satu artis sumber dan dua nama artis tujuan.');
+    if ($sourceId < 1 || !is_array($names) || count($names) < 2) {
+        throw new ArtistSplitException(422, 'invalid_split', 'Pilih satu artis sumber dan minimal dua nama artis tujuan.');
     }
     $names = array_map(function ($name) {
         return is_string($name) ? trim($name) : '';
@@ -31,8 +31,8 @@ function splitInput($sourceId, $names)
             throw new ArtistSplitException(422, 'invalid_target_name', 'Nama artis tujuan harus valid dan tidak boleh mengandung koma.');
         }
     }
-    if (mb_strtolower($names[0]) === mb_strtolower($names[1])) {
-        throw new ArtistSplitException(422, 'duplicate_targets', 'Pilih dua artis tujuan yang berbeda.');
+    if (count(array_unique(array_map('mb_strtolower', $names))) !== count($names)) {
+        throw new ArtistSplitException(422, 'duplicate_targets', 'Setiap artis tujuan harus berbeda.');
     }
     return $names;
 }
@@ -149,8 +149,9 @@ try {
         $targets = array_map(function ($name) use ($db, $source, $method) {
             return splitTarget($db, $name, $source, $method === 'POST');
         }, $targetNames);
-        if ($targets[0]['id_artist'] !== null && $targets[0]['id_artist'] === $targets[1]['id_artist']) {
-            throw new ArtistSplitException(422, 'duplicate_targets', 'Pilih dua artis tujuan yang berbeda.');
+        $existingTargetIds = array_filter(array_column($targets, 'id_artist'), function ($id) { return $id !== null; });
+        if (count(array_unique($existingTargetIds)) !== count($existingTargetIds)) {
+            throw new ArtistSplitException(422, 'duplicate_targets', 'Pilih artis tujuan yang berbeda.');
         }
 
         $stmt = $db->prepare('SELECT id_music FROM cybeat_music_artists WHERE id_artist = ? ORDER BY id_music ASC' . ($method === 'POST' ? ' FOR UPDATE' : ''));
@@ -161,12 +162,15 @@ try {
         if (!$musicIds) throw new ArtistSplitException(422, 'no_source_songs', 'Artis sumber tidak memiliki lagu yang dapat dipisah.');
 
         $albums = splitAlbumCredits($db, $source['name'], array_column($targets, 'name'), $method === 'POST');
+        $previewToken = hash('sha256', json_encode([$source, $targetNames, $musicIds, $albums], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         if ($method === 'POST' && (
             !isset($input['expected_song_count'], $input['expected_album_count'])
             || (int) $input['expected_song_count'] !== count($musicIds)
             || (int) $input['expected_album_count'] !== count($albums)
+            || !is_string($input['preview_token'] ?? null)
+            || !hash_equals($previewToken, $input['preview_token'])
         )) {
-            throw new ArtistSplitException(409, 'split_preview_stale', 'Jumlah lagu atau album berubah. Muat ulang pratinjau sebelum menyimpan.');
+            throw new ArtistSplitException(409, 'split_preview_stale', 'Data lagu, artis, atau album berubah. Muat ulang pratinjau sebelum menyimpan.');
         }
         if ($method === 'GET') {
             $stmt = $db->prepare('SELECT m.id_music, m.title FROM cybeat_music_artists ma JOIN musics m ON m.id_music = ma.id_music WHERE ma.id_artist = ? ORDER BY m.id_music ASC LIMIT 30');
@@ -180,6 +184,7 @@ try {
                 'song_count' => count($musicIds),
                 'song_sample' => $songs,
                 'albums' => $albums,
+                'preview_token' => $previewToken,
             ]], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         } else {
             foreach ($targets as $target) {
