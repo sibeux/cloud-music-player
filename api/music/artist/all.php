@@ -38,7 +38,7 @@ try {
         ";
 
     if ($searchProvided && $search !== '') {
-        $query .= ' WHERE a.name LIKE ?';
+        $query .= ' WHERE LOWER(a.name) LIKE LOWER(?)';
     }
     $query .= ' GROUP BY a.id_artist, a.name ORDER BY a.name ASC, a.id_artist ASC';
     if ($searchProvided) {
