@@ -23,7 +23,7 @@ try {
     } elseif ($method === 'POST') {
         $body = json_decode(file_get_contents('php://input'), true);
         if (!is_array($body)) {
-            sendAdminJsonError(400, 'invalid_json', 'Kirim body JSON yang valid.');
+            sendAdminJsonError(400, 'invalid_json', 'Send a valid JSON body.');
         }
 
         $result = mergeArtists(
@@ -35,18 +35,18 @@ try {
 
         echo json_encode([
             'status' => 'success',
-            'message' => 'Artist berhasil digabungkan.',
+            'message' => 'Artists merged successfully.',
             'data' => $result,
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     } else {
         header('Allow: GET, POST');
-        sendAdminJsonError(405, 'method_not_allowed', 'Gunakan GET atau POST.');
+        sendAdminJsonError(405, 'method_not_allowed', 'Use GET or POST.');
     }
 } catch (ArtistMergeException $error) {
     sendAdminJsonError($error->getHttpStatus(), $error->getErrorCode(), $error->getMessage());
 } catch (Throwable $error) {
     error_log('Admin artist merge error: ' . $error->getMessage());
-    sendAdminJsonError(500, 'server_error', 'Terjadi kesalahan server. Merge dibatalkan.');
+    sendAdminJsonError(500, 'server_error', 'A server error occurred. The merge was canceled.');
 } finally {
     if (isset($db)) {
         $db->close();

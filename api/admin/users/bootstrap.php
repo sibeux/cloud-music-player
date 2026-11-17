@@ -20,7 +20,7 @@ function requireAdminUser($db, $secretKey)
         echo json_encode([
             'status' => 'error',
             'error' => 'admin_required',
-            'message' => 'Akses hanya untuk admin.'
+            'message' => 'Admin access is required.'
         ]);
         exit;
     }

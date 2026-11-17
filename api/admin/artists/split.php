@@ -21,18 +21,18 @@ class ArtistSplitException extends RuntimeException
 function splitInput($sourceId, $names)
 {
     if ($sourceId < 1 || !is_array($names) || count($names) < 2) {
-        throw new ArtistSplitException(422, 'invalid_split', 'Pilih satu artis sumber dan minimal dua nama artis tujuan.');
+        throw new ArtistSplitException(422, 'invalid_split', 'Select one source artist and at least two destination artists.');
     }
     $names = array_map(function ($name) {
         return is_string($name) ? trim($name) : '';
     }, array_values($names));
     foreach ($names as $name) {
         if ($name === '' || mb_strlen($name) > 255 || strpos($name, ',') !== false) {
-            throw new ArtistSplitException(422, 'invalid_target_name', 'Nama artis tujuan harus valid dan tidak boleh mengandung koma.');
+            throw new ArtistSplitException(422, 'invalid_target_name', 'Destination artist names must be valid and cannot contain commas.');
         }
     }
     if (count(array_unique(array_map('mb_strtolower', $names))) !== count($names)) {
-        throw new ArtistSplitException(422, 'duplicate_targets', 'Setiap artis tujuan harus berbeda.');
+        throw new ArtistSplitException(422, 'duplicate_targets', 'Each destination artist must be different.');
     }
     return $names;
 }
@@ -45,7 +45,7 @@ function splitSource($db, $sourceId, $lock = false)
     $source = $stmt->get_result()->fetch_assoc();
     $stmt->close();
     if (!$source) {
-        throw new ArtistSplitException(404, 'artist_not_found', 'Artis sumber tidak ditemukan.');
+        throw new ArtistSplitException(404, 'artist_not_found', 'The source artist was not found.');
     }
     return ['id_artist' => (int) $source['id_artist'], 'name' => $source['name']];
 }
@@ -53,7 +53,7 @@ function splitSource($db, $sourceId, $lock = false)
 function splitTarget($db, $name, $source, $create = false)
 {
     if (mb_strtolower($name) === mb_strtolower($source['name'])) {
-        throw new ArtistSplitException(422, 'target_is_source', 'Nama artis tujuan harus berbeda dari artis sumber.');
+        throw new ArtistSplitException(422, 'target_is_source', 'Destination artists must differ from the source artist.');
     }
     $stmt = $db->prepare('SELECT id_artist, name FROM cybeat_artists WHERE LOWER(TRIM(name)) = LOWER(?) ORDER BY id_artist ASC' . ($create ? ' FOR UPDATE' : ''));
     $stmt->bind_param('s', $name);
@@ -61,7 +61,7 @@ function splitTarget($db, $name, $source, $create = false)
     $matches = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
     if (count($matches) > 1) {
-        throw new ArtistSplitException(409, 'ambiguous_target', 'Ada beberapa artis dengan nama tujuan yang sama. Gabungkan duplikatnya dahulu.');
+        throw new ArtistSplitException(409, 'ambiguous_target', 'Multiple artists match a destination name. Merge the duplicates first.');
     }
     if ($matches) {
         return ['id_artist' => (int) $matches[0]['id_artist'], 'name' => $matches[0]['name'], 'is_new' => false];
@@ -105,7 +105,7 @@ function splitAlbumCredits($db, $sourceName, $targetNames, $lock = false)
                 'author_after' => implode(', ', $updated),
             ];
         } elseif (strpos((string) $row['author'], $sourceName) !== false) {
-            throw new ArtistSplitException(409, 'album_credit_needs_review', 'Ada kredit album yang memuat nama gabungan dalam format lain. Rapikan kredit album itu sebelum split.');
+            throw new ArtistSplitException(409, 'album_credit_needs_review', 'An album credit contains the combined name in another format. Update that album credit before splitting.');
         }
     }
     return $albums;
@@ -119,7 +119,7 @@ function ensureSplitTablesTransactional($db)
     $result->free();
     foreach (['cybeat_artists', 'cybeat_music_artists', 'albums'] as $table) {
         if (($engines[$table] ?? null) !== 'INNODB') {
-            throw new ArtistSplitException(409, 'split_requires_innodb', 'Split memerlukan tabel artis, relasi lagu, dan album berjenis InnoDB.');
+            throw new ArtistSplitException(409, 'split_requires_innodb', 'Artist, song link, and album tables must use InnoDB for a safe split.');
         }
     }
 }
@@ -129,10 +129,10 @@ try {
     $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
     if ($method !== 'GET' && $method !== 'POST') {
         header('Allow: GET, POST');
-        throw new ArtistSplitException(405, 'method_not_allowed', 'Gunakan GET atau POST.');
+        throw new ArtistSplitException(405, 'method_not_allowed', 'Use GET or POST.');
     }
     $input = $method === 'POST' ? json_decode(file_get_contents('php://input'), true) : $_GET;
-    if (!is_array($input)) throw new ArtistSplitException(400, 'invalid_json', 'Kirim body JSON yang valid.');
+    if (!is_array($input)) throw new ArtistSplitException(400, 'invalid_json', 'Send a valid JSON body.');
     $sourceId = filter_var($input['source_artist_id'] ?? null, FILTER_VALIDATE_INT);
     $targetNames = splitInput((int) $sourceId, $input['target_names'] ?? null);
     $confirmedName = $input['confirm_source_name'] ?? null;
@@ -144,14 +144,14 @@ try {
     try {
         $source = splitSource($db, (int) $sourceId, $method === 'POST');
         if ($method === 'POST' && $confirmedName !== $source['name']) {
-            throw new ArtistSplitException(409, 'source_name_changed', 'Ketik nama artis sumber persis seperti pratinjau.');
+            throw new ArtistSplitException(409, 'source_name_changed', 'Type the source artist name exactly as shown in the preview.');
         }
         $targets = array_map(function ($name) use ($db, $source, $method) {
             return splitTarget($db, $name, $source, $method === 'POST');
         }, $targetNames);
         $existingTargetIds = array_filter(array_column($targets, 'id_artist'), function ($id) { return $id !== null; });
         if (count(array_unique($existingTargetIds)) !== count($existingTargetIds)) {
-            throw new ArtistSplitException(422, 'duplicate_targets', 'Pilih artis tujuan yang berbeda.');
+            throw new ArtistSplitException(422, 'duplicate_targets', 'Select different destination artists.');
         }
 
         $stmt = $db->prepare('SELECT id_music FROM cybeat_music_artists WHERE id_artist = ? ORDER BY id_music ASC' . ($method === 'POST' ? ' FOR UPDATE' : ''));
@@ -159,7 +159,7 @@ try {
         $stmt->execute();
         $musicIds = array_map('intval', array_column($stmt->get_result()->fetch_all(MYSQLI_ASSOC), 'id_music'));
         $stmt->close();
-        if (!$musicIds) throw new ArtistSplitException(422, 'no_source_songs', 'Artis sumber tidak memiliki lagu yang dapat dipisah.');
+        if (!$musicIds) throw new ArtistSplitException(422, 'no_source_songs', 'The source artist has no songs to split.');
 
         $albums = splitAlbumCredits($db, $source['name'], array_column($targets, 'name'), $method === 'POST');
         $previewToken = hash('sha256', json_encode([$source, $targetNames, $musicIds, $albums], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -170,7 +170,7 @@ try {
             || !is_string($input['preview_token'] ?? null)
             || !hash_equals($previewToken, $input['preview_token'])
         )) {
-            throw new ArtistSplitException(409, 'split_preview_stale', 'Data lagu, artis, atau album berubah. Muat ulang pratinjau sebelum menyimpan.');
+            throw new ArtistSplitException(409, 'split_preview_stale', 'Song, artist, or album data changed. Refresh the preview before saving.');
         }
         if ($method === 'GET') {
             $stmt = $db->prepare('SELECT m.id_music, m.title FROM cybeat_music_artists ma JOIN musics m ON m.id_music = ma.id_music WHERE ma.id_artist = ? ORDER BY m.id_music ASC LIMIT 30');
@@ -239,7 +239,7 @@ try {
     sendAdminJsonError($error->httpStatus, $error->errorCode, $error->getMessage());
 } catch (Throwable $error) {
     error_log('Admin artist split error: ' . $error->getMessage());
-    sendAdminJsonError(500, 'server_error', 'Terjadi kesalahan server. Split dibatalkan.');
+    sendAdminJsonError(500, 'server_error', 'A server error occurred. The split was canceled.');
 } finally {
     if (isset($db)) $db->close();
 }

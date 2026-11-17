@@ -3,7 +3,7 @@
 function previewArtistMerge($db, $sourceArtistId, $targetArtistId)
 {
     if ($sourceArtistId < 1 || $targetArtistId < 1 || $sourceArtistId === $targetArtistId) {
-        sendAdminJsonError(422, 'invalid_artist_selection', 'Pilih dua Artist yang berbeda.');
+        sendAdminJsonError(422, 'invalid_artist_selection', 'Select two different artists.');
     }
 
     $stmt = $db->prepare(
@@ -20,7 +20,7 @@ function previewArtistMerge($db, $sourceArtistId, $targetArtistId)
     }
 
     if (!isset($byId[$sourceArtistId]) || !isset($byId[$targetArtistId])) {
-        sendAdminJsonError(404, 'artist_not_found', 'Salah satu Artist tidak ditemukan. Muat ulang daftar Artist.');
+        sendAdminJsonError(404, 'artist_not_found', 'An artist was not found. Search again.');
     }
 
     $sourceCount = artistMergeLinkCount($db, $sourceArtistId);

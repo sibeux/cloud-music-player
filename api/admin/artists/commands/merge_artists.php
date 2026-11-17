@@ -26,11 +26,11 @@ class ArtistMergeException extends RuntimeException
 function mergeArtists($db, $sourceArtistId, $targetArtistId, $confirmedSourceName)
 {
     if ($sourceArtistId < 1 || $targetArtistId < 1 || $sourceArtistId === $targetArtistId) {
-        throw new ArtistMergeException(422, 'invalid_artist_selection', 'Pilih dua Artist yang berbeda.');
+        throw new ArtistMergeException(422, 'invalid_artist_selection', 'Select two different artists.');
     }
 
     if (!is_string($confirmedSourceName) || trim($confirmedSourceName) === '') {
-        throw new ArtistMergeException(422, 'source_name_confirmation_required', 'Ketik nama Artist sumber untuk mengonfirmasi merge.');
+        throw new ArtistMergeException(422, 'source_name_confirmation_required', 'Type the source artist name to confirm the merge.');
     }
 
     ensureArtistMergeTablesAreTransactional($db);
@@ -53,13 +53,13 @@ function mergeArtists($db, $sourceArtistId, $targetArtistId, $confirmedSourceNam
         }
 
         if (!isset($artists[$sourceArtistId]) || !isset($artists[$targetArtistId])) {
-            throw new ArtistMergeException(404, 'artist_not_found', 'Salah satu Artist tidak ditemukan. Muat ulang daftar Artist.');
+            throw new ArtistMergeException(404, 'artist_not_found', 'An artist was not found. Search again.');
         }
 
         $source = $artists[$sourceArtistId];
         $target = $artists[$targetArtistId];
         if ($source['name'] !== $confirmedSourceName) {
-            throw new ArtistMergeException(409, 'source_name_changed', 'Nama Artist sumber berubah. Periksa ulang sebelum merge.');
+            throw new ArtistMergeException(409, 'source_name_changed', 'The source artist name changed. Review the merge again.');
         }
 
         // Lock both link sets, then count overlaps before moving links.
@@ -153,7 +153,7 @@ function ensureArtistMergeTablesAreTransactional($db)
         throw new ArtistMergeException(
             409,
             'artist_merge_requires_innodb',
-            'Merge belum dapat dilakukan karena tabel Artist belum mendukung transaksi yang aman.'
+            'The artist tables must support safe transactions before merging.'
         );
     }
 }
