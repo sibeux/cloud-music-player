@@ -141,17 +141,27 @@ if (isset($_GET['recents_music'])) {
     require_once __DIR__ . '/../../init.php';
 
     $auth = new BearerAuth($secretKey);
-    $authUser = $auth->validate(false);
+    $authUser = $auth->validate(true);
     $currentUserId = isset($authUser['sub']) ? (int) $authUser['sub'] : 0;
-    $role = isset($authUser['data']['role']) ? (string) $authUser['data']['role'] : 'free';
-
     $requestedUserId = (int) $_GET['recents_music'];
 
-    // Khusus role admin diizinkan melihat history user lain
-    if ($role === 'admin' && $requestedUserId > 0) {
+    if ($currentUserId <= 0) {
+        http_response_code(401);
+        die(json_encode(['status' => 'error', 'error' => 'unauthorized']));
+    }
+
+    $userId = $currentUserId;
+    if ($requestedUserId > 0 && $requestedUserId !== $currentUserId) {
+        $stmt = $db->prepare('SELECT role FROM users WHERE user_id = ? LIMIT 1');
+        $stmt->bind_param('i', $currentUserId);
+        $stmt->execute();
+        $currentRole = $stmt->get_result()->fetch_assoc()['role'] ?? null;
+        $stmt->close();
+        if ($currentRole !== 'admin') {
+            http_response_code(403);
+            die(json_encode(['status' => 'error', 'error' => 'admin_required']));
+        }
         $userId = $requestedUserId;
-    } else {
-        $userId = $currentUserId > 0 ? $currentUserId : $requestedUserId;
     }
 
     $sql = "SELECT 

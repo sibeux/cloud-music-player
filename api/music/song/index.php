@@ -55,10 +55,18 @@ try {
         if ($userId <= 0) {
             sendSongJsonError(401, 'unauthorized', 'Autentikasi diperlukan untuk mengakses recent music.');
         }
-        // Khusus role admin diizinkan melihat history user lain via uid
         $targetUserId = $userId;
-        if ($role === 'admin' && (int) $uid > 0) {
-            $targetUserId = (int) $uid;
+        $requestedUserId = (int) $uid;
+        if ($requestedUserId > 0 && $requestedUserId !== $userId) {
+            $stmt = $db->prepare('SELECT role FROM users WHERE user_id = ? LIMIT 1');
+            $stmt->bind_param('i', $userId);
+            $stmt->execute();
+            $currentRole = $stmt->get_result()->fetch_assoc()['role'] ?? null;
+            $stmt->close();
+            if ($currentRole !== 'admin') {
+                sendSongJsonError(403, 'admin_required', 'Admin access is required to view another user history.');
+            }
+            $targetUserId = $requestedUserId;
         }
         $songs = getSongsByRecent($db, $targetUserId, $search, $sort, $order);
     } else {
