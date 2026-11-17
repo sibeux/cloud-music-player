@@ -13,7 +13,7 @@ try {
         if (array_key_exists('album_id', $_GET)) {
             $albumId = filter_input(INPUT_GET, 'album_id', FILTER_VALIDATE_INT);
             if (!$albumId || $albumId < 1) {
-                sendAdminJsonError(400, 'invalid_album_id', 'ID album tidak valid.');
+                sendAdminJsonError(400, 'invalid_album_id', 'The album ID is invalid.');
             }
             $stmt = $db->prepare('SELECT uid AS id, name, author, image AS cover, have_disc, is_private FROM albums WHERE uid = ? LIMIT 1');
             $stmt->bind_param('i', $albumId);
@@ -21,7 +21,7 @@ try {
             $album = $stmt->get_result()->fetch_assoc();
             $stmt->close();
             if (!$album) {
-                sendAdminJsonError(404, 'album_not_found', 'Album tidak ditemukan.');
+                sendAdminJsonError(404, 'album_not_found', 'Album not found.');
             }
             $album['id'] = (int) $album['id'];
             $album['have_disc'] = (int) $album['have_disc'];
@@ -69,7 +69,7 @@ try {
     } elseif ($method === 'PATCH') {
         $body = json_decode(file_get_contents('php://input'), true);
         if (!is_array($body)) {
-            sendAdminJsonError(400, 'invalid_body', 'Data perubahan tidak valid.');
+            sendAdminJsonError(400, 'invalid_body', 'The submitted data is invalid.');
         }
 
         $type = (string) ($body['type'] ?? '');
@@ -77,7 +77,7 @@ try {
         $name = trim((string) ($body['name'] ?? ''));
         $cover = trim((string) ($body['cover'] ?? ''));
         if ($id < 1 || $name === '' || mb_strlen($name) > 255 || mb_strlen($cover) > 2048) {
-            sendAdminJsonError(422, 'invalid_catalog_data', 'Nama wajib diisi dan data harus valid.');
+            sendAdminJsonError(422, 'invalid_catalog_data', 'A name is required and the submitted data must be valid.');
         }
 
         if ($type === 'album') {
@@ -95,12 +95,12 @@ try {
                 $check->execute();
                 $exists = (bool) $check->get_result()->fetch_assoc();
                 $check->close();
-                if (!$exists) sendAdminJsonError(404, 'album_not_found', 'Album tidak ditemukan.');
+                if (!$exists) sendAdminJsonError(404, 'album_not_found', 'Album not found.');
             }
         } elseif ($type === 'category') {
             $albumIds = $body['album_ids'] ?? [];
             if (!is_array($albumIds)) {
-                sendAdminJsonError(422, 'invalid_album_ids', 'Daftar album kategori tidak valid.');
+                sendAdminJsonError(422, 'invalid_album_ids', 'The category album list is invalid.');
             }
             $albumIds = array_values(array_unique(array_filter(array_map('intval', $albumIds), fn ($value) => $value > 0)));
 
@@ -118,7 +118,7 @@ try {
                 $stmt->close();
                 if (!$exists) {
                     $db->rollback();
-                    sendAdminJsonError(404, 'category_not_found', 'Kategori tidak ditemukan.');
+                    sendAdminJsonError(404, 'category_not_found', 'Category not found.');
                 }
 
                 if ($albumIds) {
@@ -131,7 +131,7 @@ try {
                     $stmt->close();
                     if (count($validIds) !== count($albumIds)) {
                         $db->rollback();
-                        sendAdminJsonError(422, 'album_not_found', 'Satu atau lebih album tidak ditemukan.');
+                        sendAdminJsonError(422, 'album_not_found', 'One or more albums could not be found.');
                     }
                 }
 
@@ -151,17 +151,17 @@ try {
                 throw $error;
             }
         } else {
-            sendAdminJsonError(422, 'invalid_catalog_type', 'Jenis katalog tidak valid.');
+            sendAdminJsonError(422, 'invalid_catalog_type', 'The catalog type is invalid.');
         }
 
-        echo json_encode(['status' => 'success', 'message' => 'Perubahan katalog berhasil disimpan.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        echo json_encode(['status' => 'success', 'message' => 'Catalog changes saved.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     } else {
         header('Allow: GET, PATCH');
-        sendAdminJsonError(405, 'method_not_allowed', 'Gunakan GET atau PATCH.');
+        sendAdminJsonError(405, 'method_not_allowed', 'Use GET or PATCH.');
     }
 } catch (Throwable $error) {
     error_log('Admin catalog management error: ' . $error->getMessage());
-    sendAdminJsonError(500, 'server_error', 'Terjadi kesalahan server.');
+    sendAdminJsonError(500, 'server_error', 'An internal server error occurred.');
 } finally {
     if (isset($db)) $db->close();
 }

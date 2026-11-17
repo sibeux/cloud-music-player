@@ -27,16 +27,33 @@ try {
     $auth = new BearerAuth($secretKey);
     $auth->validate(false);
 
+    $searchProvided = array_key_exists('search', $_GET);
+    $search = trim((string) ($_GET['search'] ?? ''));
     $query = "SELECT
             a.id_artist,
             a.name,
             COUNT(DISTINCT ma.id_music) AS song_count
         FROM cybeat_artists AS a
         LEFT JOIN cybeat_music_artists AS ma ON ma.id_artist = a.id_artist
-        GROUP BY a.id_artist, a.name
-        ORDER BY a.name ASC, a.id_artist ASC";
+        ";
 
-    $result = $db->query($query);
+    if ($searchProvided && $search !== '') {
+        $query .= ' WHERE a.name LIKE ?';
+    }
+    $query .= ' GROUP BY a.id_artist, a.name ORDER BY a.name ASC, a.id_artist ASC';
+    if ($searchProvided) {
+        $query .= ' LIMIT 50';
+    }
+
+    if ($searchProvided && $search !== '') {
+        $stmt = $db->prepare($query);
+        $searchPattern = '%' . $search . '%';
+        $stmt->bind_param('s', $searchPattern);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    } else {
+        $result = $db->query($query);
+    }
     $artists = [];
     while ($row = $result->fetch_assoc()) {
         $artists[] = [
@@ -46,6 +63,9 @@ try {
         ];
     }
     $result->free();
+    if (isset($stmt)) {
+        $stmt->close();
+    }
 
     echo json_encode([
         'status' => 'success',
