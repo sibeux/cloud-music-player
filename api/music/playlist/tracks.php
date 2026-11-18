@@ -21,9 +21,30 @@ try {
     }
 
     $playlistId = filter_var($input['playlist_id'] ?? null, FILTER_VALIDATE_INT);
-    $songId = filter_var($input['song_id'] ?? null, FILTER_VALIDATE_INT);
-    if (!$playlistId || $playlistId <= 0 || !$songId || $songId <= 0) {
-        sendSongJsonError(422, 'invalid_ids', 'A valid playlist_id and song_id are required.');
+    if (!$playlistId || $playlistId <= 0) {
+        sendSongJsonError(422, 'invalid_ids', 'A valid playlist_id is required.');
+    }
+
+    $songIds = [];
+    if ($method === 'POST') {
+        $songId = filter_var($input['song_id'] ?? null, FILTER_VALIDATE_INT);
+        if (!$songId || $songId <= 0) {
+            sendSongJsonError(422, 'invalid_ids', 'A valid song_id is required.');
+        }
+        $songIds = [(int) $songId];
+    } else {
+        $requestedIds = $input['song_ids'] ?? (isset($input['song_id']) ? [$input['song_id']] : []);
+        if (!is_array($requestedIds) || count($requestedIds) === 0 || count($requestedIds) > 500) {
+            sendSongJsonError(422, 'invalid_ids', 'Provide between 1 and 500 song ids.');
+        }
+        foreach ($requestedIds as $requestedId) {
+            $validId = filter_var($requestedId, FILTER_VALIDATE_INT);
+            if (!$validId || $validId <= 0) {
+                sendSongJsonError(422, 'invalid_ids', 'All song ids must be valid positive integers.');
+            }
+            $songIds[] = (int) $validId;
+        }
+        $songIds = array_values(array_unique($songIds));
     }
 
     $db->begin_transaction();
@@ -75,16 +96,23 @@ try {
         }
 
         $remove = $db->prepare('DELETE FROM playlist_musics WHERE id_playlist = ? AND id_music = ?');
-        $remove->bind_param('ii', $playlistId, $songId);
-        $remove->execute();
-        $removed = $remove->affected_rows;
+        $removed = 0;
+        foreach ($songIds as $songId) {
+            $remove->bind_param('ii', $playlistId, $songId);
+            $remove->execute();
+            $removed += $remove->affected_rows;
+        }
         $remove->close();
         $db->commit();
 
         if ($removed === 0) {
-            sendSongJsonError(404, 'song_not_in_playlist', 'Song is not in this playlist.');
+            sendSongJsonError(404, 'songs_not_in_playlist', 'None of the selected songs are in this playlist.');
         }
-        echo json_encode(['status' => 'success', 'message' => 'Song removed from playlist.']);
+        echo json_encode([
+            'status' => 'success',
+            'message' => $removed === 1 ? 'Song removed from playlist.' : "$removed songs removed from playlist.",
+            'removed_count' => $removed,
+        ]);
     } catch (Throwable $error) {
         $db->rollback();
         throw $error;
