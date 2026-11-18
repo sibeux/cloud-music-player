@@ -12,16 +12,34 @@ try {
 
     $method = $_SERVER['REQUEST_METHOD'];
 
+    $albumId = isset($_GET['albumId']) ? (int) $_GET['albumId'] : 0;
+    $albumType = isset($_GET['albumType']) ? strtolower(trim($_GET['albumType'])) : 'album';
     if ($method === 'POST') {
-        $json = file_get_contents('php://input');
-        $data = json_decode($json, true);
+        $data = json_decode(file_get_contents('php://input'), true);
+        if (is_array($data)) {
+            $albumId = (int) ($data['albumId'] ?? $albumId);
+            $albumType = strtolower(trim((string) ($data['albumType'] ?? $albumType)));
+        }
+    }
+    if (!in_array($albumType, ['album', 'playlist', 'category'], true) || $albumId <= 0) {
+        http_response_code(422);
+        echo json_encode(['status' => 'error', 'message' => 'Invalid pinnable item.']);
+        exit;
+    }
 
-        $albumId = isset($data['albumId']) ? $data['albumId'] : 0;
-        $albumType = isset($data['albumType']) ? strtolower($data['albumType']) : 'album';
+    if ($method === 'GET') {
+        $stmt = $db->prepare('SELECT 1 FROM album_pins WHERE user_id = ? AND pinnable_album_id = ? AND pinnable_album_type = ? LIMIT 1');
+        $stmt->bind_param('iis', $userId, $albumId, $albumType);
+        $stmt->execute();
+        $pinned = (bool) $stmt->get_result()->fetch_row();
+        $stmt->close();
+        echo json_encode(['status' => 'success', 'data' => ['pinned' => $pinned]]);
+        exit;
+    }
+
+    if ($method === 'POST') {
         pin($db, $userId, $albumId, $albumType);
     } else if ($method === 'DELETE') {
-        $albumId = isset($_GET['albumId']) ? $_GET['albumId'] : 0;
-        $albumType = isset($_GET['albumType']) ? strtolower($_GET['albumType']) : 'album';
         unpin($db, $userId, $albumId, $albumType);
     } else {
         http_response_code(405);
