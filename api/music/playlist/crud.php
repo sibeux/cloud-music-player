@@ -75,12 +75,16 @@ try {
 
     if ($method === 'PATCH' || $method === 'PUT') {
         $title = trim((string) ($input['title'] ?? ''));
+        $cover = trim((string) ($input['cover'] ?? ''));
         if ($title === '' || mb_strlen($title) > 255) {
             playlistResponse(422, ['status' => 'error', 'message' => 'Playlist title is required and must be at most 255 characters']);
         }
 
-        $stmt = $db->prepare('UPDATE playlists SET title = ? WHERE playlist_id = ? AND user_id = ?');
-        $stmt->bind_param('sii', $title, $playlistId, $userId);
+        if (mb_strlen($cover) > 2048) {
+            playlistResponse(422, ['status' => 'error', 'message' => 'Cover must be at most 2048 characters']);
+        }
+        $stmt = $db->prepare('UPDATE playlists SET title = ?, cover = ? WHERE playlist_id = ? AND user_id = ?');
+        $stmt->bind_param('ssii', $title, $cover, $playlistId, $userId);
         $stmt->execute();
         $found = $stmt->affected_rows > 0;
         $stmt->close();
@@ -95,7 +99,7 @@ try {
             }
         }
 
-        playlistResponse(200, ['status' => 'success', 'message' => 'Playlist updated', 'data' => ['id' => $playlistId, 'title' => $title]]);
+        playlistResponse(200, ['status' => 'success', 'message' => 'Playlist updated', 'data' => ['id' => $playlistId, 'title' => $title, 'cover' => $cover]]);
     }
 
     if ($method === 'DELETE') {
