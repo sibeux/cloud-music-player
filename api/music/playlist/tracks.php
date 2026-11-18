@@ -81,14 +81,19 @@ try {
             $alreadyAdded = (bool) $existing->get_result()->fetch_row();
             $existing->close();
             if ($alreadyAdded) {
-                $db->commit();
-                echo json_encode(['status' => 'success', 'message' => 'Song is already in this playlist.']);
-                exit;
+                $db->rollback();
+                sendSongJsonError(409, 'duplicate_song', 'Song is already in this playlist.');
             }
 
             $add = $db->prepare('INSERT INTO playlist_musics (id_music, id_playlist, created_at) VALUES (?, ?, NOW())');
             $add->bind_param('ii', $songId, $playlistId);
-            $add->execute();
+            if (!$add->execute()) {
+                $duplicate = (int) $add->errno === 1062;
+                $add->close();
+                $db->rollback();
+                if ($duplicate) sendSongJsonError(409, 'duplicate_song', 'Song is already in this playlist.');
+                throw new RuntimeException('Could not add song to playlist.');
+            }
             $add->close();
             $db->commit();
             echo json_encode(['status' => 'success', 'message' => 'Song added to playlist.']);

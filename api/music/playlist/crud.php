@@ -29,10 +29,20 @@ try {
     }
 
     if ($method === 'GET') {
-        $stmt = $db->prepare('SELECT playlist_id AS id, title, cover, created_at FROM playlists WHERE user_id = ? ORDER BY created_at DESC');
-        $stmt->bind_param('i', $userId);
+        $songId = filter_var($_GET['song_id'] ?? null, FILTER_VALIDATE_INT);
+        if ($songId && $songId > 0) {
+            $stmt = $db->prepare('SELECT p.playlist_id AS id, p.title, p.cover, p.created_at,
+                EXISTS (SELECT 1 FROM playlist_musics pm WHERE pm.id_playlist = p.playlist_id AND pm.id_music = ?) AS contains_song
+                FROM playlists p WHERE p.user_id = ? ORDER BY p.created_at DESC');
+            $stmt->bind_param('ii', $songId, $userId);
+        } else {
+            $stmt = $db->prepare('SELECT playlist_id AS id, title, cover, created_at, 0 AS contains_song FROM playlists WHERE user_id = ? ORDER BY created_at DESC');
+            $stmt->bind_param('i', $userId);
+        }
         $stmt->execute();
         $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        foreach ($items as &$item) $item['contains_song'] = (bool) $item['contains_song'];
+        unset($item);
         $stmt->close();
         playlistResponse(200, ['status' => 'success', 'data' => $items]);
     }
