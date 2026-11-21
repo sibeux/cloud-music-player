@@ -2,10 +2,16 @@
 // CATCH UNCAUGHT EXCEPTIONS AND ERRORS
 // Returns 500 HTTP code, JSON payload with error message and trace.
 
+require_once __DIR__ . '/../utils/Serilog.php';
+
 function api_global_exception_handler($exception) {
     http_response_code(500);
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
+
+    // Record exception into Serilog
+    Serilog::recordException($exception);
+
     echo json_encode([
         'status' => 'error',
         'message' => $exception->getMessage(),
@@ -30,10 +36,14 @@ function api_global_fatal_handler() {
         http_response_code(500);
         header('Access-Control-Allow-Origin: *');
         header('Content-Type: application/json');
+
+        // Record fatal error into Serilog
+        Serilog::recordFatalError($error);
+
         echo json_encode([
             'status' => 'error',
             'message' => $error['message'],
-            'trace' => 'Fatal error - no trace available',
+            'trace' => 'Fatal error in ' . $error['file'] . ' on line ' . $error['line'],
             'file' => $error['file'],
             'line' => $error['line']
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

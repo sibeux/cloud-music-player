@@ -7,3 +7,5 @@ database/SQL-DB/*
 api/doc/secret/*
 .env
 api/image-dominant-color
+storage/logs/*.jsonl
+storage/logs/*.log

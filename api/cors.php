@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . '/exception_handler.php';
+require_once __DIR__ . '/../utils/Serilog.php';
+
+// Start automatic Serilog request logging
+Serilog::startRequestLogging();
 
 // Header CORS (Wajib agar Frontend bisa akses)
 header("Access-Control-Allow-Origin: *");
@@ -9,7 +13,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // Tangani Preflight Request (OPTIONS)
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }

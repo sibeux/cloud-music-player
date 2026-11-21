@@ -1,9 +1,20 @@
 <?php
+require_once __DIR__ . '/Serilog.php';
+
 // Fungsi untuk membuat log manual
 function log_message($message)
 {
     $logFile = 'custom.log';
-    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
+    @file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $message . "\n", FILE_APPEND);
+
+    // Also forward to Serilog structured logger
+    if (stripos($message, '[ERROR]') !== false) {
+        Serilog::error('ManualLog', $message);
+    } elseif (stripos($message, '[WARNING]') !== false) {
+        Serilog::warn('ManualLog', $message);
+    } else {
+        Serilog::info('ManualLog', $message);
+    }
 }
 
 // --- Fungsi Helper ---
