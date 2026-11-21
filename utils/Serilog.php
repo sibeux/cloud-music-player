@@ -9,6 +9,11 @@
  */
 class Serilog
 {
+    /**
+     * Log retention period in days (auto-prune entries older than 30 days).
+     */
+    public const RETENTION_DAYS = 30;
+
     private static ?float $startTime = null;
     private static string $method = 'GET';
     private static string $uri = '/';
@@ -354,8 +359,8 @@ class Serilog
 
         @file_put_contents($file, $line . "\n", FILE_APPEND | LOCK_EX);
 
-        // Periodically prune file if larger than 5MB
-        if (file_exists($file) && filesize($file) > 5 * 1024 * 1024) {
+        // Periodically prune logs older than 30 days
+        if (file_exists($file) && (filesize($file) > 2 * 1024 * 1024 || mt_rand(1, 40) === 1)) {
             self::pruneOldLogs($file);
         }
     }
@@ -379,6 +384,7 @@ class Serilog
         $search = isset($filter['search']) ? strtolower(trim($filter['search'])) : '';
         $limit = isset($filter['limit']) ? min((int) $filter['limit'], 2000) : 500;
         $sinceId = isset($filter['since_id']) ? (int) $filter['since_id'] : 0;
+        $cutoffTimestamp = time() - (self::RETENTION_DAYS * 86400);
 
         $results = [];
         $total = count($lines);
@@ -388,6 +394,14 @@ class Serilog
             $decoded = json_decode($lines[$i], true);
             if (!is_array($decoded)) {
                 continue;
+            }
+
+            // Retention filter (30 days)
+            if (!empty($decoded['timestamp'])) {
+                $entryTime = strtotime($decoded['timestamp']);
+                if ($entryTime !== false && $entryTime < $cutoffTimestamp) {
+                    continue;
+                }
             }
 
             // since_id filter for live streaming
@@ -537,11 +551,37 @@ class Serilog
         return implode("\n", $lines);
     }
 
-    private static function pruneOldLogs(string $file): void
+    public static function pruneOldLogs(string $file): void
     {
         $lines = @file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        if ($lines !== false && count($lines) > 3000) {
-            $keptLines = array_slice($lines, -3000);
+        if ($lines === false || empty($lines)) {
+            return;
+        }
+
+        $cutoffTimestamp = time() - (self::RETENTION_DAYS * 86400);
+        $keptLines = [];
+        $hasPruned = false;
+
+        foreach ($lines as $line) {
+            $decoded = json_decode($line, true);
+            if (!is_array($decoded) || empty($decoded['timestamp'])) {
+                continue;
+            }
+            $entryTime = strtotime($decoded['timestamp']);
+            if ($entryTime !== false && $entryTime < $cutoffTimestamp) {
+                $hasPruned = true;
+                continue;
+            }
+            $keptLines[] = $line;
+        }
+
+        // Safety upper ceiling: keep latest 10,000 entries
+        if (count($keptLines) > 10000) {
+            $keptLines = array_slice($keptLines, -10000);
+            $hasPruned = true;
+        }
+
+        if ($hasPruned || count($keptLines) !== count($lines)) {
             @file_put_contents($file, implode("\n", $keptLines) . "\n", LOCK_EX);
         }
     }
