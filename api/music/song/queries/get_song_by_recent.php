@@ -68,6 +68,7 @@ function getSongsByRecent($db, $userId, $search = '', $sortBy = 'default', $sort
             break;
         case 'date_added':
         case 'recently_added':
+        case 'id':
         case 'default':
         default:
             $orderBy = "rm.played_at $direction, rm.uid_recents $direction";

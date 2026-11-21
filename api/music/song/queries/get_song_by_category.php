@@ -86,9 +86,10 @@ function getSongsByCategory($db, $categoryId, $role = 'free', $search = '', $sor
         case 'created_at':
             $orderBy = "m.id_music $direction";
             break;
+        case 'id':
         case 'default':
         default:
-            $orderBy = "m.id_music ASC";
+            $orderBy = "m.id_music $direction";
             break;
     }
 

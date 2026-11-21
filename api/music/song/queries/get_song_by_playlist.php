@@ -78,9 +78,12 @@ function getSongsByPlaylist($db, $playlistId, $userId, $search = '', $sortBy = '
         case 'created_at':
             $orderBy = "pm.created_at $direction, pm.id_playlist_music $direction";
             break;
+        case 'id':
+            $orderBy = "m.id_music $direction";
+            break;
         case 'default':
         default:
-            $orderBy = "pm.created_at ASC, pm.id_playlist_music ASC";
+            $orderBy = "pm.created_at $direction, pm.id_playlist_music $direction";
             break;
     }
 
