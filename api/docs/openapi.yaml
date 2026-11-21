@@ -311,6 +311,49 @@ paths:
         '200':
           description: Playback recorded
 
+  /music/album/explore:
+    get:
+      tags:
+        - Albums
+      summary: Explore newly added albums by category
+      description: |
+        Returns newly added albums sorted by newest first for the 5 supported categories:
+        1: IndoPride, 2: 日本の歌, 3: Jowo Mletre, 4: Worldwide, 5: Instrumental.
+        Supports keyset pagination (cursor) and lazy loading per category.
+        If category_id is omitted, returns all 5 sections.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: category_id
+          in: query
+          required: false
+          schema:
+            type: integer
+            enum: [1, 2, 3, 4, 5]
+          description: Category ID to filter (1 to 5). Excludes category 6 (All Beat).
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Keyset pagination cursor (last album UID received).
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 50
+          description: Number of albums to fetch per batch.
+      responses:
+        '200':
+          description: Explore albums data with keyset pagination
+        '400':
+          description: Invalid category ID requested
+        '405':
+          description: Method not allowed
+
   /music/artist/all:
     get:
       tags:
