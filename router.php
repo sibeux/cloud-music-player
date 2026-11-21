@@ -12,6 +12,11 @@ if (file_exists($file . '.php')) {
     return true;
 }
 
+if (is_dir($file) && file_exists(rtrim($file, '/\\') . '/index.php')) {
+    require rtrim($file, '/\\') . '/index.php';
+    return true;
+}
+
 if (rtrim($uri, '/') === '/api/logs') {
     require __DIR__ . '/api/logs.php';
     return true;

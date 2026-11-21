@@ -15,6 +15,7 @@ RewriteRule ^admin/artists/split/?$ admin/artists/split.php [L,QSA]
 RewriteRule ^admin/artists/edit/?$ admin/artists/edit.php [L,QSA]
 RewriteRule ^music/stream/?$ music/stream/index.php [L,QSA]
 RewriteRule ^logs/?$ logs.php [L,QSA]
+RewriteRule ^docs/?$ docs/index.php [L,QSA]
 
 ## To internally redirect /dir/foo to /dir/foo.php
 RewriteCond %{REQUEST_FILENAME}.php -f [NC]

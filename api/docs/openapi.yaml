@@ -1,0 +1,390 @@
+openapi: 3.0.3
+info:
+  title: Cloud Music Player API
+  version: 1.0.0
+  description: |
+    API documentation for Cloud Music Player backend.
+    
+    Provides authentication, music streaming, playlist management, catalog search, and audio metadata extraction.
+servers:
+  - url: /api
+    description: Current Server (/api)
+  - url: http://localhost:8000/api
+    description: Local PHP Built-in Server
+
+tags:
+  - name: System
+    description: System diagnostics and health checks
+  - name: Auth
+    description: User authentication, JWT tokens, and registration
+  - name: Songs
+    description: Song listing, filtering, search, and details
+  - name: Playlists
+    description: User playlists and pinning
+  - name: Favorites & Recents
+    description: Favorite tracks and playback history
+  - name: Artists
+    description: Artist listing and catalog
+  - name: Streaming
+    description: Audio streaming via Google Drive and Cloudflare Workers
+
+paths:
+  /health.php:
+    get:
+      tags:
+        - System
+      summary: Health check endpoint
+      description: Returns backend server status and timestamp.
+      responses:
+        '200':
+          description: Server is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Backend is healthy
+                  time:
+                    type: string
+                    format: date-time
+                    example: '2026-11-21T21:34:00+07:00'
+
+  /auth/login.php:
+    post:
+      tags:
+        - Auth
+      summary: User login
+      description: Authenticates user credentials and returns JWT access and refresh tokens.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: secret123
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Login berhasil
+                  access_token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  refresh_token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '401':
+          description: Invalid email or password
+        '500':
+          description: Server configuration error
+
+  /auth/register.php:
+    post:
+      tags:
+        - Auth
+      summary: User registration
+      description: Registers a new user account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                  example: Jane Doe
+                email:
+                  type: string
+                  format: email
+                  example: jane@example.com
+                password:
+                  type: string
+                  format: password
+                  example: secret123
+      responses:
+        '200':
+          description: Registration successful
+        '400':
+          description: Validation error or email already exists
+
+  /auth/refresh.php:
+    post:
+      tags:
+        - Auth
+      summary: Refresh access token
+      description: Refreshes an expired JWT access token using the bearer refresh token.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+        '400':
+          description: Refresh token missing
+        '401':
+          description: Invalid or revoked refresh token
+
+  /auth/logout.php:
+    post:
+      tags:
+        - Auth
+      summary: User logout
+      description: Revokes the refresh token to end user session.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logged out successfully
+
+  /music/song/index.php:
+    get:
+      tags:
+        - Songs
+      summary: Get songs list
+      description: |
+        Retrieves songs by album, category, playlist, or recent history.
+        Also accessible via `/api/music/song`.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [album, category, playlist, recent, history]
+          description: Source type of the songs
+        - name: uid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Unique identifier for album, category, or playlist
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter songs by title or artist keyword
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Column name to sort by (e.g. title, artist, date)
+        - name: order
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: Sort direction
+      responses:
+        '200':
+          description: List of songs matching query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Song'
+        '400':
+          description: Invalid or missing required parameters
+        '401':
+          description: Unauthorized access (for private playlists / recent)
+
+  /playlist:
+    get:
+      tags:
+        - Playlists
+      summary: Get user playlists
+      description: Fetches playlist collection with pinned status and track counts.
+      parameters:
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [uid, title]
+        - name: filter
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of playlists
+
+  /favorite:
+    get:
+      tags:
+        - Favorites & Recents
+      summary: Toggle favorite song
+      description: Updates favorite status of a music track.
+      parameters:
+        - name: _favorite
+          in: query
+          required: true
+          schema:
+            type: integer
+            enum: [0, 1]
+          description: Favorite flag (1 for favorite, 0 to unfavorite)
+        - name: _id
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: ID of the music track
+      responses:
+        '200':
+          description: Favorite status updated
+
+  /recents_music:
+    post:
+      tags:
+        - Favorites & Recents
+      summary: Record recently played track
+      description: Records a played music track and triggers metadata / color analysis if needed.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - music_id
+                - album_id
+                - album_type
+              properties:
+                music_id:
+                  type: integer
+                album_id:
+                  type: integer
+                album_type:
+                  type: string
+                  example: album
+      responses:
+        '200':
+          description: Playback recorded
+
+  /music/artist/all:
+    get:
+      tags:
+        - Artists
+      summary: Get all artists
+      description: Returns list of artists in the music catalog.
+      responses:
+        '200':
+          description: List of artists
+
+  /music/stream:
+    get:
+      tags:
+        - Streaming
+      summary: Stream audio track
+      description: Resolves and streams music audio from storage or Google Drive with HMAC token.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: ID of the music file
+      responses:
+        '200':
+          description: Audio stream (audio/mpeg, audio/flac, etc.)
+        '206':
+          description: Partial content audio stream for range requests
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Enter your JWT Bearer token
+
+  schemas:
+    Song:
+      type: object
+      properties:
+        id_music:
+          type: integer
+          example: 101
+        title:
+          type: string
+          example: Moonlight Sonata
+        artist:
+          type: string
+          example: Ludwig van Beethoven
+        album:
+          type: string
+          example: Classical Masterpieces
+        cover:
+          type: string
+          example: cover_101.jpg
+        favorite:
+          type: integer
+          example: 1
+        codec_name:
+          type: string
+          example: flac
+        music_quality:
+          type: string
+          example: Hi-Res Lossless
+        sample_rate:
+          type: integer
+          example: 96000
+        bit_rate:
+          type: integer
+          example: 2450000
+        bg_color:
+          type: string
+          example: '#1a1a2e'
+        text_color:
+          type: string
+          example: '#eaeaea'
