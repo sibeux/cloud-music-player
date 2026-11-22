@@ -38,9 +38,9 @@ try {
             echo json_encode(['status' => 'error', 'message' => 'Album not found']);
             exit;
         }
-        $stmt = $db->prepare('INSERT IGNORE INTO album_library (user_id, album_id) VALUES (?, ?)');
+        $stmt = $db->prepare('INSERT IGNORE INTO cybeat_album_library (user_id, album_id) VALUES (?, ?)');
     } else {
-        $stmt = $db->prepare('DELETE FROM album_library WHERE user_id = ? AND album_id = ?');
+        $stmt = $db->prepare('DELETE FROM cybeat_album_library WHERE user_id = ? AND album_id = ?');
     }
     $stmt->bind_param('ii', $userId, $albumId);
     $stmt->execute();
