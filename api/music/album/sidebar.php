@@ -13,12 +13,14 @@ try {
 
     require_once __DIR__ . '/get_category.php';
     require_once __DIR__ . '/get_playlist.php';
+    require_once __DIR__ . '/get_library_albums.php';
 
     echo json_encode([
         'status' => 'success',
         'data' => [
             'category' => get_category($db, $userId, $role),
             'playlist' => get_playlist($db, $userId),
+            'album' => getLibraryAlbums($db, (int) $userId, $role),
         ],
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 } catch (Exception $e) {
