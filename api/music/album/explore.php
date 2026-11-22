@@ -54,7 +54,14 @@ try {
         }
 
         $categoryInfo = getCategoryExploreInfo($db, $categoryId, $role);
-        $resultData = getExploreAlbumsByCategory($db, $categoryId, $role, $cursor, $limit, $search);
+        $sortBy = isset($_GET['sort_by']) && is_string($_GET['sort_by']) ? $_GET['sort_by'] : null;
+        $sortDirection = ($_GET['sort_direction'] ?? 'desc') === 'asc' ? 'asc' : 'desc';
+        if ($sortBy !== null && !in_array($sortBy, ['default', 'alphabetical', 'created'], true)) {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid sort field']);
+            exit;
+        }
+        $resultData = getExploreAlbumsByCategory($db, $categoryId, $role, $cursor, $limit, $search, $sortBy, $sortDirection);
 
         echo json_encode([
             'status' => 'success',

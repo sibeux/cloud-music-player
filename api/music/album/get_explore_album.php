@@ -59,14 +59,42 @@ function getCategoryExploreInfo($db, int $categoryId, string $role = 'free'): ?a
  * @param int $limit
  * @return array
  */
-function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free', ?int $cursor = null, int $limit = 10, string $search = ''): array
+function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free', ?int $cursor = null, int $limit = 10, string $search = '', ?string $sortBy = null, string $sortDirection = 'desc'): array
 {
     $privacyCondition = in_array($role, ['premium', 'admin'], true) ? '1=1' : 'a.is_private = 0';
     $search = trim($search);
     $pattern = '%' . strtr($search, ['!' => '!!', '%' => '!%', '_' => '!_']) . '%';
     $fetchLimit = $limit + 1; // Ambil +1 untuk deteksi has_more secara akurat tanpa COUNT(*)
 
-    if ($cursor !== null && $cursor > 0) {
+    if ($sortBy !== null) {
+        $columns = ['default' => 'a.uid', 'alphabetical' => 'a.name', 'created' => 'created_at'];
+        $column = $columns[$sortBy] ?? 'a.uid';
+        $direction = $sortDirection === 'asc' ? 'ASC' : 'DESC';
+        $orderBy = "$column $direction, a.uid $direction";
+        $offset = max(0, $cursor ?? 0);
+        $query = "SELECT
+            a.uid,
+            a.name,
+            a.image,
+            a.author,
+            a.have_disc,
+            dc.bg_color,
+            (
+                SELECT MIN(am.date_created)
+                FROM album_musics am
+                WHERE am.id_playlist = a.uid
+            ) AS created_at
+        FROM albums a
+        JOIN category_albums ca ON ca.album_id = a.uid
+        LEFT JOIN dominant_colors dc ON a.image = dc.image_url
+        WHERE ca.category_id = ?
+            AND $privacyCondition
+            AND (? = '' OR a.name LIKE ? ESCAPE '!' OR a.author LIKE ? ESCAPE '!')
+        ORDER BY $orderBy
+        LIMIT ? OFFSET ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("isssii", $categoryId, $search, $pattern, $pattern, $fetchLimit, $offset);
+    } else if ($cursor !== null && $cursor > 0) {
         $query = "SELECT
             a.uid,
             a.name,
@@ -141,7 +169,7 @@ function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free',
     $nextCursor = null;
     if (!empty($albums) && $hasMore) {
         $lastItem = end($albums);
-        $nextCursor = $lastItem['id'];
+        $nextCursor = $sortBy !== null ? max(0, $cursor ?? 0) + $limit : $lastItem['id'];
     }
 
     return [
