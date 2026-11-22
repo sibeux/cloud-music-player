@@ -2,7 +2,7 @@
 -- Preconditions:
 --   1. Run only in the intended CyBeat database.
 --   2. artist_mapping_stage has 1,348 candidate_for_insert rows totaling 17,459 songs.
---   3. The mismatch query in artist_candidate_single_prepare.sql returned no rows.
+--   3. The mismatch query in 20261111214157_artist_candidate_single_prepare.sql returned no rows.
 --
 -- The original musics.artist text is retained. INSERT IGNORE makes this safe to
 -- rerun when the unique Artist names and cybeat_music_artists primary key are intact.

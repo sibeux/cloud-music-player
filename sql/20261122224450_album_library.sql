@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS cybeat_album_library (
-    user_id BIGINT UNSIGNED NOT NULL,
-    album_id BIGINT UNSIGNED NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
+    album_id INT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, album_id),
     KEY cybeat_album_library_album (album_id)
