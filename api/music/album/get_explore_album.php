@@ -59,9 +59,11 @@ function getCategoryExploreInfo($db, int $categoryId, string $role = 'free'): ?a
  * @param int $limit
  * @return array
  */
-function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free', ?int $cursor = null, int $limit = 10): array
+function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free', ?int $cursor = null, int $limit = 10, string $search = ''): array
 {
     $privacyCondition = in_array($role, ['premium', 'admin'], true) ? '1=1' : 'a.is_private = 0';
+    $search = trim($search);
+    $pattern = '%' . strtr($search, ['!' => '!!', '%' => '!%', '_' => '!_']) . '%';
     $fetchLimit = $limit + 1; // Ambil +1 untuk deteksi has_more secara akurat tanpa COUNT(*)
 
     if ($cursor !== null && $cursor > 0) {
@@ -82,11 +84,12 @@ function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free',
         LEFT JOIN dominant_colors dc ON a.image = dc.image_url
         WHERE ca.category_id = ?
             AND $privacyCondition
+            AND (? = '' OR a.name LIKE ? ESCAPE '!' OR a.author LIKE ? ESCAPE '!')
             AND a.uid < ?
         ORDER BY a.uid DESC
         LIMIT ?";
         $stmt = $db->prepare($query);
-        $stmt->bind_param("iii", $categoryId, $cursor, $fetchLimit);
+        $stmt->bind_param("isssii", $categoryId, $search, $pattern, $pattern, $cursor, $fetchLimit);
     } else {
         $query = "SELECT
             a.uid,
@@ -105,10 +108,11 @@ function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free',
         LEFT JOIN dominant_colors dc ON a.image = dc.image_url
         WHERE ca.category_id = ?
             AND $privacyCondition
+            AND (? = '' OR a.name LIKE ? ESCAPE '!' OR a.author LIKE ? ESCAPE '!')
         ORDER BY a.uid DESC
         LIMIT ?";
         $stmt = $db->prepare($query);
-        $stmt->bind_param("ii", $categoryId, $fetchLimit);
+        $stmt->bind_param("isssi", $categoryId, $search, $pattern, $pattern, $fetchLimit);
     }
 
     $stmt->execute();

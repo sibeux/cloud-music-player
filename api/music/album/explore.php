@@ -36,6 +36,8 @@ try {
         $limit = 50;
     }
 
+    $search = is_string($_GET['search'] ?? null) ? trim($_GET['search']) : '';
+
     $cursor = (isset($_GET['cursor']) && is_numeric($_GET['cursor'])) ? (int) $_GET['cursor'] : null;
 
     // Jika category_id disediakan, ambil spesifik untuk kategori tersebut (dengan keyset pagination)
@@ -52,7 +54,7 @@ try {
         }
 
         $categoryInfo = getCategoryExploreInfo($db, $categoryId, $role);
-        $resultData = getExploreAlbumsByCategory($db, $categoryId, $role, $cursor, $limit);
+        $resultData = getExploreAlbumsByCategory($db, $categoryId, $role, $cursor, $limit, $search);
 
         echo json_encode([
             'status' => 'success',
