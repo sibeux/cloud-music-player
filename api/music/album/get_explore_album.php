@@ -78,16 +78,17 @@ function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free',
             a.image,
             a.author,
             a.have_disc,
-            dc.bg_color,
+            (SELECT MIN(dc.bg_color) FROM dominant_colors dc WHERE dc.image_url = a.image) AS bg_color,
             (
                 SELECT MIN(am.date_created)
                 FROM album_musics am
                 WHERE am.id_playlist = a.uid
             ) AS created_at
         FROM albums a
-        JOIN category_albums ca ON ca.album_id = a.uid
-        LEFT JOIN dominant_colors dc ON a.image = dc.image_url
-        WHERE ca.category_id = ?
+        WHERE EXISTS (
+            SELECT 1 FROM category_albums ca
+            WHERE ca.album_id = a.uid AND ca.category_id = ?
+        )
             AND $privacyCondition
             AND (? = '' OR a.name LIKE ? ESCAPE '!' OR a.author LIKE ? ESCAPE '!')
         ORDER BY $orderBy
@@ -101,16 +102,17 @@ function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free',
             a.image,
             a.author,
             a.have_disc,
-            dc.bg_color,
+            (SELECT MIN(dc.bg_color) FROM dominant_colors dc WHERE dc.image_url = a.image) AS bg_color,
             (
                 SELECT MIN(am.date_created)
                 FROM album_musics am
                 WHERE am.id_playlist = a.uid
             ) AS created_at
         FROM albums a
-        JOIN category_albums ca ON ca.album_id = a.uid
-        LEFT JOIN dominant_colors dc ON a.image = dc.image_url
-        WHERE ca.category_id = ?
+        WHERE EXISTS (
+            SELECT 1 FROM category_albums ca
+            WHERE ca.album_id = a.uid AND ca.category_id = ?
+        )
             AND $privacyCondition
             AND (? = '' OR a.name LIKE ? ESCAPE '!' OR a.author LIKE ? ESCAPE '!')
             AND a.uid < ?
@@ -125,16 +127,17 @@ function getExploreAlbumsByCategory($db, int $categoryId, string $role = 'free',
             a.image,
             a.author,
             a.have_disc,
-            dc.bg_color,
+            (SELECT MIN(dc.bg_color) FROM dominant_colors dc WHERE dc.image_url = a.image) AS bg_color,
             (
                 SELECT MIN(am.date_created)
                 FROM album_musics am
                 WHERE am.id_playlist = a.uid
             ) AS created_at
         FROM albums a
-        JOIN category_albums ca ON ca.album_id = a.uid
-        LEFT JOIN dominant_colors dc ON a.image = dc.image_url
-        WHERE ca.category_id = ?
+        WHERE EXISTS (
+            SELECT 1 FROM category_albums ca
+            WHERE ca.album_id = a.uid AND ca.category_id = ?
+        )
             AND $privacyCondition
             AND (? = '' OR a.name LIKE ? ESCAPE '!' OR a.author LIKE ? ESCAPE '!')
         ORDER BY a.uid DESC
