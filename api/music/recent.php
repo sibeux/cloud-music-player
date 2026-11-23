@@ -60,16 +60,17 @@ try {
 
             // Normalisasi URL image untuk cek dominant color
             $originalImageUrl = $image_url;
-            if (strpos($image_url, '555/cybeat/false/image') !== false) {
+            $imageQuery = [];
+            parse_str(parse_url($image_url, PHP_URL_QUERY) ?? '', $imageQuery);
+            if (isset($imageQuery['cover_url']) && is_string($imageQuery['cover_url']) && $imageQuery['cover_url'] !== '') {
+                $originalImageUrl = $imageQuery['cover_url'];
+            } else if (strpos($image_url, '555/cybeat/false/image') !== false) {
                 if (preg_match("#/stream/([^/]+)/#", $image_url, $matches)) {
                     $originalImageUrl = "https://drive.google.com/file/d/" . $matches[1] . "/view?usp=drive_link";
                 }
-            } else if (strpos($image_url, 'cdn.sibeux.my.id') !== false) {
+            } else if (strtolower(parse_url($image_url, PHP_URL_HOST) ?? '') === 'cdn.sibeux.my.id') {
                 $rawUrl = parse_url($image_url, PHP_URL_PATH);
                 $originalImageUrl = "cdncloudflare" . $rawUrl;
-            } else if (strpos($image_url, 'cover_url') !== false) {
-                parse_str(parse_url($image_url, PHP_URL_QUERY), $query);
-                $originalImageUrl = isset($query['cover_url']) ? $query['cover_url'] : $image_url;
             }
 
             // Cek apakah dominant color sudah ada di database
